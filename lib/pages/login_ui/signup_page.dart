@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
+import 'package:huls_coffee_house/pages/login_ui/login_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
   //password showing boolean
   bool isObscure = true;
 
@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
     double lineWidth = 100;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      floatingActionButton: GoBackButton(),
+      floatingActionButton: const GoBackButton(),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -100,11 +100,34 @@ class _LoginPageState extends State<LoginPage> {
                             Padding(
                               padding: EdgeInsets.only(left: padding),
                               child: Text(
-                                "Login",
+                                "Sign Up",
                                 style: TextStyle(
                                     fontSize: lFontSize,
                                     fontWeight: FontWeight.w500),
                               ),
+                            ),
+                            SizedBox(
+                              height: gap,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: padding),
+                              child: Text(
+                                "Full Name",
+                                style: TextStyle(
+                                    color: fontColor, fontSize: sFontSize),
+                              ),
+                            ),
+                            SizedBox(
+                              height: sGap,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: padding, right: padding),
+                              child: SizedBox(
+                                  height: fieldHeight,
+                                  child: CustomField(
+                                    hintText: "Your Full Name",
+                                  )),
                             ),
                             SizedBox(
                               height: gap,
@@ -167,7 +190,7 @@ class _LoginPageState extends State<LoginPage> {
                           height: buttonHeight,
                           width: buttonWidth,
                           child: const CustomButton(
-                            text: 'LOGIN',
+                            text: 'GET OTP',
                           ),
                         ),
                         SizedBox(
@@ -177,22 +200,21 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Don't have an account?",
+                              "Actually have an account?",
                               style: TextStyle(
                                   color: fontColor2,
                                   fontWeight: FontWeight.w500),
                             ),
                             TextButton(
                                 onPressed: () {
-                                  Navigator.push(
+                                  Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SignupPage(),
+                                        builder: (context) => const LoginPage(),
                                       ));
                                 },
                                 child: Text(
-                                  "Sign Up",
+                                  "Login",
                                   style: TextStyle(color: buttonColor),
                                 ))
                           ],
@@ -209,7 +231,7 @@ class _LoginPageState extends State<LoginPage> {
                               width: lineWidth,
                             ),
                             Text(
-                              "Sign in with",
+                              "Sign up with",
                               style: TextStyle(
                                   color: fontColor2,
                                   fontWeight: FontWeight.w500),
