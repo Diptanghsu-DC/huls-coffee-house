@@ -97,7 +97,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                         SizedBox(
                           height: sGap,
                         ),
-                        Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             OTPFIeld(),
