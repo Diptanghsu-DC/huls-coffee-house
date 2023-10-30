@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/pages/login_ui/login_page.dart';
+import 'package:huls_coffee_house/pages/login_ui/otp_verification_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
 
@@ -19,6 +20,14 @@ class _SignupPageState extends State<SignupPage> {
     setState(() {
       isObscure = !isObscure;
     });
+  }
+
+  void navigate() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const OtpVerificationPage(),
+        ));
   }
 
   @override
@@ -189,7 +198,8 @@ class _SignupPageState extends State<SignupPage> {
                         SizedBox(
                           height: buttonHeight,
                           width: buttonWidth,
-                          child: const CustomButton(
+                          child: CustomButton(
+                            onPressed: navigate,
                             text: 'GET OTP',
                           ),
                         ),
@@ -200,7 +210,7 @@ class _SignupPageState extends State<SignupPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Actually have an account?",
+                              "Already have an account?",
                               style: TextStyle(
                                   color: fontColor2,
                                   fontWeight: FontWeight.w500),
