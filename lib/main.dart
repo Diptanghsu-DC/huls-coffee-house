@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:huls_coffee_house/pages/login_ui/login_page.dart';
+import 'package:huls_coffee_house/pages/pages.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +11,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginPage(),
+      debugShowCheckedModeBanner: false,
+      routes: {
+        Homepage.routeName: (context) => const Homepage(),
+        LoginPage.routeName: (context) => const LoginPage(),
+      },
+      initialRoute: Homepage.routeName,
     );
   }
 }
