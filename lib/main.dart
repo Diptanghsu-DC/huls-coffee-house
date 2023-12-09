@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
+import 'package:huls_coffee_house/pages/view_product_page/test.dart';
+import 'package:huls_coffee_house/pages/view_product_page/viewall.dart';
+import 'package:huls_coffee_house/pages/view_product_page/viewproduct.dart';
 
 
 void main() {
@@ -16,8 +19,13 @@ class MyApp extends StatelessWidget {
       routes: {
         Homepage.routeName: (context) => const Homepage(),
         LoginPage.routeName: (context) => const LoginPage(),
+        ViewProduct.routeName:(context) => const ViewProduct(),
+        ViewAll.routeName:(context) => const ViewAll(),
+        Test.routeName:(context) => const Test(),
+        
+
       },
-      initialRoute: Homepage.routeName,
+      initialRoute: ViewAll.routeName,
     );
   }
 }

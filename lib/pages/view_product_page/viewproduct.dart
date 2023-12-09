@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/pages/view_product_page/components/addons.dart';
+import 'package:huls_coffee_house/pages/view_product_page/components/checkout.dart';
+
 
 class ViewProduct extends StatelessWidget {
   const ViewProduct({super.key});
+  static const String routeName = '/viewproduct';
 
   @override
   Widget build(BuildContext context) {
@@ -9,6 +13,7 @@ class ViewProduct extends StatelessWidget {
     final double height = screensize.height;
     final double width = screensize.width;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           Container(
@@ -212,20 +217,33 @@ class ViewProduct extends StatelessWidget {
           SizedBox(
             height: height * 0.03375,
           ),
-          Text(
-            ' Add Ons',
-            style: TextStyle(
-              color: Color(0xFF323643),
-              fontSize: 18,
-              fontFamily: 'Sofia Pro',
-              fontWeight: FontWeight.w400,
-              height: 0,
+          Padding(
+            padding: EdgeInsets.fromLTRB(width * 0.03055, 0, 0, 0),
+            child: Row(
+              children: [
+                Text(
+                  ' Add Ons',
+                  style: TextStyle(
+                    color: Color(0xFF323643),
+                    fontSize: 18,
+                    fontFamily: 'Sofia Pro',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+              ],
             ),
           ),
-          Row(
-            children: [],
-          )
+          Addons(name: 'Candels',image:'assets/images/demo1.png',price: '+20',),
+          Addons(name: 'Sparkels',image:'assets/images/demo2.png',price: '+20',),
+          SizedBox(height: height*0.0225,),
+
+checkout(),
+
+SizedBox(height: height*0.1325,),
+
         ],
+        
       ),
     );
   }
