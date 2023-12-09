@@ -6,6 +6,7 @@ import 'package:huls_coffee_house/widgets/widgets.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
   static const String routeName = '/loginPage';
 
   @override
@@ -15,6 +16,16 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   //password showing boolean
   bool isObscure = true;
+  final _formKey = GlobalKey<FormState>();
+
+  //function to validate form
+  void validate() {
+    if (_formKey.currentState!.validate()) {
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Please enter the proper credentials")));
+    }
+  }
 
   //function to show or hide password
   void showPass() {
@@ -46,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
     double lineWidth = 100;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      floatingActionButton: GoBackButton(),
+      floatingActionButton: const GoBackButton(),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -93,6 +104,12 @@ class _LoginPageState extends State<LoginPage> {
                                     height: fieldHeight,
                                     child: CustomField(
                                       hintText: "Your email or phone",
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "email or phone number cannot be empty";
+                                        }
+                                        return null;
+                                      },
                                     )),
                               ),
                               SizedBox(
@@ -116,6 +133,14 @@ class _LoginPageState extends State<LoginPage> {
                                     height: fieldHeight,
                                     child: CustomField(
                                       hintText: "Password",
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "password cannot be empty";
+                                        } else if (value.length < 6) {
+                                          return "password must be atleast 6 characters long";
+                                        }
+                                        return null;
+                                      },
                                       obscureText: isObscure ? true : false,
                                       suffixIcon: IconButton(
                                           onPressed: () => showPass(),
@@ -133,7 +158,8 @@ class _LoginPageState extends State<LoginPage> {
                           SizedBox(
                             height: buttonHeight,
                             width: buttonWidth,
-                            child: const CustomButton(
+                            child: CustomButton(
+                              onPressed: validate,
                               text: 'LOGIN',
                             ),
                           ),
