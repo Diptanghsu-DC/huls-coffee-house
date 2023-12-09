@@ -101,6 +101,9 @@ class _SignupPageState extends State<SignupPage> {
                                     height: fieldHeight,
                                     child: CustomField(
                                       hintText: "Your Full Name",
+                                      validator: (String) {
+                                        return null;
+                                      },
                                     )),
                               ),
                               SizedBox(
@@ -124,6 +127,7 @@ class _SignupPageState extends State<SignupPage> {
                                     height: fieldHeight,
                                     child: CustomField(
                                       hintText: "Your email or phone",
+                                      validator: (String) {},
                                     )),
                               ),
                               SizedBox(
@@ -152,7 +156,9 @@ class _SignupPageState extends State<SignupPage> {
                                           onPressed: () => showPass(),
                                           icon: isObscure
                                               ? const Icon(Icons.visibility)
-                                              : const Icon(Icons.visibility_off)),
+                                              : const Icon(
+                                                  Icons.visibility_off)),
+                                      validator: (String) {},
                                     )),
                               ),
                               SizedBox(
@@ -185,7 +191,8 @@ class _SignupPageState extends State<SignupPage> {
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => const LoginPage(),
+                                          builder: (context) =>
+                                              const LoginPage(),
                                         ));
                                   },
                                   child: Text(

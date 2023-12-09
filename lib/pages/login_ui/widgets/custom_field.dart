@@ -9,6 +9,7 @@ class CustomField extends StatelessWidget {
   TextStyle? textStyle;
   TextInputType? textInputType;
   TextAlign textAlign;
+  final String? Function(String?) validator;
 
   CustomField(
       {super.key,
@@ -16,6 +17,7 @@ class CustomField extends StatelessWidget {
       this.controller,
       this.maxLength,
       this.suffixIcon,
+      required this.validator,
       this.obscureText = false,
       this.textStyle,
       this.textInputType,
@@ -27,9 +29,10 @@ class CustomField extends StatelessWidget {
     Color hintFontColor = const Color.fromRGBO(196, 196, 196, 1);
     Color borderColor = const Color.fromRGBO(254, 114, 76, 1);
     double radius = 10;
-    return TextField(
+    return TextFormField(
       style: textStyle,
       keyboardType: textInputType,
+      validator: validator,
       textAlign: textAlign,
       obscureText: obscureText,
       controller: controller,
