@@ -16,6 +16,24 @@ class _SignupPageState extends State<SignupPage> {
   //password showing boolean
   bool isObscure = true;
 
+  //form variable
+  final _formKey = GlobalKey<FormState>();
+
+  //controllers
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
+
+  //function to validate form
+  void validate() {
+    if (_formKey.currentState!.validate()) {
+      navigate();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Please enter the proper credentials")));
+    }
+  }
+
   //function to show or hide password
   void showPass() {
     setState(() {
@@ -63,6 +81,7 @@ class _SignupPageState extends State<SignupPage> {
                 CustomBackground(
                   bodyWidget: SafeArea(
                     child: Form(
+                      key: _formKey,
                       child: Column(
                         children: [
                           Column(
@@ -100,8 +119,12 @@ class _SignupPageState extends State<SignupPage> {
                                 child: SizedBox(
                                     height: fieldHeight,
                                     child: CustomField(
+                                      controller: nameController,
                                       hintText: "Your Full Name",
-                                      validator: (String) {
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "Name cannot be empty";
+                                        }
                                         return null;
                                       },
                                     )),
@@ -126,8 +149,14 @@ class _SignupPageState extends State<SignupPage> {
                                 child: SizedBox(
                                     height: fieldHeight,
                                     child: CustomField(
+                                      controller: emailController,
                                       hintText: "Your email or phone",
-                                      validator: (String) {},
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "email or phone number cannot be empty";
+                                        }
+                                        return null;
+                                      },
                                     )),
                               ),
                               SizedBox(
@@ -150,6 +179,7 @@ class _SignupPageState extends State<SignupPage> {
                                 child: SizedBox(
                                     height: fieldHeight,
                                     child: CustomField(
+                                      controller: passController,
                                       hintText: "Password",
                                       obscureText: isObscure ? true : false,
                                       suffixIcon: IconButton(
@@ -158,7 +188,14 @@ class _SignupPageState extends State<SignupPage> {
                                               ? const Icon(Icons.visibility)
                                               : const Icon(
                                                   Icons.visibility_off)),
-                                      validator: (String) {},
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "password cannot be empty";
+                                        } else if (value.length < 6) {
+                                          return "password must be atleast 6 characters long";
+                                        }
+                                        return null;
+                                      },
                                     )),
                               ),
                               SizedBox(
@@ -170,7 +207,7 @@ class _SignupPageState extends State<SignupPage> {
                             height: buttonHeight,
                             width: buttonWidth,
                             child: CustomButton(
-                              onPressed: navigate,
+                              onPressed: validate,
                               text: 'GET OTP',
                             ),
                           ),
