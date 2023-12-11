@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -16,6 +15,7 @@ class MyApp extends StatelessWidget {
       routes: {
         Homepage.routeName: (context) => const Homepage(),
         LoginPage.routeName: (context) => const LoginPage(),
+        Cart.routeName: (context) => const Cart(),
       },
       initialRoute: LoginPage.routeName,
     );
