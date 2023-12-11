@@ -16,14 +16,19 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   //password showing boolean
   bool isObscure = true;
+
+  //form variables
   final _formKey = GlobalKey<FormState>();
+  //controllers
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
 
   //function to validate form
   void validate() {
     if (_formKey.currentState!.validate()) {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Please enter the proper credentials")));
+          const SnackBar(content: Text("Please enter the proper credentials")));
     }
   }
 
@@ -66,6 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                 CustomBackground(
                   bodyWidget: SafeArea(
                     child: Form(
+                      key:_formKey,
                       child: Column(
                         children: [
                           Column(
@@ -103,6 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                                 child: SizedBox(
                                     height: fieldHeight,
                                     child: CustomField(
+                                      controller: emailController,
                                       hintText: "Your email or phone",
                                       validator: (value) {
                                         if (value!.isEmpty) {
@@ -132,6 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                                 child: SizedBox(
                                     height: fieldHeight,
                                     child: CustomField(
+                                      controller: passController,
                                       hintText: "Password",
                                       validator: (value) {
                                         if (value!.isEmpty) {
