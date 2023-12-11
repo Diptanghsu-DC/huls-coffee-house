@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       routes: {
         Homepage.routeName: (context) => const Homepage(),
         LoginPage.routeName: (context) => const LoginPage(),
+        Cart.routeName: (context) => const Cart(),
       },
       initialRoute: LoginPage.routeName,
     );
