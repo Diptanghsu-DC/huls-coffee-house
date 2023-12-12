@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:huls_coffee_house/pages/cart_ui/utils/colors.dart';
+import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/styles.dart';
 
 class CartItemCard extends StatelessWidget {
@@ -46,8 +46,7 @@ class CartItemCard extends StatelessWidget {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.remove_circle,
-                            color: AppColors.orangeColor),
+                        icon: const Icon(Icons.remove_circle, color: orange),
                         onPressed: () {
                           // Remove item functionality
                         },
@@ -55,8 +54,7 @@ class CartItemCard extends StatelessWidget {
                       const Text(
                           '1'), // Quantity - to be replaced by value from backend
                       IconButton(
-                        icon: const Icon(Icons.add_circle,
-                            color: AppColors.orangeColor),
+                        icon: const Icon(Icons.add_circle, color: orange),
                         onPressed: () {
                           // Add item functionality
                         },

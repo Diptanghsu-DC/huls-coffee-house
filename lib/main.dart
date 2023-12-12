@@ -1,10 +1,10 @@
-// import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
 
 void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         LoginPage.routeName: (context) => const LoginPage(),
         Cart.routeName: (context) => const Cart(),
       },
-      initialRoute: Cart.routeName,
+      initialRoute: LoginPage.routeName,
     );
   }
 }

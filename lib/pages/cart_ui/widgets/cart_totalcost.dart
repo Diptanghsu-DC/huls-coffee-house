@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/colors.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/styles.dart';
 
@@ -43,7 +44,7 @@ class CartTotalCost extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                   decoration: BoxDecoration(
-                    color: AppColors.orangeColor,
+                    color: orange,
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: const Text(
@@ -67,7 +68,7 @@ class CartTotalCost extends StatelessWidget {
             onPressed: () {
               // Action on pressing the checkout button
             },
-            backgroundColor: AppColors.orangeColor,
+            backgroundColor: orange,
             label: const Text(
               'CHECKOUT',
               style: AppStyles.checkouttext,
