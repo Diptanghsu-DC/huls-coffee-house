@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          textTheme: const TextTheme(bodySmall: TextStyle(fontFamily: 'SofiaPro'))),
+          textTheme:
+              const TextTheme(bodySmall: TextStyle(fontFamily: 'SofiaPro'))),
       routes: {
         Homepage.routeName: (context) => const Homepage(),
         LoginPage.routeName: (context) => const LoginPage(),
