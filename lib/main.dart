@@ -5,9 +5,7 @@ import 'package:huls_coffee_house/pages/pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -26,7 +24,7 @@ class MyApp extends StatelessWidget {
         LoginPage.routeName: (context) => const LoginPage(),
         Cart.routeName: (context) => const Cart(),
       },
-      initialRoute: LoginPage.routeName,
+      initialRoute: Cart.routeName,
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/styles.dart';
+import 'package:huls_coffee_house/utils/utils.dart';
 
 class CartItemCard extends StatelessWidget {
   const CartItemCard({
@@ -9,8 +10,9 @@ class CartItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    getSize(context);
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: EdgeInsets.symmetric(horizontal: width * 0.04, vertical: 8),
       elevation: 4,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
