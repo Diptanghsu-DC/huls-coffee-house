@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         LoginPage.routeName: (context) => const LoginPage(),
         Cart.routeName: (context) => const Cart(),
       },
-      initialRoute: LoginPage.routeName,
+      initialRoute: Cart.routeName,
     );
   }
 }
