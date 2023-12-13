@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -43,8 +44,9 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBJAT0ni0eYlPRZgCup_x2DT_0OJ8pnZok',
+  static String webAPI = dotenv.env["API_KEY_WEB"] ?? 'null';
+  static FirebaseOptions web = FirebaseOptions(
+    apiKey: webAPI,
     appId: '1:704669957190:web:699cf5c9a0da9712e15e47',
     messagingSenderId: '704669957190',
     projectId: 'hulscoffeehouse',
@@ -52,17 +54,18 @@ class DefaultFirebaseOptions {
     storageBucket: 'hulscoffeehouse.appspot.com',
     measurementId: 'G-S0BHJD1L7K',
   );
-
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDwlzJapdsoGe8UwcmD13UvMTGyNZdBpm8',
+  static String androidAPI = dotenv.env["API_KEY_ANDROID"] ?? 'null';
+  static FirebaseOptions android = FirebaseOptions(
+    apiKey: androidAPI,
     appId: '1:704669957190:android:75120d8ceb62afaee15e47',
     messagingSenderId: '704669957190',
     projectId: 'hulscoffeehouse',
     storageBucket: 'hulscoffeehouse.appspot.com',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAsWKlGUgz0K4eUhD7K6omFpXb5Dn_uyeA',
+  static String iosAPI = dotenv.env["API_KEY_IOS"] ?? 'null';
+  static FirebaseOptions ios = FirebaseOptions(
+    apiKey: iosAPI,
     appId: '1:704669957190:ios:46510335164786a9e15e47',
     messagingSenderId: '704669957190',
     projectId: 'hulscoffeehouse',
@@ -70,8 +73,9 @@ class DefaultFirebaseOptions {
     iosBundleId: 'com.example.hulsCoffeeHouse',
   );
 
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAsWKlGUgz0K4eUhD7K6omFpXb5Dn_uyeA',
+  static String macosAPI = dotenv.env["API_KEY_MACOS"] ?? 'null';
+  static FirebaseOptions macos = FirebaseOptions(
+    apiKey: macosAPI,
     appId: '1:704669957190:ios:c5a7f4f473fb7725e15e47',
     messagingSenderId: '704669957190',
     projectId: 'hulscoffeehouse',
