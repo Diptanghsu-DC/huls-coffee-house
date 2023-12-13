@@ -3,6 +3,7 @@ import 'package:huls_coffee_house/pages/login_ui/login_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/otp_verification_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
+import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -14,6 +15,24 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   //password showing boolean
   bool isObscure = true;
+
+  //form variable
+  final _formKey = GlobalKey<FormState>();
+
+  //controllers
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
+
+  //function to validate form
+  void validate() {
+    if (_formKey.currentState!.validate()) {
+      navigate();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Please enter the proper credentials")));
+    }
+  }
 
   //function to show or hide password
   void showPass() {
@@ -59,208 +78,199 @@ class _SignupPageState extends State<SignupPage> {
           children: [
             Stack(
               children: [
-                //abstract circles portion to be reused in other pages
-                Positioned(
-                  top: -5,
-                  left: -30,
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color.fromRGBO(254, 114, 76, 1),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: -80,
-                  left: 14,
-                  child: Container(
-                    width: 165,
-                    height: 165,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color.fromRGBO(255, 236, 231, 1),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: -48,
-                  left: 300,
-                  child: Container(
-                    width: 180,
-                    height: 180,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color.fromRGBO(254, 114, 76, 1),
-                    ),
-                  ),
-                ),
-                SafeArea(
-                  child: Form(
-                    child: Column(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: lGap * 1.4,
+                CustomBackground(
+                  bodyWidget: SafeArea(
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: lGap * 1.4,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: padding),
+                                child: Text(
+                                  "Sign Up",
+                                  style: TextStyle(
+                                      fontSize: lFontSize,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                              SizedBox(
+                                height: gap,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: padding),
+                                child: Text(
+                                  "Full Name",
+                                  style: TextStyle(
+                                      color: fontColor, fontSize: sFontSize),
+                                ),
+                              ),
+                              SizedBox(
+                                height: sGap,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: padding, right: padding),
+                                child: SizedBox(
+                                    height: fieldHeight,
+                                    child: CustomField(
+                                      controller: nameController,
+                                      hintText: "Your Full Name",
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "Name cannot be empty";
+                                        }
+                                        return null;
+                                      },
+                                    )),
+                              ),
+                              SizedBox(
+                                height: gap,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: padding),
+                                child: Text(
+                                  "E-mail",
+                                  style: TextStyle(
+                                      color: fontColor, fontSize: sFontSize),
+                                ),
+                              ),
+                              SizedBox(
+                                height: sGap,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: padding, right: padding),
+                                child: SizedBox(
+                                    height: fieldHeight,
+                                    child: CustomField(
+                                      controller: emailController,
+                                      hintText: "Your email or phone",
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "email or phone number cannot be empty";
+                                        }
+                                        return null;
+                                      },
+                                    )),
+                              ),
+                              SizedBox(
+                                height: gap,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: padding),
+                                child: Text(
+                                  "Password",
+                                  style: TextStyle(
+                                      color: fontColor, fontSize: sFontSize),
+                                ),
+                              ),
+                              SizedBox(
+                                height: sGap,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: padding, right: padding),
+                                child: SizedBox(
+                                    height: fieldHeight,
+                                    child: CustomField(
+                                      controller: passController,
+                                      hintText: "Password",
+                                      obscureText: isObscure ? true : false,
+                                      suffixIcon: IconButton(
+                                          onPressed: () => showPass(),
+                                          icon: isObscure
+                                              ? const Icon(Icons.visibility)
+                                              : const Icon(
+                                                  Icons.visibility_off)),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "password cannot be empty";
+                                        } else if (value.length < 6) {
+                                          return "password must be atleast 6 characters long";
+                                        }
+                                        return null;
+                                      },
+                                    )),
+                              ),
+                              SizedBox(
+                                height: lGap,
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: buttonHeight,
+                            width: buttonWidth,
+                            child: CustomButton(
+                              onPressed: validate,
+                              text: 'GET OTP',
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(left: padding),
-                              child: Text(
-                                "Sign Up",
+                          ),
+                          SizedBox(
+                            height: sGap,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Already have an account?",
                                 style: TextStyle(
-                                    fontSize: lFontSize,
+                                    color: fontColor2,
                                     fontWeight: FontWeight.w500),
                               ),
-                            ),
-                            SizedBox(
-                              height: gap,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: padding),
-                              child: Text(
-                                "Full Name",
-                                style: TextStyle(
-                                    color: fontColor, fontSize: sFontSize),
-                              ),
-                            ),
-                            SizedBox(
-                              height: sGap,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: padding, right: padding),
-                              child: SizedBox(
-                                  height: fieldHeight,
-                                  child: CustomField(
-                                    hintText: "Your Full Name",
-                                  )),
-                            ),
-                            SizedBox(
-                              height: gap,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: padding),
-                              child: Text(
-                                "E-mail",
-                                style: TextStyle(
-                                    color: fontColor, fontSize: sFontSize),
-                              ),
-                            ),
-                            SizedBox(
-                              height: sGap,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: padding, right: padding),
-                              child: SizedBox(
-                                  height: fieldHeight,
-                                  child: CustomField(
-                                    hintText: "Your email or phone",
-                                  )),
-                            ),
-                            SizedBox(
-                              height: gap,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: padding),
-                              child: Text(
-                                "Password",
-                                style: TextStyle(
-                                    color: fontColor, fontSize: sFontSize),
-                              ),
-                            ),
-                            SizedBox(
-                              height: sGap,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: padding, right: padding),
-                              child: SizedBox(
-                                  height: fieldHeight,
-                                  child: CustomField(
-                                    hintText: "Password",
-                                    obscureText: isObscure ? true : false,
-                                    suffixIcon: IconButton(
-                                        onPressed: () => showPass(),
-                                        icon: isObscure
-                                            ? const Icon(Icons.visibility)
-                                            : const Icon(Icons.visibility_off)),
-                                  )),
-                            ),
-                            SizedBox(
-                              height: lGap,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: buttonHeight,
-                          width: buttonWidth,
-                          child: CustomButton(
-                            onPressed: navigate,
-                            text: 'GET OTP',
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LoginPage(),
+                                        ));
+                                  },
+                                  child: Text(
+                                    "Login",
+                                    style: TextStyle(color: buttonColor),
+                                  ))
+                            ],
                           ),
-                        ),
-                        SizedBox(
-                          height: sGap,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Already have an account?",
-                              style: TextStyle(
-                                  color: fontColor2,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const LoginPage(),
-                                      ));
-                                },
-                                child: Text(
-                                  "Login",
-                                  style: TextStyle(color: buttonColor),
-                                ))
-                          ],
-                        ),
-                        SizedBox(
-                          height: sGap,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              color: lineColor,
-                              height: lineHeight,
-                              width: lineWidth,
-                            ),
-                            Text(
-                              "Sign up with",
-                              style: TextStyle(
-                                  color: fontColor2,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            Container(
-                              color: lineColor,
-                              height: lineHeight,
-                              width: lineWidth,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: sGap,
-                        ),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [FBButton(), GoogleButton()],
-                        )
-                      ],
+                          SizedBox(
+                            height: sGap,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                color: lineColor,
+                                height: lineHeight,
+                                width: lineWidth,
+                              ),
+                              Text(
+                                "Sign up with",
+                                style: TextStyle(
+                                    color: fontColor2,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              Container(
+                                color: lineColor,
+                                height: lineHeight,
+                                width: lineWidth,
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: sGap,
+                          ),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [FBButton(), GoogleButton()],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
