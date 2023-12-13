@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       routes: {
         Homepage.routeName: (context) => const Homepage(),
         LoginPage.routeName: (context) => const LoginPage(),
-        ViewProduct.routeName:(context) => const ViewProduct(),
+       // ViewProduct.routeName:(context) => const ViewProduct(),//formeanwhile commented
         ViewAll.routeName:(context) => const ViewAll(),
         Test.routeName:(context) => const Test(),
         

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/itemscard.dart';
+import 'package:huls_coffee_house/pages/view_product_page/model/viewalldata.dart';
 
 class Test extends StatelessWidget {
   static const String routeName = '/test';
@@ -7,22 +8,37 @@ class Test extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<ItemModel> Items = [
+      ItemModel(
+          itemName: 'Cake1',
+          itemPrice: 451,
+          itemRating: 4,
+          itemSubname: 'Dark Chocolate',
+          itemImage: 'j'),
+      ItemModel(
+          itemName: 'Cake2',
+          itemPrice: 300,
+          itemRating: 5,
+          itemSubname: 'strawbeery',
+          itemImage: 'n')
+    ];
     return Scaffold(
-        body: ListView(
-          children: [
-            ItemsCard(),
-            ItemsCard(),
-            ItemsCard(),
-            ItemsCard(),
-            ItemsCard(),
-          ],
-        ),
-    )
-    ;
+        body: ListView.separated(
+            itemBuilder: (context, index) {
+              return ItemsCard(
+                itemname: Items[index].itemName,
+                itemprice: Items[index].itemPrice,
+                itemrating: Items[index].itemRating,
+                itemsubname: Items[index].itemSubname,
+                itemimage: Items[index].itemImage,
+              );
+            },
+            separatorBuilder: (context, index) {
+              return SizedBox(
+                height: 10,
+              );
+            },
+            itemCount: Items.length)
+            );
   }
-
-  Widget _getitem() {
-    return ItemsCard();
-  }
-  
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/itemscard.dart';
+import 'package:huls_coffee_house/pages/view_product_page/components/itemslist.dart';
+import 'package:huls_coffee_house/pages/view_product_page/viewproduct.dart';
 
 class ViewAll extends StatefulWidget {
   const ViewAll({super.key});
@@ -44,8 +46,7 @@ class _ViewAllState extends State<ViewAll> {
     final double height = screensize.height;
     final double width = screensize.width;
     return Scaffold(
-      body: Column(
-        children: [
+      body: Column(children: [
         Container(
           margin: EdgeInsets.fromLTRB(
               width * 0.052, height * 0.123, width * 0.05, 0),
@@ -112,28 +113,37 @@ class _ViewAllState extends State<ViewAll> {
             )
           ]),
         ),
-        SizedBox(
-          height: 50,
-
-        ),
         Expanded(
-        
-          child: ListView(
-            children: [
-              ItemsCard(),
-              ItemsCard(),
-              ItemsCard(),
-              ItemsCard(),
-              ItemsCard(),
-            ],
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+                width * 0.055, height * 0.04, width * 0.055, 0),
+            child: ListView.separated(
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      print(Items[index].itemName);
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ViewProduct(items: Items[index],),
+                      ));
+                    },
+                    child: ItemsCard(
+                      itemname: Items[index].itemName,
+                      itemprice: Items[index].itemPrice,
+                      itemrating: Items[index].itemRating,
+                      itemsubname: Items[index].itemSubname,
+                      itemimage: Items[index].itemImage,
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return SizedBox(
+                    height: height * 0.025,
+                  );
+                },
+                itemCount: Items.length),
           ),
-        )
+        ),
       ]),
     );
-    
-  }
-
-  Widget _getitem() {
-    return ItemsCard();
   }
 }

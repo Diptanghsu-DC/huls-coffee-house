@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class Addons extends StatelessWidget {
+class Addons extends StatefulWidget {
   final String name;
   final String image;
   final String price;
-  const Addons({super.key, required this.name, required this.image, required this.price});
+  final bool addon;
+  const Addons(
+      {super.key,
+      required this.name,
+      required this.image,
+      required this.price,
+      required this.addon});
 
+  @override
+  State<Addons> createState() => _AddonsState();
+}
+
+class _AddonsState extends State<Addons> {
   @override
   Widget build(BuildContext context) {
     final Size screensize = MediaQuery.of(context).size;
@@ -17,7 +28,7 @@ class Addons extends StatelessWidget {
       child: Row(
         children: [
           Image.asset(
-            image,
+            widget.image,
             height: height * 0.06,
             width: width * 0.13,
           ),
@@ -25,7 +36,7 @@ class Addons extends StatelessWidget {
             width: width * 0.0350,
           ),
           Text(
-            name,
+            widget.name,
             style: TextStyle(
               color: Colors.black,
               fontSize: 14,
@@ -38,7 +49,7 @@ class Addons extends StatelessWidget {
             width: width * 0.458,
           ),
           Text(
-            price,
+            widget.price,
             textAlign: TextAlign.right,
             style: TextStyle(
               color: Colors.black,
@@ -48,11 +59,21 @@ class Addons extends StatelessWidget {
               height: 0,
             ),
           ),
-          Radio(
-            value: 0,
-            groupValue: 0,
-            onChanged: (value) {},
+          // Radio(
+          //   value: 0,
+          //   groupValue: 0,
+          //   onChanged: (value) {},
+          //   activeColor: Color(0xffFE724C),
+          // )
+          Checkbox(
+            value: widget.addon,
+            onChanged: (value) {
+              setState(() {
+                
+              });
+            },
             activeColor: Color(0xffFE724C),
+            shape: CircleBorder(),
           )
         ],
       ),
