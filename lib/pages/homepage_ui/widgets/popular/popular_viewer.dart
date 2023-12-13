@@ -6,17 +6,17 @@ import 'package:huls_coffee_house/utils/screen_size.dart';
 class PopularViewer extends StatelessWidget {
   const PopularViewer({
     super.key,
-    // required this.imgSrc,
-    // required this.price,
-    // required this.ratings,
-    // required this.itemName,
-    // required this.itemDesc,
+     required this.imgSrc,
+     required this.price,
+     required this.ratings,
+     required this.itemName,
+     required this.itemDesc,
   });
-  // final String? imgSrc;
-  // final num? ratings;
-  // final String itemName;
-  // final String? itemDesc;
-  // final num price;
+     final String? imgSrc;
+     final num? ratings;
+     final String itemName;
+     final String? itemDesc;
+     final num price;
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +35,11 @@ class PopularViewer extends StatelessWidget {
             child: PopularItem(
               //to access popular item, the popular item list needs to be built first in foodlist.dart
               //if want to test only, take arguments from parent widget and set it here
-              imgSrc: popularList[index].imageURL, //imgSrc
-              price: popularList[index].price, //price
-              ratings: popularList[index].ratings, //ratings
-              itemName: popularList[index].itemName, //itemName
-              itemDesc: popularList[index].itemDesc, //itemDesc
+              imgSrc: imgSrc,
+              price: price,
+              ratings: ratings,
+              itemName: itemName,
+              itemDesc:itemDesc,
             ),
           );
         },
