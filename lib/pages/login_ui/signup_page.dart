@@ -7,6 +7,7 @@ import 'package:huls_coffee_house/widgets/custom_background_image/custom_backgro
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
+  static const String routeName = '/signUpPage';
 
   @override
   State<SignupPage> createState() => _SignupPageState();
