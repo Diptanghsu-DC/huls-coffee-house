@@ -4,7 +4,6 @@ import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
 import 'package:huls_coffee_house/pages/view_product_page/test.dart';
-import 'package:huls_coffee_house/pages/view_product_page/viewall.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
