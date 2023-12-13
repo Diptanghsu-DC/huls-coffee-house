@@ -2,6 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
+import 'package:huls_coffee_house/pages/view_product_page/test.dart';
+import 'package:huls_coffee_house/pages/view_product_page/viewall.dart';
+import 'package:huls_coffee_house/pages/view_product_page/viewproduct.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,9 +25,15 @@ class MyApp extends StatelessWidget {
       routes: {
         Homepage.routeName: (context) => const Homepage(),
         LoginPage.routeName: (context) => const LoginPage(),
+       // ViewProduct.routeName:(context) => const ViewProduct(),//formeanwhile commented
+        ViewAll.routeName:(context) => const ViewAll(),
+        Test.routeName:(context) => const Test(),
+        
+
+      },
+      initialRoute: ViewAll.routeName,
         Cart.routeName: (context) => const Cart(),
       },
-      initialRoute: Cart.routeName,
     );
   }
 }

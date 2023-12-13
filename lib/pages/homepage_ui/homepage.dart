@@ -118,12 +118,12 @@ class _HomepageState extends State<Homepage> {
                       ),
                       //view popular items
                       const PopularViewer(
-                          // imgSrc: null,
-                          // ratings: null,
-                          // price: 35.5,
-                          // itemName: "Salmon Salad",
-                          // itemDesc: "a item",
-                          ),
+                        imgSrc: null,
+                        ratings: null,
+                        price: 35.5,
+                        itemName: "Salmon Salad",
+                        itemDesc: "a item",
+                      ),
                     ].separate(20),
                   ),
                 ),

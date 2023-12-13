@@ -1,14 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/pages/view_product_page/components/addons.dart';
+import 'package:huls_coffee_house/pages/view_product_page/components/checkout.dart';
+import 'package:huls_coffee_house/pages/view_product_page/components/itemslist.dart';
+import 'package:huls_coffee_house/pages/view_product_page/model/viewalldata.dart';
 
-class ViewProduct extends StatelessWidget {
-  const ViewProduct({super.key});
+class ViewProduct extends StatefulWidget {
+  final ItemModel items;
+  const ViewProduct({
+    Key? key,
+    required this.items,
+  }) : super(key: key);
+  //static const String routeName = '/viewproduct';
+
+  @override
+  State<ViewProduct> createState() => _ViewProductState();
+}
+
+class _ViewProductState extends State<ViewProduct> {
+  int quantity = 1;
+  int totalamount = 0;
+  int fixamount = 0;
+  bool addons = true;
+  @override
+  void initState() {
+    super.initState();
+    // Set fixamount using widget.items.itemPrice in initState
+    fixamount = widget.items.itemPrice;
+    totalamount = totalamount + fixamount;
+  }
 
   @override
   Widget build(BuildContext context) {
     final Size screensize = MediaQuery.of(context).size;
     final double height = screensize.height;
     final double width = screensize.width;
+
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           Container(
@@ -23,17 +51,17 @@ class ViewProduct extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image(
-                  image: AssetImage('assets/images/image 10.png'),
+                  image: AssetImage(widget.items.itemImage),
                   fit: BoxFit.cover,
                 ),
               )),
           SizedBox(
-            height: height * 0.03,
+            height: height * 0.05,
           ),
           SizedBox(
             width: 319,
             child: Text(
-              'Bday cake 1',
+              widget.items.itemName,
               style: TextStyle(
                 color: Color(0xFF323643),
                 fontSize: 28,
@@ -44,13 +72,19 @@ class ViewProduct extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(width * 0.055, height * 0.05625,
-                width * 0.028, height * 0.03375),
+          SizedBox(
+            height: 30,
+          ),
+          Container(
+            alignment: Alignment.center,
+            //color: Colors.black,
+            height: height * 0.05,
+            width: width,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '\$450',
+                  '₹' + totalamount.toString(),
                   style: TextStyle(
                     color: Color(0xFFFE724C),
                     fontSize: 17.01,
@@ -62,58 +96,24 @@ class ViewProduct extends StatelessWidget {
                 SizedBox(
                   width: width * 0.421,
                 ),
-                Container(
-                  width: 30.60,
-                  height: 30.60,
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        left: 0,
-                        top: 0,
-                        child: Container(
-                          width: 30.60,
-                          height: 30.60,
-                          decoration: ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  width: 1, color: Color(0xFFFE724C)),
-                              borderRadius: BorderRadius.circular(17),
-                            ),
-                            shadows: [
-                              BoxShadow(
-                                color: Color(0xFFEEF0F2),
-                                blurRadius: 30,
-                                offset: Offset(0, 20),
-                                spreadRadius: 0,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        left: 9.90,
-                        top: 15.79,
-                        child: Container(
-                          width: 10.80,
-                          decoration: ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                width: 1.50,
-                                strokeAlign: BorderSide.strokeAlignCenter,
-                                color: Color(0xFFFE724C),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                GestureDetector(
+                    onTap: () {
+                      if (quantity != 0) {
+                        quantity--;
+                        totalamount = totalamount - fixamount;
+                        setState(() {});
+                      }
+                    },
+                    child: Image.asset(
+                      'assets/images/minusicon.png',
+                      height: height * 0.0375,
+                      width: width * 0.0833,
+                    )),
                 SizedBox(
                   width: width * 0.1091388888888889,
                 ),
                 Text(
-                  '01',
+                  quantity.toString(),
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16,
@@ -125,106 +125,67 @@ class ViewProduct extends StatelessWidget {
                 SizedBox(
                   width: width * 0.08,
                 ),
-                Container(
-                  width: 30.60,
-                  height: 30.60,
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        left: 0,
-                        top: 0,
-                        child: Container(
-                          width: 30.60,
-                          height: 30.60,
-                          decoration: ShapeDecoration(
-                            color: Color(0xFFFE724C),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(17),
-                            ),
-                            shadows: [
-                              BoxShadow(
-                                color: Color(0x40FE724C),
-                                blurRadius: 30,
-                                offset: Offset(0, 8),
-                                spreadRadius: 0,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        left: 9.90,
-                        top: 9.90,
-                        child: Container(
-                          width: 10.80,
-                          height: 10.80,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 4.91,
-                                top: 0,
-                                child: Transform(
-                                  transform: Matrix4.identity()
-                                    ..translate(0.0, 0.0)
-                                    ..rotateZ(1.57),
-                                  child: Container(
-                                    width: 10.80,
-                                    decoration: ShapeDecoration(
-                                      shape: RoundedRectangleBorder(
-                                        side: BorderSide(
-                                          width: 1.50,
-                                          strokeAlign:
-                                              BorderSide.strokeAlignCenter,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                left: 0,
-                                top: 5.89,
-                                child: Container(
-                                  width: 10.80,
-                                  decoration: ShapeDecoration(
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                        width: 1.50,
-                                        strokeAlign:
-                                            BorderSide.strokeAlignCenter,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
+                GestureDetector(
+                    onTap: () {
+                      quantity++;
+
+                      setState(() {
+                        totalamount = totalamount + fixamount;
+                      });
+                    },
+                    child: Image.asset(
+                      'assets/images/plusicon.png',
+                      height: height * 0.0375,
+                      width: width * 0.0833,
+                    )),
               ],
             ),
           ),
           SizedBox(
             height: height * 0.03375,
           ),
-          Text(
-            ' Add Ons',
-            style: TextStyle(
-              color: Color(0xFF323643),
-              fontSize: 18,
-              fontFamily: 'Sofia Pro',
-              fontWeight: FontWeight.w400,
-              height: 0,
+          Padding(
+            padding: EdgeInsets.fromLTRB(width * 0.03055, 0, 0, 0),
+            child: Row(
+              children: [
+                Text(
+                  ' Add Ons',
+                  style: TextStyle(
+                    color: Color(0xFF323643),
+                    fontSize: 18,
+                    fontFamily: 'Sofia Pro',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+              ],
             ),
           ),
-          Row(
-            children: [],
-          )
+          GestureDetector(
+            onTap: () {
+              addons = false;
+              setState(() {});
+            },
+            child: Addons(
+              name: 'Candels',
+              image: 'assets/images/demo1.png',
+              price: '+20',
+              addon: false,
+            ),
+          ),
+          Addons(
+            name: 'Sparkels',
+            image: 'assets/images/demo2.png',
+            price: '+20',
+            addon: false,
+          ),
+          SizedBox(
+            height: height * 0.0225,
+          ),
+          checkout(),
+          SizedBox(
+            height: height * 0.1325,
+          ),
         ],
       ),
     );
