@@ -5,10 +5,10 @@ Future<void> showLoadingOverlay(
     {required BuildContext context,
     ValueNotifier<bool>? isVisible,
     void Function()? onCompleted,
-    Future<void> Function()? asyncTask}) async {
+    Future<void>? Function()? asyncTask}) async {
   isVisible ??= ValueNotifier(true);
   if (asyncTask != null) {
-    asyncTask().then((value) => isVisible!.value = false);
+    asyncTask()!.then((value) => isVisible!.value = false);
   }
   Navigator.push(
     context,
