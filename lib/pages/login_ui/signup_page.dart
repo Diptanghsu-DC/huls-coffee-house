@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:huls_coffee_house/pages/login_ui/login_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/otp_verification_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
+import 'package:huls_coffee_house/utils/toast_message.dart';
 import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
+
   static const String routeName = '/signUpPage';
 
   @override
@@ -25,10 +28,19 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
 
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
   //function to validate form
   void validate() {
     if (_formKey.currentState!.validate()) {
-      navigate();
+      _auth
+          .createUserWithEmailAndPassword(
+              email: emailController.text.toString(),
+              password: passController.text.toString())
+          .then((value) {})
+          .onError((error, stackTrace) {
+        toastMessage(error.toString());
+      });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Please enter the proper credentials")));
@@ -48,6 +60,15 @@ class _SignupPageState extends State<SignupPage> {
         MaterialPageRoute(
           builder: (context) => const OtpVerificationPage(),
         ));
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    nameController.dispose();
+    emailController.dispose();
+    passController.dispose();
   }
 
   @override

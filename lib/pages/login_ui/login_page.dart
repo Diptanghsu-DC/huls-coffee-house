@@ -42,6 +42,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    emailController.dispose();
+    passController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     //screen size
     Size size = MediaQuery.of(context).size;
