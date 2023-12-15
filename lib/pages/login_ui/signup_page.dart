@@ -35,21 +35,25 @@ class _SignupPageState extends State<SignupPage> {
   //function to validate form
   void validate() {
     if (_formKey.currentState!.validate()) {
+      var user;
       showLoadingOverlay(
         context: context,
-        asyncTask: () {
-          return _auth
-              .createUserWithEmailAndPassword(
-                  email: emailController.text.toString(),
-                  password: passController.text.toString())
-              .then((value) {})
-              .onError((error, stackTrace) {
+        asyncTask: () async {
+          try {
+            user = await _auth.createUserWithEmailAndPassword(
+              email: emailController.text.toString(),
+              password: passController.text.toString(),
+            );
+          } catch (error) {
+            // Failed login
             toastMessage(error.toString());
-          });
+          }
         },
         onCompleted: () {
-          Navigator.pushNamedAndRemoveUntil(
-              context, Homepage.routeName, (route) => false);
+          if (user != null){
+            Navigator.pushNamedAndRemoveUntil(
+                context, Homepage.routeName, (route) => false);
+          }
         },
       );
     } else {
