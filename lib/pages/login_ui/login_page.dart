@@ -3,6 +3,7 @@ import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
 import 'package:huls_coffee_house/widgets/widgets.dart';
+import '../../utils/utils.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -19,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
 
   //form variables
   final _formKey = GlobalKey<FormState>();
+
   //controllers
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
@@ -37,6 +39,14 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isObscure = !isObscure;
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    emailController.dispose();
+    passController.dispose();
   }
 
   @override
@@ -60,183 +70,189 @@ class _LoginPageState extends State<LoginPage> {
     Color buttonColor = const Color.fromRGBO(254, 114, 76, 1);
     double lineHeight = 2;
     double lineWidth = 100;
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      floatingActionButton: const GoBackButton(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                CustomBackground(
-                  bodyWidget: SafeArea(
-                    child: Form(
-                      key:_formKey,
-                      child: Column(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: lGap * 1.4,
+    return WillPopScope(
+      onWillPop: () async {
+        final quitCondition = await showExitWarning(context);
+        return quitCondition ?? false;
+      },
+      child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+        floatingActionButton: const GoBackButton(),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  CustomBackground(
+                    bodyWidget: SafeArea(
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: lGap * 1.4,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: padding),
+                                  child: Text(
+                                    "Login",
+                                    style: TextStyle(
+                                        fontSize: lFontSize,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: gap,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: padding),
+                                  child: Text(
+                                    "E-mail",
+                                    style: TextStyle(
+                                        color: fontColor, fontSize: sFontSize),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: sGap,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      left: padding, right: padding),
+                                  child: SizedBox(
+                                      height: fieldHeight,
+                                      child: CustomField(
+                                        controller: emailController,
+                                        hintText: "Your email or phone",
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "email or phone number cannot be empty";
+                                          }
+                                          return null;
+                                        },
+                                      )),
+                                ),
+                                SizedBox(
+                                  height: gap,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: padding),
+                                  child: Text(
+                                    "Password",
+                                    style: TextStyle(
+                                        color: fontColor, fontSize: sFontSize),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: sGap,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      left: padding, right: padding),
+                                  child: SizedBox(
+                                      height: fieldHeight,
+                                      child: CustomField(
+                                        controller: passController,
+                                        hintText: "Password",
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "password cannot be empty";
+                                          } else if (value.length < 6) {
+                                            return "password must be atleast 6 characters long";
+                                          }
+                                          return null;
+                                        },
+                                        obscureText: isObscure ? true : false,
+                                        suffixIcon: IconButton(
+                                            onPressed: () => showPass(),
+                                            icon: isObscure
+                                                ? const Icon(Icons.visibility)
+                                                : const Icon(
+                                                    Icons.visibility_off)),
+                                      )),
+                                ),
+                                SizedBox(
+                                  height: lGap,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: buttonHeight,
+                              width: buttonWidth,
+                              child: CustomButton(
+                                onPressed: validate,
+                                text: 'LOGIN',
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(left: padding),
-                                child: Text(
-                                  "Login",
+                            ),
+                            SizedBox(
+                              height: sGap,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Don't have an account?",
                                   style: TextStyle(
-                                      fontSize: lFontSize,
+                                      color: fontColor2,
                                       fontWeight: FontWeight.w500),
                                 ),
-                              ),
-                              SizedBox(
-                                height: gap,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: padding),
-                                child: Text(
-                                  "E-mail",
-                                  style: TextStyle(
-                                      color: fontColor, fontSize: sFontSize),
-                                ),
-                              ),
-                              SizedBox(
-                                height: sGap,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: padding, right: padding),
-                                child: SizedBox(
-                                    height: fieldHeight,
-                                    child: CustomField(
-                                      controller: emailController,
-                                      hintText: "Your email or phone",
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return "email or phone number cannot be empty";
-                                        }
-                                        return null;
-                                      },
-                                    )),
-                              ),
-                              SizedBox(
-                                height: gap,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: padding),
-                                child: Text(
-                                  "Password",
-                                  style: TextStyle(
-                                      color: fontColor, fontSize: sFontSize),
-                                ),
-                              ),
-                              SizedBox(
-                                height: sGap,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: padding, right: padding),
-                                child: SizedBox(
-                                    height: fieldHeight,
-                                    child: CustomField(
-                                      controller: passController,
-                                      hintText: "Password",
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return "password cannot be empty";
-                                        } else if (value.length < 6) {
-                                          return "password must be atleast 6 characters long";
-                                        }
-                                        return null;
-                                      },
-                                      obscureText: isObscure ? true : false,
-                                      suffixIcon: IconButton(
-                                          onPressed: () => showPass(),
-                                          icon: isObscure
-                                              ? const Icon(Icons.visibility)
-                                              : const Icon(
-                                                  Icons.visibility_off)),
-                                    )),
-                              ),
-                              SizedBox(
-                                height: lGap,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: buttonHeight,
-                            width: buttonWidth,
-                            child: CustomButton(
-                              onPressed: validate,
-                              text: 'LOGIN',
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SignupPage(),
+                                          ));
+                                    },
+                                    child: Text(
+                                      "Sign Up",
+                                      style: TextStyle(color: buttonColor),
+                                    ))
+                              ],
                             ),
-                          ),
-                          SizedBox(
-                            height: sGap,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Don't have an account?",
-                                style: TextStyle(
-                                    color: fontColor2,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const SignupPage(),
-                                        ));
-                                  },
-                                  child: Text(
-                                    "Sign Up",
-                                    style: TextStyle(color: buttonColor),
-                                  ))
-                            ],
-                          ),
-                          SizedBox(
-                            height: sGap,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                color: lineColor,
-                                height: lineHeight,
-                                width: lineWidth,
-                              ),
-                              Text(
-                                "Sign in with",
-                                style: TextStyle(
-                                    color: fontColor2,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              Container(
-                                color: lineColor,
-                                height: lineHeight,
-                                width: lineWidth,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: sGap,
-                          ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [FBButton(), GoogleButton()],
-                          )
-                        ],
+                            SizedBox(
+                              height: sGap,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  color: lineColor,
+                                  height: lineHeight,
+                                  width: lineWidth,
+                                ),
+                                Text(
+                                  "Sign in with",
+                                  style: TextStyle(
+                                      color: fontColor2,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Container(
+                                  color: lineColor,
+                                  height: lineHeight,
+                                  width: lineWidth,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: sGap,
+                            ),
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [FBButton(), GoogleButton()],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

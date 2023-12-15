@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/config/config.dart';
 
 Future<void> showLoadingOverlay(
     {required BuildContext context,
-      ValueNotifier<bool>? isVisible,
-      void Function()? onCompleted,
-      Future Function()? asyncTask}) async {
+    ValueNotifier<bool>? isVisible,
+    void Function()? onCompleted,
+    Future Function()? asyncTask}) async {
   isVisible ??= ValueNotifier(true);
   if (asyncTask != null) {
     asyncTask().then((value) => isVisible!.value = false);
@@ -25,7 +26,7 @@ Future<void> showLoadingOverlay(
                 child: SizedBox(
                   height: 40,
                   width: 40,
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(color: orange),
                 ),
               );
             });
