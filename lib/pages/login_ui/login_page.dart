@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
 import 'package:huls_coffee_house/widgets/widgets.dart';
 import '../../utils/utils.dart';
+import '../pages.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -25,9 +28,31 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   //function to validate form
   void validate() {
     if (_formKey.currentState!.validate()) {
+      showLoadingOverlay(
+        context: context,
+        asyncTask: () async {
+          await _auth
+              .signInWithEmailAndPassword(
+                  email: emailController.text.toString(),
+                  password: passController.text.toString())
+              .then((value) {
+          })
+              .onError((error, stackTrace) {
+            toastMessage(error.toString());
+          });
+        },
+        onCompleted: () {
+          if (mounted) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, Homepage.routeName, (route) => false);
+          }
+        },
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Please enter the proper credentials")));

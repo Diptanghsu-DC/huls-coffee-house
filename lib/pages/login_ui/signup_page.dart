@@ -30,26 +30,24 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   //function to validate form
   void validate() {
     if (_formKey.currentState!.validate()) {
       showLoadingOverlay(
         context: context,
-        asyncTask: () async {
-          await _auth
+        asyncTask: ()  {
+          return _auth
               .createUserWithEmailAndPassword(
                   email: emailController.text.toString(),
                   password: passController.text.toString())
-              .then((value) {})
-              .onError((error, stackTrace) {
+              .then((value) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, Homepage.routeName, (route) => false);
+          }).onError((error, stackTrace) {
             toastMessage(error.toString());
           });
-        },
-        onCompleted: () {
-          Navigator.pushNamedAndRemoveUntil(
-              context, Homepage.routeName, (route) => false);
         },
       );
     } else {
