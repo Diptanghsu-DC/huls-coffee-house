@@ -37,17 +37,19 @@ class _SignupPageState extends State<SignupPage> {
     if (_formKey.currentState!.validate()) {
       showLoadingOverlay(
         context: context,
-        asyncTask: ()  {
+        asyncTask: () {
           return _auth
               .createUserWithEmailAndPassword(
                   email: emailController.text.toString(),
                   password: passController.text.toString())
-              .then((value) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, Homepage.routeName, (route) => false);
-          }).onError((error, stackTrace) {
+              .then((value) {})
+              .onError((error, stackTrace) {
             toastMessage(error.toString());
           });
+        },
+        onCompleted: () {
+          Navigator.pushNamedAndRemoveUntil(
+              context, Homepage.routeName, (route) => false);
         },
       );
     } else {
