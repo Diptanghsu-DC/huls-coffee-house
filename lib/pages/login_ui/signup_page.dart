@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/pages/homepage_ui/homepage.dart';
 import 'package:huls_coffee_house/pages/login_ui/login_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/otp_verification_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
@@ -33,14 +35,23 @@ class _SignupPageState extends State<SignupPage> {
   //function to validate form
   void validate() {
     if (_formKey.currentState!.validate()) {
-      _auth
-          .createUserWithEmailAndPassword(
-              email: emailController.text.toString(),
-              password: passController.text.toString())
-          .then((value) {})
-          .onError((error, stackTrace) {
-        toastMessage(error.toString());
-      });
+      showLoadingOverlay(
+        context: context,
+        asyncTask: () async {
+          await _auth
+              .createUserWithEmailAndPassword(
+                  email: emailController.text.toString(),
+                  password: passController.text.toString())
+              .then((value) {})
+              .onError((error, stackTrace) {
+            toastMessage(error.toString());
+          });
+        },
+        onCompleted: () {
+          Navigator.pushNamedAndRemoveUntil(
+              context, Homepage.routeName, (route) => false);
+        },
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Please enter the proper credentials")));
