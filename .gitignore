@@ -10,7 +10,8 @@
 .svn/
 migrate_working_dir/
 .env
-.env.example
+google-services.json
+firebase_options.dart
 
 # IntelliJ related
 *.iml
