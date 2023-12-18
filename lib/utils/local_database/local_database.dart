@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../models/models.dart';
 import 'constants.dart';
 export 'constants.dart';
 
