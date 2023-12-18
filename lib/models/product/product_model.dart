@@ -27,5 +27,6 @@ enum ProductFields {
   category,
   price,
   ratings,
+  isCompleted,
   lastLocalUpdate,
 }
