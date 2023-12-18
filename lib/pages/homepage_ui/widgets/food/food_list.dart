@@ -1,6 +1,6 @@
 import 'package:huls_coffee_house/models/models.dart';
 
-List<FoodModel> foodlist = [
+List<ProductModel> foodlist = [
   //foodlist
 ];
 
@@ -9,6 +9,6 @@ List<FoodModel> foodlist = [
 
 List<String> categories = ["vfgifgg", "fffff", "hhhhhh", "tttt"];
 
-List<FoodModel> popularList = [
+List<ProductModel> popularList = [
   //popular list
 ];
