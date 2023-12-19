@@ -1,6 +1,6 @@
 enum LocalDocuments{
-  currentUser
-}
-enum UserFields{
-  lastLocalUpdate
+  currentUser,
+  users,
+  products,
+  orders
 }
