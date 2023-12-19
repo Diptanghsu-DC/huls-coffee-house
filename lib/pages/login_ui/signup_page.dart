@@ -286,9 +286,6 @@ class _SignupPageState extends State<SignupPage> {
                             width: buttonWidth,
                             child: CustomButton(
                               onPressed: validate,
-                              // onPressed: () async {
-                              // phone verification to be implemented
-
                               text: 'GET OTP',
                             ),
                           ),

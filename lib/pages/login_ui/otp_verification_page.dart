@@ -134,8 +134,6 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                                     fontWeight: FontWeight.w500),
                               ),
                               TextButton(
-                                  // autofocus: false,
-                                  // focusNode: null,
                                   onPressed: () {},
                                   child: Text(
                                     "Resend",
@@ -152,23 +150,6 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                             child: CustomButton(
                               text: 'SIGN UP',
                               onPressed: validateOtp,
-                              // onPressed: () async {
-                              // try {
-                              //   PhoneAuthCredential credential =
-                              //       PhoneAuthProvider.credential(
-                              //           verificationId: SignupPage.verifyId,
-                              //           smsCode: otp);
-                              //   // Sign the user in (or link) with the credential
-                              //   await auth.signInWithCredential(credential);
-                              //   Navigator.pushNamedAndRemoveUntil(context,
-                              //       Homepage.routeName, (route) => false);
-                              // } catch (e) {
-                              //   const SnackBar(
-                              //     content: Text("Wrong OTP"),
-                              //   );
-                              // }
-                              // },
-                              // OtpController.instance.verifyOTP(otp),
                             ),
                           ),
                           SizedBox(
