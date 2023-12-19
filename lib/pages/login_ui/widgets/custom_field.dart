@@ -55,7 +55,10 @@ class CustomField extends StatelessWidget {
 }
 
 class OTPField extends StatefulWidget {
-  const OTPField({Key? key}) : super(key: key);
+  const OTPField({Key? key, required this.counter, required this.getOTP})
+      : super(key: key);
+  final counter;
+  final Function(String) getOTP;
 
   @override
   _OTPFieldState createState() => _OTPFieldState();
@@ -64,6 +67,7 @@ class OTPField extends StatefulWidget {
 class _OTPFieldState extends State<OTPField> {
   late TextEditingController _controller;
   late FocusNode _focusNode;
+  static String otp = '';
 
   @override
   void initState() {
@@ -82,7 +86,14 @@ class _OTPFieldState extends State<OTPField> {
 
   void _onTextChanged() {
     if (_controller.text.length == 1) {
-      _focusNode.nextFocus();
+      otp += _controller.text;
+      if (widget.counter == 5) {
+        widget.getOTP(otp);
+        return;
+      }
+      if (_focusNode.hasFocus) {
+        _focusNode.nextFocus();
+      }
     }
   }
 
@@ -91,7 +102,7 @@ class _OTPFieldState extends State<OTPField> {
     Color borderColor = const Color.fromRGBO(254, 114, 76, 1);
     return Container(
       height: 65,
-      width: 65,
+      width: 45,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
       child: TextFormField(
         controller: _controller,
