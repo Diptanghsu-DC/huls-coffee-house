@@ -1,3 +1,6 @@
 enum LocalDocuments{
-  currentUser
+  currentUser,
+  users,
+  products,
+  orders
 }
