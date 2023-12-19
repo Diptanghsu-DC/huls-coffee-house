@@ -1,16 +1,62 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/pages/homepage_ui/homepage.dart';
+import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
+import 'package:huls_coffee_house/utils/utils.dart';
 import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
 
 class OtpVerificationPage extends StatefulWidget {
-  const OtpVerificationPage({super.key});
+  const OtpVerificationPage({
+    super.key,
+    // required this.email,
+    // required this.password,
+  });
+  static const String routeName = '/otpPage';
+  // final String email;
+  // final String password;
 
   @override
   State<OtpVerificationPage> createState() => _OtpVerificationPageState();
 }
 
 class _OtpVerificationPageState extends State<OtpVerificationPage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  late String otp;
+  // var otpController = Get.put(OtpController());
+
+  void getOTP(String code) {
+    otp = code;
+  }
+
+  void validateOtp() {
+    var user;
+    showLoadingOverlay(
+      context: context,
+      asyncTask: () async {
+        try {
+          PhoneAuthCredential credential = PhoneAuthProvider.credential(
+              verificationId: SignupPage.verifyId, smsCode: otp);
+          user = await _auth.createUserWithEmailAndPassword(
+            email: SignupPage.email,
+            password: SignupPage.password,
+          );
+        } catch (error) {
+          // Failed login
+          toastMessage(error.toString());
+        }
+      },
+      onCompleted: () {
+        if (user != null) {
+          Navigator.pushNamedAndRemoveUntil(
+              context, Homepage.routeName, (route) => false);
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     //screen size
@@ -65,13 +111,12 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              for (var i = 0; i < 4; i++)
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: SizedBox(
-                                    width: 50,
-                                    child: OTPField(),
+                              for (var i = 0; i < 6; i++)
+                                SizedBox(
+                                  width: 50,
+                                  child: OTPField(
+                                    getOTP: getOTP,
+                                    counter: i,
                                   ),
                                 ),
                             ],
@@ -89,7 +134,6 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                                     fontWeight: FontWeight.w500),
                               ),
                               TextButton(
-                                  autofocus: false,
                                   onPressed: () {},
                                   child: Text(
                                     "Resend",
@@ -103,8 +147,9 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                           SizedBox(
                             height: buttonHeight,
                             width: buttonWidth,
-                            child: const CustomButton(
+                            child: CustomButton(
                               text: 'SIGN UP',
+                              onPressed: validateOtp,
                             ),
                           ),
                           SizedBox(

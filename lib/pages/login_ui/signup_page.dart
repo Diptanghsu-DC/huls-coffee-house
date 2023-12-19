@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/homepage.dart';
 import 'package:huls_coffee_house/pages/login_ui/login_page.dart';
@@ -14,6 +15,10 @@ class SignupPage extends StatefulWidget {
 
   static const String routeName = '/signUpPage';
 
+  static String verifyId = "";
+  static String email = "";
+  static String password = "";
+
   @override
   State<SignupPage> createState() => _SignupPageState();
 }
@@ -22,27 +27,42 @@ class _SignupPageState extends State<SignupPage> {
   //password showing boolean
   bool isObscure = true;
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   //form variable
   final _formKey = GlobalKey<FormState>();
+  String phone = "";
 
   //controllers
+  // final controller = Get.put(SignUpController());
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  TextEditingController countryCode = TextEditingController();
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  void initState() {
+    countryCode.text = "+91";
+    super.initState();
+  }
 
   //function to validate form
   void validate() {
     if (_formKey.currentState!.validate()) {
-      var user;
       showLoadingOverlay(
         context: context,
         asyncTask: () async {
           try {
-            user = await _auth.createUserWithEmailAndPassword(
-              email: emailController.text.toString(),
-              password: passController.text.toString(),
+            await _auth.verifyPhoneNumber(
+              phoneNumber: countryCode.text + phoneController.text,
+              verificationCompleted: (PhoneAuthCredential credential) {},
+              verificationFailed: (FirebaseAuthException e) {},
+              codeSent: (String verificationId, int? resendToken) {
+                SignupPage.verifyId = verificationId;
+                SignupPage.email = emailController.text.toString();
+                SignupPage.password = passController.text.toString();
+              },
+              codeAutoRetrievalTimeout: (String verificationId) {},
             );
           } catch (error) {
             // Failed login
@@ -50,10 +70,8 @@ class _SignupPageState extends State<SignupPage> {
           }
         },
         onCompleted: () {
-          if (user != null){
-            Navigator.pushNamedAndRemoveUntil(
-                context, Homepage.routeName, (route) => false);
-          }
+          Navigator.pushNamedAndRemoveUntil(
+              context, OtpVerificationPage.routeName, (route) => false);
         },
       );
     } else {
@@ -67,14 +85,6 @@ class _SignupPageState extends State<SignupPage> {
     setState(() {
       isObscure = !isObscure;
     });
-  }
-
-  void navigate() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const OtpVerificationPage(),
-        ));
   }
 
   @override
@@ -187,10 +197,41 @@ class _SignupPageState extends State<SignupPage> {
                                     height: fieldHeight,
                                     child: CustomField(
                                       controller: emailController,
-                                      hintText: "Your email or phone",
+                                      hintText: "Your email",
                                       validator: (value) {
                                         if (value!.isEmpty) {
-                                          return "email or phone number cannot be empty";
+                                          return "email cannot be empty";
+                                        }
+                                        return null;
+                                      },
+                                    )),
+                              ),
+                              SizedBox(
+                                height: sGap,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: padding),
+                                child: Text(
+                                  "Phone",
+                                  style: TextStyle(
+                                      color: fontColor, fontSize: sFontSize),
+                                ),
+                              ),
+                              SizedBox(
+                                height: sGap,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: padding, right: padding),
+                                child: SizedBox(
+                                    height: fieldHeight,
+                                    child: CustomField(
+                                      controller: phoneController,
+                                      hintText: "Your phone number",
+                                      textInputType: TextInputType.phone,
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "phone number cannot be empty";
                                         }
                                         return null;
                                       },

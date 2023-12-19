@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
         ViewAll.routeName: (context) => const ViewAll(),
         Test.routeName: (context) => const Test(),
         Cart.routeName: (context) => const Cart(),
+        OtpVerificationPage.routeName: (context) => const OtpVerificationPage(),
       },
       initialRoute: LoginPage.routeName,
     );
