@@ -75,8 +75,7 @@ class _SignupPageState extends State<SignupPage> {
         },
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Please enter the proper credentials")));
+      toastMessage("Please enter proper credentials");
     }
   }
 
