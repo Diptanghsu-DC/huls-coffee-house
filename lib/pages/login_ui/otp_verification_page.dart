@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/controllers/services/user/user_controller.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/homepage.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
@@ -43,6 +44,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
             email: SignupPage.email,
             password: SignupPage.password,
           );
+          UserController.create(user);
         } catch (error) {
           // Failed login
           toastMessage(error.toString());

@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/controllers/services/user/user_controller.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
@@ -28,7 +28,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   //function to validate form
   void validate(BuildContext context) {
@@ -38,10 +37,9 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         asyncTask: () async {
           try {
-            user = await _auth.signInWithEmailAndPassword(
-              email: emailController.text.toString(),
-              password: passController.text.toString(),
-            );
+            user = await UserController.login(
+                email: emailController.text.toString(),
+                password: passController.text.toString());
           } catch (error) {
             // Failed login
             toastMessage(error.toString());
@@ -59,11 +57,7 @@ class _LoginPageState extends State<LoginPage> {
         },
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Please enter the proper credentials"),
-        ),
-      );
+      toastMessage("Please enter proper credentials");
     }
   }
 
