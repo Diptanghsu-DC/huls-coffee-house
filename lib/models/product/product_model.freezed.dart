@@ -20,13 +20,14 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProductModel {
-  String get imageURL => throw _privateConstructorUsedError;
+  String? get imageURL => throw _privateConstructorUsedError;
   String get itemName => throw _privateConstructorUsedError;
   String get itemDesc => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   num get price => throw _privateConstructorUsedError;
-  num get ratings => throw _privateConstructorUsedError;
-  bool get isAvailable => throw _privateConstructorUsedError;
+  num get quantity => throw _privateConstructorUsedError;
+  num? get ratings => throw _privateConstructorUsedError;
+  DateTime? get lastLocalUpdate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,13 +42,14 @@ abstract class $ProductModelCopyWith<$Res> {
       _$ProductModelCopyWithImpl<$Res, ProductModel>;
   @useResult
   $Res call(
-      {String imageURL,
+      {String? imageURL,
       String itemName,
       String itemDesc,
       String category,
       num price,
-      num ratings,
-      bool isAvailable});
+      num quantity,
+      num? ratings,
+      DateTime? lastLocalUpdate});
 }
 
 /// @nodoc
@@ -63,19 +65,20 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? imageURL = null,
+    Object? imageURL = freezed,
     Object? itemName = null,
     Object? itemDesc = null,
     Object? category = null,
     Object? price = null,
-    Object? ratings = null,
-    Object? isAvailable = null,
+    Object? quantity = null,
+    Object? ratings = freezed,
+    Object? lastLocalUpdate = freezed,
   }) {
     return _then(_value.copyWith(
-      imageURL: null == imageURL
+      imageURL: freezed == imageURL
           ? _value.imageURL
           : imageURL // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       itemName: null == itemName
           ? _value.itemName
           : itemName // ignore: cast_nullable_to_non_nullable
@@ -92,14 +95,18 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as num,
-      ratings: null == ratings
+      quantity: null == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as num,
+      ratings: freezed == ratings
           ? _value.ratings
           : ratings // ignore: cast_nullable_to_non_nullable
-              as num,
-      isAvailable: null == isAvailable
-          ? _value.isAvailable
-          : isAvailable // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as num?,
+      lastLocalUpdate: freezed == lastLocalUpdate
+          ? _value.lastLocalUpdate
+          : lastLocalUpdate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -113,13 +120,14 @@ abstract class _$$UserModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String imageURL,
+      {String? imageURL,
       String itemName,
       String itemDesc,
       String category,
       num price,
-      num ratings,
-      bool isAvailable});
+      num quantity,
+      num? ratings,
+      DateTime? lastLocalUpdate});
 }
 
 /// @nodoc
@@ -133,19 +141,20 @@ class __$$UserModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? imageURL = null,
+    Object? imageURL = freezed,
     Object? itemName = null,
     Object? itemDesc = null,
     Object? category = null,
     Object? price = null,
-    Object? ratings = null,
-    Object? isAvailable = null,
+    Object? quantity = null,
+    Object? ratings = freezed,
+    Object? lastLocalUpdate = freezed,
   }) {
     return _then(_$UserModelImpl(
-      imageURL: null == imageURL
+      imageURL: freezed == imageURL
           ? _value.imageURL
           : imageURL // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       itemName: null == itemName
           ? _value.itemName
           : itemName // ignore: cast_nullable_to_non_nullable
@@ -162,35 +171,41 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as num,
-      ratings: null == ratings
+      quantity: null == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as num,
+      ratings: freezed == ratings
           ? _value.ratings
           : ratings // ignore: cast_nullable_to_non_nullable
-              as num,
-      isAvailable: null == isAvailable
-          ? _value.isAvailable
-          : isAvailable // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as num?,
+      lastLocalUpdate: freezed == lastLocalUpdate
+          ? _value.lastLocalUpdate
+          : lastLocalUpdate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$UserModelImpl implements _UserModel {
+class _$UserModelImpl extends _UserModel {
   const _$UserModelImpl(
-      {required this.imageURL,
+      {this.imageURL,
       required this.itemName,
       required this.itemDesc,
       required this.category,
       required this.price,
-      required this.ratings,
-      this.isAvailable = true});
+      required this.quantity,
+      this.ratings,
+      this.lastLocalUpdate})
+      : super._();
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
 
   @override
-  final String imageURL;
+  final String? imageURL;
   @override
   final String itemName;
   @override
@@ -200,14 +215,15 @@ class _$UserModelImpl implements _UserModel {
   @override
   final num price;
   @override
-  final num ratings;
+  final num quantity;
   @override
-  @JsonKey()
-  final bool isAvailable;
+  final num? ratings;
+  @override
+  final DateTime? lastLocalUpdate;
 
   @override
   String toString() {
-    return 'ProductModel(imageURL: $imageURL, itemName: $itemName, itemDesc: $itemDesc, category: $category, price: $price, ratings: $ratings, isAvailable: $isAvailable)';
+    return 'ProductModel(imageURL: $imageURL, itemName: $itemName, itemDesc: $itemDesc, category: $category, price: $price, quantity: $quantity, ratings: $ratings, lastLocalUpdate: $lastLocalUpdate)';
   }
 
   @override
@@ -224,15 +240,17 @@ class _$UserModelImpl implements _UserModel {
             (identical(other.category, category) ||
                 other.category == category) &&
             (identical(other.price, price) || other.price == price) &&
+            (identical(other.quantity, quantity) ||
+                other.quantity == quantity) &&
             (identical(other.ratings, ratings) || other.ratings == ratings) &&
-            (identical(other.isAvailable, isAvailable) ||
-                other.isAvailable == isAvailable));
+            (identical(other.lastLocalUpdate, lastLocalUpdate) ||
+                other.lastLocalUpdate == lastLocalUpdate));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, imageURL, itemName, itemDesc,
-      category, price, ratings, isAvailable);
+      category, price, quantity, ratings, lastLocalUpdate);
 
   @JsonKey(ignore: true)
   @override
@@ -248,21 +266,23 @@ class _$UserModelImpl implements _UserModel {
   }
 }
 
-abstract class _UserModel implements ProductModel {
+abstract class _UserModel extends ProductModel {
   const factory _UserModel(
-      {required final String imageURL,
+      {final String? imageURL,
       required final String itemName,
       required final String itemDesc,
       required final String category,
       required final num price,
-      required final num ratings,
-      final bool isAvailable}) = _$UserModelImpl;
+      required final num quantity,
+      final num? ratings,
+      final DateTime? lastLocalUpdate}) = _$UserModelImpl;
+  const _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$UserModelImpl.fromJson;
 
   @override
-  String get imageURL;
+  String? get imageURL;
   @override
   String get itemName;
   @override
@@ -272,9 +292,11 @@ abstract class _UserModel implements ProductModel {
   @override
   num get price;
   @override
-  num get ratings;
+  num get quantity;
   @override
-  bool get isAvailable;
+  num? get ratings;
+  @override
+  DateTime? get lastLocalUpdate;
   @override
   @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
