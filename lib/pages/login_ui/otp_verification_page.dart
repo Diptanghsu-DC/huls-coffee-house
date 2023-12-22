@@ -37,21 +37,21 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
   }
 
   void validateOtp() {
-    print("entering otp validate function");
+    debugPrint("entering otp validate function");
     var user;
     showLoadingOverlay(
       context: context,
       asyncTask: () async {
         try {
-          print("otp authentication started...");
+          debugPrint("otp authentication started...");
           PhoneAuthCredential credential = PhoneAuthProvider.credential(
               verificationId: SignupPage.verifyId, smsCode: otp);
           // user = await _auth.createUserWithEmailAndPassword(
           //   email: SignupPage.email,
           //   password: SignupPage.password,
           // );
-          print("otp completed");
-          print("entering user creation protocol...");
+          debugPrint("otp completed");
+          debugPrint("entering user creation protocol...");
           user = UserController.create(UserModel(
             name: SignupPage.name,
             email: SignupPage.email,
