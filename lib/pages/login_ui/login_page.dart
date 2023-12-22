@@ -18,6 +18,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool isUserLogged = false;
+
   //password showing boolean
   bool isObscure = true;
 
@@ -39,13 +41,7 @@ class _LoginPageState extends State<LoginPage> {
             user = await UserController.login(
                 email: emailController.text.toString(),
                 password: passController.text.toString());
-            if (user != null) {
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                Homepage.routeName,
-                (route) => false,
-              );
-            }
+            isUserLogged = true;
           } catch (error) {
             // Failed login
             toastMessage(error.toString());
@@ -53,6 +49,15 @@ class _LoginPageState extends State<LoginPage> {
         },
         onCompleted: () {
           // You can perform any post-task actions here if needed
+          if (isUserLogged) {
+            if (user != null) {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                Homepage.routeName,
+                (route) => false,
+              );
+            }
+          }
         },
       );
     } else {
