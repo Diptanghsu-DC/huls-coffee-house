@@ -50,6 +50,7 @@ class _SignupPageState extends State<SignupPage> {
   //function to validate form
   void validate() {
     if (_formKey.currentState!.validate()) {
+      print("entering validate function");
       showLoadingOverlay(
         context: context,
         asyncTask: () async {
@@ -59,11 +60,13 @@ class _SignupPageState extends State<SignupPage> {
               verificationCompleted: (PhoneAuthCredential credential) {},
               verificationFailed: (FirebaseAuthException e) {},
               codeSent: (String verificationId, int? resendToken) {
+                print("code sent. setting parameters...");
                 SignupPage.verifyId = verificationId;
                 SignupPage.email = emailController.text.toString();
                 SignupPage.password = passController.text.toString();
                 SignupPage.name = nameController.text.toString();
                 SignupPage.phone = phoneController.text.toString();
+                print("parameters set");
               },
               codeAutoRetrievalTimeout: (String verificationId) {},
             );

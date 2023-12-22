@@ -6,18 +6,28 @@ part 'product_model.g.dart';
 
 @Freezed()
 class ProductModel with _$ProductModel {
+  const ProductModel._();
   const factory ProductModel({
-    required String imageURL,
+    String? imageURL,
     required String itemName,
     required String itemDesc,
     required String category,
     required num price,
-    required num ratings,
-    @Default(true) bool isAvailable,
+    required num quantity,
+    num? ratings,
+    DateTime? lastLocalUpdate,
   }) = _UserModel;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
       _$ProductModelFromJson(json);
+
+  bool get isAvailable {
+    if (quantity == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 enum ProductFields {
@@ -27,6 +37,6 @@ enum ProductFields {
   category,
   price,
   ratings,
-  isCompleted,
+  quantity,
   lastLocalUpdate,
 }

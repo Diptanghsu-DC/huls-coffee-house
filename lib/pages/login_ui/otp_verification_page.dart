@@ -37,28 +37,37 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
   }
 
   void validateOtp() {
+    print("entering otp validate function");
     var user;
     showLoadingOverlay(
       context: context,
       asyncTask: () async {
         try {
+          print("otp authentication started...");
           PhoneAuthCredential credential = PhoneAuthProvider.credential(
               verificationId: SignupPage.verifyId, smsCode: otp);
-          user = UserController.create(UserModel(name: SignupPage.name,
-              email: SignupPage.email,
-              password: SignupPage.password,
-              phone: num.parse(SignupPage.phone)));
+          // user = await _auth.createUserWithEmailAndPassword(
+          //   email: SignupPage.email,
+          //   password: SignupPage.password,
+          // );
+          print("otp completed");
+          print("entering user creation protocol...");
+          user = UserController.create(UserModel(
+            name: SignupPage.name,
+            email: SignupPage.email,
+            password: SignupPage.password,
+            phone: num.parse(SignupPage.phone),
+          ));
+          if (user != null) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, Homepage.routeName, (route) => false);
+          }
         } catch (error) {
           // Failed login
           toastMessage(error.toString());
         }
       },
-      onCompleted: () {
-        if (user != null) {
-          Navigator.pushNamedAndRemoveUntil(
-              context, Homepage.routeName, (route) => false);
-        }
-      },
+      onCompleted: () {},
     );
   }
 

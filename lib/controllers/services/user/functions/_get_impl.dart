@@ -7,6 +7,7 @@ Stream<List<UserModel>> _getImpl({
   bool keepPassword = false,
   bool forceGet = false,
 }) async* {
+  print("entering fetchLocal...");
   List<UserModel> filteredModels = await _fetchLocal(
     email: email,
     id: id,
@@ -16,6 +17,7 @@ Stream<List<UserModel>> _getImpl({
   );
   if (filteredModels.isNotEmpty) yield filteredModels;
 
+  print("entering fetch from backend...");
   filteredModels = await _fetchFromBackend(
     email: email,
     id: id,
@@ -35,10 +37,13 @@ Future<List<UserModel>> _fetchLocal({
 }) async {
   List<UserModel> filteredUsers = [];
   if (forceGet) {
+    print("local database deeletekey method");
     await LocalDatabase.deleteKey(LocalDocuments.users.name);
   } else if (keepPassword == false) {
     // Since passwords are never stored in the local database
+    print("local database get method");
     List<String> data = LocalDatabase.get(LocalDocuments.users.name);
+    print("local database get method completed");
     if (data.isNotEmpty) {
       Map users = jsonDecode(data[0]);
       if (email != null) {
@@ -73,7 +78,7 @@ Future<List<UserModel>> _fetchLocal({
       }
     }
   }
-
+  print("local fetching completed");
   return filteredUsers;
 }
 
@@ -88,18 +93,35 @@ Future<List<UserModel>> _fetchFromBackend({
   CollectionReference<Map<String, dynamic>> db =
       FirebaseFirestore.instance.collection(UserController._collectionName);
 
+  print("database initialization done");
+  print("setting query...");
+
   Query query = db;
+
+  print("query set");
 
   query.limit(1);
   query = query.where(UserFields.email.name, isEqualTo: email);
 
+  print("query filtering done");
+
   QuerySnapshot querySnapshot = await query.get();
+
+  print("query snapshot created");
+
+  List<UserModel> users = [];
+
+  if (querySnapshot.docs.isEmpty) {
+    print("query found empty, returing users...");
+    return users;
+  }
 
   List<Map<String, dynamic>> res = [
     querySnapshot.docs.first.data() as Map<String, dynamic>
   ];
+
+  print("List of user created");
   // await db.find(selectorBuilder).toList();
-  List<UserModel> users = [];
   for (Map<String, dynamic> userData in res) {
     UserModel user = UserModel.fromJson(userData);
     String password;
@@ -109,5 +131,6 @@ Future<List<UserModel>> _fetchFromBackend({
     user = (await UserController._save(user: user))!;
     users.add(user.copyWith(password: password));
   }
+  print("returning the user");
   return users;
 }

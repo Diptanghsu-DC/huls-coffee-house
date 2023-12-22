@@ -13,6 +13,7 @@ class OrderModel with _$OrderModel {
     required UserModel user,
     required DateTime time,
     @Default(false) bool isCompleted,
+    DateTime? lastLocalUpdate,
   }) = _OrderModel;
 
   factory OrderModel.fromJson(Map<String, dynamic> json) =>

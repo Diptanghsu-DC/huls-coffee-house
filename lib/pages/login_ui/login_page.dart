@@ -28,7 +28,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
 
-
   //function to validate form
   void validate(BuildContext context) {
     var user;
@@ -40,19 +39,19 @@ class _LoginPageState extends State<LoginPage> {
             user = await UserController.login(
                 email: emailController.text.toString(),
                 password: passController.text.toString());
+            if (user != null) {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                Homepage.routeName,
+                (route) => false,
+              );
+            }
           } catch (error) {
             // Failed login
             toastMessage(error.toString());
           }
         },
         onCompleted: () {
-          if (user != null) {
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              Homepage.routeName,
-              (route) => false,
-            );
-          }
           // You can perform any post-task actions here if needed
         },
       );
