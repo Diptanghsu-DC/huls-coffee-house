@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/services/user/user_controller.dart';
+import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/homepage.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
@@ -15,7 +16,9 @@ class OtpVerificationPage extends StatefulWidget {
     // required this.email,
     // required this.password,
   });
+
   static const String routeName = '/otpPage';
+
   // final String email;
   // final String password;
 
@@ -26,6 +29,7 @@ class OtpVerificationPage extends StatefulWidget {
 class _OtpVerificationPageState extends State<OtpVerificationPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late String otp;
+
   // var otpController = Get.put(OtpController());
 
   void getOTP(String code) {
@@ -40,11 +44,10 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
         try {
           PhoneAuthCredential credential = PhoneAuthProvider.credential(
               verificationId: SignupPage.verifyId, smsCode: otp);
-          user = await _auth.createUserWithEmailAndPassword(
-            email: SignupPage.email,
-            password: SignupPage.password,
-          );
-          UserController.create(user);
+          user = UserController.create(UserModel(name: SignupPage.name,
+              email: SignupPage.email,
+              password: SignupPage.password,
+              phone: num.parse(SignupPage.phone)));
         } catch (error) {
           // Failed login
           toastMessage(error.toString());
