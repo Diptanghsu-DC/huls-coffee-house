@@ -25,8 +25,8 @@ class OtpVerificationPage extends StatefulWidget {
 }
 
 class _OtpVerificationPageState extends State<OtpVerificationPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   late String otp;
+  bool isUserCreated = false;
   // var otpController = Get.put(OtpController());
 
   void getOTP(String code) {
@@ -49,22 +49,26 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
           // );
           print("otp completed");
           print("entering user creation protocol...");
-          user = UserController.create(UserModel(
+          user = await UserController.create(UserModel(
             name: SignupPage.name,
             email: SignupPage.email,
             password: SignupPage.password,
             phone: num.parse(SignupPage.phone),
           ));
-          if (user != null) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, Homepage.routeName, (route) => false);
-          }
+          isUserCreated = true;
         } catch (error) {
           // Failed login
           toastMessage(error.toString());
         }
       },
-      onCompleted: () {},
+      onCompleted: () {
+        if (isUserCreated) {
+          if (user != null) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, Homepage.routeName, (route) => false);
+          }
+        }
+      },
     );
   }
 
