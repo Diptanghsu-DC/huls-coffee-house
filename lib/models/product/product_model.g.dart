@@ -8,7 +8,7 @@ part of 'product_model.dart';
 
 _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
     _$UserModelImpl(
-      imageURL: json['imageURL'] as String?,
+      imageURL: json['imageURL'] as String,
       itemName: json['itemName'] as String,
       itemDesc: json['itemDesc'] as String,
       category: json['category'] as String,

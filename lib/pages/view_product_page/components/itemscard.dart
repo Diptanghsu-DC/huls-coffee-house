@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 
 class ItemsCard extends StatelessWidget {
-  final String itemname;
-  final int itemprice;
-  final String itemsubname;
-  final double itemrating;
-  final String itemimage;
-  const ItemsCard({super.key, required this.itemname, required this.itemprice, required this.itemsubname, required this.itemrating, required this.itemimage});
+  String? itemname;
+  num? itemprice;
+  String? itemsubname;
+  num? itemrating;
+  String? itemimage;
+
+  ItemsCard(
+      {super.key,
+      this.itemname,
+       this.itemprice,
+       this.itemsubname,
+       this.itemrating,
+       this.itemimage});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +29,7 @@ class ItemsCard extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18.21),
           ),
-          shadows: [
+          shadows: const [
             BoxShadow(
               color: Color(0x3FD3D1D8),
               blurRadius: 36.43,
@@ -44,7 +51,7 @@ class ItemsCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(18.21),
                     child: Image.asset(
-                      itemimage,
+                      itemimage!,
                       fit: BoxFit.fill,
                     ),
                   )),
@@ -60,14 +67,14 @@ class ItemsCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         '₹',
                         style:
                             TextStyle(color: Color(0xFFFE724C), fontSize: 20),
                       ),
                       Text(
-                        itemprice.toString(),//itemprice
-                        style: TextStyle(fontSize: 20),
+                        itemprice.toString(), //itemprice
+                        style: const TextStyle(fontSize: 20),
                       ),
                     ],
                   ),
@@ -88,7 +95,7 @@ class ItemsCard extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(136),
               ),
-              shadows: [
+              shadows: const [
                 BoxShadow(
                   color: Color(0x33FE724C),
                   blurRadius: 24.29,
@@ -100,10 +107,10 @@ class ItemsCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                itemrating.toString(),//itemsrating
-                style: TextStyle(color: Colors.black, fontSize: 14),
+                itemrating.toString(), //itemsrating
+                style: const TextStyle(color: Colors.black, fontSize: 14),
               ),
-              Text(
+              const Text(
                 '⭐',
                 style: TextStyle(fontSize: 15),
               ),
@@ -120,9 +127,9 @@ class ItemsCard extends StatelessWidget {
             height: height * 0.0425,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
-              color: Color(0xFFFE724C),
+              color: const Color(0xFFFE724C),
             ),
-            child: Text(
+            child: const Text(
               '6',
               style: TextStyle(
                 color: Colors.white,
@@ -137,8 +144,8 @@ class ItemsCard extends StatelessWidget {
         top: height * 0.239,
         left: width * 0.037,
         child: Text(
-          itemname,//itemname
-          style: TextStyle(
+          itemname!, //itemname
+          style: const TextStyle(
             color: Colors.black,
             fontSize: 18.21,
             fontFamily: 'Sofia Pro',
@@ -151,8 +158,8 @@ class ItemsCard extends StatelessWidget {
         top: height * 0.274,
         left: width * 0.037,
         child: Text(
-          itemsubname,//itemsubname
-          style: TextStyle(
+          itemsubname!, //itemsubname
+          style: const TextStyle(
             color: Color(0xFF5B5B5E),
             fontSize: 14.57,
             fontFamily: 'Sofia Pro',
@@ -161,8 +168,6 @@ class ItemsCard extends StatelessWidget {
           ),
         ),
       )
-
-    ]
-    );
+    ]);
   }
 }

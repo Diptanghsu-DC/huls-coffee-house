@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
               Navigator.pushNamedAndRemoveUntil(
                 context,
                 Homepage.routeName,
-                (route) => false,
+                    (route) => false,
               );
             }
           }
@@ -204,7 +204,7 @@ class _LoginPageState extends State<LoginPage> {
                                               icon: isObscure
                                                   ? const Icon(Icons.visibility)
                                                   : const Icon(
-                                                      Icons.visibility_off)),
+                                                  Icons.visibility_off)),
                                         )),
                                   ),
                                   SizedBox(
@@ -238,7 +238,7 @@ class _LoginPageState extends State<LoginPage> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  const SignupPage(),
+                                              const SignupPage(),
                                             ));
                                       },
                                       child: Text(
@@ -252,7 +252,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
                                     color: lineColor,

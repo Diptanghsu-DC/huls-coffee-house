@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/addons.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/checkout.dart';
-import 'package:huls_coffee_house/pages/view_product_page/components/itemslist.dart';
-import 'package:huls_coffee_house/pages/view_product_page/model/viewalldata.dart';
+
+import '../../models/models.dart';
 
 class ViewProduct extends StatefulWidget {
-  final ItemModel items;
-  const ViewProduct({
-    Key? key,
-    required this.items,
-  }) : super(key: key);
-  //static const String routeName = '/viewproduct';
+  final ProductModel product;
+
+  const ViewProduct({Key? key, required this.product}) : super(key: key);
+  static const String routeName = '/viewproduct';
 
   @override
   State<ViewProduct> createState() => _ViewProductState();
@@ -18,14 +16,15 @@ class ViewProduct extends StatefulWidget {
 
 class _ViewProductState extends State<ViewProduct> {
   int quantity = 1;
-  int totalamount = 0;
-  int fixamount = 0;
+  num totalamount = 0;
+  num fixamount = 0;
   bool addons = true;
+
   @override
   void initState() {
     super.initState();
     // Set fixamount using widget.items.itemPrice in initState
-    fixamount = widget.items.itemPrice;
+    fixamount = widget.product.price;
     totalamount = totalamount + fixamount;
   }
 
@@ -51,7 +50,7 @@ class _ViewProductState extends State<ViewProduct> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image(
-                  image: AssetImage(widget.items.itemImage),
+                  image: AssetImage(widget.product.imageURL),
                   fit: BoxFit.cover,
                 ),
               )),
@@ -61,8 +60,8 @@ class _ViewProductState extends State<ViewProduct> {
           SizedBox(
             width: 319,
             child: Text(
-              widget.items.itemName,
-              style: TextStyle(
+              widget.product.itemName,
+              style: const TextStyle(
                 color: Color(0xFF323643),
                 fontSize: 28,
                 fontFamily: 'Sofia Pro',
@@ -72,7 +71,7 @@ class _ViewProductState extends State<ViewProduct> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Container(
@@ -84,8 +83,8 @@ class _ViewProductState extends State<ViewProduct> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '₹' + totalamount.toString(),
-                  style: TextStyle(
+                  '₹$totalamount',
+                  style: const TextStyle(
                     color: Color(0xFFFE724C),
                     fontSize: 17.01,
                     fontFamily: 'Sofia Pro',
@@ -114,7 +113,7 @@ class _ViewProductState extends State<ViewProduct> {
                 ),
                 Text(
                   quantity.toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
                     fontFamily: 'Sofia Pro',
@@ -146,7 +145,7 @@ class _ViewProductState extends State<ViewProduct> {
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(width * 0.03055, 0, 0, 0),
-            child: Row(
+            child: const Row(
               children: [
                 Text(
                   ' Add Ons',
@@ -166,14 +165,14 @@ class _ViewProductState extends State<ViewProduct> {
               addons = false;
               setState(() {});
             },
-            child: Addons(
+            child: const Addons(
               name: 'Candels',
               image: 'assets/images/demo1.png',
               price: '+20',
               addon: false,
             ),
           ),
-          Addons(
+          const Addons(
             name: 'Sparkels',
             image: 'assets/images/demo2.png',
             price: '+20',
@@ -182,7 +181,7 @@ class _ViewProductState extends State<ViewProduct> {
           SizedBox(
             height: height * 0.0225,
           ),
-          checkout(),
+          const checkout(),
           SizedBox(
             height: height * 0.1325,
           ),
