@@ -44,9 +44,7 @@ class _ViewAllState extends State<ViewAll> {
 
   @override
   Widget build(BuildContext context) {
-    final Size screensize = MediaQuery
-        .of(context)
-        .size;
+    final Size screensize = MediaQuery.of(context).size;
     final double height = screensize.height;
     final double width = screensize.width;
     return Scaffold(
@@ -131,38 +129,41 @@ class _ViewAllState extends State<ViewAll> {
                   return Expanded(
                       child: snapshot.connectionState == ConnectionState.waiting
                           ? const Center(
-                        child: SizedBox(
-                          height: 45,
-                          width: 45,
-                          child: CircularProgressIndicator(),
-                        ),
-                      )
+                              child: SizedBox(
+                                height: 45,
+                                width: 45,
+                                child: CircularProgressIndicator(),
+                              ),
+                            )
                           : products.isEmpty
-                          ? const Center(
-                        child: Text(
-                          "No product found",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      )
-                          : ListView.builder(
-                        itemCount: products.length,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) =>
-                                    ViewProduct(product: products[index]),));
-                            },
-                            child: ItemsCard(
-                              itemimage: products[index].imageURL,
-                              itemname: products[index].itemName,
-                              itemprice: products[index].price,
-                              itemrating: products[index].ratings,
-                              itemsubname: products[index].category,
-                            ),
-                          );
-                        },
-                      ));
+                              ? const Center(
+                                  child: Text(
+                                    "No product found",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                )
+                              : ListView.builder(
+                                  itemCount: products.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => ViewProduct(
+                                                  product: products[index]),
+                                            ));
+                                      },
+                                      child: ItemsCard(
+                                        itemimage: products[index].imageURL,
+                                        itemname: products[index].itemName,
+                                        itemprice: products[index].price,
+                                        itemrating: products[index].ratings,
+                                        itemsubname: products[index].category,
+                                      ),
+                                    );
+                                  },
+                                ));
                 },
               )),
         ),
