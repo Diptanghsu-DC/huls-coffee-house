@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/controllers/services/product/product_controller.dart';
+import 'package:huls_coffee_house/models/models.dart';
+import 'package:huls_coffee_house/pages/pages.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/itemscard.dart';
-import 'package:huls_coffee_house/pages/view_product_page/components/itemslist.dart';
-import 'package:huls_coffee_house/pages/view_product_page/viewproduct.dart';
 
 class ViewAll extends StatefulWidget {
   const ViewAll({super.key});
+
   static const String routeName = '/viewall';
 
   @override
@@ -12,7 +14,7 @@ class ViewAll extends StatefulWidget {
 }
 
 class _ViewAllState extends State<ViewAll> {
-  Color tabcolor1 = Color(0xFFFF5527);
+  Color tabcolor1 = const Color(0xFFFF5527);
   Color tabcolor2 = Colors.white;
   Color text1 = Colors.white;
   Color text2 = Colors.black;
@@ -22,7 +24,7 @@ class _ViewAllState extends State<ViewAll> {
   void _tabbar(int tabnumber) {
     setState(() {
       if (tabnumber == 1) {
-        tabcolor1 = Color(0xFFFF5527);
+        tabcolor1 = const Color(0xFFFF5527);
         tabcolor2 = Colors.white;
         text2 = Colors.black;
         text1 = Colors.white;
@@ -30,7 +32,7 @@ class _ViewAllState extends State<ViewAll> {
         num2 = 0.375;
       }
       if (tabnumber == 2) {
-        tabcolor2 = Color(0xFFFF5527);
+        tabcolor2 = const Color(0xFFFF5527);
         tabcolor1 = Colors.white;
         text1 = Colors.black;
         text2 = Colors.white;
@@ -42,7 +44,9 @@ class _ViewAllState extends State<ViewAll> {
 
   @override
   Widget build(BuildContext context) {
-    final Size screensize = MediaQuery.of(context).size;
+    final Size screensize = MediaQuery
+        .of(context)
+        .size;
     final double height = screensize.height;
     final double width = screensize.width;
     return Scaffold(
@@ -54,7 +58,7 @@ class _ViewAllState extends State<ViewAll> {
           height: height * 0.068,
           decoration: ShapeDecoration(
             shape: RoundedRectangleBorder(
-              side: BorderSide(width: 1, color: Color(0xFFF2EAEA)),
+              side: const BorderSide(width: 1, color: Color(0xFFF2EAEA)),
               borderRadius: BorderRadius.circular(27.50),
             ),
           ),
@@ -74,7 +78,7 @@ class _ViewAllState extends State<ViewAll> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(23.50),
                   ),
-                  shadows: [
+                  shadows: const [
                     BoxShadow(
                       color: Color(0x3FD3D1D8),
                       blurRadius: 5,
@@ -115,33 +119,52 @@ class _ViewAllState extends State<ViewAll> {
         ),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.fromLTRB(
-                width * 0.055, height * 0.04, width * 0.055, 0),
-            child: ListView.separated(
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      print(Items[index].itemName);
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ViewProduct(items: Items[index],),
+              padding: EdgeInsets.fromLTRB(
+                  width * 0.055, height * 0.04, width * 0.055, 0),
+              child: StreamBuilder<List<ProductModel>>(
+                stream: ProductController.get(),
+                builder: (context, snapshot) {
+                  List<ProductModel> products = [];
+                  if (snapshot.hasData) {
+                    products = snapshot.data ?? [];
+                  }
+                  return Expanded(
+                      child: snapshot.connectionState == ConnectionState.waiting
+                          ? const Center(
+                        child: SizedBox(
+                          height: 45,
+                          width: 45,
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                          : products.isEmpty
+                          ? const Center(
+                        child: Text(
+                          "No product found",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      )
+                          : ListView.builder(
+                        itemCount: products.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) =>
+                                    ViewProduct(product: products[index]),));
+                            },
+                            child: ItemsCard(
+                              itemimage: products[index].imageURL,
+                              itemname: products[index].itemName,
+                              itemprice: products[index].price,
+                              itemrating: products[index].ratings,
+                              itemsubname: products[index].category,
+                            ),
+                          );
+                        },
                       ));
-                    },
-                    child: ItemsCard(
-                      itemname: Items[index].itemName,
-                      itemprice: Items[index].itemPrice,
-                      itemrating: Items[index].itemRating,
-                      itemsubname: Items[index].itemSubname,
-                      itemimage: Items[index].itemImage,
-                    ),
-                  );
                 },
-                separatorBuilder: (context, index) {
-                  return SizedBox(
-                    height: height * 0.025,
-                  );
-                },
-                itemCount: Items.length),
-          ),
+              )),
         ),
       ]),
     );

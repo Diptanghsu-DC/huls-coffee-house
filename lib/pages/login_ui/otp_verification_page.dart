@@ -16,9 +16,7 @@ class OtpVerificationPage extends StatefulWidget {
     // required this.email,
     // required this.password,
   });
-
   static const String routeName = '/otpPage';
-
   // final String email;
   // final String password;
 
@@ -28,9 +26,7 @@ class OtpVerificationPage extends StatefulWidget {
 
 class _OtpVerificationPageState extends State<OtpVerificationPage> {
   late String otp;
-
   bool isUserCreated = false;
-
   // var otpController = Get.put(OtpController());
 
   void getOTP(String code) {
@@ -38,20 +34,19 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
   }
 
   void validateOtp() {
-    debugPrint("entering otp validate function");
+    print("entering otp validate function");
     var user;
     showLoadingOverlay(
       context: context,
       asyncTask: () async {
         try {
-          debugPrint("otp authentication started...");
+          print("otp authentication started...");
           PhoneAuthCredential credential = PhoneAuthProvider.credential(
               verificationId: SignupPage.verifyId, smsCode: otp);
           // user = await _auth.createUserWithEmailAndPassword(
           //   email: SignupPage.email,
           //   password: SignupPage.password,
           // );
-
           print("otp completed");
           print("entering user creation protocol...");
           user = await UserController.create(UserModel(

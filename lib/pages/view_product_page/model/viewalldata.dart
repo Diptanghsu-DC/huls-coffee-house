@@ -1,14 +1,15 @@
+//only for testing UI
 class ItemModel {
   String itemName;
-  int itemPrice;
+  int? itemPrice;
   String itemSubname;
-  double itemRating;
+  double? itemRating;
   String itemImage;
+
   ItemModel(
       {required this.itemName,
-      required this.itemPrice,
-      required this.itemRating,
+      this.itemPrice,
+      this.itemRating,
       required this.itemSubname,
-       required this.itemImage
-       });
+      required this.itemImage});
 }

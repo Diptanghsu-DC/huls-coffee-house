@@ -20,7 +20,7 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProductModel {
-  String? get imageURL => throw _privateConstructorUsedError;
+  String get imageURL => throw _privateConstructorUsedError;
   String get itemName => throw _privateConstructorUsedError;
   String get itemDesc => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $ProductModelCopyWith<$Res> {
       _$ProductModelCopyWithImpl<$Res, ProductModel>;
   @useResult
   $Res call(
-      {String? imageURL,
+      {String imageURL,
       String itemName,
       String itemDesc,
       String category,
@@ -65,7 +65,7 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? imageURL = freezed,
+    Object? imageURL = null,
     Object? itemName = null,
     Object? itemDesc = null,
     Object? category = null,
@@ -75,10 +75,10 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? lastLocalUpdate = freezed,
   }) {
     return _then(_value.copyWith(
-      imageURL: freezed == imageURL
+      imageURL: null == imageURL
           ? _value.imageURL
           : imageURL // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       itemName: null == itemName
           ? _value.itemName
           : itemName // ignore: cast_nullable_to_non_nullable
@@ -120,7 +120,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? imageURL,
+      {String imageURL,
       String itemName,
       String itemDesc,
       String category,
@@ -141,7 +141,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? imageURL = freezed,
+    Object? imageURL = null,
     Object? itemName = null,
     Object? itemDesc = null,
     Object? category = null,
@@ -151,10 +151,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? lastLocalUpdate = freezed,
   }) {
     return _then(_$UserModelImpl(
-      imageURL: freezed == imageURL
+      imageURL: null == imageURL
           ? _value.imageURL
           : imageURL // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       itemName: null == itemName
           ? _value.itemName
           : itemName // ignore: cast_nullable_to_non_nullable
@@ -191,7 +191,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserModelImpl extends _UserModel {
   const _$UserModelImpl(
-      {this.imageURL,
+      {required this.imageURL,
       required this.itemName,
       required this.itemDesc,
       required this.category,
@@ -205,7 +205,7 @@ class _$UserModelImpl extends _UserModel {
       _$$UserModelImplFromJson(json);
 
   @override
-  final String? imageURL;
+  final String imageURL;
   @override
   final String itemName;
   @override
@@ -268,7 +268,7 @@ class _$UserModelImpl extends _UserModel {
 
 abstract class _UserModel extends ProductModel {
   const factory _UserModel(
-      {final String? imageURL,
+      {required final String imageURL,
       required final String itemName,
       required final String itemDesc,
       required final String category,
@@ -282,7 +282,7 @@ abstract class _UserModel extends ProductModel {
       _$UserModelImpl.fromJson;
 
   @override
-  String? get imageURL;
+  String get imageURL;
   @override
   String get itemName;
   @override
