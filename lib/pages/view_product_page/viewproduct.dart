@@ -181,7 +181,7 @@ class _ViewProductState extends State<ViewProduct> {
           SizedBox(
             height: height * 0.0225,
           ),
-          const checkout(),
+          const Checkout(),
           SizedBox(
             height: height * 0.1325,
           ),

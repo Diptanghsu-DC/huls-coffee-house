@@ -155,11 +155,11 @@ class _ViewAllState extends State<ViewAll> {
                                             ));
                                       },
                                       child: ItemsCard(
-                                        itemimage: products[index].imageURL,
-                                        itemname: products[index].itemName,
-                                        itemprice: products[index].price,
-                                        itemrating: products[index].ratings,
-                                        itemsubname: products[index].category,
+                                        itemImage: products[index].imageURL,
+                                        itemName: products[index].itemName,
+                                        itemPrice: products[index].price,
+                                        itemRating: products[index].ratings,
+                                        category: products[index].category,
                                       ),
                                     );
                                   },

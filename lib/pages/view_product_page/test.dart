@@ -26,11 +26,11 @@ class Test extends StatelessWidget {
         body: ListView.separated(
             itemBuilder: (context, index) {
               return ItemsCard(
-                itemname: Items[index].itemName,
-                itemprice: Items[index].itemPrice,
-                itemrating: Items[index].itemRating,
-                itemsubname: Items[index].itemSubname,
-                itemimage: Items[index].itemImage,
+                itemName: Items[index].itemName,
+                itemPrice: Items[index].itemPrice,
+                itemRating: Items[index].itemRating,
+                category: Items[index].itemSubname,
+                itemImage: Items[index].itemImage,
               );
             },
             separatorBuilder: (context, index) {
