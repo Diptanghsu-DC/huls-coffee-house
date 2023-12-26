@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 class ItemsCard extends StatelessWidget {
-  String? itemname;
-  num? itemprice;
-  String? itemsubname;
-  num? itemrating;
-  String? itemimage;
+  String? itemName;
+  num? itemPrice;
+  String? category;
+  num? itemRating;
+  String? itemImage;
 
   ItemsCard(
       {super.key,
-      this.itemname,
-       this.itemprice,
-       this.itemsubname,
-       this.itemrating,
-       this.itemimage});
+      this.itemName,
+       this.itemPrice,
+       this.category,
+       this.itemRating,
+       this.itemImage});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class ItemsCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(18.21),
                     child: Image.asset(
-                      itemimage!,
+                      itemImage!,
                       fit: BoxFit.fill,
                     ),
                   )),
@@ -73,7 +73,7 @@ class ItemsCard extends StatelessWidget {
                             TextStyle(color: Color(0xFFFE724C), fontSize: 20),
                       ),
                       Text(
-                        itemprice.toString(), //itemprice
+                        itemPrice.toString(), //itemprice
                         style: const TextStyle(fontSize: 20),
                       ),
                     ],
@@ -107,7 +107,7 @@ class ItemsCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                itemrating.toString(), //itemsrating
+                itemRating.toString(), //itemsrating
                 style: const TextStyle(color: Colors.black, fontSize: 14),
               ),
               const Text(
@@ -144,7 +144,7 @@ class ItemsCard extends StatelessWidget {
         top: height * 0.239,
         left: width * 0.037,
         child: Text(
-          itemname!, //itemname
+          itemName!, //itemname
           style: const TextStyle(
             color: Colors.black,
             fontSize: 18.21,
@@ -158,7 +158,7 @@ class ItemsCard extends StatelessWidget {
         top: height * 0.274,
         left: width * 0.037,
         child: Text(
-          itemsubname!, //itemsubname
+          category!, //itemsubname
           style: const TextStyle(
             color: Color(0xFF5B5B5E),
             fontSize: 14.57,
