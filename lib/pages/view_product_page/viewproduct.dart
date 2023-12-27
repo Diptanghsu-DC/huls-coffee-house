@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/addons.dart';
+import 'package:huls_coffee_house/pages/view_product_page/components/addtocart.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/checkout.dart';
 
 import '../../models/models.dart';
@@ -64,7 +65,7 @@ class _ViewProductState extends State<ViewProduct> {
               style: const TextStyle(
                 color: Color(0xFF323643),
                 fontSize: 28,
-                fontFamily: 'Sofia Pro',
+                fontFamily: 'SofiaPro',
                 fontWeight: FontWeight.w400,
                 height: 0.04,
                 letterSpacing: -0.56,
@@ -87,7 +88,7 @@ class _ViewProductState extends State<ViewProduct> {
                   style: const TextStyle(
                     color: Color(0xFFFE724C),
                     fontSize: 17.01,
-                    fontFamily: 'Sofia Pro',
+                    fontFamily: 'SofiaPro',
                     fontWeight: FontWeight.w400,
                     height: 0,
                   ),
@@ -116,7 +117,7 @@ class _ViewProductState extends State<ViewProduct> {
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
-                    fontFamily: 'Sofia Pro',
+                    fontFamily: 'SofiaPro',
                     fontWeight: FontWeight.w400,
                     height: 0,
                   ),
@@ -152,7 +153,7 @@ class _ViewProductState extends State<ViewProduct> {
                   style: TextStyle(
                     color: Color(0xFF323643),
                     fontSize: 18,
-                    fontFamily: 'Sofia Pro',
+                    fontFamily: 'SofiaPro',
                     fontWeight: FontWeight.w400,
                     height: 0,
                   ),
@@ -181,10 +182,11 @@ class _ViewProductState extends State<ViewProduct> {
           SizedBox(
             height: height * 0.0225,
           ),
-          const Checkout(),
+          const CheckoutButton(),
           SizedBox(
             height: height * 0.1325,
           ),
+          AddtoCartButton()
         ],
       ),
     );

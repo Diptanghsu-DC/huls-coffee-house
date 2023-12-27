@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 
-class Checkout extends StatelessWidget {
-  const Checkout({super.key});
+class CheckoutButton extends StatelessWidget {
+  const CheckoutButton({super.key});
 
   @override
   Widget build(BuildContext context) {

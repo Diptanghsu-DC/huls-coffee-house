@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 
-class Addtocart extends StatelessWidget {
-  const Addtocart({super.key});
+class AddtoCartButton extends StatelessWidget {
+  const AddtoCartButton({super.key});
 
   @override
   Widget build(BuildContext context) {
