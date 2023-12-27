@@ -11,6 +11,7 @@ import 'package:huls_coffee_house/widgets/widgets.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
+
   static const String routeName = "/homePage";
 
   @override
@@ -53,10 +54,10 @@ class _HomepageState extends State<Homepage> {
                       Text(
                         "What would you like to order",
                         style: TextStyle(
-                          fontSize: width * 0.07,
-                          fontWeight: FontWeight.bold,
-                          height: 1,
-                        ),
+                            fontSize: width * 0.07,
+                            fontWeight: FontWeight.bold,
+                            height: 1,
+                            fontFamily: 'SofiaPro'),
                       ),
                       //search bar
                       TextField(
@@ -68,12 +69,13 @@ class _HomepageState extends State<Homepage> {
                           prefixIconColor:
                               const Color.fromARGB(255, 143, 142, 142),
                           hintStyle: TextStyle(
-                            color: Colors.grey,
-                            fontSize: width * 0.037,
-                            fontWeight: FontWeight.w400,
-                          ),
+                              color: Colors.grey,
+                              fontSize: width * 0.037,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'SofiaPro'),
                           labelStyle: const TextStyle(
-                              color: Color.fromARGB(255, 101, 100, 100)),
+                              color: Color.fromARGB(255, 101, 100, 100),
+                              fontFamily: 'SofiaPro'),
                           border: const OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color.fromARGB(255, 192, 191, 191),
@@ -102,17 +104,20 @@ class _HomepageState extends State<Homepage> {
                           Text(
                             "Popular Items",
                             style: TextStyle(
-                              fontSize: width * 0.07,
-                              fontWeight: FontWeight.bold,
-                              height: 1,
-                            ),
+                                fontSize: width * 0.07,
+                                fontWeight: FontWeight.bold,
+                                height: 1,
+                                fontFamily: 'SofiaPro'),
                           ),
                           TextButton(
                             onPressed: () {}, //to popular items view all page
                             style: TextButton.styleFrom(
                               foregroundColor: orange,
                             ),
-                            child: const Text("View All >"),
+                            child: const Text(
+                              "View All >",
+                              style: TextStyle(fontFamily: 'SofiaPro'),
+                            ),
                           )
                         ],
                       ),

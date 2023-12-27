@@ -40,7 +40,7 @@ class CustomField extends StatelessWidget {
       decoration: InputDecoration(
           counterText: '',
           suffixIcon: suffixIcon,
-          hintStyle: TextStyle(color: hintFontColor),
+          hintStyle: TextStyle(color: hintFontColor, fontFamily: 'SofiaPro'),
           hintText: hintText,
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(radius),
@@ -111,10 +111,10 @@ class _OTPFieldState extends State<OTPField> {
         maxLength: 1,
         keyboardType: TextInputType.number,
         style: TextStyle(
-          color: borderColor,
-          fontSize: 27.5,
-          fontWeight: FontWeight.bold,
-        ),
+            color: borderColor,
+            fontSize: 27.5,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'SofiaPro'),
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: borderColor),

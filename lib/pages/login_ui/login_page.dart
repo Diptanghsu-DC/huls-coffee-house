@@ -48,13 +48,12 @@ class _LoginPageState extends State<LoginPage> {
           }
         },
         onCompleted: () {
-          // You can perform any post-task actions here if needed
           if (isUserLogged) {
             if (user != null) {
               Navigator.pushNamedAndRemoveUntil(
                 context,
                 Homepage.routeName,
-                    (route) => false,
+                (route) => false,
               );
             }
           }
@@ -133,7 +132,8 @@ class _LoginPageState extends State<LoginPage> {
                                       "Login",
                                       style: TextStyle(
                                           fontSize: lFontSize,
-                                          fontWeight: FontWeight.w500),
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: 'SofiaPro'),
                                     ),
                                   ),
                                   SizedBox(
@@ -145,7 +145,8 @@ class _LoginPageState extends State<LoginPage> {
                                       "E-mail",
                                       style: TextStyle(
                                           color: fontColor,
-                                          fontSize: sFontSize),
+                                          fontSize: sFontSize,
+                                          fontFamily: 'SofiaPro'),
                                     ),
                                   ),
                                   SizedBox(
@@ -176,7 +177,8 @@ class _LoginPageState extends State<LoginPage> {
                                       "Password",
                                       style: TextStyle(
                                           color: fontColor,
-                                          fontSize: sFontSize),
+                                          fontSize: sFontSize,
+                                          fontFamily: 'SofiaPro'),
                                     ),
                                   ),
                                   SizedBox(
@@ -204,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                                               icon: isObscure
                                                   ? const Icon(Icons.visibility)
                                                   : const Icon(
-                                                  Icons.visibility_off)),
+                                                      Icons.visibility_off)),
                                         )),
                                   ),
                                   SizedBox(
@@ -230,7 +232,8 @@ class _LoginPageState extends State<LoginPage> {
                                     "Don't have an account?",
                                     style: TextStyle(
                                         color: fontColor2,
-                                        fontWeight: FontWeight.w500),
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'SofiaPro'),
                                   ),
                                   TextButton(
                                       onPressed: () {
@@ -238,12 +241,14 @@ class _LoginPageState extends State<LoginPage> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                              const SignupPage(),
+                                                  const SignupPage(),
                                             ));
                                       },
                                       child: Text(
                                         "Sign Up",
-                                        style: TextStyle(color: buttonColor),
+                                        style: TextStyle(
+                                            color: buttonColor,
+                                            fontFamily: 'SofiaPro'),
                                       ))
                                 ],
                               ),
@@ -252,7 +257,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
                                     color: lineColor,
@@ -263,7 +268,8 @@ class _LoginPageState extends State<LoginPage> {
                                     "Sign in with",
                                     style: TextStyle(
                                         color: fontColor2,
-                                        fontWeight: FontWeight.w500),
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'SofiaPro'),
                                   ),
                                   Container(
                                     color: lineColor,
