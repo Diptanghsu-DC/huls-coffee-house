@@ -70,11 +70,12 @@ class _PopularItemState extends State<PopularItem> {
                         style: TextStyle(
                           fontSize: width * 0.045,
                           color: orange,
+                          fontFamily: 'SofiaPro'
                         ),
                       ),
                       Text(
                         "$price",
-                        style: TextStyle(fontSize: width * 0.045),
+                        style: TextStyle(fontSize: width * 0.045, fontFamily: 'SofiaPro'),
                       ),
                     ].separate(2),
                   ),
@@ -118,7 +119,7 @@ class _PopularItemState extends State<PopularItem> {
                     children: [
                       Text(
                         "$ratings",
-                        style: TextStyle(fontSize: width * 0.045),
+                        style: TextStyle(fontSize: width * 0.045, fontFamily: 'SofiaPro'),
                       ),
                       const Icon(
                         Icons.star,
@@ -143,12 +144,14 @@ class _PopularItemState extends State<PopularItem> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: width * 0.05,
+                        fontFamily: 'SofiaPro'
                       ),
                     ),
                     Text(
                       itemDesc ?? "",
                       style: const TextStyle(
                         color: Colors.grey,
+                        fontFamily: 'SofiaPro'
                       ),
                     )
                   ],

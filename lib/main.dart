@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:huls_coffee_house/pages/checkout_page/checkout_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';

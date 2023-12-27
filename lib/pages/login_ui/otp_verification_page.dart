@@ -16,7 +16,9 @@ class OtpVerificationPage extends StatefulWidget {
     // required this.email,
     // required this.password,
   });
+
   static const String routeName = '/otpPage';
+
   // final String email;
   // final String password;
 
@@ -27,6 +29,7 @@ class OtpVerificationPage extends StatefulWidget {
 class _OtpVerificationPageState extends State<OtpVerificationPage> {
   late String otp;
   bool isUserCreated = false;
+
   // var otpController = Get.put(OtpController());
 
   void getOTP(String code) {
@@ -107,6 +110,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                               Text(
                                 "Verification Code",
                                 style: TextStyle(
+                                    fontFamily: 'SofiaPro',
                                     fontSize: lFontSize,
                                     fontWeight: FontWeight.w500),
                               ),
@@ -116,7 +120,9 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                               Text(
                                 "Please type the verification code",
                                 style: TextStyle(
-                                    color: fontColor, fontSize: sFontSize),
+                                    fontFamily: 'SofiaPro',
+                                    color: fontColor,
+                                    fontSize: sFontSize),
                               ),
                             ],
                           ),
@@ -145,6 +151,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                               Text(
                                 "Didn't receive a code?",
                                 style: TextStyle(
+                                    fontFamily: 'SofiaPro',
                                     color: fontColor2,
                                     fontWeight: FontWeight.w500),
                               ),
@@ -152,7 +159,9 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                                   onPressed: () {},
                                   child: Text(
                                     "Resend",
-                                    style: TextStyle(color: buttonColor),
+                                    style: TextStyle(
+                                        color: buttonColor,
+                                        fontFamily: 'SofiaPro'),
                                   ))
                             ],
                           ),

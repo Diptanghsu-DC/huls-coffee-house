@@ -148,7 +148,8 @@ class _SignupPageState extends State<SignupPage> {
                                   "Sign Up",
                                   style: TextStyle(
                                       fontSize: lFontSize,
-                                      fontWeight: FontWeight.w500),
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'SofiaPro'),
                                 ),
                               ),
                               SizedBox(
@@ -159,7 +160,9 @@ class _SignupPageState extends State<SignupPage> {
                                 child: Text(
                                   "Full Name",
                                   style: TextStyle(
-                                      color: fontColor, fontSize: sFontSize),
+                                      color: fontColor,
+                                      fontSize: sFontSize,
+                                      fontFamily: 'SofiaPro'),
                                 ),
                               ),
                               SizedBox(
@@ -189,7 +192,9 @@ class _SignupPageState extends State<SignupPage> {
                                 child: Text(
                                   "E-mail",
                                   style: TextStyle(
-                                      color: fontColor, fontSize: sFontSize),
+                                      fontFamily: 'SofiaPro',
+                                      color: fontColor,
+                                      fontSize: sFontSize),
                                 ),
                               ),
                               SizedBox(
@@ -219,7 +224,9 @@ class _SignupPageState extends State<SignupPage> {
                                 child: Text(
                                   "Phone",
                                   style: TextStyle(
-                                      color: fontColor, fontSize: sFontSize),
+                                      fontFamily: 'SofiaPro',
+                                      color: fontColor,
+                                      fontSize: sFontSize),
                                 ),
                               ),
                               SizedBox(
@@ -250,7 +257,9 @@ class _SignupPageState extends State<SignupPage> {
                                 child: Text(
                                   "Password",
                                   style: TextStyle(
-                                      color: fontColor, fontSize: sFontSize),
+                                      fontFamily: 'SofiaPro',
+                                      color: fontColor,
+                                      fontSize: sFontSize),
                                 ),
                               ),
                               SizedBox(
@@ -270,7 +279,7 @@ class _SignupPageState extends State<SignupPage> {
                                           icon: isObscure
                                               ? const Icon(Icons.visibility)
                                               : const Icon(
-                                              Icons.visibility_off)),
+                                                  Icons.visibility_off)),
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return "password cannot be empty";
@@ -303,6 +312,7 @@ class _SignupPageState extends State<SignupPage> {
                               Text(
                                 "Already have an account?",
                                 style: TextStyle(
+                                    fontFamily: 'SofiaPro',
                                     color: fontColor2,
                                     fontWeight: FontWeight.w500),
                               ),
@@ -312,12 +322,14 @@ class _SignupPageState extends State<SignupPage> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                          const LoginPage(),
+                                              const LoginPage(),
                                         ));
                                   },
                                   child: Text(
                                     "Login",
-                                    style: TextStyle(color: buttonColor),
+                                    style: TextStyle(
+                                        color: buttonColor,
+                                        fontFamily: 'SofiaPro'),
                                   ))
                             ],
                           ),
@@ -336,6 +348,7 @@ class _SignupPageState extends State<SignupPage> {
                                 "Sign up with",
                                 style: TextStyle(
                                     color: fontColor2,
+                                    fontFamily: 'SofiaPro',
                                     fontWeight: FontWeight.w500),
                               ),
                               Container(

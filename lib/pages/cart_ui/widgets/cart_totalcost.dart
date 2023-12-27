@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/colors.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/styles.dart';
+import 'package:huls_coffee_house/pages/checkout_page/checkout_page.dart';
+import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
+import 'package:huls_coffee_house/utils/screen_size.dart';
 
 class CartTotalCost extends StatelessWidget {
   const CartTotalCost({
@@ -63,19 +66,15 @@ class CartTotalCost extends StatelessWidget {
         ),
         // SizedBox(height: 1),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: FloatingActionButton.extended(
-            onPressed: () {
-              // Action on pressing the checkout button
-            },
-            backgroundColor: orange,
-            label: const Text(
-              'CHECKOUT',
-              style: AppStyles.checkouttext,
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SizedBox(
+              height: height * 0.075,
+              child: CustomButton(
+                text: "CHECKOUT",
+                onPressed: () =>
+                    Navigator.pushNamed(context, CheckoutPage.routeName),
+              ),
+            )),
       ],
     );
   }
