@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.text, this.onPressed});
+  const CustomButton(
+      {super.key, required this.text, this.onPressed, this.leadingIcon});
 
   final String text;
   final VoidCallback? onPressed;
+  final IconData? leadingIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +21,28 @@ class CustomButton extends StatelessWidget {
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(buttonRadius))),
             backgroundColor: MaterialStatePropertyAll(buttonColor)),
-        child: Text(
-          text,
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: fontSize,
-              fontWeight: FontWeight.w500),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (leadingIcon != null)
+              Icon(
+                leadingIcon,
+                color: Colors.white,
+              ),
+            if (leadingIcon != null)
+              SizedBox(
+                width: 10,
+              ),
+            Text(
+              text,
+              style: TextStyle(
+                  fontFamily: 'SofiaPro',
+                  color: Colors.white,
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.w900),
+            ),
+          ],
         ));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:huls_coffee_house/pages/checkout_page/checkout_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -33,8 +34,9 @@ class MyApp extends StatelessWidget {
         Test.routeName: (context) => const Test(),
         Cart.routeName: (context) => const Cart(),
         OtpVerificationPage.routeName: (context) => const OtpVerificationPage(),
+        CheckoutPage.routeName: (context) => const CheckoutPage()
       },
-      initialRoute: LoginPage.routeName,
+      initialRoute: CheckoutPage.routeName//LoginPage.routeName,
     );
   }
 }
