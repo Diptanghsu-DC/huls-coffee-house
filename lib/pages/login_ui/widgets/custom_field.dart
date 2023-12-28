@@ -89,7 +89,7 @@ class _OTPFieldState extends State<OTPField> {
       otp += _controller.text;
       if (widget.counter == 5) {
         widget.getOTP(otp);
-        otp = '';
+        // otp = '';
         return;
       }
       if (_focusNode.hasFocus) {
