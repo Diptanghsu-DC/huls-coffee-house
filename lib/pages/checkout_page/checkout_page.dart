@@ -117,14 +117,14 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   borderRadius: BorderRadius.circular(10)),
               child: ListTile(
                 onTap: () => Navigator.pushNamed(context, ViewAll.routeName),
-                title: Text(
+                title: const Text(
                   "Add More Items",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 15,
                       fontFamily: 'SofiaPro'),
                 ),
-                leading: Icon(
+                leading: const Icon(
                   Icons.add_circle_outline_outlined,
                   color: orange,
                 ),

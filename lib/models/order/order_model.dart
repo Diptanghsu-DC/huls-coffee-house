@@ -8,9 +8,10 @@ part 'order_model.g.dart';
 @Freezed()
 class OrderModel with _$OrderModel {
   const factory OrderModel({
-    required ProductModel product,
+    required String product,
     required int quantity,
-    required UserModel user,
+    required String user,
+    required num userPhone,
     required DateTime time,
     @Default(false) bool isCompleted,
     DateTime? lastLocalUpdate,
@@ -20,4 +21,12 @@ class OrderModel with _$OrderModel {
       _$OrderModelFromJson(json);
 }
 
-enum OrderFields { product, quantity, user, time, isCompleted, lastLocalUpdate }
+enum OrderFields {
+  product,
+  quantity,
+  user,
+  userPhone,
+  time,
+  isCompleted,
+  lastLocalUpdate
+}

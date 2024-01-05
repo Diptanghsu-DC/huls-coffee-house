@@ -8,9 +8,10 @@ part of 'order_model.dart';
 
 _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
     _$OrderModelImpl(
-      product: ProductModel.fromJson(json['product'] as Map<String, dynamic>),
+      product: json['product'] as String,
       quantity: json['quantity'] as int,
-      user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
+      user: json['user'] as String,
+      userPhone: json['userPhone'] as num,
       time: DateTime.parse(json['time'] as String),
       isCompleted: json['isCompleted'] as bool? ?? false,
       lastLocalUpdate: json['lastLocalUpdate'] == null
@@ -23,6 +24,7 @@ Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
       'product': instance.product,
       'quantity': instance.quantity,
       'user': instance.user,
+      'userPhone': instance.userPhone,
       'time': instance.time.toIso8601String(),
       'isCompleted': instance.isCompleted,
       'lastLocalUpdate': instance.lastLocalUpdate?.toIso8601String(),

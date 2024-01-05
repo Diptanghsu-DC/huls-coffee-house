@@ -20,9 +20,10 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$OrderModel {
-  ProductModel get product => throw _privateConstructorUsedError;
+  String get product => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
-  UserModel get user => throw _privateConstructorUsedError;
+  String get user => throw _privateConstructorUsedError;
+  num get userPhone => throw _privateConstructorUsedError;
   DateTime get time => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
   DateTime? get lastLocalUpdate => throw _privateConstructorUsedError;
@@ -40,15 +41,13 @@ abstract class $OrderModelCopyWith<$Res> {
       _$OrderModelCopyWithImpl<$Res, OrderModel>;
   @useResult
   $Res call(
-      {ProductModel product,
+      {String product,
       int quantity,
-      UserModel user,
+      String user,
+      num userPhone,
       DateTime time,
       bool isCompleted,
       DateTime? lastLocalUpdate});
-
-  $ProductModelCopyWith<$Res> get product;
-  $UserModelCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -67,6 +66,7 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     Object? product = null,
     Object? quantity = null,
     Object? user = null,
+    Object? userPhone = null,
     Object? time = null,
     Object? isCompleted = null,
     Object? lastLocalUpdate = freezed,
@@ -75,7 +75,7 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
       product: null == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as ProductModel,
+              as String,
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
@@ -83,7 +83,11 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as UserModel,
+              as String,
+      userPhone: null == userPhone
+          ? _value.userPhone
+          : userPhone // ignore: cast_nullable_to_non_nullable
+              as num,
       time: null == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
@@ -98,22 +102,6 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
               as DateTime?,
     ) as $Val);
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ProductModelCopyWith<$Res> get product {
-    return $ProductModelCopyWith<$Res>(_value.product, (value) {
-      return _then(_value.copyWith(product: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserModelCopyWith<$Res> get user {
-    return $UserModelCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -125,17 +113,13 @@ abstract class _$$OrderModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {ProductModel product,
+      {String product,
       int quantity,
-      UserModel user,
+      String user,
+      num userPhone,
       DateTime time,
       bool isCompleted,
       DateTime? lastLocalUpdate});
-
-  @override
-  $ProductModelCopyWith<$Res> get product;
-  @override
-  $UserModelCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -152,6 +136,7 @@ class __$$OrderModelImplCopyWithImpl<$Res>
     Object? product = null,
     Object? quantity = null,
     Object? user = null,
+    Object? userPhone = null,
     Object? time = null,
     Object? isCompleted = null,
     Object? lastLocalUpdate = freezed,
@@ -160,7 +145,7 @@ class __$$OrderModelImplCopyWithImpl<$Res>
       product: null == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as ProductModel,
+              as String,
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
@@ -168,7 +153,11 @@ class __$$OrderModelImplCopyWithImpl<$Res>
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as UserModel,
+              as String,
+      userPhone: null == userPhone
+          ? _value.userPhone
+          : userPhone // ignore: cast_nullable_to_non_nullable
+              as num,
       time: null == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
@@ -192,6 +181,7 @@ class _$OrderModelImpl implements _OrderModel {
       {required this.product,
       required this.quantity,
       required this.user,
+      required this.userPhone,
       required this.time,
       this.isCompleted = false,
       this.lastLocalUpdate});
@@ -200,11 +190,13 @@ class _$OrderModelImpl implements _OrderModel {
       _$$OrderModelImplFromJson(json);
 
   @override
-  final ProductModel product;
+  final String product;
   @override
   final int quantity;
   @override
-  final UserModel user;
+  final String user;
+  @override
+  final num userPhone;
   @override
   final DateTime time;
   @override
@@ -215,7 +207,7 @@ class _$OrderModelImpl implements _OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(product: $product, quantity: $quantity, user: $user, time: $time, isCompleted: $isCompleted, lastLocalUpdate: $lastLocalUpdate)';
+    return 'OrderModel(product: $product, quantity: $quantity, user: $user, userPhone: $userPhone, time: $time, isCompleted: $isCompleted, lastLocalUpdate: $lastLocalUpdate)';
   }
 
   @override
@@ -227,6 +219,8 @@ class _$OrderModelImpl implements _OrderModel {
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
             (identical(other.user, user) || other.user == user) &&
+            (identical(other.userPhone, userPhone) ||
+                other.userPhone == userPhone) &&
             (identical(other.time, time) || other.time == time) &&
             (identical(other.isCompleted, isCompleted) ||
                 other.isCompleted == isCompleted) &&
@@ -236,8 +230,8 @@ class _$OrderModelImpl implements _OrderModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, product, quantity, user, time, isCompleted, lastLocalUpdate);
+  int get hashCode => Object.hash(runtimeType, product, quantity, user,
+      userPhone, time, isCompleted, lastLocalUpdate);
 
   @JsonKey(ignore: true)
   @override
@@ -255,9 +249,10 @@ class _$OrderModelImpl implements _OrderModel {
 
 abstract class _OrderModel implements OrderModel {
   const factory _OrderModel(
-      {required final ProductModel product,
+      {required final String product,
       required final int quantity,
-      required final UserModel user,
+      required final String user,
+      required final num userPhone,
       required final DateTime time,
       final bool isCompleted,
       final DateTime? lastLocalUpdate}) = _$OrderModelImpl;
@@ -266,11 +261,13 @@ abstract class _OrderModel implements OrderModel {
       _$OrderModelImpl.fromJson;
 
   @override
-  ProductModel get product;
+  String get product;
   @override
   int get quantity;
   @override
-  UserModel get user;
+  String get user;
+  @override
+  num get userPhone;
   @override
   DateTime get time;
   @override

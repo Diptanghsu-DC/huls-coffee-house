@@ -33,9 +33,10 @@ class MyApp extends StatelessWidget {
         Test.routeName: (context) => const Test(),
         Cart.routeName: (context) => const Cart(),
         OtpVerificationPage.routeName: (context) => const OtpVerificationPage(),
-        CheckoutPage.routeName: (context) => const CheckoutPage()
+        CheckoutPage.routeName: (context) => const CheckoutPage(),
+        OrderPage.routeName: (context) => const OrderPage(),
       },
-      initialRoute: LoginPage.routeName,
+      initialRoute: OrderPage.routeName,
     );
   }
 }

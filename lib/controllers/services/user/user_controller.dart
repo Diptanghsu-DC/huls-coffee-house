@@ -13,6 +13,7 @@ part 'functions/_login_impl.dart';
 part 'functions/_gather_data.dart';
 part 'functions/_get_impl.dart';
 part 'functions/_delete_impl.dart';
+part 'functions/_cart_impl.dart';
 
 class UserController {
   static const String _collectionName = "users";
@@ -24,6 +25,10 @@ class UserController {
       throw Exception("User exists with the provided email. Please Log in");
     }
   }
+
+  // static Future<void> addToCart(ProductModel product) async {
+  //   return _cartImpl();
+  // }
 
   /// Creates a user
   ///  * If user exists throws exception
