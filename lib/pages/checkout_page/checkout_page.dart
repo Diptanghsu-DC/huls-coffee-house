@@ -2,13 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/services/order/order_controller.dart';
+import 'package:huls_coffee_house/controllers/services/user/user_controller.dart';
+import 'package:huls_coffee_house/models/models.dart';
+import 'package:huls_coffee_house/pages/checkout_page/widgets/item_card.dart';
 import 'package:huls_coffee_house/pages/checkout_page/widgets/total_item_cost.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
 import 'package:huls_coffee_house/utils/screen_size.dart';
 
 class CheckoutPage extends StatefulWidget {
-  const CheckoutPage({super.key});
+  const CheckoutPage({
+    super.key,
+    required this.checkoutItems,
+  });
+
+  final List<ProductModel> checkoutItems;
 
   static const String routeName = '/checkoutPage';
 
@@ -82,31 +90,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
             SizedBox(
               height: height * 0.03,
             ),
-            Card(
-              margin: EdgeInsets.all(16),
-              color: Colors.white,
-              elevation: 5,
-              shadowColor: Color.fromRGBO(224, 219, 196, 0.9),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: ListTile(
-                contentPadding: EdgeInsets.fromLTRB(16, 8, 16, 32),
-                trailing: TotalItemCost(),
-                title: Text(
-                  "Birthday Cake",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'SofiaPro',
-                      fontWeight: FontWeight.w900),
-                ),
-                subtitle: Text(
-                  "\$450",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'SofiaPro',
-                      fontWeight: FontWeight.w900),
-                ),
-              ),
+            ListView.builder(
+              itemCount: widget.checkoutItems.length,
+              itemBuilder: (context, index) =>
+                  ItemCard(item: widget.checkoutItems[index]),
             ),
             Card(
               margin: EdgeInsets.all(16),
@@ -139,7 +126,17 @@ class _CheckoutPageState extends State<CheckoutPage> {
               height: height * 0.075,
               child: CustomButton(
                 onPressed: () {
-                  //OrderController.create();
+                  for (var i = 0; i < widget.checkoutItems.length; i++) {
+                    OrderModel myOrder = OrderModel(
+                      product: widget.checkoutItems[i].itemName,
+                      quantity: 3,
+                      user: UserController.currentUser!.name,
+                      userPhone: UserController.currentUser!.phone,
+                      time: DateTime.now(),
+                    );
+                    OrderController.create(myOrder);
+                    UserController.orderList.add(myOrder);
+                  }
                 },
                 leadingIcon: Icons.list_alt_sharp,
                 text: "PLACE ORDER",

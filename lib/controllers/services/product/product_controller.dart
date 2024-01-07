@@ -8,6 +8,7 @@ part 'functions/_create_impl.dart';
 part 'functions/_check_duplicate_impl.dart';
 part 'functions/_save_impl.dart';
 part 'functions/_get_impl.dart';
+part 'functions/_get_all_impl.dart';
 
 class ProductController {
   static const String _collectionName = "products";
@@ -36,6 +37,14 @@ class ProductController {
       id: id,
       category: category,
       itemName: itemName,
+      forceGet: forceGet,
+    );
+  }
+
+  static Stream<List<ProductModel>> getAll({
+    bool forceGet = false,
+  }) {
+    return _getAllImpl(
       forceGet: forceGet,
     );
   }

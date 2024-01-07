@@ -182,11 +182,15 @@ class _ViewProductState extends State<ViewProduct> {
           SizedBox(
             height: height * 0.0225,
           ),
-          const CheckoutButton(),
+          CheckoutButton(
+            product: widget.product,
+          ),
           SizedBox(
             height: height * 0.1325,
           ),
-          AddtoCartButton()
+          AddToCartButton(
+            product: widget.product,
+          )
         ],
       ),
     );

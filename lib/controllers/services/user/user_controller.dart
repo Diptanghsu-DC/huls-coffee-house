@@ -18,6 +18,8 @@ part 'functions/_cart_impl.dart';
 class UserController {
   static const String _collectionName = "users";
   static UserModel? currentUser;
+  static List<ProductModel> cartList = [];
+  static List<OrderModel> orderList = [];
   const UserController._();
 
   static Future<void> _checkDuplicate(UserModel user) async {

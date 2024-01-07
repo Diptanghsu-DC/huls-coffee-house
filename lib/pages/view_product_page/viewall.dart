@@ -120,10 +120,12 @@ class _ViewAllState extends State<ViewAll> {
               padding: EdgeInsets.fromLTRB(
                   width * 0.055, height * 0.04, width * 0.055, 0),
               child: StreamBuilder<List<ProductModel>>(
-                stream: ProductController.get(),
+                stream: ProductController.getAll(),
                 builder: (context, snapshot) {
                   List<ProductModel> products = [];
-                  if (snapshot.hasData) {
+                  if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (snapshot.hasData) {
                     products = snapshot.data ?? [];
                   }
                   return Expanded(

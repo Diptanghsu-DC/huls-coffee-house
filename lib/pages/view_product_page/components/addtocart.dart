@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/models/models.dart';
+import 'package:huls_coffee_house/pages/cart_ui/cart_main.dart';
+import 'package:huls_coffee_house/pages/cart_ui/utils/cart.dart';
+import 'package:provider/provider.dart';
 
-class AddtoCartButton extends StatelessWidget {
-  const AddtoCartButton({super.key});
+class AddToCartButton extends StatelessWidget {
+  const AddToCartButton({
+    super.key,
+    required this.product,
+  });
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -10,6 +19,10 @@ class AddtoCartButton extends StatelessWidget {
     final double height = screensize.height;
     final double width = screensize.width;
     return InkWell(
+      onTap: () {
+        final cart = Provider.of<Cart>(context, listen: false);
+        cart.addToCart(product);
+      },
       child: SizedBox(
         width: width * 0.4638,
         height: height * 0.06625,
