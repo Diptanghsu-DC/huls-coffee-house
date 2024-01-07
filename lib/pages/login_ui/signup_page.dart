@@ -279,7 +279,7 @@ class _SignupPageState extends State<SignupPage> {
                                           icon: isObscure
                                               ? const Icon(Icons.visibility)
                                               : const Icon(
-                                                  Icons.visibility_off)),
+                                              Icons.visibility_off)),
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return "password cannot be empty";
@@ -322,7 +322,7 @@ class _SignupPageState extends State<SignupPage> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              const LoginPage(),
+                                          const LoginPage(),
                                         ));
                                   },
                                   child: Text(
