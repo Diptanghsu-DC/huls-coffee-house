@@ -6,8 +6,8 @@ part of 'product_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
-    _$UserModelImpl(
+_$ProductModelImpl _$$ProductModelImplFromJson(Map<String, dynamic> json) =>
+    _$ProductModelImpl(
       imageURL: json['imageURL'] as String,
       itemName: json['itemName'] as String,
       itemDesc: json['itemDesc'] as String,
@@ -20,7 +20,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['lastLocalUpdate'] as String),
     );
 
-Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
+Map<String, dynamic> _$$ProductModelImplToJson(_$ProductModelImpl instance) =>
     <String, dynamic>{
       'imageURL': instance.imageURL,
       'itemName': instance.itemName,

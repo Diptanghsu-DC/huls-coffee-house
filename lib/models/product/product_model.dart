@@ -16,7 +16,7 @@ class ProductModel with _$ProductModel {
     required num quantity,
     num? ratings,
     DateTime? lastLocalUpdate,
-  }) = _UserModel;
+  }) = _ProductModel;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
       _$ProductModelFromJson(json);
