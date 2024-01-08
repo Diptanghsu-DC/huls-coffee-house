@@ -281,10 +281,6 @@ class _LoginPageState extends State<LoginPage> {
                               SizedBox(
                                 height: sGap,
                               ),
-                              const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [FBButton(), GoogleButton()],
-                              )
                             ],
                           ),
                         ),
