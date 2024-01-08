@@ -13,6 +13,7 @@ part 'functions/_login_impl.dart';
 part 'functions/_gather_data.dart';
 part 'functions/_get_impl.dart';
 part 'functions/_delete_impl.dart';
+part 'functions/_login_silently_impl.dart';
 
 class UserController {
   static const String _collectionName = "users";
@@ -57,6 +58,11 @@ class UserController {
     //   await _gatherData();
     // }
     return user;
+  }
+
+
+  static Stream<UserModel?> loginSilently({bool forceGet = false}) {
+    return _loginSilentlyImpl(forceGet: forceGet);
   }
 
   static Stream<List<UserModel>> get({

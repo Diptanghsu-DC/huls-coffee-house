@@ -24,7 +24,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<int> init() async {
     Stopwatch stopwatch = Stopwatch()..start();
     await dotenv.load(fileName: '.env');
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
     await LocalDatabase.init();
     await UserController.loginSilently().last;
     stopwatch.stop();
@@ -40,12 +41,12 @@ class _SplashScreenState extends State<SplashScreen> {
       if (UserController.currentUser == null) {
         Navigator.of(context)
             .pushNamedAndRemoveUntil(
-            LoginPage.routeName, (Route<dynamic> route) => false)
+                LoginPage.routeName, (Route<dynamic> route) => false)
             .then((value) => exit(0));
       } else {
         Navigator.of(context)
             .pushNamedAndRemoveUntil(
-            Homepage.routeName, (Route<dynamic> route) => false)
+                Homepage.routeName, (Route<dynamic> route) => false)
             .then((value) => exit(0));
       }
     });
