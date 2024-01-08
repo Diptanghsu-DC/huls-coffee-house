@@ -9,6 +9,7 @@ import 'package:huls_coffee_house/pages/checkout_page/widgets/total_item_cost.da
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
 import 'package:huls_coffee_house/utils/screen_size.dart';
+import 'package:huls_coffee_house/utils/toast_message.dart';
 
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({
@@ -33,7 +34,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         leading: const GoBackButton(),
         centerTitle: true,
         title: const Text(
-          "Checkout",
+          "Checkout Page",
           style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w500,
@@ -90,10 +91,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
             SizedBox(
               height: height * 0.03,
             ),
-            ListView.builder(
-              itemCount: widget.checkoutItems.length,
-              itemBuilder: (context, index) =>
-                  ItemCard(item: widget.checkoutItems[index]),
+            Expanded(
+              child: ListView.builder(
+                itemCount: widget.checkoutItems.length,
+                itemBuilder: (context, index) =>
+                    ItemCard(item: widget.checkoutItems[index]),
+              ),
             ),
             Card(
               margin: EdgeInsets.all(16),
@@ -129,13 +132,15 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   for (var i = 0; i < widget.checkoutItems.length; i++) {
                     OrderModel myOrder = OrderModel(
                       product: widget.checkoutItems[i].itemName,
-                      quantity: 3,
+                      quantity: TotalItemCost.count,
                       user: UserController.currentUser!.name,
                       userPhone: UserController.currentUser!.phone,
                       time: DateTime.now(),
                     );
                     OrderController.create(myOrder);
                     UserController.orderList.add(myOrder);
+                    toastMessage("Order Placed Successfully");
+                    Navigator.pop(context);
                   }
                 },
                 leadingIcon: Icons.list_alt_sharp,

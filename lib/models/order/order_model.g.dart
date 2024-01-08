@@ -9,7 +9,7 @@ part of 'order_model.dart';
 _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
     _$OrderModelImpl(
       product: json['product'] as String,
-      quantity: json['quantity'] as int,
+      quantity: json['quantity'] as num,
       user: json['user'] as String,
       userPhone: json['userPhone'] as num,
       time: DateTime.parse(json['time'] as String),

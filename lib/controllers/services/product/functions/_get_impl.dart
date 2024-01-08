@@ -85,9 +85,9 @@ Future<List<ProductModel>> _fetchFromBackend({
 
   QuerySnapshot querySnapshot = await query.get();
 
-  List<Map<String, dynamic>> res = [
-    querySnapshot.docs.first as Map<String, dynamic>
-  ];
+  List<Map<String, dynamic>> res = querySnapshot.docs
+      .map((doc) => doc.data() as Map<String, dynamic>)
+      .toList();
 
   filteredProducts = res.map((model) => ProductModel.fromJson(model)).toList();
 

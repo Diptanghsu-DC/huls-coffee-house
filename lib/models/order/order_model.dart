@@ -10,7 +10,7 @@ part 'order_model.g.dart';
 class OrderModel with _$OrderModel {
   const factory OrderModel({
     required String product,
-    required int quantity,
+    required num quantity,
     required String user,
     required num userPhone,
     required DateTime time,

@@ -37,9 +37,9 @@ Future<List<ProductModel>> _fetchAllFromBackend({
     return products;
   }
 
-  List<Map<String, dynamic>> res = [
-    querySnapshot.docs.first.data() as Map<String, dynamic>
-  ];
+  List<Map<String, dynamic>> res = querySnapshot.docs
+      .map((doc) => doc.data() as Map<String, dynamic>)
+      .toList();
 
   print("List of order created");
   // await db.find(selectorBuilder).toList();

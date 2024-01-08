@@ -44,9 +44,12 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
       asyncTask: () async {
         try {
           print("otp authentication started... The otp entered is $otp");
-          if (SignupPage.verifyId != otp) {
-            throw Exception("Wrong OTP, please try again");
-          }
+          PhoneAuthCredential credential = PhoneAuthProvider.credential(
+              verificationId: SignupPage.verifyId, smsCode: otp);
+          print(credential);
+          // if (SignupPage.verifyId != otp) {
+          //   throw Exception("Wrong OTP, please try again");
+          // }
           print("otp completed");
           print("entering user creation protocol...");
           user = await UserController.create(UserModel(

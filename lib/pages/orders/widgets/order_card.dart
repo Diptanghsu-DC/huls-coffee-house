@@ -13,8 +13,8 @@ class OrderCard extends StatelessWidget {
   });
 
   final String itemName;
-  final int quantity;
-  final int price;
+  final num quantity;
+  final num price;
   final String userName;
   final num userPhone;
 

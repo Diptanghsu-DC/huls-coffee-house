@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/addons.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/addtocart.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/checkout.dart';
@@ -37,6 +38,8 @@ class _ViewProductState extends State<ViewProduct> {
     final double width = screensize.width;
 
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: const GoBackButton(),
       backgroundColor: Colors.white,
       body: Column(
         children: [

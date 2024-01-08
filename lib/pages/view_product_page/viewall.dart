@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/controllers/services/product/product_controller.dart';
 import 'package:huls_coffee_house/models/models.dart';
+import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/itemscard.dart';
 
 class ViewAll extends StatefulWidget {
-  const ViewAll({super.key});
+  ViewAll({super.key, this.category});
+
+  String? category;
 
   static const String routeName = '/viewall';
 
@@ -48,6 +51,8 @@ class _ViewAllState extends State<ViewAll> {
     final double height = screensize.height;
     final double width = screensize.width;
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: const GoBackButton(),
       body: Column(children: [
         Container(
           margin: EdgeInsets.fromLTRB(
@@ -120,7 +125,9 @@ class _ViewAllState extends State<ViewAll> {
             padding: EdgeInsets.fromLTRB(
                 width * 0.055, height * 0.04, width * 0.055, 0),
             child: StreamBuilder<List<ProductModel>>(
-              stream: ProductController.getAll(),
+              stream: widget.category == null
+                  ? ProductController.getAll()
+                  : ProductController.get(category: widget.category),
               builder: (context, snapshot) {
                 List<ProductModel> products = [];
                 if (snapshot.hasError) {

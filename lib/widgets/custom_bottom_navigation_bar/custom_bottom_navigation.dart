@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/pages/cart_ui/cart_main.dart';
+import 'package:huls_coffee_house/pages/homepage_ui/homepage.dart';
+
+// enum Tab {Account, Liked, Home, Cart, Notifications}
 
 class CustomBottomNavigation extends StatelessWidget {
   const CustomBottomNavigation({
@@ -17,7 +21,15 @@ class CustomBottomNavigation extends StatelessWidget {
       selectedItemColor: orange,
       type: BottomNavigationBarType.fixed,
       onTap: (index) {
-        onTap(index); // more logic to be added regarding page navigation
+        // more logic to be added regarding page navigation
+        onTap(index);
+        if (index == 0) {
+        } else if (index == 1) {
+        } else if (index == 2) {
+          Navigator.pushNamed(context, Homepage.routeName);
+        } else if (index == 3) {
+          Navigator.pushNamed(context, CartPage.routeName);
+        } else if (index == 4) {}
       },
       currentIndex: currentIndex,
       items: const [

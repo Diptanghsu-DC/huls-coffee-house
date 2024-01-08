@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           Homepage.routeName: (context) => const Homepage(),
           LoginPage.routeName: (context) => const LoginPage(),
           SignupPage.routeName: (context) => const SignupPage(),
-          ViewAll.routeName: (context) => const ViewAll(),
+          ViewAll.routeName: (context) => ViewAll(),
           // Test.routeName: (context) => const Test(),
           CartPage.routeName: (context) => const CartPage(),
           OtpVerificationPage.routeName: (context) =>

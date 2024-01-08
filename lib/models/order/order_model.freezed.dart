@@ -21,7 +21,7 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$OrderModel {
   String get product => throw _privateConstructorUsedError;
-  int get quantity => throw _privateConstructorUsedError;
+  num get quantity => throw _privateConstructorUsedError;
   String get user => throw _privateConstructorUsedError;
   num get userPhone => throw _privateConstructorUsedError;
   DateTime get time => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $OrderModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String product,
-      int quantity,
+      num quantity,
       String user,
       num userPhone,
       DateTime time,
@@ -79,7 +79,7 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
-              as int,
+              as num,
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -114,7 +114,7 @@ abstract class _$$OrderModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String product,
-      int quantity,
+      num quantity,
       String user,
       num userPhone,
       DateTime time,
@@ -149,7 +149,7 @@ class __$$OrderModelImplCopyWithImpl<$Res>
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
-              as int,
+              as num,
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -192,7 +192,7 @@ class _$OrderModelImpl implements _OrderModel {
   @override
   final String product;
   @override
-  final int quantity;
+  final num quantity;
   @override
   final String user;
   @override
@@ -250,7 +250,7 @@ class _$OrderModelImpl implements _OrderModel {
 abstract class _OrderModel implements OrderModel {
   const factory _OrderModel(
       {required final String product,
-      required final int quantity,
+      required final num quantity,
       required final String user,
       required final num userPhone,
       required final DateTime time,
@@ -263,7 +263,7 @@ abstract class _OrderModel implements OrderModel {
   @override
   String get product;
   @override
-  int get quantity;
+  num get quantity;
   @override
   String get user;
   @override
