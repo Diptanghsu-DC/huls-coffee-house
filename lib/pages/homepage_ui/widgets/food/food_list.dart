@@ -7,7 +7,7 @@ List<ProductModel> foodlist = [
 // List<String> categories =
 //     foodlist.map((food) => food.category).toSet().toList();
 
-List<String> categories = ["vfgifgg", "fffff", "hhhhhh", "tttt"];
+// List<String> categories = ["vfgifgg", "fffff", "hhhhhh", "tttt"];
 
 List<ProductModel> popularList = [
   //popular list

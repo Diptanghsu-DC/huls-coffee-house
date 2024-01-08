@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/styles.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
 
 class CartItemCard extends StatelessWidget {
   const CartItemCard({
     super.key,
+    required this.cartItem,
   });
+
+  final ProductModel cartItem;
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +36,15 @@ class CartItemCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Item Name', // Item name from backend
+                Text(
+                  cartItem.itemName, // Item name from backend
                   style: AppStyles.itemNameStyle,
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                const Text(
-                  'Rs 50', // Price from backend
+                Text(
+                  "${cartItem.price}", // Price from backend
                   style: AppStyles.priceStyle,
                 ),
                 Padding(

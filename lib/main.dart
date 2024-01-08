@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:huls_coffee_house/pages/cart_ui/utils/cart.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
@@ -20,22 +22,32 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          textTheme:
-              const TextTheme(bodySmall: TextStyle(fontFamily: 'SofiaPro'))),
-      routes: {
-        Homepage.routeName: (context) => const Homepage(),
-        LoginPage.routeName: (context) => const LoginPage(),
-        SignupPage.routeName: (context) => const SignupPage(),
-        ViewAll.routeName: (context) => const ViewAll(),
-        Test.routeName: (context) => const Test(),
-        Cart.routeName: (context) => const Cart(),
-        OtpVerificationPage.routeName: (context) => const OtpVerificationPage(),
-        CheckoutPage.routeName: (context) => const CheckoutPage()
-      },
-      initialRoute: OtpVerificationPage.routeName,
+    return ChangeNotifierProvider(
+      create: (context) => Cart(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            textTheme:
+                const TextTheme(bodySmall: TextStyle(fontFamily: 'SofiaPro'))),
+        routes: {
+          Homepage.routeName: (context) => const Homepage(),
+          LoginPage.routeName: (context) => const LoginPage(),
+          SignupPage.routeName: (context) => const SignupPage(),
+          ViewAll.routeName: (context) => ViewAll(),
+          // Test.routeName: (context) => const Test(),
+          CartPage.routeName: (context) => const CartPage(),
+          OtpVerificationPage.routeName: (context) =>
+              const OtpVerificationPage(),
+          CheckoutPage.routeName: (context) {
+            final args = ModalRoute.of(context)?.settings.arguments
+                as Map<String, dynamic>;
+            final checkoutItems = args['checkoutItems'];
+            return CheckoutPage(checkoutItems: checkoutItems);
+          },
+          OrderPage.routeName: (context) => const OrderPage(),
+        },
+        initialRoute: LoginPage.routeName,
+      ),
     );
   }
 }

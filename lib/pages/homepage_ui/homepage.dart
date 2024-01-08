@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/widgets/category/category_selector.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/widgets/category/category_view.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/widgets/popular/popular_item.dart';
@@ -8,6 +9,7 @@ import 'package:huls_coffee_house/pages/homepage_ui/widgets/popular/popular_view
 import 'package:huls_coffee_house/utils/screen_size.dart';
 import 'package:huls_coffee_house/widgets/custom_bottom_navigation_bar/custom_bottom_navigation.dart';
 import 'package:huls_coffee_house/widgets/widgets.dart';
+import 'package:huls_coffee_house/pages/pages.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -110,7 +112,8 @@ class _HomepageState extends State<Homepage> {
                                 fontFamily: 'SofiaPro'),
                           ),
                           TextButton(
-                            onPressed: () {}, //to popular items view all page
+                            onPressed: () => Navigator.pushNamed(
+                                context, ViewAll.routeName), //to view all page
                             style: TextButton.styleFrom(
                               foregroundColor: orange,
                             ),

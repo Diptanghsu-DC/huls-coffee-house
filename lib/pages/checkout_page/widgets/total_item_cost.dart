@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 
 class TotalItemCost extends StatefulWidget {
-  TotalItemCost({super.key});
+  TotalItemCost({
+    super.key,
+    required this.itemPrice,
+  });
 
-  int count = 1;
+  final num itemPrice;
+  static int count = 1;
 
   @override
   State<TotalItemCost> createState() => _TotalItemCostState();
@@ -29,10 +33,9 @@ class _TotalItemCostState extends State<TotalItemCost> {
                 InkWell(
                   onTap: () {
                     setState(() {
-                      if(widget.count > 0){
-                        widget.count--;
+                      if (TotalItemCost.count > 0) {
+                        TotalItemCost.count--;
                       }
-
                     });
                   },
                   child: const Text(
@@ -45,7 +48,7 @@ class _TotalItemCostState extends State<TotalItemCost> {
                   ),
                 ),
                 Text(
-                  "${widget.count}",
+                  "${TotalItemCost.count}",
                   style: const TextStyle(
                       fontSize: 16,
                       color: Colors.white,
@@ -55,7 +58,7 @@ class _TotalItemCostState extends State<TotalItemCost> {
                 InkWell(
                   onTap: () {
                     setState(() {
-                      widget.count++;
+                      TotalItemCost.count++;
                     });
                   },
                   child: const Text(
@@ -72,7 +75,7 @@ class _TotalItemCostState extends State<TotalItemCost> {
           ),
         ),
         Text(
-          "\$${450 * widget.count}",
+          "\$${widget.itemPrice * TotalItemCost.count}",
           style: const TextStyle(
               fontFamily: 'SofiaPro',
               fontSize: 14,

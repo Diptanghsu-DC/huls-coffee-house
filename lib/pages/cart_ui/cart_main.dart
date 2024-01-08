@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/controllers/services/user/user_controller.dart';
+import 'package:huls_coffee_house/models/models.dart';
+import 'package:huls_coffee_house/pages/cart_ui/utils/cart.dart';
 import 'package:huls_coffee_house/pages/cart_ui/widgets/cart_appbar.dart';
 import 'package:huls_coffee_house/pages/cart_ui/widgets/cart_itemcard.dart';
 import 'package:huls_coffee_house/pages/cart_ui/widgets/cart_totalcost.dart';
+import 'package:provider/provider.dart';
 
-class Cart extends StatefulWidget {
-  const Cart({super.key});
+class CartPage extends StatefulWidget {
+  const CartPage({super.key});
   static const String routeName = '/cartPage';
   @override
-  State<Cart> createState() => CartPage();
+  State<CartPage> createState() => _CartPage();
 }
 
-class CartPage extends State<Cart> {
+class _CartPage extends State<CartPage> {
   // Function to calculate total cost
   double calculateTotalCost() {
     // Calculate total cost based on items in the cart
@@ -21,28 +25,35 @@ class CartPage extends State<Cart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CartAppBar(),
-      body: Stack(
-        children: <Widget>[
-          ListView.builder(
-            itemCount: 10, // Change this to the actual number of cards
-            padding: const EdgeInsets.only(
-                bottom: 150), // Add padding for the last card
-            itemBuilder: (BuildContext context, int index) {
-              return const CartItemCard(); // Create a separate function to build each card
-            },
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
-              child: CartTotalCost(totalFunc: calculateTotalCost),
-            ),
-          ),
-        ],
-      ),
-    );
+        appBar: const CartAppBar(),
+        body: Consumer<Cart>(
+          builder: (context, cart, child) {
+            return Stack(
+              children: <Widget>[
+                ListView.builder(
+                  itemCount: UserController.cartList
+                      .length, // Change this to the actual number of cards
+                  padding: const EdgeInsets.only(
+                      bottom: 150), // Add padding for the last card
+                  itemBuilder: (BuildContext context, int index) {
+                    return CartItemCard(
+                      cartItem: UserController.cartList[index],
+                    ); // Create a separate function to build each card
+                  },
+                ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 16),
+                    child: CartTotalCost(totalFunc: calculateTotalCost),
+                  ),
+                ),
+              ],
+            );
+          },
+        ));
   }
 }

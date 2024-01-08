@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/config/config.dart';
 
 class ItemsCard extends StatelessWidget {
-  String? itemName;
-  num? itemPrice;
-  String? category;
+  String itemName;
+  num itemPrice;
+  String category;
   num? itemRating;
   String? itemImage;
+  num quantity;
 
-  ItemsCard(
-      {super.key,
-      this.itemName,
-       this.itemPrice,
-       this.category,
-       this.itemRating,
-       this.itemImage});
+  ItemsCard({
+    super.key,
+    required this.itemName,
+    required this.itemPrice,
+    required this.category,
+    this.itemRating,
+    this.itemImage,
+    required this.quantity,
+  });
 
   @override
   Widget build(BuildContext context) {
     final Size screensize = MediaQuery.of(context).size;
     final double height = screensize.height;
     final double width = screensize.width;
+    String imageUrl = itemImage ?? defaultImage;
     return Stack(children: [
       Container(
         width: width * 0.897,
@@ -51,7 +56,7 @@ class ItemsCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(18.21),
                     child: Image.asset(
-                      itemImage!,
+                      imageUrl,
                       fit: BoxFit.fill,
                     ),
                   )),
@@ -129,9 +134,9 @@ class ItemsCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(100),
               color: const Color(0xFFFE724C),
             ),
-            child: const Text(
-              '6',
-              style: TextStyle(
+            child: Text(
+              "$quantity",
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
                 fontFamily: 'Poppins',
@@ -144,7 +149,7 @@ class ItemsCard extends StatelessWidget {
         top: height * 0.239,
         left: width * 0.037,
         child: Text(
-          itemName!, //itemname
+          itemName, //itemname
           style: const TextStyle(
             color: Colors.black,
             fontSize: 18.21,
@@ -158,7 +163,7 @@ class ItemsCard extends StatelessWidget {
         top: height * 0.274,
         left: width * 0.037,
         child: Text(
-          category!, //itemsubname
+          category, //itemsubname
           style: const TextStyle(
             color: Color(0xFF5B5B5E),
             fontSize: 14.57,

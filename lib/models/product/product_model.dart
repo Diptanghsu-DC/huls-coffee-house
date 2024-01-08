@@ -8,9 +8,9 @@ part 'product_model.g.dart';
 class ProductModel with _$ProductModel {
   const ProductModel._();
   const factory ProductModel({
-    required String imageURL,
+    String? imageURL,
     required String itemName,
-    required String itemDesc,
+    String? itemDesc,
     required String category,
     required num price,
     required num quantity,
@@ -23,9 +23,9 @@ class ProductModel with _$ProductModel {
 
   bool get isAvailable {
     if (quantity == 0) {
-      return true;
-    } else {
       return false;
+    } else {
+      return true;
     }
   }
 }

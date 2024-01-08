@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/controllers/services/product/product_controller.dart';
 import 'package:huls_coffee_house/models/models.dart';
+import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/itemscard.dart';
 
 class ViewAll extends StatefulWidget {
-  const ViewAll({super.key});
+  ViewAll({super.key, this.category});
+
+  String? category;
 
   static const String routeName = '/viewall';
 
@@ -48,6 +51,8 @@ class _ViewAllState extends State<ViewAll> {
     final double height = screensize.height;
     final double width = screensize.width;
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: const GoBackButton(),
       body: Column(children: [
         Container(
           margin: EdgeInsets.fromLTRB(
@@ -117,55 +122,62 @@ class _ViewAllState extends State<ViewAll> {
         ),
         Expanded(
           child: Padding(
-              padding: EdgeInsets.fromLTRB(
-                  width * 0.055, height * 0.04, width * 0.055, 0),
-              child: StreamBuilder<List<ProductModel>>(
-                stream: ProductController.get(),
-                builder: (context, snapshot) {
-                  List<ProductModel> products = [];
-                  if (snapshot.hasData) {
-                    products = snapshot.data ?? [];
-                  }
-                  return Expanded(
-                      child: snapshot.connectionState == ConnectionState.waiting
+            padding: EdgeInsets.fromLTRB(
+                width * 0.055, height * 0.04, width * 0.055, 0),
+            child: StreamBuilder<List<ProductModel>>(
+              stream: widget.category == null
+                  ? ProductController.getAll()
+                  : ProductController.get(category: widget.category),
+              builder: (context, snapshot) {
+                List<ProductModel> products = [];
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (snapshot.hasData) {
+                  products = snapshot.data ?? [];
+                }
+                return Expanded(
+                  child: snapshot.connectionState == ConnectionState.waiting
+                      ? const Center(
+                          child: SizedBox(
+                            height: 45,
+                            width: 45,
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+                      : products.isEmpty
                           ? const Center(
-                              child: SizedBox(
-                                height: 45,
-                                width: 45,
-                                child: CircularProgressIndicator(),
+                              child: Text(
+                                "No product found",
+                                style: TextStyle(color: Colors.black),
                               ),
                             )
-                          : products.isEmpty
-                              ? const Center(
-                                  child: Text(
-                                    "No product found",
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                )
-                              : ListView.builder(
-                                  itemCount: products.length,
-                                  itemBuilder: (context, index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => ViewProduct(
-                                                  product: products[index]),
-                                            ));
-                                      },
-                                      child: ItemsCard(
-                                        itemImage: products[index].imageURL,
-                                        itemName: products[index].itemName,
-                                        itemPrice: products[index].price,
-                                        itemRating: products[index].ratings,
-                                        category: products[index].category,
-                                      ),
-                                    );
+                          : ListView.builder(
+                              itemCount: products.length,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ViewProduct(
+                                              product: products[index]),
+                                        ));
                                   },
-                                ));
-                },
-              )),
+                                  child: ItemsCard(
+                                    itemImage: products[index].imageURL,
+                                    itemName: products[index].itemName,
+                                    itemPrice: products[index].price,
+                                    itemRating: products[index].ratings,
+                                    category: products[index].category,
+                                    quantity: products[index].quantity,
+                                  ),
+                                );
+                              },
+                            ),
+                );
+              },
+            ),
+          ),
         ),
       ]),
     );
