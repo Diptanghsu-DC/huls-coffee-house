@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/addons.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/addtocart.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/checkout.dart';
@@ -36,6 +38,8 @@ class _ViewProductState extends State<ViewProduct> {
     final double width = screensize.width;
 
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: const GoBackButton(),
       backgroundColor: Colors.white,
       body: Column(
         children: [
@@ -51,7 +55,7 @@ class _ViewProductState extends State<ViewProduct> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image(
-                  image: AssetImage(widget.product.imageURL),
+                  image: AssetImage(widget.product.imageURL ?? defaultImage),
                   fit: BoxFit.cover,
                 ),
               )),
@@ -182,11 +186,15 @@ class _ViewProductState extends State<ViewProduct> {
           SizedBox(
             height: height * 0.0225,
           ),
-          const CheckoutButton(),
+          CheckoutButton(
+            product: widget.product,
+          ),
           SizedBox(
             height: height * 0.1325,
           ),
-          AddtoCartButton()
+          AddToCartButton(
+            product: widget.product,
+          )
         ],
       ),
     );

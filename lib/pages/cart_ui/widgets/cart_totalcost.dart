@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/controllers/services/user/user_controller.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/colors.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/styles.dart';
 import 'package:huls_coffee_house/pages/checkout_page/checkout_page.dart';
@@ -16,6 +17,7 @@ class CartTotalCost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    getSize(context);
     double totalCost = totalFunc();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -71,8 +73,11 @@ class CartTotalCost extends StatelessWidget {
               height: height * 0.075,
               child: CustomButton(
                 text: "CHECKOUT",
-                onPressed: () =>
-                    Navigator.pushNamed(context, CheckoutPage.routeName),
+                onPressed: () => Navigator.pushNamed(
+                  context,
+                  CheckoutPage.routeName,
+                  arguments: {'checkoutItems': UserController.cartList},
+                ),
               ),
             )),
       ],

@@ -15,5 +15,5 @@ Future<void> _deleteImpl(OrderModel order) async {
 
   await querySnapshot.docs.first.reference.delete();
 
-  OrderController.orderQueue.removeAt(0);
+  OrderController.orderQueue.remove(order);
 }

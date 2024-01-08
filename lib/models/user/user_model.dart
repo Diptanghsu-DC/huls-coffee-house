@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:huls_coffee_house/models/models.dart';
 
 part 'user_model.freezed.dart';
 
