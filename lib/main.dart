@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
+import 'package:huls_coffee_house/pages/splash_screen/splash_screen.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
 import 'package:huls_coffee_house/pages/view_product_page/test.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
           textTheme:
               const TextTheme(bodySmall: TextStyle(fontFamily: 'SofiaPro'))),
       routes: {
+        SplashScreen.routeName: (context) => const SplashScreen(),
         Homepage.routeName: (context) => const Homepage(),
         LoginPage.routeName: (context) => const LoginPage(),
         SignupPage.routeName: (context) => const SignupPage(),
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         OtpVerificationPage.routeName: (context) => const OtpVerificationPage(),
         CheckoutPage.routeName: (context) => const CheckoutPage()
       },
-      initialRoute: OtpVerificationPage.routeName,
+      initialRoute: SplashScreen.routeName,
     );
   }
 }
