@@ -117,57 +117,60 @@ class _ViewAllState extends State<ViewAll> {
         ),
         Expanded(
           child: Padding(
-              padding: EdgeInsets.fromLTRB(
-                  width * 0.055, height * 0.04, width * 0.055, 0),
-              child: StreamBuilder<List<ProductModel>>(
-                stream: ProductController.getAll(),
-                builder: (context, snapshot) {
-                  List<ProductModel> products = [];
-                  if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else if (snapshot.hasData) {
-                    products = snapshot.data ?? [];
-                  }
-                  return Expanded(
-                      child: snapshot.connectionState == ConnectionState.waiting
+            padding: EdgeInsets.fromLTRB(
+                width * 0.055, height * 0.04, width * 0.055, 0),
+            child: StreamBuilder<List<ProductModel>>(
+              stream: ProductController.getAll(),
+              builder: (context, snapshot) {
+                List<ProductModel> products = [];
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (snapshot.hasData) {
+                  products = snapshot.data ?? [];
+                }
+                return Expanded(
+                  child: snapshot.connectionState == ConnectionState.waiting
+                      ? const Center(
+                          child: SizedBox(
+                            height: 45,
+                            width: 45,
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+                      : products.isEmpty
                           ? const Center(
-                              child: SizedBox(
-                                height: 45,
-                                width: 45,
-                                child: CircularProgressIndicator(),
+                              child: Text(
+                                "No product found",
+                                style: TextStyle(color: Colors.black),
                               ),
                             )
-                          : products.isEmpty
-                              ? const Center(
-                                  child: Text(
-                                    "No product found",
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                )
-                              : ListView.builder(
-                                  itemCount: products.length,
-                                  itemBuilder: (context, index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => ViewProduct(
-                                                  product: products[index]),
-                                            ));
-                                      },
-                                      child: ItemsCard(
-                                        itemImage: products[index].imageURL,
-                                        itemName: products[index].itemName,
-                                        itemPrice: products[index].price,
-                                        itemRating: products[index].ratings,
-                                        category: products[index].category,
-                                      ),
-                                    );
+                          : ListView.builder(
+                              itemCount: products.length,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ViewProduct(
+                                              product: products[index]),
+                                        ));
                                   },
-                                ));
-                },
-              )),
+                                  child: ItemsCard(
+                                    itemImage: products[index].imageURL,
+                                    itemName: products[index].itemName,
+                                    itemPrice: products[index].price,
+                                    itemRating: products[index].ratings,
+                                    category: products[index].category,
+                                    quantity: products[index].quantity,
+                                  ),
+                                );
+                              },
+                            ),
+                );
+              },
+            ),
+          ),
         ),
       ]),
     );

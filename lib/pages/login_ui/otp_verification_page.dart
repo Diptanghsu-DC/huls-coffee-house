@@ -43,7 +43,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
       context: context,
       asyncTask: () async {
         try {
-          print("otp authentication started...");
+          print("otp authentication started... The otp entered is $otp");
           if (SignupPage.verifyId != otp) {
             throw Exception("Wrong OTP, please try again");
           }

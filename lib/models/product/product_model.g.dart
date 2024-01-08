@@ -8,9 +8,9 @@ part of 'product_model.dart';
 
 _$ProductModelImpl _$$ProductModelImplFromJson(Map<String, dynamic> json) =>
     _$ProductModelImpl(
-      imageURL: json['imageURL'] as String,
+      imageURL: json['imageURL'] as String?,
       itemName: json['itemName'] as String,
-      itemDesc: json['itemDesc'] as String,
+      itemDesc: json['itemDesc'] as String?,
       category: json['category'] as String,
       price: json['price'] as num,
       quantity: json['quantity'] as num,

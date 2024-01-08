@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           LoginPage.routeName: (context) => const LoginPage(),
           SignupPage.routeName: (context) => const SignupPage(),
           ViewAll.routeName: (context) => const ViewAll(),
-          Test.routeName: (context) => const Test(),
+          // Test.routeName: (context) => const Test(),
           CartPage.routeName: (context) => const CartPage(),
           OtpVerificationPage.routeName: (context) =>
               const OtpVerificationPage(),
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           },
           OrderPage.routeName: (context) => const OrderPage(),
         },
-        initialRoute: ViewAll.routeName,
+        initialRoute: LoginPage.routeName,
       ),
     );
   }
