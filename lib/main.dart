@@ -9,9 +9,6 @@ import 'package:huls_coffee_house/utils/local_database/local_database.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: '.env');
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await LocalDatabase.init();
   runApp(const MyApp());
 }
 
