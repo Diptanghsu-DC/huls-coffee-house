@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         OtpVerificationPage.routeName: (context) => const OtpVerificationPage(),
         CheckoutPage.routeName: (context) => const CheckoutPage()
       },
-      initialRoute: LoginPage.routeName,
+      initialRoute: OtpVerificationPage.routeName,
     );
   }
 }

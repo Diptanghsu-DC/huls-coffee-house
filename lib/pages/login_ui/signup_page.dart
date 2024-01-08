@@ -361,10 +361,6 @@ class _SignupPageState extends State<SignupPage> {
                           SizedBox(
                             height: sGap,
                           ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [FBButton(), GoogleButton()],
-                          )
                         ],
                       ),
                     ),
