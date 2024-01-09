@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/cart.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/splash_screen/splash_screen.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
             textTheme:
                 const TextTheme(bodySmall: TextStyle(fontFamily: 'SofiaPro'))),
         routes: {
-          SplashScreen.routeName: (context) => const SplashScreen()
+          SplashScreen.routeName: (context) => const SplashScreen(),
           Homepage.routeName: (context) => const Homepage(),
           LoginPage.routeName: (context) => const LoginPage(),
           SignupPage.routeName: (context) => const SignupPage(),
@@ -42,8 +43,9 @@ class MyApp extends StatelessWidget {
             return CheckoutPage(checkoutItems: checkoutItems);
           },
           OrderPage.routeName: (context) => const OrderPage(),
+          Inventory.routeName: (context) => Inventory(),
         },
-        initialRoute: SplashScreen.routeName,
+        initialRoute: Inventory.routeName,
       ),
     );
   }
