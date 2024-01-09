@@ -13,9 +13,9 @@ import 'package:huls_coffee_house/pages/view_product_page/test.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: '.env');
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await LocalDatabase.init();
+  // await dotenv.load(fileName: '.env');
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // await LocalDatabase.init();
   runApp(const MyApp());
 }
 
