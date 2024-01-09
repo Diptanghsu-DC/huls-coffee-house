@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
             textTheme:
                 const TextTheme(bodySmall: TextStyle(fontFamily: 'SofiaPro'))),
         routes: {
-          SplashScreen.routeName: (context) => const SplashScreen()
+          SplashScreen.routeName: (context) => const SplashScreen(),
           Homepage.routeName: (context) => const Homepage(),
           LoginPage.routeName: (context) => const LoginPage(),
           SignupPage.routeName: (context) => const SignupPage(),
