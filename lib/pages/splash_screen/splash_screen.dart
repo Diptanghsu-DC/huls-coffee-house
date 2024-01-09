@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
 
 import '../../controllers/services/user/user_controller.dart';
 import '../../firebase_options.dart';
@@ -44,10 +45,16 @@ class _SplashScreenState extends State<SplashScreen> {
                 LoginPage.routeName, (Route<dynamic> route) => false)
             .then((value) => exit(0));
       } else {
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil(
-                Homepage.routeName, (Route<dynamic> route) => false)
-            .then((value) => exit(0));
+        if (UserController.currentUser!.isSeller) {
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil(Inventory.routeName, (route) => false)
+              .then((value) => exit(0));
+        } else {
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil(
+                  Homepage.routeName, (Route<dynamic> route) => false)
+              .then((value) => exit(0));
+        }
       }
     });
   }

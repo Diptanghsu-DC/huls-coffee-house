@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:huls_coffee_house/pages/orders/widgets/order_stream.dart';
+import 'package:huls_coffee_house/pages/admin/orders/widgets/order_stream.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
 
 class OrderPage extends StatelessWidget {
