@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/services/user/user_controller.dart';
+import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
@@ -50,11 +51,16 @@ class _LoginPageState extends State<LoginPage> {
         onCompleted: () {
           if (isUserLogged) {
             if (user != null) {
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                Homepage.routeName,
-                (route) => false,
-              );
+              if (UserController.currentUser!.isSeller) {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, Inventory.routeName, (route) => false);
+              } else {
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  Homepage.routeName,
+                  (route) => false,
+                );
+              }
             }
           }
         },

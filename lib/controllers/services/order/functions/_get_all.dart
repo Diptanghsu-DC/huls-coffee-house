@@ -4,10 +4,13 @@ Stream<List<OrderModel>> _getAllImpl({
   bool forceGet = false,
 }) async* {
   print("entering fetch from backend...");
-  List<OrderModel> filteredModels = await _fetchAllFromBackend(
-    forceGet: forceGet,
-  );
-  yield filteredModels;
+  while (true) {
+    List<OrderModel> filteredModels = await _fetchAllFromBackend(
+      forceGet: forceGet,
+    );
+    yield filteredModels;
+    await Future.delayed(const Duration(seconds: 150));
+  }
 }
 
 Future<List<OrderModel>> _fetchAllFromBackend({
@@ -37,9 +40,9 @@ Future<List<OrderModel>> _fetchAllFromBackend({
     return orders;
   }
 
-  List<Map<String, dynamic>> res = [
-    querySnapshot.docs.first.data() as Map<String, dynamic>
-  ];
+  List<Map<String, dynamic>> res = querySnapshot.docs
+      .map((doc) => doc.data() as Map<String, dynamic>)
+      .toList();
 
   print("List of order created");
   // await db.find(selectorBuilder).toList();
