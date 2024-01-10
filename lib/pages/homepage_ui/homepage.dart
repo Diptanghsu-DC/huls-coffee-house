@@ -1,13 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
-import 'package:huls_coffee_house/controllers/controllers.dart';
-import 'package:huls_coffee_house/pages/homepage_ui/widgets/category/category_selector.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/widgets/category/category_view.dart';
-import 'package:huls_coffee_house/pages/homepage_ui/widgets/popular/popular_item.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/widgets/popular/popular_viewer.dart';
 import 'package:huls_coffee_house/pages/sidemenu/sidemenudrawer.dart';
-import 'package:huls_coffee_house/utils/screen_size.dart';
 import 'package:huls_coffee_house/widgets/custom_bottom_navigation_bar/custom_bottom_navigation.dart';
 import 'package:huls_coffee_house/widgets/widgets.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
@@ -27,7 +22,7 @@ class _HomepageState extends State<Homepage> {
   final TextEditingController _searchController = TextEditingController();
   int _currentIndex = 2;
 
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void bottomNavigator(int index) {
     setState(() {
@@ -157,18 +152,15 @@ class _HomepageState extends State<Homepage> {
           Positioned(
             left: 15,
             top: 35,
-            child: Container(
-              // width: width,
-              child: IconButton(
-                onPressed: () {
-                  if (_scaffoldKey.currentState != null) {
-                    _scaffoldKey.currentState!.openDrawer();
-                  }
-                },
-                icon: const Icon(Icons.menu),
-                style: IconButton.styleFrom(
-                  backgroundColor: Colors.white,
-                ),
+            child: IconButton(
+              onPressed: () {
+                if (_scaffoldKey.currentState != null) {
+                  _scaffoldKey.currentState!.openDrawer();
+                }
+              },
+              icon: const Icon(Icons.menu),
+              style: IconButton.styleFrom(
+                backgroundColor: Colors.white,
               ),
             ),
           ),
