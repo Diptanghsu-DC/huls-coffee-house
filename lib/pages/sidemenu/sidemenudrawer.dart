@@ -4,6 +4,7 @@ import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/pages/Sidemenu/sidemenilistclass.dart';
 import 'package:huls_coffee_house/pages/Sidemenu/sidemenucard.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
+import 'package:huls_coffee_house/pages/pages.dart';
 
 Widget buildCustomDrawer(BuildContext context) {
   double height = MediaQuery.of(context).size.height;
@@ -110,7 +111,8 @@ Widget buildCustomDrawer(BuildContext context) {
                     )
                   ],
                 ),
-                child: CustomButton(text: "SIGN OUT", onPressed: () => UserController.logOut(),)
+                child: CustomButton(text: "SIGN OUT", onPressed: () { UserController.logOut();
+                Navigator.pushNamedAndRemoveUntil(context, LoginPage.routeName, (route) => false);})
               ),
             ],
           ),

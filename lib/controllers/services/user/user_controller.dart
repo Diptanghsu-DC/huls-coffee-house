@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/utils/database/constants.dart';
@@ -96,5 +97,6 @@ class UserController {
   static Future<void> logOut() async {
     currentUser = null;
     await _save();
+    debugPrint("logged out");
   }
 }
