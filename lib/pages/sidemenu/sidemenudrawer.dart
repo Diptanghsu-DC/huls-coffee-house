@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/pages/Sidemenu/sidemenilistclass.dart';
 import 'package:huls_coffee_house/pages/Sidemenu/sidemenucard.dart';
+import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 
 Widget buildCustomDrawer(BuildContext context) {
   double height = MediaQuery.of(context).size.height;
@@ -19,7 +22,7 @@ Widget buildCustomDrawer(BuildContext context) {
               Container(
                 width: width * 0.277,
                 height: height * 0.125,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   shape: BoxShape.circle,
                   boxShadow: [
@@ -41,13 +44,13 @@ Widget buildCustomDrawer(BuildContext context) {
         SizedBox(height: width * 0.025),
         Padding(
           padding: EdgeInsets.only(left: width * 0.1),
-          child: Text(
+          child: const Text(
           // This function should be defined  
           'Username',
             style: TextStyle(
               color: Color(0xFF565656),
               fontSize: 20,
-              fontFamily: 'Lato',
+              fontFamily: 'SofiaPro',
               fontWeight: FontWeight.w900,
             ),
           ),
@@ -60,7 +63,7 @@ Widget buildCustomDrawer(BuildContext context) {
                 padding: EdgeInsets.only(left: width * 0.0388),
                 child: Container(
                   width: 4,
-                  color: Color(0xFFE68969),
+                  color: const Color(0xFFE68969),
                 ),
               ),
               Expanded(
@@ -90,44 +93,24 @@ Widget buildCustomDrawer(BuildContext context) {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              InkWell(
-                onTap: () {
-                 
-                },
-                child: Container(
-                  width: width * 0.5277,
-                  height: height * 0.05875,
-                  decoration: ShapeDecoration(
-                    color: Color(0xFFF17306),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    shadows: [
-                      BoxShadow(
-                        color: Color(0x3F000000),
-                        blurRadius: 4,
-                        offset: Offset(0, 4),
-                        spreadRadius: 0,
-                      )
-                    ],
+              Container(
+                width: width * 0.5277,
+                height: height * 0.05875,
+                decoration: ShapeDecoration(
+                  color: orange,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Sign Out ',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w700,
-                          height: 0,
-                          letterSpacing: 0.65,
-                        ),
-                      )
-                    ],
-                  ),
+                  shadows: const [
+                    BoxShadow(
+                      color: Color(0x3F000000),
+                      blurRadius: 4,
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                    )
+                  ],
                 ),
+                child: CustomButton(text: "SIGN OUT", onPressed: () => UserController.logOut(),)
               ),
             ],
           ),
