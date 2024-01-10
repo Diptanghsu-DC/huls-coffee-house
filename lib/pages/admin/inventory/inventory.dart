@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:huls_coffee_house/models/models.dart';
+import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/utils/item_class.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/widgets/add_item.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/widgets/add_new_item.dart';
-import 'package:huls_coffee_house/pages/admin/inventory/widgets/edit_item_box.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/widgets/product_stream.dart';
+import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/widgets/custom_bottom_navigation_bar/custom_bottom_navigation.dart';
 
 import 'widgets/search_bar.dart';
 
 class Inventory extends StatefulWidget {
-  Inventory({super.key});
+  const Inventory({super.key});
 
   static const String routeName = "/inventory";
 
@@ -37,56 +37,34 @@ class _InventoryState extends State<Inventory> {
       bottomNavigationBar: CustomBottomNavigation(
           currentIndex: _currentIndex, onTap: bottomNavigator),
       appBar: AppBar(
-        leading: SizedBox(
-          width: 8.0,
-          height: 8.0,
-          child: ElevatedButton(
-            onPressed: () {
-              // Handle button press
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              elevation: 8.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-            ),
-            child: const Icon(
-              Icons.arrow_back,
-              size: 20.0,
-              color: Colors.black,
-            ),
-          ),
-        ),
+        leading: const GoBackButton(),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 8),
           MySearchBar(
             onSearch: (query) {
               updateFilteredItems(query);
             },
           ),
-          const SizedBox(height: 16),
           // for (Item item
           //     in filteredItems.isNotEmpty ? filteredItems : items) ...[
           //   ElevatedItemBox(item: item),
           //   const SizedBox(height: 16),
           // ],
-          ProductStream(),
+          const ProductStream(),
           ElevatedAddAnotherItem(
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddNewItem(),
+                  builder: (context) => const AddNewItem(),
                 ),
               );
-              setState(() {});
             },
           ),
-        ],
+          const SizedBox(height: 10,)
+        ].separate(10),
       ),
     );
   }

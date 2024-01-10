@@ -18,7 +18,7 @@ class _MySearchBarState extends State<MySearchBar> {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 245, 245, 245),
+          color: Colors.white,
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(color: Colors.grey),
         ),
@@ -26,7 +26,7 @@ class _MySearchBarState extends State<MySearchBar> {
           children: [
             const Padding(
               padding: EdgeInsets.all(8.0),
-              child: Icon(Icons.search),
+              child: Icon(Icons.search, color: Colors.grey,),
             ),
             Expanded(
               child: TextFormField(
@@ -35,6 +35,7 @@ class _MySearchBarState extends State<MySearchBar> {
                 },
                 decoration: const InputDecoration(
                   hintText: "Search",
+                  hintStyle: TextStyle(fontFamily: 'SofiaPro'),
                   border: InputBorder.none,
                 ),
               ),

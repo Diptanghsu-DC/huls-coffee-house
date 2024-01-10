@@ -52,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
         } else {
           Navigator.of(context)
               .pushNamedAndRemoveUntil(
-                  Homepage.routeName, (Route<dynamic> route) => false)
+                  Homepage.routeName, (route) => false)
               .then((value) => exit(0));
         }
       }

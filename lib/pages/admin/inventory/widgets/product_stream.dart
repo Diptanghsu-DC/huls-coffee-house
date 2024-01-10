@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/utils/item_class.dart';
-import 'package:huls_coffee_house/pages/admin/inventory/widgets/edit_item_box.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/widgets/item_box.dart';
 
 class ProductStream extends StatefulWidget {
@@ -22,7 +21,7 @@ class _ProductStreamState extends State<ProductStream> {
         if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text('Loading...');
+          return const Text('Loading...');
         } else {
           final products = snapshot.data!;
           return Expanded(

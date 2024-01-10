@@ -10,8 +10,14 @@ class AddNewItem extends StatelessWidget {
   Widget build(context) {
     final Item item = Item();
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      floatingActionButton: const GoBackButton(),
+      appBar: AppBar(
+        leading: const GoBackButton(),
+        centerTitle: true,
+        title: const Text(
+          "Add Item",
+          style: TextStyle(fontFamily: 'SofiaPro', fontWeight: FontWeight.bold),
+        ),
+      ),
       body: ElevatedItemBox(item: item),
     );
   }
