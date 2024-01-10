@@ -25,6 +25,8 @@ class _HomepageState extends State<Homepage> {
   final TextEditingController _searchController = TextEditingController();
   int _currentIndex = 2;
 
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   void bottomNavigator(int index) {
     setState(() {
       _currentIndex = index;
@@ -39,6 +41,7 @@ class _HomepageState extends State<Homepage> {
     return Stack(
       children: [
         Scaffold(
+          key: _scaffoldKey,
           drawer: buildCustomDrawer(context),
             body: CustomBackground(
               bodyWidget: Padding(
@@ -150,7 +153,9 @@ class _HomepageState extends State<Homepage> {
             // width: width,
             child: IconButton(
               onPressed: () {
-                Scaffold.of(context).openDrawer();
+                if (_scaffoldKey.currentState != null) {
+                  _scaffoldKey.currentState!.openDrawer();
+                }
               },
               icon: const Icon(Icons.menu),
               style: IconButton.styleFrom(
