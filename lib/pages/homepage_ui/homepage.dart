@@ -149,7 +149,9 @@ class _HomepageState extends State<Homepage> {
           child: Container(
             // width: width,
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
               icon: const Icon(Icons.menu),
               style: IconButton.styleFrom(
                 backgroundColor: Colors.white,
