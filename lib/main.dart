@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           OrderSuccessfulPage.routeName: (context) =>
               const OrderSuccessfulPage()
         },
-        initialRoute: OrderSuccessfulPage.routeName,
+        initialRoute: SplashScreen.routeName,
       ),
     );
   }
