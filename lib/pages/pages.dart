@@ -6,3 +6,4 @@ export 'view_product_page/viewproduct.dart';
 export 'login_ui/otp_verification_page.dart';
 export 'checkout_page/checkout_page.dart';
 export 'admin/orders/order_page.dart';
+export 'order_successful_page/order_successful_page.dart';
