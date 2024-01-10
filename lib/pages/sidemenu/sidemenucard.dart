@@ -42,7 +42,7 @@ class SideMenuCrad extends StatelessWidget {
               SizedBox(
                 width: width * 0.02,
               ),
-              Image.asset('assets/icons/$iconname.png'),
+              Image.asset('assets/images/$iconname.png'),
               SizedBox(
                 width: width * 0.06,
               ),

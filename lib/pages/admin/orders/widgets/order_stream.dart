@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/order/order_model.dart';
-import 'package:huls_coffee_house/pages/orders/widgets/order_card.dart';
+import 'package:huls_coffee_house/pages/admin/orders/widgets/order_card.dart';
 
 class OrderStream extends StatelessWidget {
   const OrderStream({

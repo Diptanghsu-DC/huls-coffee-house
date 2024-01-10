@@ -150,7 +150,7 @@ class _HomepageState extends State<Homepage> {
             // width: width,
             child: IconButton(
               onPressed: () {
-                buildCustomDrawer(context);
+                Scaffold.of(context).openDrawer();
               },
               icon: const Icon(Icons.menu),
               style: IconButton.styleFrom(

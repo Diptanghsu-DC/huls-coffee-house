@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/cart.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/splash_screen/splash_screen.dart';
+import 'package:huls_coffee_house/utils/local_database/local_database.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +13,9 @@ import 'package:huls_coffee_house/pages/view_product_page/test.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // await dotenv.load(fileName: '.env');
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // await LocalDatabase.init();
   runApp(const MyApp());
 }
 
@@ -42,6 +48,7 @@ class MyApp extends StatelessWidget {
             return CheckoutPage(checkoutItems: checkoutItems);
           },
           OrderPage.routeName: (context) => const OrderPage(),
+          Inventory.routeName: (context) => Inventory(),
         },
         initialRoute: SplashScreen.routeName,
       ),
