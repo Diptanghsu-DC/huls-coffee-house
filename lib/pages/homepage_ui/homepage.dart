@@ -6,6 +6,7 @@ import 'package:huls_coffee_house/pages/homepage_ui/widgets/category/category_se
 import 'package:huls_coffee_house/pages/homepage_ui/widgets/category/category_view.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/widgets/popular/popular_item.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/widgets/popular/popular_viewer.dart';
+import 'package:huls_coffee_house/pages/sidemenu/sidemenudrawer.dart';
 import 'package:huls_coffee_house/utils/screen_size.dart';
 import 'package:huls_coffee_house/widgets/custom_bottom_navigation_bar/custom_bottom_navigation.dart';
 import 'package:huls_coffee_house/widgets/widgets.dart';
@@ -38,6 +39,7 @@ class _HomepageState extends State<Homepage> {
     return Stack(
       children: [
         Scaffold(
+          drawer: buildCustomDrawer(context),
             body: CustomBackground(
               bodyWidget: Padding(
                 padding: const EdgeInsets.only(
@@ -147,7 +149,9 @@ class _HomepageState extends State<Homepage> {
           child: Container(
             // width: width,
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                buildCustomDrawer(context);
+              },
               icon: const Icon(Icons.menu),
               style: IconButton.styleFrom(
                 backgroundColor: Colors.white,
