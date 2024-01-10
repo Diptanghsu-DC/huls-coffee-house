@@ -3,10 +3,13 @@ import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/utils/item_class.dart';
 
+import '../../../../config/config.dart';
+
 class ElevatedItemBox extends StatefulWidget {
   final Item item;
 
   const ElevatedItemBox({super.key, required this.item});
+
   @override
   State<ElevatedItemBox> createState() {
     return _ElevatedItemBoxState();
@@ -15,6 +18,7 @@ class ElevatedItemBox extends StatefulWidget {
 
 class _ElevatedItemBoxState extends State<ElevatedItemBox> {
   late num counter = widget.item.count;
+
   void incrementCounter() {
     setState(() {
       counter++;
@@ -44,7 +48,7 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 3,
+              spreadRadius: 1,
               blurRadius: 5,
               offset: const Offset(0, 3),
             ),
@@ -73,6 +77,8 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
                   child: TextFormField(
                     controller: widget.item.itemNameController,
                     decoration: InputDecoration(
+                      hintStyle: const TextStyle(
+                          fontFamily: 'SofiaPro', fontWeight: FontWeight.bold),
                       hintText: widget.item.product?.itemName ?? "Add Text",
                       border: InputBorder.none,
                     ),
@@ -84,16 +90,16 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
                       width: 40,
                       height: 40,
                       decoration: const BoxDecoration(
-                        color: Colors.orange,
+                        color: orange,
                         shape: BoxShape.circle,
                       ),
                       child: Center(
                         child: Text(
                           "$counter",
                           style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'SofiaPro'),
                         ),
                       ),
                     ),
@@ -105,13 +111,14 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
                             const Color.fromARGB(255, 255, 255, 255),
-                        elevation: 8.0,
-                        shadowColor: Colors.orange,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
-                      child: const Icon(Icons.add),
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.black,
+                      ),
                     ),
                     const SizedBox(width: 8),
                     ElevatedButton(
@@ -119,13 +126,15 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
                             const Color.fromARGB(255, 255, 255, 255),
-                        elevation: 8.0,
-                        shadowColor: Colors.orange,
+                        shadowColor: orange,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
-                      child: const Icon(Icons.remove),
+                      child: const Icon(
+                        Icons.remove,
+                        color: Colors.black,
+                      ),
                     ),
                   ],
                 ),
@@ -135,6 +144,7 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
             TextField(
               controller: widget.item.descriptionController,
               decoration: InputDecoration(
+                hintStyle: const TextStyle(fontFamily: 'SofiaPro'),
                 hintText: widget.item.product?.itemDesc ?? "Add Desc",
                 border: InputBorder.none,
               ),
@@ -160,9 +170,7 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange,
-                  elevation: 10.0,
-                  shadowColor: Colors.orange,
+                  backgroundColor: orange,
                   shape: const CircleBorder(),
                   minimumSize: const Size(55.0, 55.0),
                 ),

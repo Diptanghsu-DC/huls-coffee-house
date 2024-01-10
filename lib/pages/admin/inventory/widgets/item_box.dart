@@ -117,7 +117,7 @@ class _ItemBoxState extends State<ItemBox> {
                   const SizedBox(height: 4),
                   Text(
                     widget.item.product!.itemDesc ?? "",
-                    style: TextStyle(fontFamily: 'SofiaPro'),
+                    style: const TextStyle(fontFamily: 'SofiaPro'),
                   ),
                   Align(
                     alignment: Alignment.bottomRight,
