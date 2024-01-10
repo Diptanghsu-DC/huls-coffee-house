@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/utils/item_class.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/widgets/add_item.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/widgets/add_new_item.dart';
@@ -41,13 +42,11 @@ class _InventoryState extends State<Inventory> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 8),
           MySearchBar(
             onSearch: (query) {
               updateFilteredItems(query);
             },
           ),
-          const SizedBox(height: 16),
           // for (Item item
           //     in filteredItems.isNotEmpty ? filteredItems : items) ...[
           //   ElevatedItemBox(item: item),
@@ -62,10 +61,10 @@ class _InventoryState extends State<Inventory> {
                   builder: (context) => const AddNewItem(),
                 ),
               );
-              setState(() {});
             },
           ),
-        ],
+          const SizedBox(height: 10,)
+        ].separate(10),
       ),
     );
   }
