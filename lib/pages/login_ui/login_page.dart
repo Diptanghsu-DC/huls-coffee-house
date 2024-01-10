@@ -261,29 +261,29 @@ class _LoginPageState extends State<LoginPage> {
                               SizedBox(
                                 height: sGap,
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Container(
-                                    color: lineColor,
-                                    height: lineHeight,
-                                    width: lineWidth,
-                                  ),
-                                  Text(
-                                    "Sign in with",
-                                    style: TextStyle(
-                                        color: fontColor2,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'SofiaPro'),
-                                  ),
-                                  Container(
-                                    color: lineColor,
-                                    height: lineHeight,
-                                    width: lineWidth,
-                                  ),
-                                ],
-                              ),
+                              // Row(
+                              //   mainAxisAlignment:
+                              //       MainAxisAlignment.spaceEvenly,
+                              //   children: [
+                              //     Container(
+                              //       color: lineColor,
+                              //       height: lineHeight,
+                              //       width: lineWidth,
+                              //     ),
+                              //     Text(
+                              //       "Sign in with",
+                              //       style: TextStyle(
+                              //           color: fontColor2,
+                              //           fontWeight: FontWeight.w500,
+                              //           fontFamily: 'SofiaPro'),
+                              //     ),
+                              //     Container(
+                              //       color: lineColor,
+                              //       height: lineHeight,
+                              //       width: lineWidth,
+                              //     ),
+                              //   ],
+                              // ),
                               SizedBox(
                                 height: sGap,
                               ),

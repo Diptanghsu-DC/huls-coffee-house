@@ -336,28 +336,28 @@ class _SignupPageState extends State<SignupPage> {
                           SizedBox(
                             height: sGap,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                color: lineColor,
-                                height: lineHeight,
-                                width: lineWidth,
-                              ),
-                              Text(
-                                "Sign up with",
-                                style: TextStyle(
-                                    color: fontColor2,
-                                    fontFamily: 'SofiaPro',
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              Container(
-                                color: lineColor,
-                                height: lineHeight,
-                                width: lineWidth,
-                              ),
-                            ],
-                          ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //   children: [
+                          //     Container(
+                          //       color: lineColor,
+                          //       height: lineHeight,
+                          //       width: lineWidth,
+                          //     ),
+                          //     Text(
+                          //       "Sign up with",
+                          //       style: TextStyle(
+                          //           color: fontColor2,
+                          //           fontFamily: 'SofiaPro',
+                          //           fontWeight: FontWeight.w500),
+                          //     ),
+                          //     Container(
+                          //       color: lineColor,
+                          //       height: lineHeight,
+                          //       width: lineWidth,
+                          //     ),
+                          //   ],
+                          // ),
                           SizedBox(
                             height: sGap,
                           ),
