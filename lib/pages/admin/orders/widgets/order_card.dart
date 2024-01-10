@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
 
 class OrderCard extends StatelessWidget {
@@ -76,7 +77,7 @@ class OrderCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w400,
                             fontSize: width * 0.045,
                             fontFamily: "SofiaPro",
                           ),
@@ -85,7 +86,7 @@ class OrderCard extends StatelessWidget {
                       Text(
                         ": $quantity",
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w400,
                           fontSize: width * 0.045,
                           fontFamily: "SofiaPro",
                         ),
@@ -93,7 +94,7 @@ class OrderCard extends StatelessWidget {
                       Text(
                         ": $userName",
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w400,
                           fontSize: width * 0.045,
                           fontFamily: "SofiaPro",
                         ),
@@ -101,7 +102,7 @@ class OrderCard extends StatelessWidget {
                       Text(
                         ": $userPhone",
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w400,
                           fontSize: width * 0.045,
                           fontFamily: "SofiaPro",
                         ),
@@ -113,30 +114,8 @@ class OrderCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: orange, foregroundColor: Colors.white),
-                    child: const Text(
-                      "Accept",
-                      style: TextStyle(
-                        fontFamily: "SofiaPro",
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: orange, foregroundColor: Colors.white),
-                    child: const Text(
-                      "Decline",
-                      style: TextStyle(
-                        fontFamily: "SofiaPro",
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  CustomButton(text: "Accept"),
+                  CustomButton(text: "Decline")
                 ],
               )
             ].separate(10),

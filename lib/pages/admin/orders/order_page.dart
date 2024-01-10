@@ -1,26 +1,43 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/pages/admin/orders/widgets/order_stream.dart';
+import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
 
-class OrderPage extends StatelessWidget {
+import '../../../widgets/custom_bottom_navigation_bar/custom_bottom_navigation.dart';
+
+class OrderPage extends StatefulWidget {
   const OrderPage({super.key});
+
   static const String routeName = '/orderPage';
+
+  @override
+  State<OrderPage> createState() => _OrderPageState();
+}
+
+class _OrderPageState extends State<OrderPage> {
+  int _currentIndex = 0;
+
+  void bottomNavigator(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     getSize(context);
     return Scaffold(
+      bottomNavigationBar: CustomBottomNavigation(
+          currentIndex: _currentIndex, onTap: bottomNavigator),
       // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       appBar: AppBar(
-        leading:
-            IconButton(onPressed: () {}, icon: const Icon(Icons.chevron_left)),
+        leading: const GoBackButton(),
         title: Padding(
           padding: EdgeInsets.only(left: width * 0.23),
-          child: Text("data"),
+          child: const Text("Orders", style: TextStyle(fontFamily: 'SofiaPro', fontWeight: FontWeight.bold),),
         ),
       ),
-      body: OrderStream(),
+      body: const OrderStream(),
     );
   }
 }

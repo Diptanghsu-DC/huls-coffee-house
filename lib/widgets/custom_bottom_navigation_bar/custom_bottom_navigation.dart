@@ -15,6 +15,7 @@ class CustomBottomNavigation extends StatelessWidget {
     required this.currentIndex,
     required this.onTap,
   });
+
   final int currentIndex;
   final Function onTap;
 
@@ -70,6 +71,7 @@ class CustomBottomNavigation extends StatelessWidget {
             ],
           )
         : BottomNavigationBar(
+            currentIndex: currentIndex,
             selectedItemColor: orange,
             type: BottomNavigationBarType.fixed,
             onTap: (index) {
