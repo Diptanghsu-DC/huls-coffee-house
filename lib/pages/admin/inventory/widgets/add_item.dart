@@ -27,15 +27,15 @@ class ElevatedAddAnotherItem extends StatelessWidget {
             ),
           ],
         ),
-        child: Row(
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Icon(
+            Icon(
               Icons.add_circle_outline_sharp,
               size: 40.0,
               color: orange,
             ),
-            const Text(
+            Text(
               "Add Another Item",
               style: TextStyle(
                 fontFamily: 'SofiaPro',
@@ -43,7 +43,7 @@ class ElevatedAddAnotherItem extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            const Icon(
+            Icon(
               Icons.arrow_forward_ios_sharp,
               size: 20.0,
               color: Color.fromARGB(255, 53, 53, 53),

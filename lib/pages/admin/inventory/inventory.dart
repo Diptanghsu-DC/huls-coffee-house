@@ -36,7 +36,7 @@ class _InventoryState extends State<Inventory> {
       bottomNavigationBar: CustomBottomNavigation(
           currentIndex: _currentIndex, onTap: bottomNavigator),
       appBar: AppBar(
-        leading: GoBackButton(),
+        leading: const GoBackButton(),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
