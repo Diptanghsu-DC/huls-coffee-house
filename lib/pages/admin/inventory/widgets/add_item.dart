@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../config/config.dart';
+
 class ElevatedAddAnotherItem extends StatelessWidget {
   final VoidCallback onTap;
 
@@ -31,17 +33,14 @@ class ElevatedAddAnotherItem extends StatelessWidget {
             const Icon(
               Icons.add_circle_outline_sharp,
               size: 40.0,
-              color: Colors.orange,
+              color: orange,
             ),
-            Transform.translate(
-              offset: const Offset(-400.0, 0.0),
-              child: const Text(
-                "Add Another Item",
-                style: TextStyle(
-                  fontSize: 25.0,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
+            const Text(
+              "Add Another Item",
+              style: TextStyle(
+                fontFamily: 'SofiaPro',
+                fontSize: 20,
+                color: Colors.black,
               ),
             ),
             const Icon(

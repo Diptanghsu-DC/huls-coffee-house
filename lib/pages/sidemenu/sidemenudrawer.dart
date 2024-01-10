@@ -102,14 +102,6 @@ Widget buildCustomDrawer(BuildContext context) {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  shadows: const [
-                    BoxShadow(
-                      color: Color(0x3F000000),
-                      blurRadius: 4,
-                      offset: Offset(0, 4),
-                      spreadRadius: 0,
-                    )
-                  ],
                 ),
                 child: CustomButton(text: "SIGN OUT", onPressed: () { UserController.logOut();
                 Navigator.pushNamedAndRemoveUntil(context, LoginPage.routeName, (route) => false);})

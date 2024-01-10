@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             return CheckoutPage(checkoutItems: checkoutItems);
           },
           OrderPage.routeName: (context) => const OrderPage(),
-          Inventory.routeName: (context) => Inventory(),
+          Inventory.routeName: (context) => const Inventory(),
           OrderSuccessfulPage.routeName: (context) =>
               const OrderSuccessfulPage()
         },
