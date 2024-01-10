@@ -140,7 +140,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     OrderController.create(myOrder);
                     UserController.orderList.add(myOrder);
                     toastMessage("Order Placed Successfully");
-                    Navigator.pop(context);
+                    Navigator.pushNamedAndRemoveUntil(context,
+                        OrderSuccessfulPage.routeName, (route) => false);
                   }
                 },
                 leadingIcon: Icons.list_alt_sharp,
