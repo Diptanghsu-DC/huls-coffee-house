@@ -20,14 +20,13 @@ class _OrderSuccessfulPageState extends State<OrderSuccessfulPage>
   late Animation<double> _scaleAnimation;
   late Animation<Offset> _slideAnimation;
 
-
   @override
   void initState() {
     super.initState();
 
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
     );
 
     _scaleAnimation = Tween<double>(begin: 0, end: 1).animate(
@@ -38,7 +37,7 @@ class _OrderSuccessfulPageState extends State<OrderSuccessfulPage>
     );
 
     _slideAnimation = Tween<Offset>(
-      begin: Offset(-1.0, 0.0),
+      begin: const Offset(-1.0, 0.0),
       end: Offset.zero,
     ).animate(CurvedAnimation(
       parent: _animationController,
@@ -47,11 +46,11 @@ class _OrderSuccessfulPageState extends State<OrderSuccessfulPage>
 
     if (UserController.currentUser != null) {
       _animationController.forward();
-      Timer(Duration(seconds: 4), () {
+      Timer(const Duration(seconds: 4), () {
         Navigator.pushNamedAndRemoveUntil(
           context,
           Homepage.routeName,
-              (route) => false,
+          (route) => false,
         );
       });
     }
@@ -66,7 +65,7 @@ class _OrderSuccessfulPageState extends State<OrderSuccessfulPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,8 +73,8 @@ class _OrderSuccessfulPageState extends State<OrderSuccessfulPage>
           children: [
             SlideTransition(
               position: _slideAnimation,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20.0),
+              child: const Padding(
+                padding: EdgeInsets.only(left: 20.0),
                 child: Text(
                   "Yayy!",
                   style: TextStyle(
@@ -87,8 +86,8 @@ class _OrderSuccessfulPageState extends State<OrderSuccessfulPage>
                 ),
               ),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               "Order Placed Successfully",
               style: TextStyle(
                 color: Colors.black,
@@ -97,7 +96,7 @@ class _OrderSuccessfulPageState extends State<OrderSuccessfulPage>
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             AnimatedBuilder(
               animation: _animationController,
               builder: (context, child) {
@@ -108,11 +107,11 @@ class _OrderSuccessfulPageState extends State<OrderSuccessfulPage>
                   child: Container(
                     height: 120,
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: orange,
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Icon(
                         Icons.done_rounded,
                         color: Colors.white,
@@ -123,10 +122,10 @@ class _OrderSuccessfulPageState extends State<OrderSuccessfulPage>
                 );
               },
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             SlideTransition(
               position: _slideAnimation,
-              child: Text(
+              child: const Text(
                 "Thank You!",
                 style: TextStyle(
                   color: orange,
