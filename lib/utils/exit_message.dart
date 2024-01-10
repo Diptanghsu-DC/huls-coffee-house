@@ -9,16 +9,24 @@ Future<bool?> showExitWarning(BuildContext context) async {
     await showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
-              title: const Text("Do you want to exit the app?"),
+              title: const Text(
+                "Do you want to exit the app?",
+                style: TextStyle(
+                    fontFamily: 'SofiaPro', fontWeight: FontWeight.bold),
+              ),
               actions: [
                 TextButton(
                     onPressed: () {
                       choice = false;
                       Navigator.pop(context);
                     },
-                    child: const Text("No",style: TextStyle(
-                      color: Colors.black
-                    ),)),
+                    child: const Text(
+                      "No",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'SofiaPro',
+                          fontWeight: FontWeight.bold),
+                    )),
                 Container(
                   decoration: BoxDecoration(
                       color: orange, borderRadius: BorderRadius.circular(20)),
@@ -29,7 +37,10 @@ Future<bool?> showExitWarning(BuildContext context) async {
                       },
                       child: const Text(
                         "Yes",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'SofiaPro',
+                            fontWeight: FontWeight.bold),
                       )),
                 )
               ],
