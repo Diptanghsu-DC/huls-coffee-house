@@ -36,7 +36,7 @@ Widget buildCustomDrawer(BuildContext context) {
                   ],
                 ),
                 child: Image.asset(
-                  'assets/icons/account.png',
+                  'assets/images/account.png',
                 ),
               ),
             ],
@@ -75,7 +75,7 @@ Widget buildCustomDrawer(BuildContext context) {
                     itemBuilder: (context, index) {
                       return SideMenuCrad(
                               title: sideMenuItems[index].title,
-                              iconname: sideMenuItems[index].iconPath,
+                              iconname: sideMenuItems[index].iconPath1,
                               ontap: sideMenuItems[index].onTap,
                             );
                     },

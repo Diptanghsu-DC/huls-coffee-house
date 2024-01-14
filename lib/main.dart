@@ -50,6 +50,7 @@ class MyApp extends StatelessWidget {
               const OrderSuccessfulPage()
         },
         initialRoute: SplashScreen.routeName,
+
       ),
     );
   }
