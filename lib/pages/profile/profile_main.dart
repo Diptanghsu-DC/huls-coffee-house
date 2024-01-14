@@ -4,8 +4,11 @@ import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/pages/profile/utils/styles.dart';
 import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
 
+import 'widgets/confirm_delete.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
   static const String routeName = ''; // add the route for this page
   @override
   State<ProfilePage> createState() => _ProfilePage();
@@ -14,7 +17,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePage extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -24,14 +26,16 @@ class _ProfilePage extends State<ProfilePage> {
                 CustomBackground(
                   bodyWidget: SafeArea(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 16),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 60, horizontal: 16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              UserController.currentUser!.name, //name from backend
+                              UserController.currentUser!.name,
+                              //name from backend
                               style: AppStyles.userName,
                             ),
                           ),
@@ -49,7 +53,10 @@ class _ProfilePage extends State<ProfilePage> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  UserController.delete();
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) => const ConfirmDelProfile(),
+                                  );
                                 },
                                 child: const Text(
                                   "Delete",
@@ -58,19 +65,19 @@ class _ProfilePage extends State<ProfilePage> {
                               ),
                             ],
                           ),
-                         const Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                           children: [
-                             Text(
-                               "+91-92********", // Placeholder text
-                               style: AppStyles.userDetailText,
-                             ),
-                             Text(
-                               "xyz@gmail.com", // Placeholder text
-                               style: AppStyles.userDetailText,
-                             ),
-                           ],
-                         ),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "+91-92********", // Placeholder text
+                                style: AppStyles.userDetailText,
+                              ),
+                              Text(
+                                "xyz@gmail.com", // Placeholder text
+                                style: AppStyles.userDetailText,
+                              ),
+                            ],
+                          ),
                           Divider(
                             color: Colors.grey[400],
                             thickness: 1,
