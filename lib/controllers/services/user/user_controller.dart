@@ -16,6 +16,7 @@ part 'functions/_get_impl.dart';
 part 'functions/_delete_impl.dart';
 part 'functions/_login_silently_impl.dart';
 part 'functions/_cart_impl.dart';
+part 'functions/_update_impl.dart';
 
 class UserController {
   static const String _collectionName = "users";
@@ -98,5 +99,10 @@ class UserController {
     currentUser = null;
     await _save();
     debugPrint("logged out");
+  }
+
+  static Future<UserModel?> update() async {
+    UserModel? user = await _updateImpl();
+    return user;
   }
 }

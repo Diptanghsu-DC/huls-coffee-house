@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/controllers/services/user/user_controller.dart';
+import 'package:huls_coffee_house/pages/login_ui/login_page.dart';
 import 'package:huls_coffee_house/pages/profile/user_update_page.dart';
 import 'package:huls_coffee_house/pages/profile/utils/styles.dart';
 import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
@@ -46,8 +47,12 @@ class _ProfilePage extends State<ProfilePage> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) => const UserUpdatePage(),));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const UserUpdatePage(),
+                                      ));
                                 },
                                 child: const Text(
                                   "Edit",
@@ -59,7 +64,7 @@ class _ProfilePage extends State<ProfilePage> {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) =>
-                                    const ConfirmDelProfile(),
+                                        const ConfirmDelProfile(),
                                   );
                                 },
                                 child: const Text(
@@ -79,6 +84,8 @@ class _ProfilePage extends State<ProfilePage> {
                               GestureDetector(
                                 onTap: () {
                                   UserController.logOut();
+                                  Navigator.pushNamedAndRemoveUntil(context,
+                                      LoginPage.routeName, (route) => false);
                                 },
                                 child: const Text(
                                   "LOG OUT",

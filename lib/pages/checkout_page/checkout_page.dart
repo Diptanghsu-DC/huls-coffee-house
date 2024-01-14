@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/services/order/order_controller.dart';
 import 'package:huls_coffee_house/controllers/services/user/user_controller.dart';
@@ -99,10 +98,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
               ),
             ),
             Card(
-              margin: EdgeInsets.all(16),
+              margin: const EdgeInsets.all(16),
               color: Colors.white,
               elevation: 5,
-              shadowColor: Color.fromRGBO(224, 219, 196, 0.9),
+              shadowColor: const Color.fromRGBO(224, 219, 196, 0.9),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               child: ListTile(
@@ -118,7 +117,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   Icons.add_circle_outline_outlined,
                   color: orange,
                 ),
-                trailing: Icon(Icons.chevron_right),
+                trailing: const Icon(Icons.chevron_right),
               ),
             ),
             SizedBox(
@@ -147,7 +146,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 leadingIcon: Icons.list_alt_sharp,
                 text: "PLACE ORDER",
               ),
-            )
+            ),
+            const SizedBox(height: 10,)
           ],
         ),
       ),
