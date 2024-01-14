@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
 
 import '../../controllers/services/user/user_controller.dart';
@@ -51,8 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
               .then((value) => exit(0));
         } else {
           Navigator.of(context)
-              .pushNamedAndRemoveUntil(
-                  Homepage.routeName, (route) => false)
+              .pushNamedAndRemoveUntil(Homepage.routeName, (route) => false)
               .then((value) => exit(0));
         }
       }
@@ -61,6 +62,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return  Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(
+          color: orange,
+        ),
+      ),
+    );
   }
 }
