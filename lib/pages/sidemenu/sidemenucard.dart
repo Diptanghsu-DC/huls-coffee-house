@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SideMenuCrad extends StatelessWidget {
-  final String iconname;
+  final IconData iconname;
   final String title;
   final VoidCallback ontap;
   const SideMenuCrad(
@@ -42,7 +42,7 @@ class SideMenuCrad extends StatelessWidget {
               SizedBox(
                 width: width * 0.02,
               ),
-              Image.asset('assets/images/$iconname.png'),
+              Icon(iconname),
               SizedBox(
                 width: width * 0.06,
               ),
