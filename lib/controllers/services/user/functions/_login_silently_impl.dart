@@ -22,19 +22,14 @@ Stream<UserModel?> _loginSilentlyImpl({required bool forceGet}) async* {
     CollectionReference<Map<String, dynamic>> db =
         FirebaseFirestore.instance.collection(UserController._collectionName);
 
-
     Query query = db;
-
 
     query.limit(1);
     query = query.where(UserFields.email.name);
 
-
     QuerySnapshot querySnapshot = await query.get();
 
-
-    if (querySnapshot.docs.isEmpty) {
-    }
+    if (querySnapshot.docs.isEmpty) {}
     Map<String, dynamic> res =
         querySnapshot.docs.first.data() as Map<String, dynamic>;
 
