@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/models/models.dart';
@@ -70,14 +71,18 @@ class AddToCartButton extends StatelessWidget {
                 ),
               ),
             ),
-            const Text(
-              'Add to cart ',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontFamily: 'Sofia Pro',
-                fontWeight: FontWeight.w400,
-                height: 0,
+            Positioned(
+              top: height * 0.06625/3,
+              right: 6,
+              child: const Text(
+                'ADD TO CART ',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontFamily: 'Sofia Pro',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                ),
               ),
             )
           ],
