@@ -6,7 +6,7 @@ class AppStyles {
       color: AppColors.blackColor,
       fontSize: 24,
       height: 1.2,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.bold,
       fontFamily: 'SofiaPro');
   static const TextStyle headingStyle = TextStyle(
       color: Colors.black,
@@ -14,7 +14,7 @@ class AppStyles {
       fontWeight: FontWeight.bold,
       fontFamily: 'SofiaPro');
   static const TextStyle functionButtonText = TextStyle(
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.bold,
       fontSize: 15,
       color: AppColors.orangeColor,
       height: 1.2,
@@ -28,7 +28,7 @@ class AppStyles {
       fontFamily: 'SofiaPro');
 
   static const TextStyle pageText = TextStyle(
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.bold,
       fontSize: 24,
       color: AppColors.blackColor,
       height: 1.2,
