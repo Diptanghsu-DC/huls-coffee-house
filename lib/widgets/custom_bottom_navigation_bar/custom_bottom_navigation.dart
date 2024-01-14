@@ -6,6 +6,7 @@ import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
 import 'package:huls_coffee_house/pages/cart_ui/cart_main.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/homepage.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
+import 'package:huls_coffee_house/pages/profile/profile_main.dart';
 
 // enum Tab {Account, Liked, Home, Cart, Notifications}
 
@@ -29,6 +30,7 @@ class CustomBottomNavigation extends StatelessWidget {
               // more logic to be added regarding page navigation
               onTap(index);
               if (index == 0) {
+                Navigator.pushNamed(context, ProfilePage.routeName);
               } else if (index == 1) {
               } else if (index == 2) {
                 Navigator.pushNamed(context, Homepage.routeName);
