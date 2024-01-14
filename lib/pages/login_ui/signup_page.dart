@@ -1,4 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/pages/login_ui/utils/authenticator.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:huls_coffee_house/config/config.dart';
@@ -29,13 +34,10 @@ class _SignupPageState extends State<SignupPage> {
   //password showing boolean
   bool isObscure = true;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   //form variable
   final _formKey = GlobalKey<FormState>();
 
   //controllers
-  // final controller = Get.put(SignUpController());
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
@@ -47,6 +49,11 @@ class _SignupPageState extends State<SignupPage> {
     super.initState();
   }
 
+  String _generateRandomOtp(int length) {
+    final random = Random();
+    return List.generate(length, (index) => random.nextInt(10)).join();
+  }
+
   //function to validate form
   void validate() {
     if (_formKey.currentState!.validate()) {
@@ -55,21 +62,16 @@ class _SignupPageState extends State<SignupPage> {
         context: context,
         asyncTask: () async {
           try {
-            await _auth.verifyPhoneNumber(
-              phoneNumber: countryCode.text + phoneController.text,
-              verificationCompleted: (PhoneAuthCredential credential) {},
-              verificationFailed: (FirebaseAuthException e) {},
-              codeSent: (String verificationId, int? resendToken) {
-                print("code sent $verificationId. setting parameters...");
-                SignupPage.verifyId = verificationId;
-                SignupPage.email = emailController.text.toString();
-                SignupPage.password = passController.text.toString();
-                SignupPage.name = nameController.text.toString();
-                SignupPage.phone = phoneController.text.toString();
-                print("parameters set");
-              },
-              codeAutoRetrievalTimeout: (String verificationId) {},
-            );
+            final String otp = _generateRandomOtp(6);
+            print("email entered is ${emailController.text.toString()}");
+            Authenticator().sendEmailOtp(otp, emailController.text.toString(),
+                phoneController.text.toString());
+            print("code send $otp");
+            SignupPage.verifyId = otp;
+            SignupPage.email = emailController.text.toString();
+            SignupPage.password = passController.text.toString();
+            SignupPage.name = nameController.text.toString();
+            SignupPage.phone = phoneController.text.toString();
           } catch (error) {
             // Failed login
             toastMessage(error.toString());
