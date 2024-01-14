@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class AppStyles {
   static const TextStyle userName = TextStyle(
       color: AppColors.blackColor,
-      fontSize: 24,
+      fontSize: 40,
       height: 1.2,
       fontWeight: FontWeight.bold,
       fontFamily: 'SofiaPro');

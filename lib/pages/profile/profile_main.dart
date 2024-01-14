@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
+import 'package:huls_coffee_house/controllers/services/user/user_controller.dart';
+import 'package:huls_coffee_house/pages/profile/user_update_page.dart';
 import 'package:huls_coffee_house/pages/profile/utils/styles.dart';
 import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
 
+import '../login_ui/widgets/buttons.dart';
 import 'widgets/confirm_delete.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -18,6 +21,8 @@ class _ProfilePage extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: const GoBackButton(),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -31,20 +36,18 @@ class _ProfilePage extends State<ProfilePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              UserController.currentUser!.name,
-                              //name from backend
-                              style: AppStyles.userName,
-                            ),
+                          Text(
+                            UserController.currentUser!.name,
+                            //name from backend
+                            style: AppStyles.userName,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  // Edit action
+                                  Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) => const UserUpdatePage(),));
                                 },
                                 child: const Text(
                                   "Edit",
@@ -55,7 +58,8 @@ class _ProfilePage extends State<ProfilePage> {
                                 onTap: () {
                                   showDialog(
                                     context: context,
-                                    builder: (BuildContext context) => const ConfirmDelProfile(),
+                                    builder: (BuildContext context) =>
+                                    const ConfirmDelProfile(),
                                   );
                                 },
                                 child: const Text(
@@ -64,24 +68,6 @@ class _ProfilePage extends State<ProfilePage> {
                                 ),
                               ),
                             ],
-                          ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "+91-92********", // Placeholder text
-                                style: AppStyles.userDetailText,
-                              ),
-                              Text(
-                                "xyz@gmail.com", // Placeholder text
-                                style: AppStyles.userDetailText,
-                              ),
-                            ],
-                          ),
-                          Divider(
-                            color: Colors.grey[400],
-                            thickness: 1,
-                            height: 16.0,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -92,7 +78,7 @@ class _ProfilePage extends State<ProfilePage> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  // Logout action
+                                  UserController.logOut();
                                 },
                                 child: const Text(
                                   "LOG OUT",
@@ -102,8 +88,28 @@ class _ProfilePage extends State<ProfilePage> {
                             ],
                           ),
                           const Text(
-                            "asdfadfafafasdfadf", // Placeholder text
+                            "Account details:", // Placeholder text
                             style: AppStyles.userDetailText,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                UserController.currentUser!.phone.toString(),
+                                // Placeholder text
+                                style: AppStyles.userDetailText,
+                              ),
+                              Text(
+                                UserController.currentUser!.email,
+                                // Placeholder text
+                                style: AppStyles.userDetailText,
+                              ),
+                            ],
+                          ),
+                          Divider(
+                            color: Colors.grey[400],
+                            thickness: 1,
+                            height: 16.0,
                           ),
                           const Text(
                             "Addresses",
@@ -113,14 +119,14 @@ class _ProfilePage extends State<ProfilePage> {
                             "huls cafe", // Placeholder text
                             style: AppStyles.userDetailText,
                           ),
-                          const Text(
-                            "Previous Order",
-                            style: AppStyles.pageText,
-                          ),
                           Divider(
                             color: Colors.grey[400],
                             thickness: 1,
                             height: 16.0,
+                          ),
+                          const Text(
+                            "Previous Order",
+                            style: AppStyles.pageText,
                           ),
                           // List of items
                         ].separate(20),

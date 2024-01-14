@@ -32,6 +32,8 @@ class _ConfirmDelProfileState extends State<ConfirmDelProfile> {
           const Text('Enter your password to delete:'),
           const SizedBox(height: 10),
           CustomField(
+            obscureText: hidePassword,
+            controller: _passController,
             suffixIcon: IconButton(
                 onPressed: () {
                   if (passVisibility == Icons.visibility) {
@@ -103,7 +105,7 @@ class _ConfirmDelProfileState extends State<ConfirmDelProfile> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text('Cancel'),
+          child: const Text('Cancel', style: TextStyle(color: Colors.black),),
         ),
       ],
     );

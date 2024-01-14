@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
           OrderSuccessfulPage.routeName: (context) =>
               const OrderSuccessfulPage()
         },
-        initialRoute: ProfilePage.routeName,
+        initialRoute: SplashScreen.routeName,
       ),
     );
   }
