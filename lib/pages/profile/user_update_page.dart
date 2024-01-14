@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 
@@ -33,7 +32,6 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
-  TextEditingController countryCode = TextEditingController();
 
   void init() {
     nameController.text = UserController.currentUser!.name;
@@ -52,11 +50,13 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
     if (_formKey.currentState!.validate()) {
       showLoadingOverlay(
         context: context,
-        asyncTask: () async{
+        asyncTask: () async {
           UserController.currentUser = UserController.currentUser?.copyWith(
-            name: nameController.text,
-          );
-          //await UserController.update;
+              name: nameController.text,
+              email: emailController.text,
+              password: passController.text,
+              phone: num.parse(phoneController.text));
+          await UserController.update();
         },
         onCompleted: () {
           Navigator.pop(context);
@@ -258,8 +258,10 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
                             height: buttonHeight,
                             width: buttonWidth,
                             child: CustomButton(
-                              onPressed: () {},
-                              text: 'GET OTP',
+                              onPressed: () {
+                                saveUpdates();
+                              },
+                              text: 'SAVE',
                             ),
                           ),
                           SizedBox(

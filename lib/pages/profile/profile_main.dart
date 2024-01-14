@@ -47,8 +47,12 @@ class _ProfilePage extends State<ProfilePage> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) => const UserUpdatePage(),));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const UserUpdatePage(),
+                                      ));
                                 },
                                 child: const Text(
                                   "Edit",
@@ -60,7 +64,7 @@ class _ProfilePage extends State<ProfilePage> {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) =>
-                                    const ConfirmDelProfile(),
+                                        const ConfirmDelProfile(),
                                   );
                                 },
                                 child: const Text(
@@ -80,7 +84,8 @@ class _ProfilePage extends State<ProfilePage> {
                               GestureDetector(
                                 onTap: () {
                                   UserController.logOut();
-                                  Navigator.pushNamedAndRemoveUntil(context, LoginPage.routeName, (route) => false);
+                                  Navigator.pushNamedAndRemoveUntil(context,
+                                      LoginPage.routeName, (route) => false);
                                 },
                                 child: const Text(
                                   "LOG OUT",
