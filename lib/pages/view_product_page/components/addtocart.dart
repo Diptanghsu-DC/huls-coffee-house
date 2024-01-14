@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/models/models.dart';
-import 'package:huls_coffee_house/pages/cart_ui/cart_main.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/cart.dart';
 import 'package:huls_coffee_house/utils/toast_message.dart';
 import 'package:provider/provider.dart';
