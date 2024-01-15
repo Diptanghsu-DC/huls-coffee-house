@@ -41,6 +41,7 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
+  final TextEditingController confirmController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   TextEditingController countryCode = TextEditingController();
 
@@ -64,14 +65,18 @@ class _SignupPageState extends State<SignupPage> {
           try {
             final String otp = _generateRandomOtp(6);
             print("email entered is ${emailController.text.toString()}");
+            SignupPage.verifyId = otp;
+            SignupPage.email = emailController.text.toString();
+            SignupPage.password = passController.text.toString() ==
+                    confirmController.text.toString()
+                ? passController.text.toString()
+                : throw Exception(
+                    "Password and Confirm password not matched. Please try again");
+            SignupPage.name = nameController.text.toString();
+            SignupPage.phone = phoneController.text.toString();
             Authenticator().sendEmailOtp(otp, emailController.text.toString(),
                 phoneController.text.toString());
             print("code send $otp");
-            SignupPage.verifyId = otp;
-            SignupPage.email = emailController.text.toString();
-            SignupPage.password = passController.text.toString();
-            SignupPage.name = nameController.text.toString();
-            SignupPage.phone = phoneController.text.toString();
           } catch (error) {
             // Failed login
             toastMessage(error.toString());
@@ -271,26 +276,62 @@ class _SignupPageState extends State<SignupPage> {
                                 padding: EdgeInsets.only(
                                     left: padding, right: padding),
                                 child: SizedBox(
-                                    height: fieldHeight,
-                                    child: CustomField(
-                                      controller: passController,
-                                      hintText: "Password",
-                                      obscureText: isObscure ? true : false,
-                                      suffixIcon: IconButton(
-                                          onPressed: () => showPass(),
-                                          icon: isObscure
-                                              ? const Icon(Icons.visibility)
-                                              : const Icon(
-                                                  Icons.visibility_off)),
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return "password cannot be empty";
-                                        } else if (value.length < 8) {
-                                          return "password must be atleast 8 characters long";
-                                        }
-                                        return null;
-                                      },
-                                    )),
+                                  height: fieldHeight,
+                                  child: CustomField(
+                                    controller: passController,
+                                    hintText: "Password",
+                                    obscureText: isObscure ? true : false,
+                                    suffixIcon: IconButton(
+                                        onPressed: () => showPass(),
+                                        icon: isObscure
+                                            ? const Icon(Icons.visibility)
+                                            : const Icon(Icons.visibility_off)),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "password cannot be empty";
+                                      } else if (value.length < 8) {
+                                        return "password must be atleast 8 characters long";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: padding),
+                                child: Text(
+                                  "Confirm Password",
+                                  style: TextStyle(
+                                      fontFamily: 'SofiaPro',
+                                      color: fontColor,
+                                      fontSize: sFontSize),
+                                ),
+                              ),
+                              SizedBox(
+                                height: sGap,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: padding, right: padding),
+                                child: SizedBox(
+                                  height: fieldHeight,
+                                  child: CustomField(
+                                    controller: confirmController,
+                                    hintText: "Confirm Password",
+                                    obscureText: isObscure ? true : false,
+                                    suffixIcon: IconButton(
+                                        onPressed: () => showPass(),
+                                        icon: isObscure
+                                            ? const Icon(Icons.visibility)
+                                            : const Icon(Icons.visibility_off)),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "confirm password cannot be empty";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
                               ),
                               SizedBox(
                                 height: lGap,
