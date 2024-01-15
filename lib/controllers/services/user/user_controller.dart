@@ -69,7 +69,6 @@ class UserController {
     return user;
   }
 
-
   static Stream<UserModel?> loginSilently({bool forceGet = false}) {
     return _loginSilentlyImpl(forceGet: forceGet);
   }
@@ -101,8 +100,7 @@ class UserController {
     debugPrint("logged out");
   }
 
-  static Future<UserModel?> update() async {
-    UserModel? user = await _updateImpl();
-    return user;
+  static Future<void> update({UserModel? oldUser}) async {
+    await _updateImpl(oldUser: oldUser);
   }
 }
