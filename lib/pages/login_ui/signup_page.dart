@@ -67,11 +67,7 @@ class _SignupPageState extends State<SignupPage> {
             print("email entered is ${emailController.text.toString()}");
             SignupPage.verifyId = otp;
             SignupPage.email = emailController.text.toString();
-            SignupPage.password = passController.text.toString() ==
-                    confirmController.text.toString()
-                ? passController.text.toString()
-                : throw Exception(
-                    "Password and Confirm password not matched. Please try again");
+            SignupPage.password = passController.text.toString();
             SignupPage.name = nameController.text.toString();
             SignupPage.phone = phoneController.text.toString();
             Authenticator().sendEmailOtp(otp, emailController.text.toString(),
@@ -327,6 +323,9 @@ class _SignupPageState extends State<SignupPage> {
                                     validator: (value) {
                                       if (value!.isEmpty) {
                                         return "confirm password cannot be empty";
+                                      } else if (value !=
+                                          passController.text.toString()) {
+                                        return "Confirm Password must be equal to password";
                                       }
                                       return null;
                                     },
