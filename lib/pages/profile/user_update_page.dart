@@ -66,11 +66,7 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
               : UserController.currentUser?.copyWith(
                   name: nameController.text,
                   email: emailController.text,
-                  password: passController.text.toString() ==
-                          confirmController.text.toString()
-                      ? passController.text
-                      : throw Exception(
-                          "Please confirm the password accurately"),
+                  password: passController.text,
                   phone: num.parse(phoneController.text));
           await UserController.update(oldUser: oldUser);
           await PassChangeNotifier()
@@ -305,6 +301,9 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
                                         return "password cannot be empty";
                                       } else if (value.length < 8) {
                                         return "password must be atleast 8 characters long";
+                                      } else if (value !=
+                                          passController.text.toString()) {
+                                        return "Confirm Password must be equal to password";
                                       }
                                       return null;
                                     },
