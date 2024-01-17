@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/utils/item_class.dart';
@@ -7,6 +9,9 @@ import 'package:huls_coffee_house/pages/admin/inventory/widgets/product_stream.d
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/widgets/custom_bottom_navigation_bar/custom_bottom_navigation.dart';
 
+import '../../../controllers/controllers.dart';
+import '../../../models/models.dart';
+import 'widgets/item_box.dart';
 import 'widgets/search_bar.dart';
 
 class Inventory extends StatefulWidget {
@@ -20,14 +25,38 @@ class Inventory extends StatefulWidget {
 
 class _InventoryState extends State<Inventory> {
   int _currentIndex = 0;
+  List<ProductModel> filteredProducts = [];
+  final StreamController<List<ProductModel>> _filteredProductsController =
+      StreamController<List<ProductModel>>();
+
+  void filterProducts(String searchValue) async {
+    Stream<List<ProductModel>> allProductStream =
+        ProductController.getAll(forceGet: true);
+    await for (List<ProductModel> allProductsList in allProductStream) {
+      setState(() {
+        filteredProducts = allProductsList.where((product) {
+          return product.itemName
+              .toLowerCase()
+              .contains(searchValue.toLowerCase());
+        }).toList();
+
+        _filteredProductsController.add(filteredProducts);
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _filteredProductsController.close();
+    super.dispose();
+  }
 
   void bottomNavigator(int index) {
     setState(() {
       _currentIndex = index;
     });
   }
-
-  List<Item> items = [];
 
   List<Item> filteredItems = [];
 
@@ -44,15 +73,32 @@ class _InventoryState extends State<Inventory> {
         children: [
           MySearchBar(
             onSearch: (query) {
-              updateFilteredItems(query);
+              filterProducts(query);
             },
           ),
-          // for (Item item
-          //     in filteredItems.isNotEmpty ? filteredItems : items) ...[
-          //   ElevatedItemBox(item: item),
-          //   const SizedBox(height: 16),
-          // ],
-          const ProductStream(),
+          filteredProducts.isEmpty
+              ? const ProductStream()
+              : StreamBuilder<List<ProductModel>>(
+                  stream: ProductController.getAll(forceGet: true),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return const Text('Loading...');
+                    } else {
+                      filteredProducts = snapshot.data!;
+                      return Expanded(
+                        child: ListView.builder(
+                          itemCount: filteredProducts.length,
+                          itemBuilder: (context, index) => ItemBox(
+                            item: Item(product: filteredProducts[index]),
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                ),
           ElevatedAddAnotherItem(
             onTap: () {
               Navigator.push(
@@ -63,23 +109,11 @@ class _InventoryState extends State<Inventory> {
               );
             },
           ),
-          const SizedBox(height: 10,)
+          const SizedBox(
+            height: 10,
+          )
         ].separate(10),
       ),
     );
-  }
-
-  void updateFilteredItems(String query) {
-    setState(() {
-      filteredItems = items
-          .where((item) =>
-              item.itemNameController.text
-                  .toLowerCase()
-                  .contains(query.toLowerCase()) ||
-              item.descriptionController.text
-                  .toLowerCase()
-                  .contains(query.toLowerCase()))
-          .toList();
-    });
   }
 }

@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/widgets/category/category_view.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/widgets/popular/popular_viewer.dart';
 import 'package:huls_coffee_house/pages/sidemenu/sidemenudrawer.dart';
@@ -7,7 +10,9 @@ import 'package:huls_coffee_house/widgets/custom_bottom_navigation_bar/custom_bo
 import 'package:huls_coffee_house/widgets/widgets.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
 
+import '../../models/models.dart';
 import '../../utils/utils.dart';
+import '../view_product_page/components/itemscard.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -24,10 +29,46 @@ class _HomepageState extends State<Homepage> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  List<ProductModel> filteredProducts = [];
+  Stream<List<ProductModel>>? allProductStream;
+
+  final StreamController<List<ProductModel>> _filteredProductsController =
+      StreamController<List<ProductModel>>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    allProductStream = ProductController.getAll(forceGet: true);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _filteredProductsController.close();
+    super.dispose();
+  }
+
   void bottomNavigator(int index) {
     setState(() {
       _currentIndex = index;
     });
+  }
+
+  void filterProducts(String searchValue) async {
+    Stream<List<ProductModel>> allProductStream =
+        ProductController.getAll(forceGet: true);
+    await for (List<ProductModel> allProductsList in allProductStream) {
+      setState(() {
+        filteredProducts = allProductsList.where((product) {
+          return product.itemName
+              .toLowerCase()
+              .contains(searchValue.toLowerCase());
+        }).toList();
+
+        _filteredProductsController.add(filteredProducts);
+      });
+    }
   }
 
   @override
@@ -103,43 +144,194 @@ class _HomepageState extends State<Homepage> {
                               ),
                             ),
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            filterProducts(value);
+                          },
                         ),
                         //category view
                         const CategoryViewer(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Popular Items",
-                              style: TextStyle(
-                                  fontSize: width * 0.07,
-                                  fontWeight: FontWeight.bold,
-                                  height: 1,
-                                  fontFamily: 'SofiaPro'),
-                            ),
-                            TextButton(
-                              onPressed: () =>
-                                  Navigator.pushNamed(context, ViewAll.routeName),
-                              //to view all page
-                              style: TextButton.styleFrom(
-                                foregroundColor: orange,
+                        (filteredProducts.isEmpty)
+                            ? Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Popular Items",
+                                        style: TextStyle(
+                                            fontSize: width * 0.07,
+                                            fontWeight: FontWeight.bold,
+                                            height: 1,
+                                            fontFamily: 'SofiaPro'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () => Navigator.pushNamed(
+                                            context, ViewAll.routeName),
+                                        //to view all page
+                                        style: TextButton.styleFrom(
+                                          foregroundColor: orange,
+                                        ),
+                                        child: const Text(
+                                          "View All >",
+                                          style:
+                                              TextStyle(fontFamily: 'SofiaPro'),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  //view popular items
+                                  StreamBuilder<List<ProductModel>>(
+                                    stream: allProductStream,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        List<ProductModel> allProducts =
+                                            snapshot.data!;
+
+                                        return SizedBox(
+                                          height: height * 0.3,
+                                          child: ListView.builder(
+                                            itemCount: 4,
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (context, index) {
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ViewProduct(
+                                                                product:
+                                                                    allProducts[
+                                                                        index]),
+                                                      ));
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 8.0),
+                                                  child: ItemsCard(
+                                                    itemImage:
+                                                        allProducts[index]
+                                                            .imageURL,
+                                                    itemName: allProducts[index]
+                                                        .itemName,
+                                                    itemPrice:
+                                                        allProducts[index]
+                                                            .price,
+                                                    itemRating:
+                                                        allProducts[index]
+                                                            .ratings,
+                                                    category: allProducts[index]
+                                                        .category,
+                                                    quantity: allProducts[index]
+                                                        .quantity,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      } else {
+                                        return const CircularProgressIndicator(
+                                          color: orange,
+                                        ); // or a placeholder widget
+                                      }
+                                    },
+                                  )
+                                ],
+                              )
+                            : Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Search Results",
+                                        style: TextStyle(
+                                            fontSize: width * 0.07,
+                                            fontWeight: FontWeight.bold,
+                                            height: 1,
+                                            fontFamily: 'SofiaPro'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () => Navigator.pushNamed(
+                                            context, ViewAll.routeName),
+                                        //to view all page
+                                        style: TextButton.styleFrom(
+                                          foregroundColor: orange,
+                                        ),
+                                        child: const Text(
+                                          "View All >",
+                                          style:
+                                              TextStyle(fontFamily: 'SofiaPro'),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  StreamBuilder<List<ProductModel>>(
+                                    stream: _filteredProductsController.stream,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        filteredProducts = snapshot.data!;
+
+                                        return SizedBox(
+                                          height: height * 0.3,
+                                          child: ListView.builder(
+                                            itemCount: filteredProducts.length,
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (context, index) {
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ViewProduct(
+                                                                product:
+                                                                    filteredProducts[
+                                                                        index]),
+                                                      ));
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 8.0),
+                                                  child: ItemsCard(
+                                                    itemImage:
+                                                        filteredProducts[index]
+                                                            .imageURL,
+                                                    itemName:
+                                                        filteredProducts[index]
+                                                            .itemName,
+                                                    itemPrice:
+                                                        filteredProducts[index]
+                                                            .price,
+                                                    itemRating:
+                                                        filteredProducts[index]
+                                                            .ratings,
+                                                    category:
+                                                        filteredProducts[index]
+                                                            .category,
+                                                    quantity:
+                                                        filteredProducts[index]
+                                                            .quantity,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      } else {
+                                        return const CircularProgressIndicator(
+                                          color: orange,
+                                        ); // or a placeholder widget
+                                      }
+                                    },
+                                  ),
+                                ],
                               ),
-                              child: const Text(
-                                "View All >",
-                                style: TextStyle(fontFamily: 'SofiaPro'),
-                              ),
-                            )
-                          ],
-                        ),
-                        //view popular items
-                        const PopularViewer(
-                          imgSrc: null,
-                          ratings: null,
-                          price: 35.5,
-                          itemName: "Salmon Salad",
-                          itemDesc: "a item",
-                        ),
                       ].separate(20),
                     ),
                   ),
