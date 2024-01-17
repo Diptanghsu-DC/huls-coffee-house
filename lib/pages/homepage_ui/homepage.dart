@@ -12,6 +12,7 @@ import 'package:huls_coffee_house/pages/pages.dart';
 
 import '../../models/models.dart';
 import '../../utils/utils.dart';
+import '../view_product_page/components/itemscard.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -50,15 +51,15 @@ class _HomepageState extends State<Homepage> {
     Stream<List<ProductModel>> allProductStream =
         ProductController.getAll(forceGet: true);
     await for (List<ProductModel> allProductsList in allProductStream) {
-      // Filter products based on the search value
-      filteredProducts = allProductsList.where((product) {
-        // Perform case-insensitive search on product names
-        return product.itemName
-            .toLowerCase()
-            .contains(searchValue.toLowerCase());
-      }).toList();
-      _filteredProductsController.add(filteredProducts);
-      setState(() {});
+      setState(() {
+        filteredProducts = allProductsList.where((product) {
+          return product.itemName
+              .toLowerCase()
+              .contains(searchValue.toLowerCase());
+        }).toList();
+
+        _filteredProductsController.add(filteredProducts);
+      });
     }
   }
 
@@ -136,9 +137,7 @@ class _HomepageState extends State<Homepage> {
                             ),
                           ),
                           onChanged: (value) {
-                            setState(() {
-                              filterProducts(value);
-                            });
+                            filterProducts(value);
                           },
                         ),
                         //category view
@@ -183,13 +182,45 @@ class _HomepageState extends State<Homepage> {
                                   if (snapshot.hasData) {
                                     filteredProducts = snapshot.data!;
 
-                                    return Column(
-                                      children: filteredProducts.map((product) {
-                                        return ListTile(
-                                          title: Text(product.itemName),
-                                          subtitle: Text(product.category),
-                                        );
-                                      }).toList(),
+                                    return Container(
+                                      height: height * 0.3,
+                                      child: ListView.builder(
+                                        itemCount: filteredProducts.length,
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (context, index) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ViewProduct(
+                                                            product:
+                                                                filteredProducts[
+                                                                    index]),
+                                                  ));
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                              child: ItemsCard(
+                                                itemImage: filteredProducts[index]
+                                                    .imageURL,
+                                                itemName: filteredProducts[index]
+                                                    .itemName,
+                                                itemPrice:
+                                                    filteredProducts[index].price,
+                                                itemRating:
+                                                    filteredProducts[index]
+                                                        .ratings,
+                                                category: filteredProducts[index]
+                                                    .category,
+                                                quantity: filteredProducts[index]
+                                                    .quantity,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     );
                                   } else {
                                     return const CircularProgressIndicator(
