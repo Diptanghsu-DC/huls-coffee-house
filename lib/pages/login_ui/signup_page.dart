@@ -79,8 +79,7 @@ class _SignupPageState extends State<SignupPage> {
           }
         },
         onCompleted: () {
-          Navigator.pushNamedAndRemoveUntil(
-              context, OtpVerificationPage.routeName, (route) => false);
+          Navigator.pushNamed(context, OtpVerificationPage.routeName);
         },
       );
     } else {
