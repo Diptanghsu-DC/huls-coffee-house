@@ -11,8 +11,9 @@ Stream<UserModel?> _loginSilentlyImpl({required bool forceGet}) async* {
 
     if (forceGet) {
       List<UserModel> user = await UserController.get(
-              email: UserController.currentUser!.email, forceGet: forceGet)
-          .first;
+        email: UserController.currentUser!.email,
+        forceGet: forceGet,
+      ).first;
       if (user.isNotEmpty) {
         UserController.currentUser = user.first;
       }
@@ -23,18 +24,18 @@ Stream<UserModel?> _loginSilentlyImpl({required bool forceGet}) async* {
         FirebaseFirestore.instance.collection(UserController._collectionName);
 
     Query query = db;
-
-    query.limit(1);
-    query = query.where(UserFields.email.name);
+    query = query.where(UserFields.email.name,
+        isEqualTo: UserController.currentUser!.email);
+    query = query.limit(1);
 
     QuerySnapshot querySnapshot = await query.get();
 
-    if (querySnapshot.docs.isEmpty) {}
-    Map<String, dynamic> res =
-        querySnapshot.docs.first.data() as Map<String, dynamic>;
-
-    UserModel user = UserModel.fromJson(res);
-    UserController.currentUser = await UserController._save(user: user);
-    yield UserController.currentUser;
+    if (querySnapshot.docs.isNotEmpty) {
+      Map<String, dynamic> userData =
+          querySnapshot.docs.first.data() as Map<String, dynamic>;
+      UserModel user = UserModel.fromJson(userData);
+      UserController.currentUser = await UserController._save(user: user);
+      yield UserController.currentUser;
+    }
   }
 }

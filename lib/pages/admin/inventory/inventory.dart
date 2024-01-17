@@ -7,6 +7,7 @@ import 'package:huls_coffee_house/pages/admin/inventory/widgets/add_item.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/widgets/add_new_item.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/widgets/product_stream.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
+import 'package:huls_coffee_house/pages/sidemenu/sidemenudrawer.dart';
 import 'package:huls_coffee_house/widgets/custom_bottom_navigation_bar/custom_bottom_navigation.dart';
 
 import '../../../controllers/controllers.dart';
@@ -59,15 +60,28 @@ class _InventoryState extends State<Inventory> {
   }
 
   List<Item> filteredItems = [];
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            if (_scaffoldKey.currentState != null) {
+              _scaffoldKey.currentState!.openDrawer();
+            }
+          },
+          icon: const Icon(Icons.menu),
+          style: IconButton.styleFrom(
+            backgroundColor: Colors.white,
+          ),
+        ),
+      ),
+      key: _scaffoldKey,
       bottomNavigationBar: CustomBottomNavigation(
           currentIndex: _currentIndex, onTap: bottomNavigator),
-      appBar: AppBar(
-        leading: const GoBackButton(),
-      ),
+      drawer: buildCustomDrawer(context),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
