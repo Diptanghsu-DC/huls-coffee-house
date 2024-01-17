@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/widgets/category/category_view.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/widgets/popular/popular_viewer.dart';
 import 'package:huls_coffee_house/pages/sidemenu/sidemenudrawer.dart';
@@ -7,6 +10,7 @@ import 'package:huls_coffee_house/widgets/custom_bottom_navigation_bar/custom_bo
 import 'package:huls_coffee_house/widgets/widgets.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
 
+import '../../models/models.dart';
 import '../../utils/utils.dart';
 
 class Homepage extends StatefulWidget {
@@ -24,10 +28,38 @@ class _HomepageState extends State<Homepage> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  List<ProductModel> filteredProducts = [];
+
+  final StreamController<List<ProductModel>> _filteredProductsController =
+      StreamController<List<ProductModel>>();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _filteredProductsController.close();
+    super.dispose();
+  }
+
   void bottomNavigator(int index) {
     setState(() {
       _currentIndex = index;
     });
+  }
+
+  void filterProducts(String searchValue) async {
+    Stream<List<ProductModel>> allProductStream =
+        ProductController.getAll(forceGet: true);
+    await for (List<ProductModel> allProductsList in allProductStream) {
+      // Filter products based on the search value
+      filteredProducts = allProductsList.where((product) {
+        // Perform case-insensitive search on product names
+        return product.itemName
+            .toLowerCase()
+            .contains(searchValue.toLowerCase());
+      }).toList();
+      _filteredProductsController.add(filteredProducts);
+      setState(() {});
+    }
   }
 
   @override
@@ -103,7 +135,11 @@ class _HomepageState extends State<Homepage> {
                               ),
                             ),
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              filterProducts(value);
+                            });
+                          },
                         ),
                         //category view
                         const CategoryViewer(),
@@ -119,8 +155,8 @@ class _HomepageState extends State<Homepage> {
                                   fontFamily: 'SofiaPro'),
                             ),
                             TextButton(
-                              onPressed: () =>
-                                  Navigator.pushNamed(context, ViewAll.routeName),
+                              onPressed: () => Navigator.pushNamed(
+                                  context, ViewAll.routeName),
                               //to view all page
                               style: TextButton.styleFrom(
                                 foregroundColor: orange,
@@ -133,13 +169,35 @@ class _HomepageState extends State<Homepage> {
                           ],
                         ),
                         //view popular items
-                        const PopularViewer(
-                          imgSrc: null,
-                          ratings: null,
-                          price: 35.5,
-                          itemName: "Salmon Salad",
-                          itemDesc: "a item",
-                        ),
+                        (filteredProducts.isEmpty)
+                            ? const PopularViewer(
+                                imgSrc: null,
+                                ratings: null,
+                                price: 35.5,
+                                itemName: "Salmon Salad",
+                                itemDesc: "a item",
+                              )
+                            : StreamBuilder<List<ProductModel>>(
+                                stream: _filteredProductsController.stream,
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    filteredProducts = snapshot.data!;
+
+                                    return Column(
+                                      children: filteredProducts.map((product) {
+                                        return ListTile(
+                                          title: Text(product.itemName),
+                                          subtitle: Text(product.category),
+                                        );
+                                      }).toList(),
+                                    );
+                                  } else {
+                                    return const CircularProgressIndicator(
+                                      color: orange,
+                                    ); // or a placeholder widget
+                                  }
+                                },
+                              ),
                       ].separate(20),
                     ),
                   ),
