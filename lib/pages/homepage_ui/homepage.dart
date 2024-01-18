@@ -45,8 +45,8 @@ class _HomepageState extends State<Homepage> {
   @override
   void dispose() {
     // TODO: implement dispose
-    _filteredProductsController.close();
     super.dispose();
+    _filteredProductsController.close();
   }
 
   void bottomNavigator(int index) {

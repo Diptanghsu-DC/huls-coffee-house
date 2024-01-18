@@ -19,7 +19,7 @@ class ProductController {
     return await _createImpl(product);
   }
 
-  static Future<void> _checkDuplicate(ProductModel product) async {
+  static Future<bool> _checkDuplicate(ProductModel product) async {
     return await _checkDuplicateImpl(product);
   }
 
