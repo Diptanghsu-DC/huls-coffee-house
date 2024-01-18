@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
-import 'package:huls_coffee_house/pages/Sidemenu/sidemenilistclass.dart';
-import 'package:huls_coffee_house/pages/Sidemenu/sidemenucard.dart';
+// import 'package:huls_coffee_house/pages/Sidemenu/sidemenilistclass.dart';
+import 'package:huls_coffee_house/pages/sidemenu/sidemenucard.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
+import 'package:huls_coffee_house/pages/sidemenu/sidemenilistclass.dart';
+import 'package:huls_coffee_house/utils/logout_message.dart';
 
 Widget buildCustomDrawer(BuildContext context) {
   double height = MediaQuery.of(context).size.height;
@@ -45,10 +47,10 @@ Widget buildCustomDrawer(BuildContext context) {
         SizedBox(height: width * 0.025),
         Padding(
           padding: EdgeInsets.only(left: width * 0.1),
-          child: const Text(
-          // This function should be defined  
-          'Username',
-            style: TextStyle(
+          child: Text(
+            // This function should be defined
+            UserController.currentUser!.name,
+            style: const TextStyle(
               color: Color(0xFF565656),
               fontSize: 20,
               fontFamily: 'SofiaPro',
@@ -67,25 +69,47 @@ Widget buildCustomDrawer(BuildContext context) {
                   color: const Color(0xFFE68969),
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(left: width * 0.036, right: width * 0.075),
-                  child: ListView.separated(
-                    padding: EdgeInsets.zero,
-                    itemBuilder: (context, index) {
-                      return SideMenuCrad(
+              !UserController.currentUser!.isSeller
+                  ? Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            left: width * 0.036, right: width * 0.075),
+                        child: ListView.separated(
+                          padding: EdgeInsets.zero,
+                          itemBuilder: (context, index) {
+                            return SideMenuCrad(
                               title: sideMenuItems[index].title,
                               iconname: sideMenuItems[index].iconPath1,
                               ontap: sideMenuItems[index].onTap,
                             );
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(height: height * 0.025);
-                    },
-                    itemCount: 6,
-                  ),
-                ),
-              ),
+                          },
+                          separatorBuilder: (context, index) {
+                            return SizedBox(height: height * 0.025);
+                          },
+                          itemCount: 6,
+                        ),
+                      ),
+                    )
+                  : Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            left: width * 0.036, right: width * 0.075),
+                        child: ListView.separated(
+                          padding: EdgeInsets.zero,
+                          itemBuilder: (context, index) {
+                            return SideMenuCrad(
+                              title: sideMenuItemsAdmin[index].title,
+                              iconname: sideMenuItemsAdmin[index].iconPath1,
+                              ontap: sideMenuItemsAdmin[index].onTap,
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return SizedBox(height: height * 0.025);
+                          },
+                          itemCount: 6,
+                        ),
+                      ),
+                    ),
             ],
           ),
         ),
@@ -103,8 +127,16 @@ Widget buildCustomDrawer(BuildContext context) {
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: CustomButton(text: "SIGN OUT", onPressed: () { UserController.logOut();
-                Navigator.pushNamedAndRemoveUntil(context, LoginPage.routeName, (route) => false);})
+                child: CustomButton(
+                  text: "SIGN OUT",
+                  onPressed: () async {
+                    if (await showLogoutWarning(context)) {
+                      UserController.logOut();
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, LoginPage.routeName, (route) => false);
+                    }
+                  },
+                ),
               ),
             ],
           ),
