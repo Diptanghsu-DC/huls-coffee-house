@@ -5,6 +5,8 @@ class Item {
   ProductModel? product;
   TextEditingController descriptionController = TextEditingController();
   TextEditingController itemNameController = TextEditingController();
+  TextEditingController categoryController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
   Item({this.product});
 
   num get count {
