@@ -5,6 +5,7 @@ import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
+import 'package:huls_coffee_house/pages/login_ui/widgets/forgot_alert.dart';
 import 'package:huls_coffee_house/widgets/widgets.dart';
 import '../../utils/utils.dart';
 import '../pages.dart';
@@ -201,8 +202,6 @@ class _LoginPageState extends State<LoginPage> {
                                           validator: (value) {
                                             if (value!.isEmpty) {
                                               return "password cannot be empty";
-                                            } else if (value.length < 8) {
-                                              return "password must be atleast 8 characters long";
                                             }
                                             return null;
                                           },
@@ -214,6 +213,26 @@ class _LoginPageState extends State<LoginPage> {
                                                   : const Icon(
                                                       Icons.visibility_off)),
                                         )),
+                                  ),
+                                  SizedBox(
+                                    height: sGap,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: padding),
+                                    child: TextButton(
+                                      onPressed: () => showDialog(
+                                        context: context,
+                                        builder: (context) =>
+                                            const ForgotAlert(),
+                                      ),
+                                      child: Text(
+                                        "Forgot Password ?",
+                                        style: TextStyle(
+                                            color: orange,
+                                            fontSize: sFontSize,
+                                            fontFamily: 'SofiaPro'),
+                                      ),
+                                    ),
                                   ),
                                   SizedBox(
                                     height: lGap,

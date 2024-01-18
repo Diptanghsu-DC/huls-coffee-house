@@ -7,6 +7,8 @@ import 'package:huls_coffee_house/pages/homepage_ui/homepage.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
+import 'package:huls_coffee_house/pages/login_ui/widgets/forgot_alert.dart';
+import 'package:huls_coffee_house/pages/login_ui/widgets/new_pass.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
 import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
 
@@ -37,18 +39,20 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
       asyncTask: () async {
         try {
           print("otp authentication started... The otp entered is $otp");
-          if (SignupPage.verifyId != otp) {
+          if (SignupPage.verifyId != otp && ForgotAlert.forgotOtp != otp) {
             throw Exception("Wrong OTP, please try again");
           }
           print("otp completed");
           print("entering user creation protocol...");
-          user = await UserController.create(UserModel(
-            name: SignupPage.name,
-            email: SignupPage.email,
-            password: SignupPage.password,
-            phone: num.parse(SignupPage.phone),
-          ));
-          isUserCreated = true;
+          if (ForgotAlert.forgotOtp == "") {
+            user = await UserController.create(UserModel(
+              name: SignupPage.name,
+              email: SignupPage.email,
+              password: SignupPage.password,
+              phone: num.parse(SignupPage.phone),
+            ));
+            isUserCreated = true;
+          }
         } catch (error) {
           // Failed login
           toastMessage(error.toString());
@@ -60,6 +64,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
             Navigator.pushNamedAndRemoveUntil(
                 context, Homepage.routeName, (route) => false);
           }
+        } else if (ForgotAlert.forgotOtp != "") {
+          Navigator.pushNamed(context, NewPassPage.routeName);
         }
       },
     );
