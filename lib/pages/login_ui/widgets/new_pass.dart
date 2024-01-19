@@ -76,95 +76,49 @@ class _NewPassPageState extends State<NewPassPage> {
     double lineHeight = 2;
     double lineWidth = 100;
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
-      // appBar: AppBar(
-      //   leading: const GoBackButton(),
-      // ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: const GoBackButton(),
-      body: Builder(builder: (context) {
-        return SingleChildScrollView(
-          child: Column(children: [
-            Stack(
-              children: [
-                CustomBackground(
-                  bodyWidget: SafeArea(
-                    child: Form(
-                      key: formKey,
-                      child: Column(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: lGap * 1.4,
+      body: SingleChildScrollView(
+        child: Column(children: [
+          Stack(
+            children: [
+              CustomBackground(
+                bodyWidget: SafeArea(
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: lGap * 1.4,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: padding),
+                              child: Text(
+                                "New Password",
+                                style: TextStyle(
+                                    color: fontColor,
+                                    fontSize: sFontSize,
+                                    fontFamily: 'SofiaPro'),
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(left: padding),
-                                child: Text(
-                                  "New Password",
-                                  style: TextStyle(
-                                      color: fontColor,
-                                      fontSize: sFontSize,
-                                      fontFamily: 'SofiaPro'),
-                                ),
-                              ),
-                              SizedBox(
-                                height: sGap,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: padding, right: padding),
-                                child: SizedBox(
-                                    height: fieldHeight,
-                                    child: CustomField(
-                                      controller: passChangeController,
-                                      hintText: "Password",
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return "password cannot be empty";
-                                        }
-                                        return null;
-                                      },
-                                      obscureText: isObscure ? true : false,
-                                      suffixIcon: IconButton(
-                                          onPressed: () => showPass(),
-                                          icon: isObscure
-                                              ? const Icon(Icons.visibility)
-                                              : const Icon(
-                                                  Icons.visibility_off)),
-                                    )),
-                              ),
-                              SizedBox(
-                                height: gap,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: padding),
-                                child: Text(
-                                  "Confirm Password",
-                                  style: TextStyle(
-                                      color: fontColor,
-                                      fontSize: sFontSize,
-                                      fontFamily: 'SofiaPro'),
-                                ),
-                              ),
-                              SizedBox(
-                                height: sGap,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: padding, right: padding),
-                                child: SizedBox(
+                            ),
+                            SizedBox(
+                              height: sGap,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: padding, right: padding),
+                              child: SizedBox(
                                   height: fieldHeight,
                                   child: CustomField(
-                                    controller: confirmChangeController,
-                                    hintText: "Confirm Password",
+                                    textInputType: TextInputType.text,
+                                    controller: passChangeController,
+                                    hintText: "Password",
                                     validator: (value) {
                                       if (value!.isEmpty) {
                                         return "password cannot be empty";
-                                      } else if (value !=
-                                          passChangeController.text) {
-                                        return "Password and Confirm password must be equal";
                                       }
                                       return null;
                                     },
@@ -174,49 +128,89 @@ class _NewPassPageState extends State<NewPassPage> {
                                         icon: isObscure
                                             ? const Icon(Icons.visibility)
                                             : const Icon(Icons.visibility_off)),
-                                  ),
+                                  )),
+                            ),
+                            SizedBox(
+                              height: gap,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: padding),
+                              child: Text(
+                                "Confirm Password",
+                                style: TextStyle(
+                                    color: fontColor,
+                                    fontSize: sFontSize,
+                                    fontFamily: 'SofiaPro'),
+                              ),
+                            ),
+                            SizedBox(
+                              height: sGap,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: padding, right: padding),
+                              child: SizedBox(
+                                height: fieldHeight,
+                                child: CustomField(
+                                  controller: confirmChangeController,
+                                  hintText: "Confirm Password",
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "password cannot be empty";
+                                    } else if (value !=
+                                        passChangeController.text) {
+                                      return "Password and Confirm password must be equal";
+                                    }
+                                    return null;
+                                  },
+                                  obscureText: isObscure ? true : false,
+                                  suffixIcon: IconButton(
+                                      onPressed: () => showPass(),
+                                      icon: isObscure
+                                          ? const Icon(Icons.visibility)
+                                          : const Icon(Icons.visibility_off)),
                                 ),
                               ),
-                              SizedBox(
-                                height: gap,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: lGap,
-                          ),
-                          SizedBox(
-                            height: lGap,
-                          ),
-                          SizedBox(
-                            height: lGap,
-                          ),
-                          SizedBox(
-                            height: buttonHeight,
-                            width: buttonWidth,
-                            child: CustomButton(
-                              onPressed: () {
-                                saveUpdates();
-                              },
-                              text: 'SAVE',
                             ),
+                            SizedBox(
+                              height: gap,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: lGap,
+                        ),
+                        SizedBox(
+                          height: lGap,
+                        ),
+                        SizedBox(
+                          height: lGap,
+                        ),
+                        SizedBox(
+                          height: buttonHeight,
+                          width: buttonWidth,
+                          child: CustomButton(
+                            onPressed: () {
+                              saveUpdates();
+                            },
+                            text: 'SAVE',
                           ),
-                          // SizedBox(
-                          //   height: sGap,
-                          // ),
-                          // SizedBox(
-                          //   height: sGap,
-                          // ),
-                        ],
-                      ),
+                        ),
+                        // SizedBox(
+                        //   height: sGap,
+                        // ),
+                        // SizedBox(
+                        //   height: sGap,
+                        // ),
+                      ],
                     ),
                   ),
                 ),
-              ],
-            ),
-          ]),
-        );
-      }),
+              ),
+            ],
+          ),
+        ]),
+      ),
     );
     //   ],
     // ),

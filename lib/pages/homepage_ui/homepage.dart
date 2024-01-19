@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/widgets/category/category_view.dart';
-import 'package:huls_coffee_house/pages/homepage_ui/widgets/popular/popular_viewer.dart';
 import 'package:huls_coffee_house/pages/sidemenu/sidemenudrawer.dart';
 import 'package:huls_coffee_house/widgets/custom_bottom_navigation_bar/custom_bottom_navigation.dart';
 import 'package:huls_coffee_house/widgets/widgets.dart';
@@ -45,8 +44,8 @@ class _HomepageState extends State<Homepage> {
   @override
   void dispose() {
     // TODO: implement dispose
-    _filteredProductsController.close();
     super.dispose();
+    _filteredProductsController.close();
   }
 
   void bottomNavigator(int index) {
@@ -191,7 +190,7 @@ class _HomepageState extends State<Homepage> {
                                         return SizedBox(
                                           height: height * 0.3,
                                           child: ListView.builder(
-                                            itemCount: 4,
+                                            itemCount: allProducts.length >= 4 ? 4 : allProducts.length,
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index) {
                                               return GestureDetector(
@@ -273,7 +272,23 @@ class _HomepageState extends State<Homepage> {
                                   StreamBuilder<List<ProductModel>>(
                                     stream: _filteredProductsController.stream,
                                     builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return const CircularProgressIndicator(
+                                            color: orange);
+                                      } else if (!snapshot.hasData ||
+                                          snapshot.data!.isEmpty) {
+                                        return Center(
+                                          child: Text(
+                                            "No items found",
+                                            style: TextStyle(
+                                              fontSize: width * 0.05,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        );
+                                      } else {
                                         filteredProducts = snapshot.data!;
 
                                         return SizedBox(
@@ -285,14 +300,16 @@ class _HomepageState extends State<Homepage> {
                                               return GestureDetector(
                                                 onTap: () {
                                                   Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ViewProduct(
-                                                                product:
-                                                                    filteredProducts[
-                                                                        index]),
-                                                      ));
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ViewProduct(
+                                                        product:
+                                                            filteredProducts[
+                                                                index],
+                                                      ),
+                                                    ),
+                                                  );
                                                 },
                                                 child: Padding(
                                                   padding: const EdgeInsets
@@ -323,10 +340,6 @@ class _HomepageState extends State<Homepage> {
                                             },
                                           ),
                                         );
-                                      } else {
-                                        return const CircularProgressIndicator(
-                                          color: orange,
-                                        ); // or a placeholder widget
                                       }
                                     },
                                   ),
