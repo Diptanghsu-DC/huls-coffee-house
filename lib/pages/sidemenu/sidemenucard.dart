@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SideMenuCrad extends StatelessWidget {
   final IconData iconname;
   final String title;
-  final VoidCallback ontap;
+  final Function ontap;
   const SideMenuCrad(
       {super.key,
       required this.iconname,
@@ -16,7 +16,8 @@ class SideMenuCrad extends StatelessWidget {
     final double height = screensize.height;
     final double width = screensize.width;
     return InkWell(
-      onTap: ontap,
+      // onTap: ontap,
+      onTap: () {},
       child: Padding(
         padding: EdgeInsets.only(bottom: height * 0.003),
         child: Container(
