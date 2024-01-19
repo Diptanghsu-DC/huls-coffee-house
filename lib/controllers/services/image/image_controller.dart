@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'dart:typed_data';
-// import 'package:cloudinary/cloudinary.dart';
+import 'package:cloudinary/cloudinary.dart';
 // import 'package:efficacy_admin/utils/database/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -9,30 +9,30 @@ import 'package:huls_coffee_house/widgets/compressed_image/image_compressor.dart
 import 'package:image_picker/image_picker.dart';
 // import 'package:efficacy_admin/widgets/compressed_image/image_compressor.dart';
 
-// part 'functions/_upload_image_impl.dart';
+part 'functions/_upload_image_impl.dart';
 part 'functions/_compress_image_impl.dart';
 part 'functions/_get_min_size_impl.dart';
 part 'functions/_user_compression_impl.dart';
 // part 'functions/_delete_impl.dart';
 
-// class UploadInformation {
-//   final String? url;
-//   final String? publicID;
-//   const UploadInformation({
-//     required this.url,
-//     required this.publicID,
-//   });
-// }
+class UploadInformation {
+  final String? url;
+  final String? publicID;
+  const UploadInformation({
+    required this.url,
+    required this.publicID,
+  });
+}
 
-// enum ImageFolder {
-//   eventThumbnail("events/posters"),
-//   userImage("users/profile"),
-//   clubImage("clubs/club"),
-//   clubBanner("clubs/banner");
+enum ImageFolder {
+  // eventThumbnail("events/posters"),
+  productImage("products/image");
+  // clubImage("clubs/club"),
+  // clubBanner("clubs/banner");
 
-//   final String name;
-//   const ImageFolder(this.name);
-// }
+  final String name;
+  const ImageFolder(this.name);
+}
 
 class ImageController {
   const ImageController._();
@@ -61,25 +61,21 @@ class ImageController {
   ///
   /// For [ImageFolder.userImage], [ImageFolder.clubBanner] and [ImageFolder.clubImage]
   /// required: [name]
-  // static Future<UploadInformation> uploadImage({
-  //   required Uint8List img,
-  //   String? clubName,
-  //   String? eventName,
-  //   String? name,
-  //   String? publicID,
-  //   required ImageFolder folder,
-  //   void Function(int count, int total)? progressCallback,
-  // }) async {
-  //   return _uploadImageImpl(
-  //     img: img,
-  //     clubName: clubName,
-  //     eventName: eventName,
-  //     name: name,
-  //     folder: folder,
-  //     publicID: publicID,
-  //     progressCallback: progressCallback,
-  //   );
-  // }
+  static Future<UploadInformation> uploadImage({
+    required Uint8List img,
+    String? productName,
+    String? publicID,
+    required ImageFolder folder,
+    void Function(int count, int total)? progressCallback,
+  }) async {
+    return _uploadImageImpl(
+      img: img,
+      productName: productName,
+      folder: folder,
+      publicID: publicID,
+      progressCallback: progressCallback,
+    );
+  }
 
   static Future<Uint8List?> compressedImage({
     required ImageSource source,
