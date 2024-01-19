@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/utils/utils.dart';
 
 class ItemsCard extends StatelessWidget {
   String itemName;
   num itemPrice;
   String category;
   num? itemRating;
-  String? itemImage;
+  String itemImage;
   num quantity;
 
   ItemsCard({
@@ -15,7 +16,7 @@ class ItemsCard extends StatelessWidget {
     required this.itemPrice,
     required this.category,
     this.itemRating,
-    this.itemImage,
+    required this.itemImage,
     required this.quantity,
   });
 
@@ -24,7 +25,9 @@ class ItemsCard extends StatelessWidget {
     final Size screensize = MediaQuery.of(context).size;
     final double height = screensize.height;
     final double width = screensize.width;
-    String imageUrl = itemImage ?? defaultImage;
+
+    String imageUrl = itemImage.isEmpty ? defaultImage : itemImage;
+
     return Stack(children: [
       Container(
         width: width * 0.897,
@@ -47,19 +50,32 @@ class ItemsCard extends StatelessWidget {
           children: [
             Stack(children: [
               Container(
-                  width: width * 0.897,
-                  height: height * 0.206,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18.21),
-                    color: Colors.amber,
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(18.21),
-                    child: Image.asset(
-                      imageUrl,
-                      fit: BoxFit.fill,
-                    ),
-                  )),
+                width: width * 0.897,
+                height: height * 0.206,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18.21),
+                  color: Colors.amber,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(18.21),
+                  child: imageUrl == defaultImage
+                      ? Image.asset(
+                          imageUrl,
+                          fit: BoxFit.fill,
+                        )
+                      : CustomNetworkImage(
+                          url: imageUrl,
+                          height: height * 0.4,
+                          errorWidget: (BuildContext context, _, __) {
+                            return Image.asset(
+                              mediaImage,
+                              fit: BoxFit.cover,
+                              height: height * 0.4,
+                            );
+                          },
+                        ),
+                ),
+              ),
               Positioned(
                 top: height * 0.0175,
                 left: width * 0.037,
