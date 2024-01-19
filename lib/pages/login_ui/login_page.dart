@@ -200,9 +200,9 @@ class _LoginPageState extends State<LoginPage> {
                                           controller: passController,
                                           hintText: "Password",
                                           validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return "password cannot be empty";
-                                            }
+                                            // if (value!.isEmpty) {
+                                            //   return "password cannot be empty";
+                                            // }
                                             return null;
                                           },
                                           obscureText: isObscure ? true : false,

@@ -18,44 +18,44 @@ class NewPassPage extends StatefulWidget {
 }
 
 class _NewPassPageState extends State<NewPassPage> {
+  bool isObscure = true;
+
+  final TextEditingController passChangeController = TextEditingController();
+  final TextEditingController confirmChangeController =
+  TextEditingController();
+
+  final formKey = GlobalKey<FormState>();
+
+  void showPass() {
+    setState(() {
+      isObscure = !isObscure;
+    });
+  }
+
+  void saveUpdates() async {
+    if (formKey.currentState!.validate()) {
+      showLoadingOverlay(
+        context: context,
+        asyncTask: () async {
+          UserModel? oldUser = UserController.currentUser;
+          UserController.currentUser = UserController.currentUser?.copyWith(
+            name: oldUser!.name,
+            email: oldUser.email,
+            password: passChangeController.text,
+            phone: oldUser.phone,
+          );
+          await UserController.update(oldUser: oldUser);
+          await PassChangeNotifier()
+              .sendEmailVer(UserController.currentUser!.email);
+        },
+        onCompleted: () {
+          Navigator.pop(context);
+        },
+      );
+    }
+  }
   @override
   Widget build(context) {
-    bool isObscure = true;
-
-    final TextEditingController passChangeController = TextEditingController();
-    final TextEditingController confirmChangeController =
-        TextEditingController();
-
-    final formKey = GlobalKey<FormState>();
-
-    void showPass() {
-      setState(() {
-        isObscure = !isObscure;
-      });
-    }
-
-    void saveUpdates() async {
-      if (formKey.currentState!.validate()) {
-        showLoadingOverlay(
-          context: context,
-          asyncTask: () async {
-            UserModel? oldUser = UserController.currentUser;
-            UserController.currentUser = UserController.currentUser?.copyWith(
-              name: oldUser!.name,
-              email: oldUser.email,
-              password: passChangeController.text,
-              phone: oldUser.phone,
-            );
-            await UserController.update(oldUser: oldUser);
-            await PassChangeNotifier()
-                .sendEmailVer(UserController.currentUser!.email);
-          },
-          onCompleted: () {
-            Navigator.pop(context);
-          },
-        );
-      }
-    }
 
     Size size = MediaQuery.of(context).size;
     double height = size.height;
