@@ -113,7 +113,8 @@ class _InventoryState extends State<Inventory> {
                     stream: ProductController.getAll(forceGet: true),
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
+                        return Text(
+                            'Error in inventory.dart: ${snapshot.error}');
                       } else if (snapshot.connectionState ==
                           ConnectionState.waiting) {
                         // return const Text('Loading...');
