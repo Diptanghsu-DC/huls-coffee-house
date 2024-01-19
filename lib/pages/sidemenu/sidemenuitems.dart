@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SideMenuItem {
   final String title;
   final IconData iconPath1;
-  final VoidCallback onTap;
+  final Function onTap;
 
   SideMenuItem({
     required this.title,
