@@ -15,7 +15,7 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
 
   void bottomNavigator(int index) {
     setState(() {
