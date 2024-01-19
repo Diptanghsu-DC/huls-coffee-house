@@ -4,6 +4,7 @@ import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/addons.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/addtocart.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/checkout.dart';
+import 'package:huls_coffee_house/utils/utils.dart';
 
 import '../../models/models.dart';
 
@@ -21,6 +22,7 @@ class _ViewProductState extends State<ViewProduct> {
   int quantity = 1;
   num totalamount = 0;
   num fixamount = 0;
+  late String imageUrl;
   bool addons = true;
 
   @override
@@ -29,6 +31,9 @@ class _ViewProductState extends State<ViewProduct> {
     // Set fixamount using widget.items.itemPrice in initState
     fixamount = widget.product.price;
     totalamount = totalamount + fixamount;
+    imageUrl = widget.product.imageURL.isEmpty
+        ? defaultImage
+        : widget.product.imageURL;
   }
 
   @override
@@ -54,10 +59,22 @@ class _ViewProductState extends State<ViewProduct> {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Image(
-                  image: AssetImage(widget.product.imageURL ?? defaultImage),
-                  fit: BoxFit.cover,
-                ),
+                child: imageUrl == defaultImage
+                    ? Image.asset(
+                        imageUrl,
+                        fit: BoxFit.fill,
+                      )
+                    : CustomNetworkImage(
+                        url: imageUrl,
+                        height: height * 0.4,
+                        errorWidget: (BuildContext context, _, __) {
+                          return Image.asset(
+                            mediaImage,
+                            fit: BoxFit.cover,
+                            height: height * 0.4,
+                          );
+                        },
+                      ),
               )),
           SizedBox(
             height: height * 0.05,
