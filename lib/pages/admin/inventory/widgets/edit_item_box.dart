@@ -1,9 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/utils/item_class.dart';
 import 'package:huls_coffee_house/utils/screen_size.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../config/config.dart';
 
@@ -26,6 +29,9 @@ class ElevatedItemBox extends StatefulWidget {
 class _ElevatedItemBoxState extends State<ElevatedItemBox> {
   late num counter = widget.item.count;
 
+  //image variable
+  Uint8List? _image;
+
   void incrementCounter() {
     setState(() {
       counter++;
@@ -38,6 +44,23 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
         counter--;
       });
     }
+  }
+
+  //function to get image from gallery
+  Future<void> _getImage() async {
+    showLoadingOverlay(
+      context: context,
+      asyncTask: () async {
+        Uint8List? temp = await ImageController.compressedImage(
+          source: ImageSource.gallery,
+          maxSize: 1024 * 1024,
+          context: context,
+        );
+        setState(() {
+          _image = temp;
+        });
+      },
+    );
   }
 
   @override
@@ -73,9 +96,9 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
                 borderRadius: BorderRadius.circular(12.0),
               ),
               // Placeholder for image
-              child: const Center(
-                child: Icon(Icons.image, size: 50, color: Colors.grey),
-              ),
+              // child: const Center(
+              //   child: Icon(Icons.image, size: 50, color: Colors.grey),
+              // ),
             ),
             const SizedBox(height: 2),
             Row(
