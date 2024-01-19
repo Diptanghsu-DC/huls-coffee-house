@@ -20,7 +20,7 @@ class _ProductStreamState extends State<ProductStream> {
       stream: ProductController.getAll(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
+          return Text('Error in productstream.dart: ${snapshot.error}');
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           // return const Text('Loading...');
           return const Center(child: CircularProgressIndicator());

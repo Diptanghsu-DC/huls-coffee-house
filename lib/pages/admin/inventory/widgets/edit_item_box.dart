@@ -1,9 +1,13 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/utils/item_class.dart';
 import 'package:huls_coffee_house/utils/screen_size.dart';
+import 'package:huls_coffee_house/utils/toast_message.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../config/config.dart';
 
@@ -26,6 +30,11 @@ class ElevatedItemBox extends StatefulWidget {
 class _ElevatedItemBoxState extends State<ElevatedItemBox> {
   late num counter = widget.item.count;
 
+  //image variable
+  Uint8List? _image;
+
+  String? imageUrl, imagePublicID;
+
   void incrementCounter() {
     setState(() {
       counter++;
@@ -38,6 +47,74 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
         counter--;
       });
     }
+  }
+
+  void initState() {
+    super.initState();
+    if (widget.item.product != null) {
+      imageUrl = widget.item.product!.imageURL;
+    }
+  }
+
+  //function to get image from gallery
+  Future<void> _getImage() async {
+    showLoadingOverlay(
+      context: context,
+      asyncTask: () async {
+        Uint8List? temp = await ImageController.compressedImage(
+          source: ImageSource.gallery,
+          maxSize: 1024 * 1024,
+          context: context,
+        );
+        setState(() {
+          _image = temp;
+        });
+      },
+    );
+  }
+
+  Future<ProductModel?> prepareProduct() async {
+    toastMessage("Preparing Your product...");
+    ProductModel? product;
+    UploadInformation? productImageInfo;
+
+    if (_image != null) {
+      productImageInfo = await ImageController.uploadImage(
+        img: _image!,
+        productName: widget.item.itemNameController.text,
+        folder: ImageFolder.productImage,
+      );
+    } else if (imageUrl != null && imagePublicID != null) {
+      productImageInfo =
+          UploadInformation(url: imageUrl, publicID: imagePublicID);
+    } else {
+      throw Exception("Please select an image");
+    }
+    if (productImageInfo.url == null || productImageInfo.publicID == null) {
+      throw Exception("Couldn't upload image. Please try again");
+    }
+    print("creating product");
+    product = ProductModel(
+      imageURL: productImageInfo.url!,
+      imagePublicID: productImageInfo.publicID!,
+      itemName: widget.item.itemNameController.text.toString().trim() == ""
+          ? widget.item.product!.itemName
+          : widget.item.itemNameController.text.toString().trim(),
+      itemDesc: widget.item.descriptionController.text.toString().trim() == ""
+          ? widget.item.product == null
+              ? null
+              : widget.item.product!.itemDesc
+          : widget.item.descriptionController.text.toString().trim(),
+      category: widget.item.categoryController.text.toString().trim() == ""
+          ? widget.item.product!.category
+          : widget.item.categoryController.text.toString().trim(),
+      price: widget.item.priceController.text.toString().trim() == ""
+          ? widget.item.product!.price
+          : num.parse(widget.item.priceController.text.toString()),
+      quantity: counter,
+    );
+    print("returning product");
+    return product;
   }
 
   @override
@@ -73,9 +150,31 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
                 borderRadius: BorderRadius.circular(12.0),
               ),
               // Placeholder for image
-              child: const Center(
-                child: Icon(Icons.image, size: 50, color: Colors.grey),
-              ),
+              child: _image == null
+                  ? imageUrl == null
+                      ? DefaultImagePicker(onPressed: _getImage)
+                      : GestureDetector(
+                          onTap: () => _getImage(),
+                          child: Image.network(
+                            imageUrl!,
+                            width: width,
+                            fit: BoxFit.fitWidth,
+                            errorBuilder: (BuildContext context, _, __) {
+                              return DefaultImagePicker(onPressed: _getImage);
+                            },
+                          ),
+                        )
+                  : GestureDetector(
+                      onTap: () => _getImage(),
+                      child: Image.memory(
+                        _image!,
+                        width: width,
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+              // child: const Center(
+              //   child: Icon(Icons.image, size: 50, color: Colors.grey),
+              // ),
             ),
             const SizedBox(height: 2),
             Row(
@@ -187,41 +286,48 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
               alignment: Alignment.bottomRight,
               child: ElevatedButton(
                 onPressed: () async {
-                  await ProductController.create(
-                    ProductModel(
-                      itemName: widget.item.itemNameController.text
-                                  .toString()
-                                  .trim() ==
-                              ""
-                          ? widget.item.product!.itemName
-                          : widget.item.itemNameController.text
-                              .toString()
-                              .trim(),
-                      itemDesc: widget.item.descriptionController.text
-                                  .toString()
-                                  .trim() ==
-                              ""
-                          ? widget.item.product!.itemDesc
-                          : widget.item.descriptionController.text
-                              .toString()
-                              .trim(),
-                      category: widget.item.categoryController.text
-                                  .toString()
-                                  .trim() ==
-                              ""
-                          ? widget.item.product!.category
-                          : widget.item.categoryController.text
-                              .toString()
-                              .trim(),
-                      price:
-                          widget.item.priceController.text.toString().trim() ==
-                                  ""
-                              ? widget.item.product!.price
-                              : num.parse(
-                                  widget.item.priceController.text.toString()),
-                      quantity: counter,
-                    ),
-                  );
+                  ProductModel? product = await prepareProduct();
+                  if (product != null) {
+                    await ProductController.create(product);
+                  } else {
+                    throw Exception(
+                        "Some unexpected error occured. Please contact developers");
+                  }
+                  // await ProductController.create(
+                  // ProductModel(
+                  //   itemName: widget.item.itemNameController.text
+                  //               .toString()
+                  //               .trim() ==
+                  //           ""
+                  //       ? widget.item.product!.itemName
+                  //       : widget.item.itemNameController.text
+                  //           .toString()
+                  //           .trim(),
+                  //   itemDesc: widget.item.descriptionController.text
+                  //               .toString()
+                  //               .trim() ==
+                  //           ""
+                  //       ? widget.item.product!.itemDesc
+                  //       : widget.item.descriptionController.text
+                  //           .toString()
+                  //           .trim(),
+                  //   category: widget.item.categoryController.text
+                  //               .toString()
+                  //               .trim() ==
+                  //           ""
+                  //       ? widget.item.product!.category
+                  //       : widget.item.categoryController.text
+                  //           .toString()
+                  //           .trim(),
+                  //   price:
+                  //       widget.item.priceController.text.toString().trim() ==
+                  //               ""
+                  //           ? widget.item.product!.price
+                  //           : num.parse(
+                  //               widget.item.priceController.text.toString()),
+                  //   quantity: counter,
+                  // ),
+                  // );
                   if (widget.item.product == null) {
                     Navigator.pop(context);
                   } else if (widget.editMode!() != null) {
@@ -243,6 +349,40 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
           ].separate(5),
         ),
       ),
+    );
+  }
+}
+
+class DefaultImagePicker extends StatelessWidget {
+  final void Function() onPressed;
+
+  const DefaultImagePicker({
+    super.key,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.topCenter,
+      children: [
+        Image.asset(
+          mediaImage,
+          width: width,
+          fit: BoxFit.cover,
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: width / 3),
+          child: SizedBox(
+            height: height * 0.04,
+            width: width * 0.4,
+            child: ElevatedButton(
+              onPressed: onPressed,
+              child: const Text("Pick Image"),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/utils/item_class.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/widgets/edit_item_box.dart';
 import 'package:huls_coffee_house/utils/screen_size.dart';
+import 'package:huls_coffee_house/utils/utils.dart';
 
 class ItemBox extends StatefulWidget {
   final Item item;
@@ -17,6 +18,10 @@ class ItemBox extends StatefulWidget {
 
 class _ItemBoxState extends State<ItemBox> {
   bool isEditMode = false;
+
+  late String imageUrl = widget.item.product!.imageURL.isEmpty
+      ? defaultImage
+      : widget.item.product!.imageURL;
 
   void editMode() {
     setState(() {
@@ -57,9 +62,28 @@ class _ItemBoxState extends State<ItemBox> {
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     // Placeholder for image
-                    child: const Center(
-                      child: Icon(Icons.image, size: 50, color: Colors.grey),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(18.21),
+                      child: imageUrl == defaultImage
+                          ? Image.asset(
+                              imageUrl,
+                              fit: BoxFit.fill,
+                            )
+                          : CustomNetworkImage(
+                              url: imageUrl,
+                              height: height * 0.4,
+                              errorWidget: (BuildContext context, _, __) {
+                                return Image.asset(
+                                  mediaImage,
+                                  fit: BoxFit.cover,
+                                  height: height * 0.4,
+                                );
+                              },
+                            ),
                     ),
+                    // child: const Center(
+                    //   child: Icon(Icons.image, size: 50, color: Colors.grey),
+                    // ),
                   ),
                   const SizedBox(height: 8),
                   Row(
