@@ -8,21 +8,28 @@ Future<ProductModel?> _createImpl(ProductModel product) async {
   query = query
       .where(ProductFields.itemName.name, isEqualTo: product.itemName)
       .where(ProductFields.price.name, isEqualTo: product.price);
+  print("product filtering done. found product");
+  print("$query");
 
-  await ProductController._checkDuplicate(product);
+  bool isDuplicate = await ProductController._checkDuplicate(product);
 
-  DocumentReference<Map<String, dynamic>> documentReference =
-      await collection.add(product.toJson());
+  print("is duplicate : $isDuplicate");
 
-  print("document created with ID: ${documentReference.id}");
+  if (!isDuplicate) {
+    DocumentReference<Map<String, dynamic>> documentReference =
+        await collection.add(product.toJson());
 
-  QuerySnapshot querySnapshot = await query.get();
+    print("document created with ID: ${documentReference.id}");
 
-  Map<String, dynamic>? res =
-      querySnapshot.docs.first.data() as Map<String, dynamic>?;
+    QuerySnapshot querySnapshot = await query.get();
 
-  if (res == null) return null;
-  product = ProductModel.fromJson(res);
-  // product = await ProductController._save(product);
+    Map<String, dynamic>? res =
+        querySnapshot.docs.first.data() as Map<String, dynamic>?;
+
+    if (res == null) return null;
+    product = ProductModel.fromJson(res);
+    // product = await ProductController._save(product);
+    return product;
+  }
   return product;
 }

@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/utils/item_class.dart';
+import 'package:huls_coffee_house/utils/screen_size.dart';
 
 import '../../../../config/config.dart';
 
 class ElevatedItemBox extends StatefulWidget {
   final Item item;
+  final Function? editMode;
 
-  const ElevatedItemBox({super.key, required this.item});
+  const ElevatedItemBox({
+    super.key,
+    required this.item,
+    this.editMode,
+  });
 
   @override
   State<ElevatedItemBox> createState() {
@@ -35,6 +42,7 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
 
   @override
   Widget build(BuildContext context) {
+    getSize(context);
     double boxWidth = 1500.0;
 
     return Padding(
@@ -69,7 +77,7 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
                 child: Icon(Icons.image, size: 50, color: Colors.grey),
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 2),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -79,7 +87,9 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
                     decoration: InputDecoration(
                       hintStyle: const TextStyle(
                           fontFamily: 'SofiaPro', fontWeight: FontWeight.bold),
-                      hintText: widget.item.product?.itemName ?? "Add Text",
+                      hintText: widget.item.product?.itemName == null
+                          ? "Add Name"
+                          : "Name : ${widget.item.product?.itemName}",
                       border: InputBorder.none,
                     ),
                   ),
@@ -96,15 +106,17 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
                       child: Center(
                         child: Text(
                           "$counter",
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'SofiaPro'),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'SofiaPro',
+                            fontSize: width * 0.05,
+                          ),
                         ),
                       ),
                     ),
                     const SizedBox(
-                      width: 32,
+                      width: 17,
                     ),
                     ElevatedButton(
                       onPressed: incrementCounter,
@@ -138,35 +150,82 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
                     ),
                   ],
                 ),
-              ],
+              ].separate(5),
             ),
-            const SizedBox(height: 4),
+            // const SizedBox(height: 4),
             TextField(
               controller: widget.item.descriptionController,
               decoration: InputDecoration(
                 hintStyle: const TextStyle(fontFamily: 'SofiaPro'),
-                hintText: widget.item.product?.itemDesc ?? "Add Desc",
+                hintText: widget.item.product?.itemDesc == null
+                    ? "Add Desc"
+                    : "Desc : ${widget.item.product?.itemDesc}",
+                border: InputBorder.none,
+              ),
+            ),
+            TextField(
+              controller: widget.item.categoryController,
+              decoration: InputDecoration(
+                hintStyle: const TextStyle(fontFamily: 'SofiaPro'),
+                hintText: widget.item.product?.category == null
+                    ? "Add Category"
+                    : "Category : ${widget.item.product?.category}",
+                border: InputBorder.none,
+              ),
+            ),
+            TextField(
+              controller: widget.item.priceController,
+              decoration: InputDecoration(
+                hintStyle: const TextStyle(fontFamily: 'SofiaPro'),
+                hintText: widget.item.product?.price.toString() == null
+                    ? "Price"
+                    : "Price : ${widget.item.product?.price}",
                 border: InputBorder.none,
               ),
             ),
             Align(
               alignment: Alignment.bottomRight,
               child: ElevatedButton(
-                onPressed: () {
-                  ProductController.create(
+                onPressed: () async {
+                  await ProductController.create(
                     ProductModel(
-                      itemName:
-                          widget.item.itemNameController.text.toString().trim(),
+                      itemName: widget.item.itemNameController.text
+                                  .toString()
+                                  .trim() ==
+                              ""
+                          ? widget.item.product!.itemName
+                          : widget.item.itemNameController.text
+                              .toString()
+                              .trim(),
                       itemDesc: widget.item.descriptionController.text
-                          .toString()
-                          .trim(),
-                      category: "category",
-                      price: 10,
+                                  .toString()
+                                  .trim() ==
+                              ""
+                          ? widget.item.product!.itemDesc
+                          : widget.item.descriptionController.text
+                              .toString()
+                              .trim(),
+                      category: widget.item.categoryController.text
+                                  .toString()
+                                  .trim() ==
+                              ""
+                          ? widget.item.product!.category
+                          : widget.item.categoryController.text
+                              .toString()
+                              .trim(),
+                      price:
+                          widget.item.priceController.text.toString().trim() ==
+                                  ""
+                              ? widget.item.product!.price
+                              : num.parse(
+                                  widget.item.priceController.text.toString()),
                       quantity: counter,
                     ),
                   );
                   if (widget.item.product == null) {
                     Navigator.pop(context);
+                  } else if (widget.editMode!() != null) {
+                    widget.editMode!();
                   }
                 },
                 style: ElevatedButton.styleFrom(
@@ -174,14 +233,14 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
                   shape: const CircleBorder(),
                   minimumSize: const Size(55.0, 55.0),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.done,
-                  size: 40.0,
+                  size: width * 0.08,
                   color: Colors.white,
                 ),
               ),
             ),
-          ],
+          ].separate(5),
         ),
       ),
     );

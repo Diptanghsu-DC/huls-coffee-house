@@ -7,6 +7,7 @@ import 'package:huls_coffee_house/pages/admin/inventory/widgets/add_item.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/widgets/add_new_item.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/widgets/product_stream.dart';
 import 'package:huls_coffee_house/pages/sidemenu/sidemenudrawer.dart';
+import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
 import 'package:huls_coffee_house/widgets/custom_bottom_navigation_bar/custom_bottom_navigation.dart';
 
 import '../../../controllers/controllers.dart';
@@ -64,32 +65,43 @@ class _InventoryState extends State<Inventory> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        final quitCondition = await showExitWarning(context);
-        return quitCondition ?? false;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              if (_scaffoldKey.currentState != null) {
-                _scaffoldKey.currentState!.openDrawer();
-              }
-            },
-            icon: const Icon(Icons.menu),
-            style: IconButton.styleFrom(
-              backgroundColor: Colors.white,
-            ),
-          ),
+    return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: IconButton(
+        onPressed: () {
+          if (_scaffoldKey.currentState != null) {
+            _scaffoldKey.currentState!.openDrawer();
+          }
+        },
+        icon: const Icon(Icons.menu),
+        style: IconButton.styleFrom(
+          backgroundColor: Colors.white,
         ),
-        key: _scaffoldKey,
-        bottomNavigationBar: CustomBottomNavigation(
-            currentIndex: _currentIndex, onTap: bottomNavigator),
-        drawer: buildCustomDrawer(context),
-        body: Column(
+      ),
+      // appBar: AppBar(
+      //   leading: IconButton(
+      //     onPressed: () {
+      //       if (_scaffoldKey.currentState != null) {
+      //         _scaffoldKey.currentState!.openDrawer();
+      //       }
+      //     },
+      //     icon: const Icon(Icons.menu),
+      //     style: IconButton.styleFrom(
+      //       backgroundColor: Colors.white,
+      //     ),
+      //   ),
+      // ),
+      key: _scaffoldKey,
+      bottomNavigationBar: CustomBottomNavigation(
+          currentIndex: _currentIndex, onTap: bottomNavigator),
+      drawer: buildCustomDrawer(context),
+      body: CustomBackground(
+        bodyWidget: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(
+              height: 120,
+            ),
             MySearchBar(
               onSearch: (query) {
                 filterProducts(query);
@@ -104,7 +116,8 @@ class _InventoryState extends State<Inventory> {
                         return Text('Error: ${snapshot.error}');
                       } else if (snapshot.connectionState ==
                           ConnectionState.waiting) {
-                        return const Text('Loading...');
+                        // return const Text('Loading...');
+                        return const Center(child: CircularProgressIndicator());
                       } else {
                         filteredProducts = snapshot.data!;
                         return Expanded(

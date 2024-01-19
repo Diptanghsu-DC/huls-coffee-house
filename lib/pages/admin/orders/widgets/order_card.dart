@@ -111,13 +111,13 @@ class OrderCard extends StatelessWidget {
                   )
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CustomButton(text: "Accept"),
-                  CustomButton(text: "Decline")
-                ],
-              )
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: [
+              //     CustomButton(text: "Accept"),
+              //     CustomButton(text: "Decline")
+              //   ],
+              // )
             ].separate(10),
           ),
         ),
