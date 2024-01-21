@@ -39,10 +39,10 @@ class _NewPassPageState extends State<NewPassPage> {
         asyncTask: () async {
           UserModel? oldUser = UserController.currentUser;
           UserController.currentUser = UserController.currentUser?.copyWith(
-            name: oldUser!.name,
-            email: oldUser.email,
-            password: passChangeController.text,
-            phone: oldUser.phone,
+            password: Encryptor.encrypt(
+              passChangeController.text,
+              dotenv.env[EnvValues.ENCRYPTER_SALT.name]!,
+            ),
           );
           await UserController.update(oldUser: oldUser);
           await PassChangeNotifier()

@@ -54,8 +54,8 @@ class _HomepageState extends State<Homepage> {
     });
   }
 
-  void filterProducts(String searchValue) async {
-    Stream<List<ProductModel>> allProductStream =
+  Future<void> filterProducts(String searchValue) async {
+    final allProductStream =
         ProductController.getAll(forceGet: true);
     await for (List<ProductModel> allProductsList in allProductStream) {
       setState(() {
