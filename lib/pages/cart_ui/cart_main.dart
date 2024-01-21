@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/controllers/services/user/user_controller.dart';
-import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/cart.dart';
 import 'package:huls_coffee_house/pages/cart_ui/widgets/cart_appbar.dart';
 import 'package:huls_coffee_house/pages/cart_ui/widgets/cart_itemcard.dart';
 import 'package:huls_coffee_house/pages/cart_ui/widgets/cart_totalcost.dart';
 import 'package:provider/provider.dart';
+
+import '../../widgets/custom_bottom_navigation_bar/custom_bottom_navigation.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -21,10 +22,21 @@ class _CartPage extends State<CartPage> {
     // Replace with actual logic using backend data
     return 100.0; // Placeholder value
   }
+  int _currentIndex = 2;
+
+  void bottomNavigator(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        bottomNavigationBar: CustomBottomNavigation(
+          currentIndex: _currentIndex,
+          onTap: bottomNavigator,
+        ),
         appBar: const CartAppBar(),
         body: Consumer<Cart>(
           builder: (context, cart, child) {

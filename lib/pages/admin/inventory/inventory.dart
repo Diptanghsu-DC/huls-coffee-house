@@ -60,6 +60,13 @@ class _InventoryState extends State<Inventory> {
     });
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    bottomNavigator(0);
+  }
+
   List<Item> filteredItems = [];
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
