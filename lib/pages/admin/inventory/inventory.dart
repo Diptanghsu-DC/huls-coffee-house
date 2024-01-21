@@ -100,7 +100,7 @@ class _InventoryState extends State<Inventory> {
       // ),
       key: _scaffoldKey,
       bottomNavigationBar: CustomBottomNavigation(
-          currentIndex: _currentIndex, onTap: bottomNavigator),
+           onTap: bottomNavigator),
       drawer: buildCustomDrawer(context),
       body: CustomBackground(
         bodyWidget: Column(

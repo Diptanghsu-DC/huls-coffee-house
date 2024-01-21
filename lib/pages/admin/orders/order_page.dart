@@ -34,14 +34,17 @@ class _OrderPageState extends State<OrderPage> {
   Widget build(BuildContext context) {
     getSize(context);
     return Scaffold(
-      bottomNavigationBar: CustomBottomNavigation(
-          currentIndex: _currentIndex, onTap: bottomNavigator),
+      bottomNavigationBar: CustomBottomNavigation(onTap: bottomNavigator),
       // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       appBar: AppBar(
         leading: const GoBackButton(),
         title: Padding(
           padding: EdgeInsets.only(left: width * 0.23),
-          child: const Text("Orders", style: TextStyle(fontFamily: 'SofiaPro', fontWeight: FontWeight.bold),),
+          child: const Text(
+            "Orders",
+            style:
+                TextStyle(fontFamily: 'SofiaPro', fontWeight: FontWeight.bold),
+          ),
         ),
       ),
       body: const OrderStream(),
