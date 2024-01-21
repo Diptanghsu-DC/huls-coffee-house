@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/utils/item_class.dart';
@@ -49,6 +48,7 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
     }
   }
 
+  @override
   void initState() {
     super.initState();
     if (widget.item.product != null) {
@@ -101,9 +101,7 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
           ? widget.item.product!.itemName
           : widget.item.itemNameController.text.toString().trim(),
       itemDesc: widget.item.descriptionController.text.toString().trim() == ""
-          ? widget.item.product == null
-              ? null
-              : widget.item.product!.itemDesc
+          ? widget.item.product?.itemDesc
           : widget.item.descriptionController.text.toString().trim(),
       category: widget.item.categoryController.text.toString().trim() == ""
           ? widget.item.product!.category

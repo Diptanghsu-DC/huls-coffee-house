@@ -24,6 +24,13 @@ class _OrderPageState extends State<OrderPage> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    bottomNavigator(1);
+  }
+
+  @override
   Widget build(BuildContext context) {
     getSize(context);
     return Scaffold(
