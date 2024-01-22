@@ -10,7 +10,9 @@ import '../../utils/utils.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
-static const String routeName = '/MainPage';
+
+  static const String routeName = '/MainPage';
+
   @override
   State<MainPage> createState() => _MainPageState();
 }
@@ -34,7 +36,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) async{
+      onPopInvoked: (didPop) async {
         if (didPop) {
           return;
         }
@@ -45,12 +47,10 @@ class _MainPageState extends State<MainPage> {
         }
       },
       child: Scaffold(
-        bottomNavigationBar:
-        BottomNavigationBar(
+        bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: orange,
           type: BottomNavigationBarType.fixed,
-          onTap: navigate
-          ,
+          onTap: navigate,
           currentIndex: currentIndex,
           items: const [
             BottomNavigationBarItem(
@@ -78,8 +78,7 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
           ],
-        )
-        ,
+        ),
         body: pages[currentIndex],
       ),
     );
