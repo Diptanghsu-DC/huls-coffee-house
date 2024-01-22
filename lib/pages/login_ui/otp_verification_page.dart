@@ -9,6 +9,7 @@ import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/forgot_alert.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/new_pass.dart';
+import 'package:huls_coffee_house/pages/main_page/main_page.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
 import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
 
@@ -62,7 +63,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
         if (isUserCreated) {
           if (user != null) {
             Navigator.pushNamedAndRemoveUntil(
-                context, Homepage.routeName, (route) => false);
+                context, MainPage.routeName, (route) => false);
           }
         } else if (ForgotAlert.forgotOtp != "") {
           Navigator.pushNamed(context, NewPassPage.routeName);

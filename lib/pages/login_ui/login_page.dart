@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/services/user/user_controller.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
+import 'package:huls_coffee_house/pages/admin/main_page/main_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/forgot_alert.dart';
+import 'package:huls_coffee_house/pages/main_page/main_page.dart';
 import 'package:huls_coffee_house/widgets/widgets.dart';
 import '../../utils/utils.dart';
 import '../pages.dart';
@@ -54,11 +56,11 @@ class _LoginPageState extends State<LoginPage> {
             if (user != null) {
               if (UserController.currentUser!.isSeller) {
                 Navigator.pushNamedAndRemoveUntil(
-                    context, Inventory.routeName, (route) => false);
+                    context, AdminMainPage.routeName, (route) => false);
               } else {
                 Navigator.pushNamedAndRemoveUntil(
                   context,
-                  Homepage.routeName,
+                  MainPage.routeName,
                   (route) => false,
                 );
               }
