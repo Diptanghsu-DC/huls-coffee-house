@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
-import 'package:huls_coffee_house/pages/view_product_page/components/addons.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/addtocart.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/checkout.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
@@ -11,7 +10,7 @@ import '../../models/models.dart';
 class ViewProduct extends StatefulWidget {
   final ProductModel product;
 
-  const ViewProduct({Key? key, required this.product}) : super(key: key);
+  const ViewProduct({super.key, required this.product});
   static const String routeName = '/viewproduct';
 
   @override
@@ -164,41 +163,6 @@ class _ViewProductState extends State<ViewProduct> {
           ),
           SizedBox(
             height: height * 0.03375,
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(width * 0.03055, 0, 0, 0),
-            child: const Row(
-              children: [
-                Text(
-                  ' Add Ons',
-                  style: TextStyle(
-                    color: Color(0xFF323643),
-                    fontSize: 18,
-                    fontFamily: 'SofiaPro',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              addons = false;
-              setState(() {});
-            },
-            child: const Addons(
-              name: 'Candels',
-              image: 'assets/images/demo1.png',
-              price: '+20',
-              addon: false,
-            ),
-          ),
-          const Addons(
-            name: 'Sparkels',
-            image: 'assets/images/demo2.png',
-            price: '+20',
-            addon: false,
           ),
           SizedBox(
             height: height * 0.0225,
