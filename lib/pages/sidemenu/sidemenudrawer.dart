@@ -4,6 +4,7 @@ import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/pages/about_us/about_us.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
+import 'package:huls_coffee_house/pages/notifications_page/notifications_page.dart';
 import 'package:huls_coffee_house/pages/privacy_policy/privacy_policy.dart';
 import 'package:huls_coffee_house/pages/profile/profile_main.dart';
 
@@ -117,7 +118,10 @@ Widget buildCustomDrawer(BuildContext context) {
                               ),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, NotificationsPage.routeName);
+                              },
                               child: const SideMenuCard(
                                 iconname: CupertinoIcons.bell,
                                 title: 'Notifications',
@@ -178,7 +182,10 @@ Widget buildCustomDrawer(BuildContext context) {
                               ),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, NotificationsPage.routeName);
+                              },
                               child: const SideMenuCard(
                                 iconname: CupertinoIcons.bell,
                                 title: 'Notifications',
