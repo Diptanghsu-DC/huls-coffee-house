@@ -54,6 +54,7 @@ dependencies:
   font_awesome_flutter: ^10.6.0
   provider: ^6.1.1
   audioplayers: ^5.2.1
+  firebase_messaging: ^14.7.10
 
 dev_dependencies:
   freezed: ^2.4.6

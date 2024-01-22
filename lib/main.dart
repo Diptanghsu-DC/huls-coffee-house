@@ -1,17 +1,25 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:huls_coffee_house/api/firebase_messagingapi.dart';
+import 'package:huls_coffee_house/firebase_options.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/cart.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/profile/profile_main.dart';
 import 'package:huls_coffee_house/pages/splash_screen/splash_screen.dart';
+import 'package:huls_coffee_house/utils/local_database/local_database.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await dotenv.load(fileName: '.env');
   // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // await LocalDatabase.init();
+  
+  //  await dotenv.load(fileName: '.env');
+   
+  //  await LocalDatabase.init();
+  //  await Firebaseapi().initnotification();
   runApp(const MyApp());
 }
 
@@ -30,7 +38,7 @@ class MyApp extends StatelessWidget {
         routes: {
           SplashScreen.routeName: (context) => const SplashScreen(),
           Homepage.routeName: (context) => const Homepage(),
-          ProfilePage.routeName : (context) => const ProfilePage(),
+          ProfilePage.routeName: (context) => const ProfilePage(),
           LoginPage.routeName: (context) => const LoginPage(),
           SignupPage.routeName: (context) => const SignupPage(),
           ViewAll.routeName: (context) => ViewAll(),
@@ -50,7 +58,6 @@ class MyApp extends StatelessWidget {
               const OrderSuccessfulPage()
         },
         initialRoute: SplashScreen.routeName,
-
       ),
     );
   }
