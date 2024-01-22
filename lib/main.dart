@@ -5,6 +5,7 @@ import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/cart.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/new_pass.dart';
+import 'package:huls_coffee_house/pages/privacy_policy/privacy_policy.dart';
 import 'package:huls_coffee_house/pages/profile/profile_main.dart';
 import 'package:huls_coffee_house/pages/splash_screen/splash_screen.dart';
 import 'package:huls_coffee_house/utils/local_database/local_database.dart';
@@ -53,7 +54,8 @@ class MyApp extends StatelessWidget {
           OrderPage.routeName: (context) => const OrderPage(),
           Inventory.routeName: (context) => const Inventory(),
           OrderSuccessfulPage.routeName: (context) =>
-              const OrderSuccessfulPage()
+              const OrderSuccessfulPage(),
+          PrivacyPolicyPage.routeName: (context) => const PrivacyPolicyPage()
         },
         initialRoute: SplashScreen.routeName,
       ),

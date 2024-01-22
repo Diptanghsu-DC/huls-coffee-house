@@ -58,7 +58,7 @@ class _HomepageState extends State<Homepage> {
 
   Future<void> filterProducts(String searchValue) async {
     final allProductStream =
-        ProductController.getAll(forceGet: true);
+        ProductController.getAll();
     await for (List<ProductModel> allProductsList in allProductStream) {
       setState(() {
         filteredProducts = allProductsList.where((product) {
