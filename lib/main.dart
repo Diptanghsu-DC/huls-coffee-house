@@ -1,5 +1,6 @@
 import 'package:huls_coffee_house/pages/about_us/about_us.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
+import 'package:huls_coffee_house/pages/admin/main_page/main_page.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/cart.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/new_pass.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
                 const TextTheme(bodySmall: TextStyle(fontFamily: 'SofiaPro'))),
         routes: {
           MainPage.routeName: (context) => const MainPage(),
+          AdminMainPage.routeName : (context) => const AdminMainPage(),
           SplashScreen.routeName: (context) => const SplashScreen(),
           Homepage.routeName: (context) => const Homepage(),
           ProfilePage.routeName: (context) => const ProfilePage(),

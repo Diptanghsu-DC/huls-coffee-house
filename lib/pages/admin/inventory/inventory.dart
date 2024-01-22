@@ -26,7 +26,6 @@ class Inventory extends StatefulWidget {
 }
 
 class _InventoryState extends State<Inventory> {
-  int _currentIndex = 0;
   List<ProductModel> filteredProducts = [];
   final StreamController<List<ProductModel>> _filteredProductsController =
       StreamController<List<ProductModel>>();
@@ -62,17 +61,11 @@ class _InventoryState extends State<Inventory> {
     super.dispose();
   }
 
-  void bottomNavigator(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    bottomNavigator(0);
     allProductStream = ProductController.getAll();
   }
 
@@ -120,8 +113,6 @@ class _InventoryState extends State<Inventory> {
         //   ),
         // ),
         key: _scaffoldKey,
-        bottomNavigationBar: CustomBottomNavigation(
-            currentIndex: _currentIndex, onTap: bottomNavigator),
         drawer: buildCustomDrawer(context),
         body: CustomBackground(
           bodyWidget: Column(
