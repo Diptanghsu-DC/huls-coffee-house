@@ -169,7 +169,7 @@ Widget buildCustomDrawer(BuildContext context) {
                                     context, Inventory.routeName);
                               },
                               child: const SideMenuCard(
-                                iconname: CupertinoIcons.cart,
+                                iconname: Icons.inventory,
                                 title: 'Inventory',
                               ),
                             ),
@@ -177,7 +177,7 @@ Widget buildCustomDrawer(BuildContext context) {
                               onTap: () => Navigator.pushNamed(
                                   context, OrderPage.routeName),
                               child: const SideMenuCard(
-                                iconname: CupertinoIcons.bag_fill,
+                                iconname: CupertinoIcons.timer,
                                 title: 'Orders',
                               ),
                             ),
