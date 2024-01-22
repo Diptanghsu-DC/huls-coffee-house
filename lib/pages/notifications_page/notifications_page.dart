@@ -25,10 +25,6 @@ class _NotificationsPageState extends State<NotificationsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: CustomBottomNavigation(
-        currentIndex: _currentIndex,
-        onTap: bottomNavigator,
-      ),
       appBar: AppBar(
         leading: const GoBackButton(),
         centerTitle: true,

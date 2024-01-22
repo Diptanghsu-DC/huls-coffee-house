@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
+import 'package:huls_coffee_house/pages/main_page/main_page.dart';
 
 import '../../controllers/services/user/user_controller.dart';
 import '../../firebase_options.dart';
@@ -52,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
               .then((value) => exit(0));
         } else {
           Navigator.of(context)
-              .pushNamedAndRemoveUntil(Homepage.routeName, (route) => false)
+              .pushNamedAndRemoveUntil(MainPage.routeName, (route) => false)
               .then((value) => exit(0));
         }
       }

@@ -39,10 +39,6 @@ class _CartPage extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: CustomBottomNavigation(
-          currentIndex: _currentIndex,
-          onTap: bottomNavigator,
-        ),
         appBar: const CartAppBar(),
         body: Consumer<Cart>(
           builder: (context, cart, child) {
