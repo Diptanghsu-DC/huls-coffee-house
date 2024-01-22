@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
+import 'package:huls_coffee_house/pages/profile/profile_main.dart';
+
 // import 'package:huls_coffee_house/pages/Sidemenu/sidemenilistclass.dart';
 import 'package:huls_coffee_house/pages/sidemenu/sidemenucard.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
@@ -17,31 +19,34 @@ Widget buildCustomDrawer(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: height * 0.06),
-        Padding(
-          padding: EdgeInsets.only(left: width * 0.05),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                width: width * 0.277,
-                height: height * 0.125,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0x3F000000),
-                      blurRadius: 3,
-                      offset: Offset(0, 4),
-                      spreadRadius: 0,
-                    )
-                  ],
+        InkWell(
+          onTap: () => Navigator.pushNamed(context, ProfilePage.routeName),
+          child: Padding(
+            padding: EdgeInsets.only(left: width * 0.05),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  width: width * 0.277,
+                  height: height * 0.125,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x3F000000),
+                        blurRadius: 3,
+                        offset: Offset(0, 4),
+                        spreadRadius: 0,
+                      )
+                    ],
+                  ),
+                  child: Image.asset(
+                    'assets/images/account.png',
+                  ),
                 ),
-                child: Image.asset(
-                  'assets/images/account.png',
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         SizedBox(height: width * 0.025),
@@ -77,7 +82,7 @@ Widget buildCustomDrawer(BuildContext context) {
                         child: ListView.separated(
                           padding: EdgeInsets.zero,
                           itemBuilder: (context, index) {
-                            return SideMenuCrad(
+                            return SideMenuCard(
                               title: sideMenuItems[index].title,
                               iconname: sideMenuItems[index].iconPath1,
                               ontap: sideMenuItems[index].onTap,
@@ -86,7 +91,7 @@ Widget buildCustomDrawer(BuildContext context) {
                           separatorBuilder: (context, index) {
                             return SizedBox(height: height * 0.025);
                           },
-                          itemCount: 6,
+                          itemCount: sideMenuItems.length,
                         ),
                       ),
                     )
@@ -97,7 +102,7 @@ Widget buildCustomDrawer(BuildContext context) {
                         child: ListView.separated(
                           padding: EdgeInsets.zero,
                           itemBuilder: (context, index) {
-                            return SideMenuCrad(
+                            return SideMenuCard(
                               title: sideMenuItemsAdmin[index].title,
                               iconname: sideMenuItemsAdmin[index].iconPath1,
                               ontap: sideMenuItemsAdmin[index].onTap,
@@ -106,7 +111,7 @@ Widget buildCustomDrawer(BuildContext context) {
                           separatorBuilder: (context, index) {
                             return SizedBox(height: height * 0.025);
                           },
-                          itemCount: 6,
+                          itemCount: sideMenuItemsAdmin.length,
                         ),
                       ),
                     ),
