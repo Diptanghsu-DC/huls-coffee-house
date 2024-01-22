@@ -23,7 +23,7 @@ class _CartPage extends State<CartPage> {
   double calculateTotalCost(List<ProductModel> cartList) {
     double total = 0.0;
     for (ProductModel cartItem in cartList) {
-      total += cartItem.price;
+      total += cartItem.price * cartItem.quantity;
     }
     return total;
   }
