@@ -26,10 +26,6 @@ class Inventory extends StatefulWidget {
 }
 
 class _InventoryState extends State<Inventory> {
-<<<<<<< HEAD
-=======
-  int _currentIndex = 1;
->>>>>>> 0fda6a1b00f99105005ee97a195af45259ab1565
   List<ProductModel> filteredProducts = [];
   final StreamController<List<ProductModel>> _filteredProductsController =
       StreamController<List<ProductModel>>();
@@ -70,10 +66,7 @@ class _InventoryState extends State<Inventory> {
   void initState() {
     // TODO: implement initState
     super.initState();
-<<<<<<< HEAD
-=======
-    bottomNavigator(1);
->>>>>>> 0fda6a1b00f99105005ee97a195af45259ab1565
+
     allProductStream = ProductController.getAll();
   }
 
