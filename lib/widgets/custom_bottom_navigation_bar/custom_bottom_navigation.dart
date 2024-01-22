@@ -2,10 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
-import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
-import 'package:huls_coffee_house/pages/notifications_page/notifications_page.dart';
-import 'package:huls_coffee_house/pages/pages.dart';
-import 'package:huls_coffee_house/pages/profile/profile_main.dart';
 
 // enum Tab {Account, Liked, Home, Cart, Notifications}
 
@@ -86,8 +82,15 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
               //   Navigator.pushNamed(context, OrderPage.routeName);
               // }
               widget.currentIndex = index;
+
             },
             items: const [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  CupertinoIcons.profile_circled,
+                ),
+                label: "Account",
+              ),
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.inventory,
@@ -99,6 +102,12 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
                   CupertinoIcons.timer,
                 ),
                 label: "Orders",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  CupertinoIcons.bell,
+                ),
+                label: "Notifications",
               ),
             ],
           );

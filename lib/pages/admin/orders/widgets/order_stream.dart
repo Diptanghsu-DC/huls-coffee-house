@@ -20,7 +20,7 @@ class OrderStream extends StatelessWidget {
         if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text('Loading...');
+          return Center(child: const CircularProgressIndicator());
         } else {
           // Process the data from snapshot
           final orders = snapshot.data!;
@@ -28,6 +28,7 @@ class OrderStream extends StatelessWidget {
           return ListView.builder(
             itemCount: orders.length,
             itemBuilder: (context, index) => OrderCard(
+              order: orders[index],
               itemName: orders[index].product,
               quantity: orders[index].quantity,
               price: orders[index].quantity,

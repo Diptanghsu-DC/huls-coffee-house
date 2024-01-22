@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/controllers/controllers.dart';
+import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
 
 class OrderCard extends StatelessWidget {
   const OrderCard({
     super.key,
+    required this.order,
     required this.itemName,
     required this.quantity,
     required this.price,
@@ -13,6 +16,7 @@ class OrderCard extends StatelessWidget {
     required this.userPhone,
   });
 
+  final OrderModel order;
   final String itemName;
   final num quantity;
   final num price;
@@ -110,6 +114,21 @@ class OrderCard extends StatelessWidget {
                     ].separate(10),
                   )
                 ],
+              ),
+              CustomButton(
+                text: "Done",
+                onPressed: () {
+                  showLoadingOverlay(
+                    context: context,
+                    asyncTask: () async {
+                      await OrderController.delete(order);
+                    },
+                    onCompleted: () {
+                      toastMessage(
+                          "Order done. Notifying $userName. Updating the order list in the next 100 seconds");
+                    },
+                  );
+                },
               ),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
