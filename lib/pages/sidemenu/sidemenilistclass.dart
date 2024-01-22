@@ -36,13 +36,6 @@ List<SideMenuItem> sideMenuItems = [
     },
   ),
   SideMenuItem(
-    title: 'Liked',
-    iconPath1: CupertinoIcons.heart,
-    onTap: () {
-      // Define the action for Item 2 onTap
-    },
-  ),
-  SideMenuItem(
     title: 'Notifications',
     iconPath1: CupertinoIcons.bell,
     onTap: () {

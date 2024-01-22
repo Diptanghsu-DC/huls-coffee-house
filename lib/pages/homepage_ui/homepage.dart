@@ -39,7 +39,7 @@ class _HomepageState extends State<Homepage> {
     // TODO: implement initState
 
     super.initState();
-    allProductStream = ProductController.getAll(forceGet: true);
+    allProductStream = ProductController.getAll();
 
   }
 
