@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
+import 'package:huls_coffee_house/pages/about_us/about_us.dart';
+import 'package:huls_coffee_house/pages/privacy_policy/privacy_policy.dart';
 import 'package:huls_coffee_house/pages/profile/profile_main.dart';
 
 // import 'package:huls_coffee_house/pages/Sidemenu/sidemenilistclass.dart';
@@ -79,19 +82,48 @@ Widget buildCustomDrawer(BuildContext context) {
                       child: Padding(
                         padding: EdgeInsets.only(
                             left: width * 0.036, right: width * 0.075),
-                        child: ListView.separated(
-                          padding: EdgeInsets.zero,
-                          itemBuilder: (context, index) {
-                            return SideMenuCard(
-                              title: sideMenuItems[index].title,
-                              iconname: sideMenuItems[index].iconPath1,
-                              ontap: sideMenuItems[index].onTap,
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return SizedBox(height: height * 0.025);
-                          },
-                          itemCount: sideMenuItems.length,
+                        child: ListView(
+                          children: [
+                            InkWell(
+                                onTap: () => Navigator.pushNamed(
+                                    context, AboutUsPage.routeName),
+                                child: const SideMenuCard(
+                                  iconname: CupertinoIcons.info,
+                                  title: 'About Us',
+                                ),
+                            ),
+                            InkWell(
+                              onTap: () => Navigator.pushNamed(
+                                  context, PrivacyPolicyPage.routeName),
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.lock,
+                                title: 'Privacy Policy',
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () => Navigator.pushNamed(
+                                  context, ProfilePage.routeName),
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.profile_circled,
+                                title: 'Account',
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () => Navigator.pushNamed(
+                                  context, CartPage.routeName),
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.cart,
+                                title: 'Cart',
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {},
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.bell,
+                                title: 'Notifications',
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     )
@@ -105,7 +137,6 @@ Widget buildCustomDrawer(BuildContext context) {
                             return SideMenuCard(
                               title: sideMenuItemsAdmin[index].title,
                               iconname: sideMenuItemsAdmin[index].iconPath1,
-                              ontap: sideMenuItemsAdmin[index].onTap,
                             );
                           },
                           separatorBuilder: (context, index) {
