@@ -2,23 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
-import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
-import 'package:huls_coffee_house/pages/notifications_page/notifications_page.dart';
-import 'package:huls_coffee_house/pages/pages.dart';
-import 'package:huls_coffee_house/pages/profile/profile_main.dart';
 
 // enum Tab {Account, Liked, Home, Cart, Notifications}
 
-class CustomBottomNavigation extends StatelessWidget {
-  const CustomBottomNavigation({
+class CustomBottomNavigation extends StatefulWidget {
+  CustomBottomNavigation({
     super.key,
     required this.currentIndex,
     required this.onTap,
   });
 
-  final int currentIndex;
+  int currentIndex;
   final Function onTap;
 
+  @override
+  State<CustomBottomNavigation> createState() => _CustomBottomNavigationState();
+}
+
+class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
   @override
   Widget build(BuildContext context) {
     return !UserController.currentUser!.isSeller
@@ -26,19 +27,22 @@ class CustomBottomNavigation extends StatelessWidget {
             selectedItemColor: orange,
             type: BottomNavigationBarType.fixed,
             onTap: (index) {
+              setState(() {
+                widget.currentIndex = index;
+              });
               // more logic to be added regarding page navigation
-              onTap(index);
-              if (index == 0) {
-                Navigator.pushNamed(context, ProfilePage.routeName);
-              } else if (index == 1) {
-                Navigator.pushNamed(context, Homepage.routeName);
-              } else if (index == 2) {
-                Navigator.pushNamed(context, CartPage.routeName);
-              } else if (index == 3) {
-                Navigator.pushNamed(context, NotificationsPage.routeName);
-              }
+              // onTap(index);
+              // if (index == 0) {
+              //   Navigator.pushNamed(context, ProfilePage.routeName);
+              // } else if (index == 1) {
+              //   Navigator.pushNamed(context, Homepage.routeName);
+              // } else if (index == 2) {
+              //   Navigator.pushNamed(context, CartPage.routeName);
+              // } else if (index == 3) {
+              //   Navigator.pushNamed(context, NotificationsPage.routeName);
+              // }
             },
-            currentIndex: currentIndex,
+            currentIndex: widget.currentIndex,
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(
@@ -67,20 +71,18 @@ class CustomBottomNavigation extends StatelessWidget {
             ],
           )
         : BottomNavigationBar(
-            currentIndex: currentIndex,
+            currentIndex: widget.currentIndex,
             selectedItemColor: orange,
             type: BottomNavigationBarType.fixed,
             onTap: (index) {
-              onTap(index);
-              if (index == 0) {
-                Navigator.pushNamed(context, ProfilePage.routeName);
-              } else if (index == 1) {
-                Navigator.pushNamed(context, Inventory.routeName);
-              } else if (index == 2) {
-                Navigator.pushNamed(context, OrderPage.routeName);
-              } else if (index == 3) {
-                Navigator.pushNamed(context, NotificationsPage.routeName);
-              }
+              // widget.onTap(index);
+              // if (index == 0) {
+              //   Navigator.pushNamed(context, Inventory.routeName);
+              // } else if (index == 1) {
+              //   Navigator.pushNamed(context, OrderPage.routeName);
+              // }
+              widget.currentIndex = index;
+
             },
             items: const [
               BottomNavigationBarItem(
