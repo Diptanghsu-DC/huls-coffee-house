@@ -26,7 +26,7 @@ class _HomepageState extends State<Homepage> {
   final TextEditingController _searchController = TextEditingController();
   int _currentIndex = 1;
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffold_Key = GlobalKey<ScaffoldState>();
 
   List<ProductModel> filteredProducts = [];
   Stream<List<ProductModel>>? allProductStream;
@@ -56,20 +56,26 @@ class _HomepageState extends State<Homepage> {
     });
   }
 
+  Timer? _debounceTimer;
+
   Future<void> filterProducts(String searchValue) async {
-    final allProductStream =
-        ProductController.getAll();
-    await for (List<ProductModel> allProductsList in allProductStream) {
+    if (_debounceTimer != null && _debounceTimer!.isActive) {
+      _debounceTimer!.cancel();
+    }
+
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
+      List<ProductModel> allProductsList =
+      await ProductController.getAll().first;
+
       setState(() {
-        filteredProducts = allProductsList.where((product) {
-          return product.itemName
-              .toLowerCase()
-              .contains(searchValue.toLowerCase());
-        }).toList();
+        filteredProducts = allProductsList
+            .where((product) =>
+            product.itemName.toLowerCase().contains(searchValue.toLowerCase()))
+            .toList();
 
         _filteredProductsController.add(filteredProducts);
       });
-    }
+    });
   }
 
   @override
@@ -85,7 +91,7 @@ class _HomepageState extends State<Homepage> {
       child: Stack(
         children: [
           Scaffold(
-              key: _scaffoldKey,
+              key: _scaffold_Key,
               drawer: buildCustomDrawer(context),
               body: CustomBackground(
                 bodyWidget: Padding(
@@ -361,8 +367,8 @@ class _HomepageState extends State<Homepage> {
             top: 35,
             child: IconButton(
               onPressed: () {
-                if (_scaffoldKey.currentState != null) {
-                  _scaffoldKey.currentState!.openDrawer();
+                if (_scaffold_Key.currentState != null) {
+                  _scaffold_Key.currentState!.openDrawer();
                 }
               },
               icon: const Icon(Icons.menu),

@@ -11,7 +11,6 @@ import 'package:huls_coffee_house/pages/profile/profile_main.dart';
 import 'package:huls_coffee_house/pages/sidemenu/sidemenucard.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
-import 'package:huls_coffee_house/pages/sidemenu/sidemenilistclass.dart';
 import 'package:huls_coffee_house/utils/logout_message.dart';
 
 Widget buildCustomDrawer(BuildContext context) {
