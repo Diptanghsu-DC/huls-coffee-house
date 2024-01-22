@@ -86,7 +86,7 @@ Widget buildCustomDrawer(BuildContext context) {
                           separatorBuilder: (context, index) {
                             return SizedBox(height: height * 0.025);
                           },
-                          itemCount: 6,
+                          itemCount: sideMenuItems.length,
                         ),
                       ),
                     )
@@ -106,7 +106,7 @@ Widget buildCustomDrawer(BuildContext context) {
                           separatorBuilder: (context, index) {
                             return SizedBox(height: height * 0.025);
                           },
-                          itemCount: 6,
+                          itemCount: sideMenuItemsAdmin.length,
                         ),
                       ),
                     ),
