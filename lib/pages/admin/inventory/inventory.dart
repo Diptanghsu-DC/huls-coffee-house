@@ -26,12 +26,11 @@ class Inventory extends StatefulWidget {
 }
 
 class _InventoryState extends State<Inventory> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
   List<ProductModel> filteredProducts = [];
   final StreamController<List<ProductModel>> _filteredProductsController =
       StreamController<List<ProductModel>>();
   Stream<List<ProductModel>>? allProductStream;
-
 
   Timer? _debounceTimer;
 
@@ -42,12 +41,13 @@ class _InventoryState extends State<Inventory> {
 
     _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
       List<ProductModel> allProductsList =
-      await ProductController.getAll().first;
+          await ProductController.getAll().first;
 
       setState(() {
         filteredProducts = allProductsList
-            .where((product) =>
-            product.itemName.toLowerCase().contains(searchValue.toLowerCase()))
+            .where((product) => product.itemName
+                .toLowerCase()
+                .contains(searchValue.toLowerCase()))
             .toList();
 
         _filteredProductsController.add(filteredProducts);
@@ -72,7 +72,7 @@ class _InventoryState extends State<Inventory> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    bottomNavigator(0);
+    bottomNavigator(1);
     allProductStream = ProductController.getAll();
   }
 
@@ -83,7 +83,7 @@ class _InventoryState extends State<Inventory> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) async{
+      onPopInvoked: (didPop) async {
         if (didPop) {
           return;
         }
