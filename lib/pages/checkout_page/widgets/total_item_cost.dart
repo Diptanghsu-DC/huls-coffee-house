@@ -5,10 +5,10 @@ import 'package:huls_coffee_house/models/models.dart';
 class TotalItemCost extends StatefulWidget {
   TotalItemCost({
     super.key,
-    required this.itemPrice, required this.item,
+    required this.item,
   });
 
-  final num itemPrice;
+
   final ProductModel item;
 
 
@@ -79,7 +79,7 @@ class _TotalItemCostState extends State<TotalItemCost> {
           ),
         ),
         Text(
-          "\$${widget.itemPrice * count}",
+          "\$${widget.item.quantity * count}",
           style: const TextStyle(
               fontFamily: 'SofiaPro',
               fontSize: 14,
