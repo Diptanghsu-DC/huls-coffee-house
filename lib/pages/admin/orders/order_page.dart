@@ -34,7 +34,8 @@ class _OrderPageState extends State<OrderPage> {
   Widget build(BuildContext context) {
     getSize(context);
     return Scaffold(
-      bottomNavigationBar: CustomBottomNavigation(onTap: bottomNavigator),
+      bottomNavigationBar: CustomBottomNavigation(
+          currentRouteName: OrderPage.routeName,onTap: bottomNavigator),
       // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       appBar: AppBar(
         leading: const GoBackButton(),

@@ -33,6 +33,7 @@ class _ProfilePage extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CustomBottomNavigation(
+        currentRouteName: ProfilePage.routeName,
         onTap: bottomNavigator,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,

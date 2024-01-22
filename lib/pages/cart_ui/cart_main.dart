@@ -40,6 +40,7 @@ class _CartPage extends State<CartPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: CustomBottomNavigation(
+          currentRouteName: CartPage.routeName,
           onTap: bottomNavigator,
         ),
         appBar: const CartAppBar(),

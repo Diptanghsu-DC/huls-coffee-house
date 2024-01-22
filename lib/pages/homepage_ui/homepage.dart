@@ -351,7 +351,7 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
               bottomNavigationBar: CustomBottomNavigation(
-                currentIndex: _currentIndex,
+                currentRouteName: Homepage.routeName,
                 onTap: bottomNavigator,
               )),
           Positioned(
