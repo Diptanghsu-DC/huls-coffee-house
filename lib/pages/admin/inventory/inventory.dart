@@ -12,7 +12,6 @@ import 'package:huls_coffee_house/widgets/custom_bottom_navigation_bar/custom_bo
 
 import '../../../controllers/controllers.dart';
 import '../../../models/models.dart';
-import '../../../utils/utils.dart';
 import 'widgets/item_box.dart';
 import 'widgets/search_bar.dart';
 
@@ -30,21 +29,29 @@ class _InventoryState extends State<Inventory> {
   List<ProductModel> filteredProducts = [];
   final StreamController<List<ProductModel>> _filteredProductsController =
       StreamController<List<ProductModel>>();
+  Stream<List<ProductModel>>? allProductStream;
 
-  void filterProducts(String searchValue) async {
-    Stream<List<ProductModel>> allProductStream =
-        ProductController.getAll(forceGet: true);
-    await for (List<ProductModel> allProductsList in allProductStream) {
+
+  Timer? _debounceTimer;
+
+  Future<void> filterProducts(String searchValue) async {
+    if (_debounceTimer != null && _debounceTimer!.isActive) {
+      _debounceTimer!.cancel();
+    }
+
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
+      List<ProductModel> allProductsList =
+      await ProductController.getAll().first;
+
       setState(() {
-        filteredProducts = allProductsList.where((product) {
-          return product.itemName
-              .toLowerCase()
-              .contains(searchValue.toLowerCase());
-        }).toList();
+        filteredProducts = allProductsList
+            .where((product) =>
+            product.itemName.toLowerCase().contains(searchValue.toLowerCase()))
+            .toList();
 
         _filteredProductsController.add(filteredProducts);
       });
-    }
+    });
   }
 
   @override
@@ -65,6 +72,7 @@ class _InventoryState extends State<Inventory> {
     // TODO: implement initState
     super.initState();
     bottomNavigator(0);
+    allProductStream = ProductController.getAll();
   }
 
   List<Item> filteredItems = [];
@@ -100,8 +108,7 @@ class _InventoryState extends State<Inventory> {
       // ),
       key: _scaffoldKey,
       bottomNavigationBar: CustomBottomNavigation(
-        currentIndex: _currentIndex,
-           onTap: bottomNavigator),
+          currentIndex: _currentIndex, onTap: bottomNavigator),
       drawer: buildCustomDrawer(context),
       body: CustomBackground(
         bodyWidget: Column(
@@ -118,7 +125,7 @@ class _InventoryState extends State<Inventory> {
             filteredProducts.isEmpty
                 ? const ProductStream()
                 : StreamBuilder<List<ProductModel>>(
-                    stream: ProductController.getAll(forceGet: true),
+                    stream: _filteredProductsController.stream,
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
                         return Text(
@@ -126,7 +133,10 @@ class _InventoryState extends State<Inventory> {
                       } else if (snapshot.connectionState ==
                           ConnectionState.waiting) {
                         // return const Text('Loading...');
-                        return const Center(child: CircularProgressIndicator());
+                        return const Center(
+                            child: CircularProgressIndicator(
+                          color: orange,
+                        ));
                       } else {
                         filteredProducts = snapshot.data!;
                         return Expanded(
