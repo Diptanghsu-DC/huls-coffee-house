@@ -149,10 +149,12 @@ class _ProfilePage extends State<ProfilePage> {
                             thickness: 1,
                             height: 16.0,
                           ),
-                          const Text(
-                            "Previous Order",
-                            style: AppStyles.pageText,
-                          ),
+                          !UserController.currentUser!.isSeller
+                              ? const Text(
+                                  "Current Orders",
+                                  style: AppStyles.pageText,
+                                )
+                              : Container(),
                           // List of items
                         ].separate(20),
                       ),
