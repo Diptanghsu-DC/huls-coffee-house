@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/widgets/category/category_view.dart';
@@ -85,13 +84,15 @@ class _HomepageState extends State<Homepage> {
     getSize(context);
 
     return PopScope(
-      canPop: true,
-      onPopInvoked: (didPop) async {
-        final quitCondition = showExitWarning(context);
-        if(await quitCondition == true){
-          SystemNavigator.pop();
-        }else{
-          Navigator.pop(context);
+      canPop: false,
+      onPopInvoked: (didPop) async{
+        if (didPop) {
+          return;
+        }
+        final NavigatorState navigator = Navigator.of(context);
+        final bool shouldPop = await showExitWarning(context);
+        if (shouldPop) {
+          navigator.pop();
         }
       },
       child: Stack(
