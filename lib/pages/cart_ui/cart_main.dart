@@ -12,7 +12,7 @@ import '../../widgets/custom_bottom_navigation_bar/custom_bottom_navigation.dart
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
 
-  static const String routeName = '/cartPage';
+  static const String routeName = '/CartPage';
 
   @override
   State<CartPage> createState() => _CartPage();
@@ -40,7 +40,7 @@ class _CartPage extends State<CartPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: CustomBottomNavigation(
-          currentRouteName: CartPage.routeName,
+          currentIndex: _currentIndex,
           onTap: bottomNavigator,
         ),
         appBar: const CartAppBar(),

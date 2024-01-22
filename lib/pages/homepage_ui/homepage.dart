@@ -16,7 +16,7 @@ import '../view_product_page/components/itemscard.dart';
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
-  static const String routeName = "/homePage";
+  static const String routeName = '/HomePage';
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -37,8 +37,10 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     // TODO: implement initState
-    allProductStream = ProductController.getAll(forceGet: true);
+
     super.initState();
+    allProductStream = ProductController.getAll(forceGet: true);
+
   }
 
   @override
@@ -351,7 +353,7 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
               bottomNavigationBar: CustomBottomNavigation(
-                currentRouteName: Homepage.routeName,
+                currentIndex: _currentIndex,
                 onTap: bottomNavigator,
               )),
           Positioned(

@@ -15,7 +15,7 @@ import 'widgets/confirm_delete.dart';
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
-  static const String routeName = ''; // add the route for this page
+  static const String routeName = '/ProfilePage';
   @override
   State<ProfilePage> createState() => _ProfilePage();
 }
@@ -33,7 +33,7 @@ class _ProfilePage extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CustomBottomNavigation(
-        currentRouteName: ProfilePage.routeName,
+        currentIndex: _currentIndex,
         onTap: bottomNavigator,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,

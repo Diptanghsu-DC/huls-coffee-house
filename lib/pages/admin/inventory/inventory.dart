@@ -19,7 +19,7 @@ import 'widgets/search_bar.dart';
 class Inventory extends StatefulWidget {
   const Inventory({super.key});
 
-  static const String routeName = "/inventory";
+  static const String routeName = '/Inventory';
 
   @override
   State<Inventory> createState() => _InventoryState();
@@ -100,7 +100,7 @@ class _InventoryState extends State<Inventory> {
       // ),
       key: _scaffoldKey,
       bottomNavigationBar: CustomBottomNavigation(
-        currentRouteName: Inventory.routeName,
+        currentIndex: _currentIndex,
            onTap: bottomNavigator),
       drawer: buildCustomDrawer(context),
       body: CustomBackground(
