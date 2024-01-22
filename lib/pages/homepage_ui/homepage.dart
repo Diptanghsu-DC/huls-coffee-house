@@ -16,7 +16,7 @@ import '../view_product_page/components/itemscard.dart';
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
-  static const String routeName = "/homePage";
+  static const String routeName = '/HomePage';
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -37,8 +37,10 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     // TODO: implement initState
-    allProductStream = ProductController.getAll(forceGet: true);
+
     super.initState();
+    allProductStream = ProductController.getAll(forceGet: true);
+
   }
 
   @override
@@ -54,8 +56,8 @@ class _HomepageState extends State<Homepage> {
     });
   }
 
-  void filterProducts(String searchValue) async {
-    Stream<List<ProductModel>> allProductStream =
+  Future<void> filterProducts(String searchValue) async {
+    final allProductStream =
         ProductController.getAll(forceGet: true);
     await for (List<ProductModel> allProductsList in allProductStream) {
       setState(() {

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
 import 'package:huls_coffee_house/pages/profile/utils/pass_change_notifier.dart';
-import 'package:huls_coffee_house/utils/screen_size.dart';
 import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
+
+import '../../../utils/database/constants.dart';
+import '../../../utils/utils.dart';
 
 class NewPassPage extends StatefulWidget {
   const NewPassPage({super.key});
@@ -39,10 +42,10 @@ class _NewPassPageState extends State<NewPassPage> {
         asyncTask: () async {
           UserModel? oldUser = UserController.currentUser;
           UserController.currentUser = UserController.currentUser?.copyWith(
-            name: oldUser!.name,
-            email: oldUser.email,
-            password: passChangeController.text,
-            phone: oldUser.phone,
+            password: Encryptor.encrypt(
+              passChangeController.text,
+              dotenv.env[EnvValues.ENCRYPTER_SALT.name]!,
+            ),
           );
           await UserController.update(oldUser: oldUser);
           await PassChangeNotifier()

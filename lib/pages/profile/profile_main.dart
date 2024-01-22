@@ -15,7 +15,7 @@ import 'widgets/confirm_delete.dart';
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
-  static const String routeName = ''; // add the route for this page
+  static const String routeName = '/ProfilePage';
   @override
   State<ProfilePage> createState() => _ProfilePage();
 }

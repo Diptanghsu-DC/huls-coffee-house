@@ -22,75 +22,75 @@ class CustomBottomNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return !UserController.currentUser!.isSeller
         ? BottomNavigationBar(
-            selectedItemColor: orange,
-            type: BottomNavigationBarType.fixed,
-            onTap: (index) {
-              // more logic to be added regarding page navigation
-              onTap(index);
-              if (index == 0) {
-                Navigator.pushNamed(context, ProfilePage.routeName);
-              } else if (index == 1) {
-                Navigator.pushNamed(context, Homepage.routeName);
-              } else if (index == 2) {
-                Navigator.pushNamed(context, CartPage.routeName);
-              } else if (index == 3) {
-                ///notification
-              }
-            },
-            currentIndex: currentIndex,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(
-                  CupertinoIcons.profile_circled,
-                ),
-                label: "Account",
-              ),
-              BottomNavigationBarItem(
-                label: "Home",
-                icon: Icon(
-                  Icons.home,
-                ),
-              ),
-              BottomNavigationBarItem(
-                label: "Cart",
-                icon: Icon(
-                  CupertinoIcons.cart,
-                ),
-              ),
-              BottomNavigationBarItem(
-                label: "Notifications",
-                icon: Icon(
-                  CupertinoIcons.bell,
-                ),
-              ),
-            ],
-          )
+      selectedItemColor: orange,
+      type: BottomNavigationBarType.fixed,
+      onTap: (index) {
+        // more logic to be added regarding page navigation
+        onTap(index);
+        if (index == 0) {
+          Navigator.pushNamed(context, ProfilePage.routeName);
+        } else if (index == 1) {
+          Navigator.pushNamed(context, Homepage.routeName);
+        } else if (index == 2) {
+          Navigator.pushNamed(context, CartPage.routeName);
+        } else if (index == 3) {
+          ///notification
+        }
+      },
+      currentIndex: currentIndex,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(
+            CupertinoIcons.profile_circled,
+          ),
+          label: "Account",
+        ),
+        BottomNavigationBarItem(
+          label: "Home",
+          icon: Icon(
+            Icons.home,
+          ),
+        ),
+        BottomNavigationBarItem(
+          label: "Cart",
+          icon: Icon(
+            CupertinoIcons.cart,
+          ),
+        ),
+        BottomNavigationBarItem(
+          label: "Notifications",
+          icon: Icon(
+            CupertinoIcons.bell,
+          ),
+        ),
+      ],
+    )
         : BottomNavigationBar(
-            currentIndex: currentIndex,
-            selectedItemColor: orange,
-            type: BottomNavigationBarType.fixed,
-            onTap: (index) {
-              onTap(index);
-              if (index == 0) {
-                Navigator.pushNamed(context, Inventory.routeName);
-              } else if (index == 1) {
-                Navigator.pushNamed(context, OrderPage.routeName);
-              }
-            },
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.inventory,
-                ),
-                label: "Inventory",
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  CupertinoIcons.timer,
-                ),
-                label: "Orders",
-              ),
-            ],
-          );
+      currentIndex: currentIndex,
+      selectedItemColor: orange,
+      type: BottomNavigationBarType.fixed,
+      onTap: (index) {
+        onTap(index);
+        if (index == 0) {
+          Navigator.pushNamed(context, Inventory.routeName);
+        } else if (index == 1) {
+          Navigator.pushNamed(context, OrderPage.routeName);
+        }
+      },
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.inventory,
+          ),
+          label: "Inventory",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            CupertinoIcons.timer,
+          ),
+          label: "Orders",
+        ),
+      ],
+    );
   }
 }

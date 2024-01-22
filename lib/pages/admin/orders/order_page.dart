@@ -8,7 +8,7 @@ import '../../../widgets/custom_bottom_navigation_bar/custom_bottom_navigation.d
 class OrderPage extends StatefulWidget {
   const OrderPage({super.key});
 
-  static const String routeName = '/orderPage';
+  static const String routeName = '/OrderPage';
 
   @override
   State<OrderPage> createState() => _OrderPageState();
@@ -35,13 +35,18 @@ class _OrderPageState extends State<OrderPage> {
     getSize(context);
     return Scaffold(
       bottomNavigationBar: CustomBottomNavigation(
-          currentIndex: _currentIndex, onTap: bottomNavigator),
+        currentIndex: _currentIndex,
+          onTap: bottomNavigator),
       // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       appBar: AppBar(
         leading: const GoBackButton(),
         title: Padding(
           padding: EdgeInsets.only(left: width * 0.23),
-          child: const Text("Orders", style: TextStyle(fontFamily: 'SofiaPro', fontWeight: FontWeight.bold),),
+          child: const Text(
+            "Orders",
+            style:
+                TextStyle(fontFamily: 'SofiaPro', fontWeight: FontWeight.bold),
+          ),
         ),
       ),
       body: const OrderStream(),

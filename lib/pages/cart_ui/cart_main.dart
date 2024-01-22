@@ -6,22 +6,28 @@ import 'package:huls_coffee_house/pages/cart_ui/widgets/cart_itemcard.dart';
 import 'package:huls_coffee_house/pages/cart_ui/widgets/cart_totalcost.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/models.dart';
 import '../../widgets/custom_bottom_navigation_bar/custom_bottom_navigation.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
-  static const String routeName = '/cartPage';
+
+  static const String routeName = '/CartPage';
+
   @override
   State<CartPage> createState() => _CartPage();
 }
 
 class _CartPage extends State<CartPage> {
   // Function to calculate total cost
-  double calculateTotalCost() {
-    // Calculate total cost based on items in the cart
-    // Replace with actual logic using backend data
-    return 100.0; // Placeholder value
+  double calculateTotalCost(List<ProductModel> cartList) {
+    double total = 0.0;
+    for (ProductModel cartItem in cartList) {
+      total += cartItem.price;
+    }
+    return total;
   }
+
   int _currentIndex = 2;
 
   void bottomNavigator(int index) {
@@ -60,7 +66,9 @@ class _CartPage extends State<CartPage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 16),
-                    child: CartTotalCost(totalFunc: calculateTotalCost),
+                    child: CartTotalCost(
+                        totalFunc: () =>
+                            calculateTotalCost(UserController.cartList)),
                   ),
                 ),
               ],
