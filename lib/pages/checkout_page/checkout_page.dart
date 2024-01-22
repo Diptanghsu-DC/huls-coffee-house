@@ -131,7 +131,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   for (var i = 0; i < widget.checkoutItems.length; i++) {
                     OrderModel myOrder = OrderModel(
                       product: widget.checkoutItems[i].itemName,
-                      quantity: TotalItemCost.count,
+                      quantity: widget.checkoutItems[i].quantity,
                       user: UserController.currentUser!.name,
                       userPhone: UserController.currentUser!.phone,
                       time: DateTime.now(),
