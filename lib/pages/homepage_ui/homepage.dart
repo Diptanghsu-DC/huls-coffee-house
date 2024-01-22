@@ -83,10 +83,17 @@ class _HomepageState extends State<Homepage> {
     //getting the size of the screen
     getSize(context);
 
-    return WillPopScope(
-      onWillPop: () async {
-        final quitCondition = await showExitWarning(context);
-        return quitCondition ?? false;
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async{
+        if (didPop) {
+          return;
+        }
+        final NavigatorState navigator = Navigator.of(context);
+        final bool shouldPop = await showExitWarning(context);
+        if (shouldPop) {
+          navigator.pop();
+        }
       },
       child: Stack(
         children: [
