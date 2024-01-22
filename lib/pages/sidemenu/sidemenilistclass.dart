@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:huls_coffee_house/pages/Sidemenu/sidemenuitems.dart';
-
+import 'package:huls_coffee_house/utils/navigate/navigate.dart';
 List<SideMenuItem> sideMenuItems = [
   SideMenuItem(
     title: 'About Us',
@@ -21,7 +21,7 @@ List<SideMenuItem> sideMenuItems = [
     title: 'Account',
     iconPath1: CupertinoIcons.profile_circled,
     onTap: () {
-      // Define the action for Item 2 onTap
+      Navigate.toProfilePage;
     },
   ),
 

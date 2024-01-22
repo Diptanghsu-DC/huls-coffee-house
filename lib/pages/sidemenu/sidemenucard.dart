@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/config/config.dart';
 
-class SideMenuCrad extends StatelessWidget {
+class SideMenuCard extends StatelessWidget {
   final IconData iconname;
   final String title;
   final Function ontap;
-  const SideMenuCrad(
+  const SideMenuCard(
       {super.key,
       required this.iconname,
       required this.title,
@@ -16,15 +17,14 @@ class SideMenuCrad extends StatelessWidget {
     final double height = screensize.height;
     final double width = screensize.width;
     return InkWell(
-      // onTap: ontap,
-      onTap: () {},
+      onTap: () => ontap,
       child: Padding(
         padding: EdgeInsets.only(bottom: height * 0.003),
         child: Container(
           width: width * 0.552,
           height: height * 0.073,
           decoration: ShapeDecoration(
-            color: Colors.white,
+            color: orange,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -43,7 +43,7 @@ class SideMenuCrad extends StatelessWidget {
               SizedBox(
                 width: width * 0.02,
               ),
-              Icon(iconname),
+              Icon(iconname, color: Colors.white,),
               SizedBox(
                 width: width * 0.06,
               ),
@@ -51,9 +51,9 @@ class SideMenuCrad extends StatelessWidget {
                 title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Color(0xFF3F434A),
+                  color: Colors.white,
                   fontSize: 13,
-                  fontFamily: 'Lato',
+                  fontFamily: 'SofiaPro',
                   fontWeight: FontWeight.w700,
                   height: 0,
                 ),
