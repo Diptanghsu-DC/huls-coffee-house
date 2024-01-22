@@ -20,7 +20,8 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProductModel {
-  String? get imageURL => throw _privateConstructorUsedError;
+  String get imageURL => throw _privateConstructorUsedError;
+  String get imagePublicID => throw _privateConstructorUsedError;
   String get itemName => throw _privateConstructorUsedError;
   String? get itemDesc => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
@@ -42,7 +43,8 @@ abstract class $ProductModelCopyWith<$Res> {
       _$ProductModelCopyWithImpl<$Res, ProductModel>;
   @useResult
   $Res call(
-      {String? imageURL,
+      {String imageURL,
+      String imagePublicID,
       String itemName,
       String? itemDesc,
       String category,
@@ -65,7 +67,8 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? imageURL = freezed,
+    Object? imageURL = null,
+    Object? imagePublicID = null,
     Object? itemName = null,
     Object? itemDesc = freezed,
     Object? category = null,
@@ -75,10 +78,14 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? lastLocalUpdate = freezed,
   }) {
     return _then(_value.copyWith(
-      imageURL: freezed == imageURL
+      imageURL: null == imageURL
           ? _value.imageURL
           : imageURL // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      imagePublicID: null == imagePublicID
+          ? _value.imagePublicID
+          : imagePublicID // ignore: cast_nullable_to_non_nullable
+              as String,
       itemName: null == itemName
           ? _value.itemName
           : itemName // ignore: cast_nullable_to_non_nullable
@@ -120,7 +127,8 @@ abstract class _$$ProductModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? imageURL,
+      {String imageURL,
+      String imagePublicID,
       String itemName,
       String? itemDesc,
       String category,
@@ -141,7 +149,8 @@ class __$$ProductModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? imageURL = freezed,
+    Object? imageURL = null,
+    Object? imagePublicID = null,
     Object? itemName = null,
     Object? itemDesc = freezed,
     Object? category = null,
@@ -151,10 +160,14 @@ class __$$ProductModelImplCopyWithImpl<$Res>
     Object? lastLocalUpdate = freezed,
   }) {
     return _then(_$ProductModelImpl(
-      imageURL: freezed == imageURL
+      imageURL: null == imageURL
           ? _value.imageURL
           : imageURL // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      imagePublicID: null == imagePublicID
+          ? _value.imagePublicID
+          : imagePublicID // ignore: cast_nullable_to_non_nullable
+              as String,
       itemName: null == itemName
           ? _value.itemName
           : itemName // ignore: cast_nullable_to_non_nullable
@@ -191,7 +204,8 @@ class __$$ProductModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ProductModelImpl extends _ProductModel {
   const _$ProductModelImpl(
-      {this.imageURL,
+      {required this.imageURL,
+      required this.imagePublicID,
       required this.itemName,
       this.itemDesc,
       required this.category,
@@ -205,7 +219,9 @@ class _$ProductModelImpl extends _ProductModel {
       _$$ProductModelImplFromJson(json);
 
   @override
-  final String? imageURL;
+  final String imageURL;
+  @override
+  final String imagePublicID;
   @override
   final String itemName;
   @override
@@ -223,7 +239,7 @@ class _$ProductModelImpl extends _ProductModel {
 
   @override
   String toString() {
-    return 'ProductModel(imageURL: $imageURL, itemName: $itemName, itemDesc: $itemDesc, category: $category, price: $price, quantity: $quantity, ratings: $ratings, lastLocalUpdate: $lastLocalUpdate)';
+    return 'ProductModel(imageURL: $imageURL, imagePublicID: $imagePublicID, itemName: $itemName, itemDesc: $itemDesc, category: $category, price: $price, quantity: $quantity, ratings: $ratings, lastLocalUpdate: $lastLocalUpdate)';
   }
 
   @override
@@ -233,6 +249,8 @@ class _$ProductModelImpl extends _ProductModel {
             other is _$ProductModelImpl &&
             (identical(other.imageURL, imageURL) ||
                 other.imageURL == imageURL) &&
+            (identical(other.imagePublicID, imagePublicID) ||
+                other.imagePublicID == imagePublicID) &&
             (identical(other.itemName, itemName) ||
                 other.itemName == itemName) &&
             (identical(other.itemDesc, itemDesc) ||
@@ -249,8 +267,8 @@ class _$ProductModelImpl extends _ProductModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, imageURL, itemName, itemDesc,
-      category, price, quantity, ratings, lastLocalUpdate);
+  int get hashCode => Object.hash(runtimeType, imageURL, imagePublicID,
+      itemName, itemDesc, category, price, quantity, ratings, lastLocalUpdate);
 
   @JsonKey(ignore: true)
   @override
@@ -268,7 +286,8 @@ class _$ProductModelImpl extends _ProductModel {
 
 abstract class _ProductModel extends ProductModel {
   const factory _ProductModel(
-      {final String? imageURL,
+      {required final String imageURL,
+      required final String imagePublicID,
       required final String itemName,
       final String? itemDesc,
       required final String category,
@@ -282,7 +301,9 @@ abstract class _ProductModel extends ProductModel {
       _$ProductModelImpl.fromJson;
 
   @override
-  String? get imageURL;
+  String get imageURL;
+  @override
+  String get imagePublicID;
   @override
   String get itemName;
   @override

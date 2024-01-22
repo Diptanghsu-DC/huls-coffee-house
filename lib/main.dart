@@ -1,13 +1,12 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:huls_coffee_house/firebase_options.dart';
+import 'package:huls_coffee_house/pages/about_us/about_us.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/cart.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/new_pass.dart';
+import 'package:huls_coffee_house/pages/notifications_page/notifications_page.dart';
+import 'package:huls_coffee_house/pages/privacy_policy/privacy_policy.dart';
 import 'package:huls_coffee_house/pages/profile/profile_main.dart';
 import 'package:huls_coffee_house/pages/splash_screen/splash_screen.dart';
-import 'package:huls_coffee_house/utils/local_database/local_database.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
@@ -53,7 +52,10 @@ class MyApp extends StatelessWidget {
           OrderPage.routeName: (context) => const OrderPage(),
           Inventory.routeName: (context) => const Inventory(),
           OrderSuccessfulPage.routeName: (context) =>
-              const OrderSuccessfulPage()
+              const OrderSuccessfulPage(),
+          NotificationsPage.routeName: (context) => const NotificationsPage(),
+          PrivacyPolicyPage.routeName: (context) => const PrivacyPolicyPage(),
+          AboutUsPage.routeName: (context) => const AboutUsPage()
         },
         initialRoute: SplashScreen.routeName,
       ),

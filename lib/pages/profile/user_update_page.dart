@@ -69,8 +69,10 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
                   password: passController.text,
                   phone: num.parse(phoneController.text));
           await UserController.update(oldUser: oldUser);
-          await PassChangeNotifier()
-              .sendEmailVer(UserController.currentUser!.email);
+          if (isPermit) {
+            await PassChangeNotifier()
+                .sendEmailVer(UserController.currentUser!.email);
+          }
         },
         onCompleted: () {
           Navigator.pop(context);

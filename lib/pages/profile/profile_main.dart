@@ -7,6 +7,7 @@ import 'package:huls_coffee_house/pages/profile/user_update_page.dart';
 import 'package:huls_coffee_house/pages/profile/utils/styles.dart';
 import 'package:huls_coffee_house/utils/logout_message.dart';
 import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
+import 'package:huls_coffee_house/widgets/custom_bottom_navigation_bar/custom_bottom_navigation.dart';
 
 import '../login_ui/widgets/buttons.dart';
 import 'widgets/confirm_delete.dart';
@@ -14,15 +15,27 @@ import 'widgets/confirm_delete.dart';
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
-  static const String routeName = ''; // add the route for this page
+  static const String routeName = '/ProfilePage';
   @override
   State<ProfilePage> createState() => _ProfilePage();
 }
 
 class _ProfilePage extends State<ProfilePage> {
+  int _currentIndex = 0;
+
+  void bottomNavigator(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: CustomBottomNavigation(
+        currentIndex: _currentIndex,
+        onTap: bottomNavigator,
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: const GoBackButton(),
       body: SingleChildScrollView(

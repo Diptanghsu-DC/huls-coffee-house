@@ -1,10 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
-import 'package:huls_coffee_house/pages/Sidemenu/sidemenilistclass.dart';
-import 'package:huls_coffee_house/pages/Sidemenu/sidemenucard.dart';
+import 'package:huls_coffee_house/pages/about_us/about_us.dart';
+import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
+import 'package:huls_coffee_house/pages/notifications_page/notifications_page.dart';
+import 'package:huls_coffee_house/pages/privacy_policy/privacy_policy.dart';
+import 'package:huls_coffee_house/pages/profile/profile_main.dart';
+
+// import 'package:huls_coffee_house/pages/Sidemenu/sidemenilistclass.dart';
+import 'package:huls_coffee_house/pages/sidemenu/sidemenucard.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
+import 'package:huls_coffee_house/utils/logout_message.dart';
 
 Widget buildCustomDrawer(BuildContext context) {
   double height = MediaQuery.of(context).size.height;
@@ -15,40 +23,43 @@ Widget buildCustomDrawer(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: height * 0.06),
-        Padding(
-          padding: EdgeInsets.only(left: width * 0.05),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                width: width * 0.277,
-                height: height * 0.125,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0x3F000000),
-                      blurRadius: 3,
-                      offset: Offset(0, 4),
-                      spreadRadius: 0,
-                    )
-                  ],
+        InkWell(
+          onTap: () => Navigator.pushNamed(context, ProfilePage.routeName),
+          child: Padding(
+            padding: EdgeInsets.only(left: width * 0.05),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  width: width * 0.277,
+                  height: height * 0.125,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x3F000000),
+                        blurRadius: 3,
+                        offset: Offset(0, 4),
+                        spreadRadius: 0,
+                      )
+                    ],
+                  ),
+                  child: Image.asset(
+                    'assets/images/account.png',
+                  ),
                 ),
-                child: Image.asset(
-                  'assets/images/account.png',
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         SizedBox(height: width * 0.025),
         Padding(
           padding: EdgeInsets.only(left: width * 0.1),
-          child: const Text(
-          // This function should be defined  
-          'Username',
-            style: TextStyle(
+          child: Text(
+            // This function should be defined
+            UserController.currentUser!.name,
+            style: const TextStyle(
               color: Color(0xFF565656),
               fontSize: 20,
               fontFamily: 'SofiaPro',
@@ -67,25 +78,123 @@ Widget buildCustomDrawer(BuildContext context) {
                   color: const Color(0xFFE68969),
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(left: width * 0.036, right: width * 0.075),
-                  child: ListView.separated(
-                    padding: EdgeInsets.zero,
-                    itemBuilder: (context, index) {
-                      return SideMenuCrad(
-                              title: sideMenuItems[index].title,
-                              iconname: sideMenuItems[index].iconPath1,
-                              ontap: sideMenuItems[index].onTap,
-                            );
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(height: height * 0.025);
-                    },
-                    itemCount: 6,
-                  ),
-                ),
-              ),
+              !UserController.currentUser!.isSeller
+                  ? Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            left: width * 0.036, right: width * 0.075),
+                        child: ListView(
+                          children: [
+                            InkWell(
+                              onTap: () => Navigator.pushNamed(
+                                  context, AboutUsPage.routeName),
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.info,
+                                title: 'About Us',
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () => Navigator.pushNamed(
+                                  context, PrivacyPolicyPage.routeName),
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.lock,
+                                title: 'Privacy Policy',
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () => Navigator.pushNamed(
+                                  context, ProfilePage.routeName),
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.profile_circled,
+                                title: 'Account',
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () => Navigator.pushNamed(
+                                  context, CartPage.routeName),
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.cart,
+                                title: 'Cart',
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, NotificationsPage.routeName);
+                              },
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.bell,
+                                title: 'Notifications',
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  : Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            left: width * 0.036, right: width * 0.075),
+                        child: ListView(
+                          children: [
+                            InkWell(
+                              onTap: () => Navigator.pushNamed(
+                                  context, AboutUsPage.routeName),
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.info,
+                                title: 'About Us',
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, PrivacyPolicyPage.routeName);
+                              },
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.lock,
+                                title: 'Privacy Policy',
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () => Navigator.pushNamed(
+                                  context, ProfilePage.routeName),
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.profile_circled,
+                                title: 'Account',
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, Inventory.routeName);
+                              },
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.cart,
+                                title: 'Inventory',
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () => Navigator.pushNamed(
+                                  context, OrderPage.routeName),
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.bag_fill,
+                                title: 'Orders',
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, NotificationsPage.routeName);
+                              },
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.bell,
+                                title: 'Notifications',
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
             ],
           ),
         ),
@@ -103,8 +212,16 @@ Widget buildCustomDrawer(BuildContext context) {
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: CustomButton(text: "SIGN OUT", onPressed: () { UserController.logOut();
-                Navigator.pushNamedAndRemoveUntil(context, LoginPage.routeName, (route) => false);})
+                child: CustomButton(
+                  text: "SIGN OUT",
+                  onPressed: () async {
+                    if (await showLogoutWarning(context)) {
+                      UserController.logOut();
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, LoginPage.routeName, (route) => false);
+                    }
+                  },
+                ),
               ),
             ],
           ),

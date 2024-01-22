@@ -7,6 +7,7 @@ import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/utils/database/constants.dart';
 import 'package:huls_coffee_house/utils/local_database/local_database.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 part 'functions/_create_impl.dart';
 part 'functions/_save_impl.dart';

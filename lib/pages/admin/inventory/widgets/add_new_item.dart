@@ -18,7 +18,7 @@ class AddNewItem extends StatelessWidget {
           style: TextStyle(fontFamily: 'SofiaPro', fontWeight: FontWeight.bold),
         ),
       ),
-      body: ElevatedItemBox(item: item),
+      body: SingleChildScrollView(child: ElevatedItemBox(item: item)),
     );
   }
 }

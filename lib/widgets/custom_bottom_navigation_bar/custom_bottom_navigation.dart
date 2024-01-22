@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
-import 'package:huls_coffee_house/pages/cart_ui/cart_main.dart';
-import 'package:huls_coffee_house/pages/homepage_ui/homepage.dart';
+import 'package:huls_coffee_house/pages/notifications_page/notifications_page.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
 import 'package:huls_coffee_house/pages/profile/profile_main.dart';
 
@@ -32,11 +31,12 @@ class CustomBottomNavigation extends StatelessWidget {
               if (index == 0) {
                 Navigator.pushNamed(context, ProfilePage.routeName);
               } else if (index == 1) {
-              } else if (index == 2) {
                 Navigator.pushNamed(context, Homepage.routeName);
-              } else if (index == 3) {
+              } else if (index == 2) {
                 Navigator.pushNamed(context, CartPage.routeName);
-              } else if (index == 4) {}
+              } else if (index == 3) {
+                Navigator.pushNamed(context, NotificationsPage.routeName);
+              }
             },
             currentIndex: currentIndex,
             items: const [
@@ -45,12 +45,6 @@ class CustomBottomNavigation extends StatelessWidget {
                   CupertinoIcons.profile_circled,
                 ),
                 label: "Account",
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  CupertinoIcons.heart,
-                ),
-                label: "Liked",
               ),
               BottomNavigationBarItem(
                 label: "Home",

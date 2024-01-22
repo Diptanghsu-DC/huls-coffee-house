@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/widgets/category/category_view.dart';
-import 'package:huls_coffee_house/pages/homepage_ui/widgets/popular/popular_viewer.dart';
 import 'package:huls_coffee_house/pages/sidemenu/sidemenudrawer.dart';
 import 'package:huls_coffee_house/widgets/custom_bottom_navigation_bar/custom_bottom_navigation.dart';
 import 'package:huls_coffee_house/widgets/widgets.dart';
@@ -17,7 +16,7 @@ import '../view_product_page/components/itemscard.dart';
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
-  static const String routeName = "/homePage";
+  static const String routeName = '/HomePage';
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -25,9 +24,9 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   final TextEditingController _searchController = TextEditingController();
-  int _currentIndex = 2;
+  int _currentIndex = 1;
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffold_Key = GlobalKey<ScaffoldState>();
 
   List<ProductModel> filteredProducts = [];
   Stream<List<ProductModel>>? allProductStream;
@@ -38,15 +37,17 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     // TODO: implement initState
-    allProductStream = ProductController.getAll(forceGet: true);
+
     super.initState();
+    allProductStream = ProductController.getAll();
+
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-    _filteredProductsController.close();
     super.dispose();
+    _filteredProductsController.close();
   }
 
   void bottomNavigator(int index) {
@@ -55,20 +56,26 @@ class _HomepageState extends State<Homepage> {
     });
   }
 
-  void filterProducts(String searchValue) async {
-    Stream<List<ProductModel>> allProductStream =
-        ProductController.getAll(forceGet: true);
-    await for (List<ProductModel> allProductsList in allProductStream) {
+  Timer? _debounceTimer;
+
+  Future<void> filterProducts(String searchValue) async {
+    if (_debounceTimer != null && _debounceTimer!.isActive) {
+      _debounceTimer!.cancel();
+    }
+
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
+      List<ProductModel> allProductsList =
+      await ProductController.getAll().first;
+
       setState(() {
-        filteredProducts = allProductsList.where((product) {
-          return product.itemName
-              .toLowerCase()
-              .contains(searchValue.toLowerCase());
-        }).toList();
+        filteredProducts = allProductsList
+            .where((product) =>
+            product.itemName.toLowerCase().contains(searchValue.toLowerCase()))
+            .toList();
 
         _filteredProductsController.add(filteredProducts);
       });
-    }
+    });
   }
 
   @override
@@ -76,15 +83,22 @@ class _HomepageState extends State<Homepage> {
     //getting the size of the screen
     getSize(context);
 
-    return WillPopScope(
-      onWillPop: () async {
-        final quitCondition = await showExitWarning(context);
-        return quitCondition ?? false;
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async{
+        if (didPop) {
+          return;
+        }
+        final NavigatorState navigator = Navigator.of(context);
+        final bool shouldPop = await showExitWarning(context);
+        if (shouldPop) {
+          navigator.pop();
+        }
       },
       child: Stack(
         children: [
           Scaffold(
-              key: _scaffoldKey,
+              key: _scaffold_Key,
               drawer: buildCustomDrawer(context),
               body: CustomBackground(
                 bodyWidget: Padding(
@@ -191,7 +205,7 @@ class _HomepageState extends State<Homepage> {
                                         return SizedBox(
                                           height: height * 0.3,
                                           child: ListView.builder(
-                                            itemCount: 4,
+                                            itemCount: allProducts.length >= 4 ? 4 : allProducts.length,
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index) {
                                               return GestureDetector(
@@ -273,7 +287,23 @@ class _HomepageState extends State<Homepage> {
                                   StreamBuilder<List<ProductModel>>(
                                     stream: _filteredProductsController.stream,
                                     builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return const CircularProgressIndicator(
+                                            color: orange);
+                                      } else if (!snapshot.hasData ||
+                                          snapshot.data!.isEmpty) {
+                                        return Center(
+                                          child: Text(
+                                            "No items found",
+                                            style: TextStyle(
+                                              fontSize: width * 0.05,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        );
+                                      } else {
                                         filteredProducts = snapshot.data!;
 
                                         return SizedBox(
@@ -285,14 +315,16 @@ class _HomepageState extends State<Homepage> {
                                               return GestureDetector(
                                                 onTap: () {
                                                   Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ViewProduct(
-                                                                product:
-                                                                    filteredProducts[
-                                                                        index]),
-                                                      ));
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ViewProduct(
+                                                        product:
+                                                            filteredProducts[
+                                                                index],
+                                                      ),
+                                                    ),
+                                                  );
                                                 },
                                                 child: Padding(
                                                   padding: const EdgeInsets
@@ -323,10 +355,6 @@ class _HomepageState extends State<Homepage> {
                                             },
                                           ),
                                         );
-                                      } else {
-                                        return const CircularProgressIndicator(
-                                          color: orange,
-                                        ); // or a placeholder widget
                                       }
                                     },
                                   ),
@@ -346,8 +374,8 @@ class _HomepageState extends State<Homepage> {
             top: 35,
             child: IconButton(
               onPressed: () {
-                if (_scaffoldKey.currentState != null) {
-                  _scaffoldKey.currentState!.openDrawer();
+                if (_scaffold_Key.currentState != null) {
+                  _scaffold_Key.currentState!.openDrawer();
                 }
               },
               icon: const Icon(Icons.menu),

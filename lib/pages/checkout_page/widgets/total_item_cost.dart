@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/models/models.dart';
 
 class TotalItemCost extends StatefulWidget {
   TotalItemCost({
     super.key,
-    required this.itemPrice,
+    required this.item,
   });
 
-  final num itemPrice;
-  static int count = 1;
+
+  final ProductModel item;
+
 
   @override
   State<TotalItemCost> createState() => _TotalItemCostState();
 }
 
 class _TotalItemCostState extends State<TotalItemCost> {
+
   @override
   Widget build(BuildContext context) {
+    num count = widget.item.quantity;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -33,8 +37,8 @@ class _TotalItemCostState extends State<TotalItemCost> {
                 InkWell(
                   onTap: () {
                     setState(() {
-                      if (TotalItemCost.count > 0) {
-                        TotalItemCost.count--;
+                      if (count > 0) {
+                        count--;
                       }
                     });
                   },
@@ -48,7 +52,7 @@ class _TotalItemCostState extends State<TotalItemCost> {
                   ),
                 ),
                 Text(
-                  "${TotalItemCost.count}",
+                  "${count}",
                   style: const TextStyle(
                       fontSize: 16,
                       color: Colors.white,
@@ -58,7 +62,7 @@ class _TotalItemCostState extends State<TotalItemCost> {
                 InkWell(
                   onTap: () {
                     setState(() {
-                      TotalItemCost.count++;
+                      count++;
                     });
                   },
                   child: const Text(
@@ -75,7 +79,7 @@ class _TotalItemCostState extends State<TotalItemCost> {
           ),
         ),
         Text(
-          "\$${widget.itemPrice * TotalItemCost.count}",
+          "\$${widget.item.quantity * count}",
           style: const TextStyle(
               fontFamily: 'SofiaPro',
               fontSize: 14,

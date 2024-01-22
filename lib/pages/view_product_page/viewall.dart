@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/services/product/product_controller.dart';
 import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
@@ -141,7 +142,9 @@ class _ViewAllState extends State<ViewAll> {
                           child: SizedBox(
                             height: 45,
                             width: 45,
-                            child: CircularProgressIndicator(),
+                            child: CircularProgressIndicator(
+                              color: orange,
+                            ),
                           ),
                         )
                       : products.isEmpty

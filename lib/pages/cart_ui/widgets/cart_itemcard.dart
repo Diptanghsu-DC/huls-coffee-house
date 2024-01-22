@@ -4,7 +4,7 @@ import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/styles.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
 
-class CartItemCard extends StatelessWidget {
+class CartItemCard extends StatefulWidget {
   const CartItemCard({
     super.key,
     required this.cartItem,
@@ -12,6 +12,11 @@ class CartItemCard extends StatelessWidget {
 
   final ProductModel cartItem;
 
+  @override
+  State<CartItemCard> createState() => _CartItemCardState();
+}
+
+class _CartItemCardState extends State<CartItemCard> {
   @override
   Widget build(BuildContext context) {
     getSize(context);
@@ -29,7 +34,7 @@ class CartItemCard extends StatelessWidget {
             ClipRRect(
               borderRadius:
                   BorderRadius.circular(8), // Adjust the radius as needed
-              child: Image.asset('assets/images/sample.jfif',
+              child: Image.network(widget.cartItem.imageURL,
                   height: 100, width: 100),
             ),
             const SizedBox(width: 16),
@@ -37,36 +42,23 @@ class CartItemCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  cartItem.itemName, // Item name from backend
+                  widget.cartItem.itemName, // Item name from backend
                   style: AppStyles.itemNameStyle,
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                Text(
-                  "${cartItem.price}", // Price from backend
-                  style: AppStyles.priceStyle,
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(90, 2, 2, 2),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.remove_circle, color: orange),
-                        onPressed: () {
-                          // Remove item functionality
-                        },
-                      ),
-                      const Text(
-                          '1'), // Quantity - to be replaced by value from backend
-                      IconButton(
-                        icon: const Icon(Icons.add_circle, color: orange),
-                        onPressed: () {
-                          // Add item functionality
-                        },
-                      ),
-                    ],
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Rs. ${widget.cartItem.price * widget.cartItem.quantity}", // Price from backend
+                      style: AppStyles.priceStyle,
+                    ),
+                    SizedBox(width: 40,),
+                    Text('quantity: ${widget.cartItem.quantity}'),
+                    // Quantity - to be replaced by value from backend
+                  ],
                 ),
               ],
             ),
