@@ -32,10 +32,6 @@ class _ProfilePage extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: CustomBottomNavigation(
-        currentIndex: _currentIndex,
-        onTap: bottomNavigator,
-      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: const GoBackButton(),
       body: SingleChildScrollView(
