@@ -73,12 +73,22 @@ class CustomBottomNavigation extends StatelessWidget {
             onTap: (index) {
               onTap(index);
               if (index == 0) {
-                Navigator.pushNamed(context, Inventory.routeName);
+                Navigator.pushNamed(context, ProfilePage.routeName);
               } else if (index == 1) {
+                Navigator.pushNamed(context, Inventory.routeName);
+              } else if (index == 2) {
                 Navigator.pushNamed(context, OrderPage.routeName);
+              } else if (index == 3) {
+                Navigator.pushNamed(context, NotificationsPage.routeName);
               }
             },
             items: const [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  CupertinoIcons.profile_circled,
+                ),
+                label: "Account",
+              ),
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.inventory,
@@ -90,6 +100,12 @@ class CustomBottomNavigation extends StatelessWidget {
                   CupertinoIcons.timer,
                 ),
                 label: "Orders",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  CupertinoIcons.bell,
+                ),
+                label: "Notifications",
               ),
             ],
           );

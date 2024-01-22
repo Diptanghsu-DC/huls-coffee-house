@@ -15,7 +15,7 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
-  int _currentIndex = 1;
+  int _currentIndex = 2;
 
   void bottomNavigator(int index) {
     setState(() {
@@ -27,7 +27,7 @@ class _OrderPageState extends State<OrderPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    bottomNavigator(1);
+    bottomNavigator(2);
   }
 
   @override
@@ -35,8 +35,7 @@ class _OrderPageState extends State<OrderPage> {
     getSize(context);
     return Scaffold(
       bottomNavigationBar: CustomBottomNavigation(
-        currentIndex: _currentIndex,
-          onTap: bottomNavigator),
+          currentIndex: _currentIndex, onTap: bottomNavigator),
       // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       appBar: AppBar(
         leading: const GoBackButton(),
