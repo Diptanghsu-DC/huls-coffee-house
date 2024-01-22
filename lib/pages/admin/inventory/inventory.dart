@@ -12,6 +12,7 @@ import 'package:huls_coffee_house/widgets/custom_bottom_navigation_bar/custom_bo
 
 import '../../../controllers/controllers.dart';
 import '../../../models/models.dart';
+import '../../../utils/utils.dart';
 import 'widgets/item_box.dart';
 import 'widgets/search_bar.dart';
 
@@ -80,90 +81,103 @@ class _InventoryState extends State<Inventory> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      floatingActionButton: IconButton(
-        onPressed: () {
-          if (_scaffoldKey.currentState != null) {
-            _scaffoldKey.currentState!.openDrawer();
-          }
-        },
-        icon: const Icon(Icons.menu),
-        style: IconButton.styleFrom(
-          backgroundColor: Colors.white,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async{
+        if (didPop) {
+          return;
+        }
+        final NavigatorState navigator = Navigator.of(context);
+        final bool shouldPop = await showExitWarning(context);
+        if (shouldPop) {
+          navigator.pop();
+        }
+      },
+      child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+        floatingActionButton: IconButton(
+          onPressed: () {
+            if (_scaffoldKey.currentState != null) {
+              _scaffoldKey.currentState!.openDrawer();
+            }
+          },
+          icon: const Icon(Icons.menu),
+          style: IconButton.styleFrom(
+            backgroundColor: Colors.white,
+          ),
         ),
-      ),
-      // appBar: AppBar(
-      //   leading: IconButton(
-      //     onPressed: () {
-      //       if (_scaffoldKey.currentState != null) {
-      //         _scaffoldKey.currentState!.openDrawer();
-      //       }
-      //     },
-      //     icon: const Icon(Icons.menu),
-      //     style: IconButton.styleFrom(
-      //       backgroundColor: Colors.white,
-      //     ),
-      //   ),
-      // ),
-      key: _scaffoldKey,
-      bottomNavigationBar: CustomBottomNavigation(
-          currentIndex: _currentIndex, onTap: bottomNavigator),
-      drawer: buildCustomDrawer(context),
-      body: CustomBackground(
-        bodyWidget: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 120,
-            ),
-            MySearchBar(
-              onSearch: (query) {
-                filterProducts(query);
-              },
-            ),
-            filteredProducts.isEmpty
-                ? const ProductStream()
-                : StreamBuilder<List<ProductModel>>(
-                    stream: _filteredProductsController.stream,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return Text(
-                            'Error in inventory.dart: ${snapshot.error}');
-                      } else if (snapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        // return const Text('Loading...');
-                        return const Center(
-                            child: CircularProgressIndicator(
-                          color: orange,
-                        ));
-                      } else {
-                        filteredProducts = snapshot.data!;
-                        return Expanded(
-                          child: ListView.builder(
-                            itemCount: filteredProducts.length,
-                            itemBuilder: (context, index) => ItemBox(
-                              item: Item(product: filteredProducts[index]),
+        // appBar: AppBar(
+        //   leading: IconButton(
+        //     onPressed: () {
+        //       if (_scaffoldKey.currentState != null) {
+        //         _scaffoldKey.currentState!.openDrawer();
+        //       }
+        //     },
+        //     icon: const Icon(Icons.menu),
+        //     style: IconButton.styleFrom(
+        //       backgroundColor: Colors.white,
+        //     ),
+        //   ),
+        // ),
+        key: _scaffoldKey,
+        bottomNavigationBar: CustomBottomNavigation(
+            currentIndex: _currentIndex, onTap: bottomNavigator),
+        drawer: buildCustomDrawer(context),
+        body: CustomBackground(
+          bodyWidget: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 120,
+              ),
+              MySearchBar(
+                onSearch: (query) {
+                  filterProducts(query);
+                },
+              ),
+              filteredProducts.isEmpty
+                  ? const ProductStream()
+                  : StreamBuilder<List<ProductModel>>(
+                      stream: _filteredProductsController.stream,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return Text(
+                              'Error in inventory.dart: ${snapshot.error}');
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          // return const Text('Loading...');
+                          return const Center(
+                              child: CircularProgressIndicator(
+                            color: orange,
+                          ));
+                        } else {
+                          filteredProducts = snapshot.data!;
+                          return Expanded(
+                            child: ListView.builder(
+                              itemCount: filteredProducts.length,
+                              itemBuilder: (context, index) => ItemBox(
+                                item: Item(product: filteredProducts[index]),
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                    },
-                  ),
-            ElevatedAddAnotherItem(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AddNewItem(),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(
-              height: 10,
-            )
-          ].separate(10),
+                          );
+                        }
+                      },
+                    ),
+              ElevatedAddAnotherItem(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AddNewItem(),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              )
+            ].separate(10),
+          ),
         ),
       ),
     );
