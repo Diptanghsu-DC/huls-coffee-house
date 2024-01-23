@@ -37,6 +37,10 @@ class _MainPageState extends State<MainPage> {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) async {
+        if(currentIndex != 1){
+          navigate(1);
+          return;
+        }
         if (didPop) {
           return;
         }
