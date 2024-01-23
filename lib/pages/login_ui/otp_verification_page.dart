@@ -1,10 +1,14 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/services/user/user_controller.dart';
 import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/homepage.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
+import 'package:huls_coffee_house/pages/login_ui/utils/authenticator.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/forgot_alert.dart';
@@ -32,6 +36,11 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
     otp = code;
   }
 
+  String _generateRandomOtp(int length) {
+    final random = Random();
+    return List.generate(length, (index) => random.nextInt(10)).join();
+  }
+
   void validateOtp() {
     print("entering otp validate function");
     var user;
@@ -41,7 +50,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
         try {
           print("otp authentication started... The otp entered is $otp");
           if (SignupPage.verifyId != otp && ForgotAlert.forgotOtp != otp) {
-            throw Exception("Wrong OTP, please try again");
+            throw Exception(
+                "Wrong OTP, please remove the current text and try again");
           }
           print("otp completed");
           print("entering user creation protocol...");
@@ -75,6 +85,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
   @override
   Widget build(BuildContext context) {
     //screen size
+    getSize(context);
     //constants
     double lFontSize = 40.0;
     double sFontSize = 16;
@@ -126,19 +137,40 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                           SizedBox(
                             height: sGap,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              for (var i = 0; i < 6; i++)
-                                SizedBox(
-                                  width: 50,
-                                  child: OTPField(
-                                    getOTP: getOTP,
-                                    counter: i,
-                                  ),
-                                ),
-                            ],
+                          OtpTextField(
+                            numberOfFields: 6,
+                            fieldWidth: width * 0.135,
+                            focusedBorderColor: orange,
+                            cursorColor: orange,
+                            showFieldAsBox: true,
+                            onCodeChanged: (String code) {},
+                            onSubmit: (String verificationCode) =>
+                                getOTP(verificationCode),
+
+                            // showDialog(
+                            //     context: context,
+                            //     builder: (context) {
+                            //       return AlertDialog(
+                            //         title: Text("Verification Code"),
+                            //         content: Text(
+                            //             'Code entered is $verificationCode'),
+                            //       );
+                            //     });
+                            // },
                           ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //   children: [
+                          //     for (var i = 0; i < 6; i++)
+                          //       SizedBox(
+                          //         width: 50,
+                          //         child: OTPField(
+                          //           getOTP: getOTP,
+                          //           counter: i,
+                          //         ),
+                          //       ),
+                          //   ],
+                          // ),
                           SizedBox(
                             height: sGap,
                           ),
@@ -153,7 +185,36 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                                     fontWeight: FontWeight.w500),
                               ),
                               TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    print("pressed resend");
+                                    try {
+                                      final String otp = _generateRandomOtp(6);
+                                      print(
+                                          "email entered is ${SignupPage.email}");
+                                      SignupPage.verifyId = otp;
+                                      // SignupPage.email =
+                                      //     emailController.text.toString();
+                                      // SignupPage.password =
+                                      //     passController.text.toString();
+                                      // SignupPage.name =
+                                      //     nameController.text.toString();
+                                      // SignupPage.phone =
+                                      //     phoneController.text.toString();
+                                      Authenticator().sendEmailOtp(otp,
+                                          SignupPage.email, SignupPage.phone);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                              "Code sent to ${SignupPage.email}! Please check spam folder also"),
+                                        ),
+                                      );
+                                      print("code send $otp");
+                                    } catch (error) {
+                                      // Failed login
+                                      toastMessage(error.toString());
+                                    }
+                                  },
                                   child: Text(
                                     "Resend",
                                     style: TextStyle(

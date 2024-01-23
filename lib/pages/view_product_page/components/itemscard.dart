@@ -25,6 +25,7 @@ class ItemsCard extends StatelessWidget {
     final Size screensize = MediaQuery.of(context).size;
     final double height = screensize.height;
     final double width = screensize.width;
+    final num modifiedRating = itemRating ?? 4.5;
 
     String imageUrl = itemImage.isEmpty ? defaultImage : itemImage;
 
@@ -128,7 +129,7 @@ class ItemsCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                itemRating.toString(), //itemsrating
+                modifiedRating.toString(), //itemsrating
                 style: const TextStyle(color: Colors.black, fontSize: 14),
               ),
               const Text(

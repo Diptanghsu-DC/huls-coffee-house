@@ -3,8 +3,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/models.dart';
+import 'package:huls_coffee_house/pages/login_ui/login_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
+import 'package:huls_coffee_house/pages/login_ui/widgets/forgot_alert.dart';
 import 'package:huls_coffee_house/pages/profile/utils/pass_change_notifier.dart';
 import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
 
@@ -21,17 +23,21 @@ class NewPassPage extends StatefulWidget {
 }
 
 class _NewPassPageState extends State<NewPassPage> {
-  bool isObscure = true;
+  bool isObscurePass = true;
+  bool isObscureConfirm = true;
 
   final TextEditingController passChangeController = TextEditingController();
-  final TextEditingController confirmChangeController =
-  TextEditingController();
+  final TextEditingController confirmChangeController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
 
-  void showPass() {
+  void showPass(String controller) {
     setState(() {
-      isObscure = !isObscure;
+      if (controller == "passChangeController") {
+        isObscurePass = !isObscurePass;
+      } else if (controller == "confirmChangeController") {
+        isObscureConfirm = !isObscureConfirm;
+      }
     });
   }
 
@@ -40,26 +46,35 @@ class _NewPassPageState extends State<NewPassPage> {
       showLoadingOverlay(
         context: context,
         asyncTask: () async {
-          UserModel? oldUser = UserController.currentUser;
-          UserController.currentUser = UserController.currentUser?.copyWith(
-            password: Encryptor.encrypt(
-              passChangeController.text,
-              dotenv.env[EnvValues.ENCRYPTER_SALT.name]!,
-            ),
+          List<UserModel?> listUser =
+              await UserController.get(email: ForgotAlert.emailEntered).first;
+          UserModel? oldUser = listUser[0];
+          UserController.currentUser = oldUser?.copyWith(
+            password: passChangeController.text,
           );
           await UserController.update(oldUser: oldUser);
           await PassChangeNotifier()
               .sendEmailVer(UserController.currentUser!.email);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Confirmation Email Sent"),
+            ),
+          );
         },
         onCompleted: () {
-          Navigator.pop(context);
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LoginPage(),
+              ),
+              (route) => false);
         },
       );
     }
   }
+
   @override
   Widget build(context) {
-
     Size size = MediaQuery.of(context).size;
     double height = size.height;
 
@@ -125,10 +140,11 @@ class _NewPassPageState extends State<NewPassPage> {
                                       }
                                       return null;
                                     },
-                                    obscureText: isObscure ? true : false,
+                                    obscureText: isObscurePass ? true : false,
                                     suffixIcon: IconButton(
-                                        onPressed: () => showPass(),
-                                        icon: isObscure
+                                        onPressed: () =>
+                                            showPass("passChangeController"),
+                                        icon: isObscurePass
                                             ? const Icon(Icons.visibility)
                                             : const Icon(Icons.visibility_off)),
                                   )),
@@ -166,10 +182,11 @@ class _NewPassPageState extends State<NewPassPage> {
                                     }
                                     return null;
                                   },
-                                  obscureText: isObscure ? true : false,
+                                  obscureText: isObscureConfirm ? true : false,
                                   suffixIcon: IconButton(
-                                      onPressed: () => showPass(),
-                                      icon: isObscure
+                                      onPressed: () =>
+                                          showPass("confirmChangeController"),
+                                      icon: isObscureConfirm
                                           ? const Icon(Icons.visibility)
                                           : const Icon(Icons.visibility_off)),
                                 ),
