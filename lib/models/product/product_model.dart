@@ -8,7 +8,8 @@ part 'product_model.g.dart';
 class ProductModel with _$ProductModel {
   const ProductModel._();
   const factory ProductModel({
-    String? imageURL,
+    required String imageURL,
+    required String imagePublicID,
     required String itemName,
     String? itemDesc,
     required String category,

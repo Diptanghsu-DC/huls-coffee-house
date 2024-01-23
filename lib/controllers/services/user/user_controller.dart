@@ -7,6 +7,7 @@ import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/utils/database/constants.dart';
 import 'package:huls_coffee_house/utils/local_database/local_database.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 part 'functions/_create_impl.dart';
 part 'functions/_save_impl.dart';
@@ -69,7 +70,6 @@ class UserController {
     return user;
   }
 
-
   static Stream<UserModel?> loginSilently({bool forceGet = false}) {
     return _loginSilentlyImpl(forceGet: forceGet);
   }
@@ -101,8 +101,7 @@ class UserController {
     debugPrint("logged out");
   }
 
-  static Future<UserModel?> update() async {
-    UserModel? user = await _updateImpl();
-    return user;
+  static Future<void> update({UserModel? oldUser}) async {
+    await _updateImpl(oldUser: oldUser);
   }
 }

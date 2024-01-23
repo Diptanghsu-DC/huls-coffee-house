@@ -2,9 +2,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:huls_coffee_house/api/firebase_messagingapi.dart';
 import 'package:huls_coffee_house/firebase_options.dart';
+import 'package:huls_coffee_house/pages/about_us/about_us.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
+import 'package:huls_coffee_house/pages/admin/main_page/main_page.dart';
 import 'package:huls_coffee_house/pages/cart_ui/utils/cart.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
+import 'package:huls_coffee_house/pages/login_ui/widgets/new_pass.dart';
+import 'package:huls_coffee_house/pages/main_page/main_page.dart';
+import 'package:huls_coffee_house/pages/notifications_page/notifications_page.dart';
+import 'package:huls_coffee_house/pages/privacy_policy/privacy_policy.dart';
 import 'package:huls_coffee_house/pages/profile/profile_main.dart';
 import 'package:huls_coffee_house/pages/splash_screen/splash_screen.dart';
 import 'package:huls_coffee_house/utils/local_database/local_database.dart';
@@ -36,6 +42,8 @@ class MyApp extends StatelessWidget {
             textTheme:
                 const TextTheme(bodySmall: TextStyle(fontFamily: 'SofiaPro'))),
         routes: {
+          MainPage.routeName: (context) => const MainPage(),
+          AdminMainPage.routeName : (context) => const AdminMainPage(),
           SplashScreen.routeName: (context) => const SplashScreen(),
           Homepage.routeName: (context) => const Homepage(),
           ProfilePage.routeName: (context) => const ProfilePage(),
@@ -52,10 +60,14 @@ class MyApp extends StatelessWidget {
             final checkoutItems = args['checkoutItems'];
             return CheckoutPage(checkoutItems: checkoutItems);
           },
+          NewPassPage.routeName: (context) => const NewPassPage(),
           OrderPage.routeName: (context) => const OrderPage(),
           Inventory.routeName: (context) => const Inventory(),
           OrderSuccessfulPage.routeName: (context) =>
-              const OrderSuccessfulPage()
+              const OrderSuccessfulPage(),
+          NotificationsPage.routeName: (context) => const NotificationsPage(),
+          PrivacyPolicyPage.routeName: (context) => const PrivacyPolicyPage(),
+          AboutUsPage.routeName: (context) => const AboutUsPage()
         },
         initialRoute: SplashScreen.routeName,
       ),

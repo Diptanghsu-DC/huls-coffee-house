@@ -7,20 +7,18 @@ import 'package:huls_coffee_house/pages/homepage_ui/homepage.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
+import 'package:huls_coffee_house/pages/login_ui/widgets/forgot_alert.dart';
+import 'package:huls_coffee_house/pages/login_ui/widgets/new_pass.dart';
+import 'package:huls_coffee_house/pages/main_page/main_page.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
 import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
 
 class OtpVerificationPage extends StatefulWidget {
   const OtpVerificationPage({
     super.key,
-    // required this.email,
-    // required this.password,
   });
 
   static const String routeName = '/otpPage';
-
-  // final String email;
-  // final String password;
 
   @override
   State<OtpVerificationPage> createState() => _OtpVerificationPageState();
@@ -29,8 +27,6 @@ class OtpVerificationPage extends StatefulWidget {
 class _OtpVerificationPageState extends State<OtpVerificationPage> {
   late String otp;
   bool isUserCreated = false;
-
-  // var otpController = Get.put(OtpController());
 
   void getOTP(String code) {
     otp = code;
@@ -44,21 +40,20 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
       asyncTask: () async {
         try {
           print("otp authentication started... The otp entered is $otp");
-          PhoneAuthCredential credential = PhoneAuthProvider.credential(
-              verificationId: SignupPage.verifyId, smsCode: otp);
-          print(credential);
-          // if (SignupPage.verifyId != otp) {
-          //   throw Exception("Wrong OTP, please try again");
-          // }
+          if (SignupPage.verifyId != otp && ForgotAlert.forgotOtp != otp) {
+            throw Exception("Wrong OTP, please try again");
+          }
           print("otp completed");
           print("entering user creation protocol...");
-          user = await UserController.create(UserModel(
-            name: SignupPage.name,
-            email: SignupPage.email,
-            password: SignupPage.password,
-            phone: num.parse(SignupPage.phone),
-          ));
-          isUserCreated = true;
+          if (ForgotAlert.forgotOtp == "") {
+            user = await UserController.create(UserModel(
+              name: SignupPage.name,
+              email: SignupPage.email,
+              password: SignupPage.password,
+              phone: num.parse(SignupPage.phone),
+            ));
+            isUserCreated = true;
+          }
         } catch (error) {
           // Failed login
           toastMessage(error.toString());
@@ -68,8 +63,10 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
         if (isUserCreated) {
           if (user != null) {
             Navigator.pushNamedAndRemoveUntil(
-                context, Homepage.routeName, (route) => false);
+                context, MainPage.routeName, (route) => false);
           }
+        } else if (ForgotAlert.forgotOtp != "") {
+          Navigator.pushNamed(context, NewPassPage.routeName);
         }
       },
     );

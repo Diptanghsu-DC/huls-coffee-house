@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/models.dart';
@@ -19,9 +20,10 @@ class _ProductStreamState extends State<ProductStream> {
       stream: ProductController.getAll(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
+          return Text('Error in productstream.dart: ${snapshot.error}');
         } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text('Loading...');
+          // return const Text('Loading...');
+          return const Center(child: CircularProgressIndicator());
         } else {
           final products = snapshot.data!;
           return Expanded(

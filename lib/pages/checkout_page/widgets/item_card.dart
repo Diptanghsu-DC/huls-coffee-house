@@ -21,7 +21,7 @@ class ItemCard extends StatelessWidget {
       child: ListTile(
         contentPadding: EdgeInsets.fromLTRB(16, 8, 16, 32),
         trailing: TotalItemCost(
-          itemPrice: item.price,
+          item: item,
         ),
         title: Text(
           item.itemName,

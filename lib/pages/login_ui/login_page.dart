@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/services/user/user_controller.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
+import 'package:huls_coffee_house/pages/admin/main_page/main_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/signup_page.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
+import 'package:huls_coffee_house/pages/login_ui/widgets/forgot_alert.dart';
+import 'package:huls_coffee_house/pages/main_page/main_page.dart';
 import 'package:huls_coffee_house/widgets/widgets.dart';
 import '../../utils/utils.dart';
 import '../pages.dart';
@@ -53,11 +56,11 @@ class _LoginPageState extends State<LoginPage> {
             if (user != null) {
               if (UserController.currentUser!.isSeller) {
                 Navigator.pushNamedAndRemoveUntil(
-                    context, Inventory.routeName, (route) => false);
+                    context, AdminMainPage.routeName, (route) => false);
               } else {
                 Navigator.pushNamedAndRemoveUntil(
                   context,
-                  Homepage.routeName,
+                  MainPage.routeName,
                   (route) => false,
                 );
               }
@@ -106,10 +109,17 @@ class _LoginPageState extends State<LoginPage> {
     Color buttonColor = const Color.fromRGBO(254, 114, 76, 1);
     double lineHeight = 2;
     double lineWidth = 100;
-    return WillPopScope(
-      onWillPop: () async {
-        final quitCondition = await showExitWarning(context);
-        return quitCondition ?? false;
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async {
+        if (didPop) {
+          return;
+        }
+        final NavigatorState navigator = Navigator.of(context);
+        final bool shouldPop = await showExitWarning(context);
+        if (shouldPop) {
+          navigator.pop();
+        }
       },
       child: Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
@@ -199,11 +209,9 @@ class _LoginPageState extends State<LoginPage> {
                                           controller: passController,
                                           hintText: "Password",
                                           validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return "password cannot be empty";
-                                            } else if (value.length < 8) {
-                                              return "password must be atleast 8 characters long";
-                                            }
+                                            // if (value!.isEmpty) {
+                                            //   return "password cannot be empty";
+                                            // }
                                             return null;
                                           },
                                           obscureText: isObscure ? true : false,
@@ -214,6 +222,26 @@ class _LoginPageState extends State<LoginPage> {
                                                   : const Icon(
                                                       Icons.visibility_off)),
                                         )),
+                                  ),
+                                  SizedBox(
+                                    height: sGap,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: padding),
+                                    child: TextButton(
+                                      onPressed: () => showDialog(
+                                        context: context,
+                                        builder: (context) =>
+                                            const ForgotAlert(),
+                                      ),
+                                      child: Text(
+                                        "Forgot Password ?",
+                                        style: TextStyle(
+                                            color: orange,
+                                            fontSize: sFontSize,
+                                            fontFamily: 'SofiaPro'),
+                                      ),
+                                    ),
                                   ),
                                   SizedBox(
                                     height: lGap,

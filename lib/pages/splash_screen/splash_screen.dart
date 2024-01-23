@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:huls_coffee_house/config/config.dart';
-import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
+import 'package:huls_coffee_house/pages/admin/main_page/main_page.dart';
+import 'package:huls_coffee_house/pages/main_page/main_page.dart';
 
 import '../../controllers/services/user/user_controller.dart';
 import '../../firebase_options.dart';
@@ -49,11 +49,11 @@ class _SplashScreenState extends State<SplashScreen> {
       } else {
         if (UserController.currentUser!.isSeller) {
           Navigator.of(context)
-              .pushNamedAndRemoveUntil(Inventory.routeName, (route) => false)
+              .pushNamedAndRemoveUntil(AdminMainPage.routeName, (route) => false)
               .then((value) => exit(0));
         } else {
           Navigator.of(context)
-              .pushNamedAndRemoveUntil(Homepage.routeName, (route) => false)
+              .pushNamedAndRemoveUntil(MainPage.routeName, (route) => false)
               .then((value) => exit(0));
         }
       }
@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return  const Scaffold(
       body: Center(
         child: CircularProgressIndicator(
           color: orange,

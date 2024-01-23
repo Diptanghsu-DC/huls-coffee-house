@@ -1,3 +1,4 @@
+import '../../../config/config.dart';
 import './colors.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class AppStyles {
       fontFamily: 'SofiaPro');
 
   static const TextStyle priceStyle =
-      TextStyle(color: Colors.orange, fontSize: 18, fontFamily: 'SofiaPro');
+      TextStyle(color: orange, fontSize: 18, fontFamily: 'SofiaPro');
   static const TextStyle total = TextStyle(
       color: Colors.white,
       fontWeight: FontWeight.normal,

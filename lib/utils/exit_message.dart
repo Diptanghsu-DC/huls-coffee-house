@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 
-Future<bool?> showExitWarning(BuildContext context) async {
+Future<bool> showExitWarning(BuildContext context) async{
   bool choice = false;
   if (Navigator.canPop(context)) {
     Navigator.pop(context);

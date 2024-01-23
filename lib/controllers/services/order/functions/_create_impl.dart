@@ -24,6 +24,7 @@ Future<OrderModel?> _createImpl(OrderModel order) async {
   order = OrderModel.fromJson(res);
 
   OrderController.orderQueue.add(order);
+  UserController.orderList.add(order);
 
   return order;
 }

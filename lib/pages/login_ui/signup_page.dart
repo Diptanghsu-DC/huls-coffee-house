@@ -1,4 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/pages/login_ui/utils/authenticator.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:huls_coffee_house/config/config.dart';
@@ -29,22 +34,25 @@ class _SignupPageState extends State<SignupPage> {
   //password showing boolean
   bool isObscure = true;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   //form variable
   final _formKey = GlobalKey<FormState>();
 
   //controllers
-  // final controller = Get.put(SignUpController());
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
+  final TextEditingController confirmController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   TextEditingController countryCode = TextEditingController();
 
   void initState() {
     countryCode.text = "+91";
     super.initState();
+  }
+
+  String _generateRandomOtp(int length) {
+    final random = Random();
+    return List.generate(length, (index) => random.nextInt(10)).join();
   }
 
   //function to validate form
@@ -55,29 +63,23 @@ class _SignupPageState extends State<SignupPage> {
         context: context,
         asyncTask: () async {
           try {
-            await _auth.verifyPhoneNumber(
-              phoneNumber: countryCode.text + phoneController.text,
-              verificationCompleted: (PhoneAuthCredential credential) {},
-              verificationFailed: (FirebaseAuthException e) {},
-              codeSent: (String verificationId, int? resendToken) {
-                print("code sent $verificationId. setting parameters...");
-                SignupPage.verifyId = verificationId;
-                SignupPage.email = emailController.text.toString();
-                SignupPage.password = passController.text.toString();
-                SignupPage.name = nameController.text.toString();
-                SignupPage.phone = phoneController.text.toString();
-                print("parameters set");
-              },
-              codeAutoRetrievalTimeout: (String verificationId) {},
-            );
+            final String otp = _generateRandomOtp(6);
+            print("email entered is ${emailController.text.toString()}");
+            SignupPage.verifyId = otp;
+            SignupPage.email = emailController.text.toString();
+            SignupPage.password = passController.text.toString();
+            SignupPage.name = nameController.text.toString();
+            SignupPage.phone = phoneController.text.toString();
+            Authenticator().sendEmailOtp(otp, emailController.text.toString(),
+                phoneController.text.toString());
+            print("code send $otp");
           } catch (error) {
             // Failed login
             toastMessage(error.toString());
           }
         },
         onCompleted: () {
-          Navigator.pushNamedAndRemoveUntil(
-              context, OtpVerificationPage.routeName, (route) => false);
+          Navigator.pushNamed(context, OtpVerificationPage.routeName);
         },
       );
     } else {
@@ -269,26 +271,65 @@ class _SignupPageState extends State<SignupPage> {
                                 padding: EdgeInsets.only(
                                     left: padding, right: padding),
                                 child: SizedBox(
-                                    height: fieldHeight,
-                                    child: CustomField(
-                                      controller: passController,
-                                      hintText: "Password",
-                                      obscureText: isObscure ? true : false,
-                                      suffixIcon: IconButton(
-                                          onPressed: () => showPass(),
-                                          icon: isObscure
-                                              ? const Icon(Icons.visibility)
-                                              : const Icon(
-                                                  Icons.visibility_off)),
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return "password cannot be empty";
-                                        } else if (value.length < 8) {
-                                          return "password must be atleast 8 characters long";
-                                        }
-                                        return null;
-                                      },
-                                    )),
+                                  height: fieldHeight,
+                                  child: CustomField(
+                                    controller: passController,
+                                    hintText: "Password",
+                                    obscureText: isObscure ? true : false,
+                                    suffixIcon: IconButton(
+                                        onPressed: () => showPass(),
+                                        icon: isObscure
+                                            ? const Icon(Icons.visibility)
+                                            : const Icon(Icons.visibility_off)),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "password cannot be empty";
+                                      } else if (value.length < 8) {
+                                        return "password must be atleast 8 characters long";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: padding),
+                                child: Text(
+                                  "Confirm Password",
+                                  style: TextStyle(
+                                      fontFamily: 'SofiaPro',
+                                      color: fontColor,
+                                      fontSize: sFontSize),
+                                ),
+                              ),
+                              SizedBox(
+                                height: sGap,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: padding, right: padding),
+                                child: SizedBox(
+                                  height: fieldHeight,
+                                  child: CustomField(
+                                    controller: confirmController,
+                                    hintText: "Confirm Password",
+                                    obscureText: isObscure ? true : false,
+                                    suffixIcon: IconButton(
+                                        onPressed: () => showPass(),
+                                        icon: isObscure
+                                            ? const Icon(Icons.visibility)
+                                            : const Icon(Icons.visibility_off)),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "confirm password cannot be empty";
+                                      } else if (value !=
+                                          passController.text.toString()) {
+                                        return "Confirm Password must be equal to password";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
                               ),
                               SizedBox(
                                 height: lGap,

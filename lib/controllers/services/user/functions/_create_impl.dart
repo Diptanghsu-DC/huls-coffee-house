@@ -1,6 +1,7 @@
 part of '../user_controller.dart';
 
 Future<UserModel?> _createImpl(UserModel user) async {
+  print("entered user creation");
   CollectionReference<Map<String, dynamic>> collection =
       FirebaseFirestore.instance.collection(UserController._collectionName);
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/utils/screen_size.dart';
 
 import '../../../../config/config.dart';
 
@@ -9,6 +10,7 @@ class ElevatedAddAnotherItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    getSize(context);
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -27,19 +29,19 @@ class ElevatedAddAnotherItem extends StatelessWidget {
             ),
           ],
         ),
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Icon(
               Icons.add_circle_outline_sharp,
-              size: 40.0,
+              size: width * 0.08,
               color: orange,
             ),
             Text(
               "Add Another Item",
               style: TextStyle(
                 fontFamily: 'SofiaPro',
-                fontSize: 20,
+                fontSize: width * 0.05,
                 color: Colors.black,
               ),
             ),
