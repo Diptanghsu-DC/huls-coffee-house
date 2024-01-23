@@ -4,7 +4,7 @@ Future<void> _updateImpl({
   UserModel? oldUser,
 }) async {
   if (UserController.currentUser == null || oldUser == null) {
-    throw Exception("Please Login");
+    throw Exception("Some unexpected error occured. Please contact developers");
   }
   CollectionReference<Map<String, dynamic>> collection =
       FirebaseFirestore.instance.collection(UserController._collectionName);
