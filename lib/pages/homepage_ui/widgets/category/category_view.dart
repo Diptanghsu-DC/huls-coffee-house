@@ -23,7 +23,7 @@ class _CategoryViewerState extends State<CategoryViewer> {
         if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text('Loading...');
+          return const Center(child: CircularProgressIndicator());
         } else {
           final categories = snapshot.data!
               .map((product) => product.category)
