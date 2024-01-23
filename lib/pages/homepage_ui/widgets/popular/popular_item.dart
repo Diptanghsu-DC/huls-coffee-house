@@ -25,7 +25,7 @@ class PopularItem extends StatefulWidget {
 
 class _PopularItemState extends State<PopularItem> {
   bool isLiked = false;
-  late num ratings = widget.ratings ?? 4.5; //default rating is 4.5
+  // late num ratings = widget.ratings ?? 4.5; //default rating is 4.5
   late num price = widget.price; //price in Rs
   late String itemName = widget.itemName;
   late String? itemDesc = widget.itemDesc; //short description of item
@@ -33,6 +33,7 @@ class _PopularItemState extends State<PopularItem> {
   @override
   Widget build(BuildContext context) {
     String imgURL = widget.imgSrc ?? defaultImage; //set image url accordingly
+    num ratings = widget.ratings ?? 4.5;
 
     getSize(context);
     return Container(
@@ -68,14 +69,14 @@ class _PopularItemState extends State<PopularItem> {
                       Text(
                         "Rs",
                         style: TextStyle(
-                          fontSize: width * 0.045,
-                          color: orange,
-                          fontFamily: 'SofiaPro'
-                        ),
+                            fontSize: width * 0.045,
+                            color: orange,
+                            fontFamily: 'SofiaPro'),
                       ),
                       Text(
                         "$price",
-                        style: TextStyle(fontSize: width * 0.045, fontFamily: 'SofiaPro'),
+                        style: TextStyle(
+                            fontSize: width * 0.045, fontFamily: 'SofiaPro'),
                       ),
                     ].separate(2),
                   ),
@@ -119,7 +120,8 @@ class _PopularItemState extends State<PopularItem> {
                     children: [
                       Text(
                         "$ratings",
-                        style: TextStyle(fontSize: width * 0.045, fontFamily: 'SofiaPro'),
+                        style: TextStyle(
+                            fontSize: width * 0.045, fontFamily: 'SofiaPro'),
                       ),
                       const Icon(
                         Icons.star,
@@ -142,17 +144,14 @@ class _PopularItemState extends State<PopularItem> {
                     Text(
                       itemName,
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: width * 0.05,
-                        fontFamily: 'SofiaPro'
-                      ),
+                          fontWeight: FontWeight.bold,
+                          fontSize: width * 0.05,
+                          fontFamily: 'SofiaPro'),
                     ),
                     Text(
                       itemDesc ?? "",
                       style: const TextStyle(
-                        color: Colors.grey,
-                        fontFamily: 'SofiaPro'
-                      ),
+                          color: Colors.grey, fontFamily: 'SofiaPro'),
                     )
                   ],
                 ),
