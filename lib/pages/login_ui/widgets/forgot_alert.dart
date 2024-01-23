@@ -16,6 +16,7 @@ class ForgotAlert extends StatefulWidget {
   });
 
   static String forgotOtp = "";
+  static String emailEntered = "";
 
   @override
   State<ForgotAlert> createState() => _ForgotAlertState();
@@ -98,12 +99,14 @@ class _ForgotAlertState extends State<ForgotAlert> {
                     ForgotAlert.forgotOtp += _generateRandomOtp(6);
                     Authenticator().sendEmailOtp(ForgotAlert.forgotOtp,
                         _emailController.text, user[0].phone.toString());
+                    ForgotAlert.emailEntered +=
+                        _emailController.text.toString();
                     Navigator.pushNamed(context, OtpVerificationPage.routeName);
                   } else {
                     if (!dialogContext.mounted) return;
                     Navigator.of(dialogContext).pop();
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Invalid Email. Please Sign Up")));
+                        content: Text("Email not found. Please Sign Up")));
                   }
                 });
           },
