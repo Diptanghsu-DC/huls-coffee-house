@@ -35,7 +35,11 @@ class _AdminMainPageState extends State<AdminMainPage> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) async{
+      onPopInvoked: (didPop) async {
+        if(currentIndex != 1){
+          navigate(1);
+          return;
+        }
         if (didPop) {
           return;
         }
