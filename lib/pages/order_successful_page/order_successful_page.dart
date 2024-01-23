@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/homepage.dart';
+import 'package:huls_coffee_house/pages/main_page/main_page.dart';
 
 class OrderSuccessfulPage extends StatefulWidget {
   static const String routeName = '/orderSuccessfulPage';
@@ -49,7 +50,7 @@ class _OrderSuccessfulPageState extends State<OrderSuccessfulPage>
       Timer(const Duration(seconds: 4), () {
         Navigator.pushNamedAndRemoveUntil(
           context,
-          Homepage.routeName,
+          MainPage.routeName,
           (route) => false,
         );
       });
