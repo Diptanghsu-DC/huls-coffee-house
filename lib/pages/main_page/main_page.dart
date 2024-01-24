@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:huls_coffee_house/pages/cart_ui/cart_main.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/homepage.dart';
 import 'package:huls_coffee_house/pages/notifications_page/notifications_page.dart';
@@ -44,10 +45,9 @@ class _MainPageState extends State<MainPage> {
         if (didPop) {
           return;
         }
-        final NavigatorState navigator = Navigator.of(context);
         final bool shouldPop = await showExitWarning(context);
         if (shouldPop) {
-          navigator.pop();
+          SystemNavigator.pop();
         }
       },
       child: Scaffold(

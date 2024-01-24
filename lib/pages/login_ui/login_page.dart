@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/services/user/user_controller.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
@@ -115,10 +116,9 @@ class _LoginPageState extends State<LoginPage> {
         if (didPop) {
           return;
         }
-        final NavigatorState navigator = Navigator.of(context);
         final bool shouldPop = await showExitWarning(context);
         if (shouldPop) {
-          navigator.pop();
+          SystemNavigator.pop();
         }
       },
       child: Scaffold(

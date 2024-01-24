@@ -4,7 +4,6 @@ import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/widgets/category/category_selector.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
 import 'package:huls_coffee_house/utils/screen_size.dart';
-import 'package:huls_coffee_house/pages/homepage_ui/widgets/food/food_list.dart';
 
 class CategoryViewer extends StatefulWidget {
   const CategoryViewer({super.key});
@@ -23,7 +22,7 @@ class _CategoryViewerState extends State<CategoryViewer> {
         if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator(color: orange,));
         } else {
           final categories = snapshot.data!
               .map((product) => product.category)
