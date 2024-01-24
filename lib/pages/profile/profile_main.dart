@@ -133,14 +133,14 @@ class _ProfilePage extends State<ProfilePage> {
                       thickness: 1,
                       height: 16.0,
                     ),
-                    // const Text(
-                    //   "Address",
-                    //   style: AppStyles.pageText,
-                    // ),
-                    // Text(
-                    //   UserController.currentUser!.address, // Placeholder text
-                    //   style: AppStyles.userDetailText,
-                    // ),
+                    const Text(
+                      "Address",
+                      style: AppStyles.pageText,
+                    ),
+                    Text(
+                      UserController.currentUser!.address, // Placeholder text
+                      style: AppStyles.userDetailText,
+                    ),
                     Divider(
                       color: Colors.grey[400],
                       thickness: 1,
