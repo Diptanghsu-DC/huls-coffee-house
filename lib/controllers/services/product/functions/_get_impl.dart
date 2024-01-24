@@ -12,22 +12,26 @@ Stream<List<ProductModel>> _getImpl({
   }
 
   List<ProductModel> filteredProducts = [];
-  filteredProducts = await _fetchLocal(
-    id: id,
-    category: category,
-    itemName: itemName,
-    forceGet: forceGet,
-  );
+  // filteredProducts = await _fetchLocal(
+  //   id: id,
+  //   category: category,
+  //   itemName: itemName,
+  //   forceGet: forceGet,
+  // );
 
-  if (filteredProducts.isNotEmpty) yield filteredProducts;
-  filteredProducts = await _fetchFromBackend(
-    id: id,
-    category: category,
-    itemName: itemName,
-    forceGet: forceGet,
-  );
+  // if (filteredProducts.isNotEmpty) yield filteredProducts;
 
-  yield filteredProducts;
+  while (true) {
+    filteredProducts = await _fetchFromBackend(
+      id: id,
+      category: category,
+      itemName: itemName,
+      forceGet: forceGet,
+    );
+
+    yield filteredProducts;
+    await Future.delayed(const Duration(seconds: 100));
+  }
 }
 
 Future<List<ProductModel>> _fetchLocal({
