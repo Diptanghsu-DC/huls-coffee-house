@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
 
 import '../../../config/config.dart';
@@ -43,10 +44,10 @@ class _AdminMainPageState extends State<AdminMainPage> {
         if (didPop) {
           return;
         }
-        final NavigatorState navigator = Navigator.of(context);
+
         final bool shouldPop = await showExitWarning(context);
         if (shouldPop) {
-          navigator.pop();
+          SystemNavigator.pop();
         }
       },
       child: Scaffold(
