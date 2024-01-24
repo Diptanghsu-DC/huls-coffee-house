@@ -25,6 +25,7 @@ class SignupPage extends StatefulWidget {
   static String password = "";
   static String name = "";
   static String phone = "";
+  static String address = "";
 
   @override
   State<SignupPage> createState() => _SignupPageState();
@@ -44,6 +45,7 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController passController = TextEditingController();
   final TextEditingController confirmController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
   TextEditingController countryCode = TextEditingController();
 
   void initState() {
@@ -71,8 +73,11 @@ class _SignupPageState extends State<SignupPage> {
             SignupPage.password = passController.text.toString();
             SignupPage.name = nameController.text.toString();
             SignupPage.phone = phoneController.text.toString();
+            SignupPage.address = addressController.text.toString();
+
             Authenticator().sendEmailOtp(otp, emailController.text.toString(),
                 phoneController.text.toString());
+
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
@@ -257,6 +262,38 @@ class _SignupPageState extends State<SignupPage> {
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return "phone number cannot be empty";
+                                        }
+                                        return null;
+                                      },
+                                    )),
+                              ),
+                              SizedBox(
+                                height: gap,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: padding),
+                                child: Text(
+                                  "Address",
+                                  style: TextStyle(
+                                      color: fontColor,
+                                      fontSize: sFontSize,
+                                      fontFamily: 'SofiaPro'),
+                                ),
+                              ),
+                              SizedBox(
+                                height: sGap,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: padding, right: padding),
+                                child: SizedBox(
+                                    height: fieldHeight,
+                                    child: CustomField(
+                                      controller: addressController,
+                                      hintText: "Your college address",
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "Address cannot be empty";
                                         }
                                         return null;
                                       },
