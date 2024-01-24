@@ -12,6 +12,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String,
       password: json['password'] as String,
       phone: json['phone'] as num,
+      address: json['address'] as String,
       isSeller: json['isSeller'] as bool? ?? false,
       lastLocalUpdate: json['lastLocalUpdate'] == null
           ? null
@@ -24,6 +25,7 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'email': instance.email,
       'password': instance.password,
       'phone': instance.phone,
+      'address': instance.address,
       'isSeller': instance.isSeller,
       'lastLocalUpdate': instance.lastLocalUpdate?.toIso8601String(),
     };

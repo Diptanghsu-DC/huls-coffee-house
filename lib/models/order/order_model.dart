@@ -13,6 +13,7 @@ class OrderModel with _$OrderModel {
     required num quantity,
     required String user,
     required num userPhone,
+    required String address,
     required DateTime time,
     @Default(false) bool isCompleted,
     DateTime? lastLocalUpdate,
@@ -27,6 +28,7 @@ enum OrderFields {
   quantity,
   user,
   userPhone,
+  address,
   time,
   isCompleted,
   lastLocalUpdate

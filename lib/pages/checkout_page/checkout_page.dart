@@ -134,6 +134,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       quantity: widget.checkoutItems[i].quantity,
                       user: UserController.currentUser!.name,
                       userPhone: UserController.currentUser!.phone,
+                      address: UserController.currentUser!.address,
                       time: DateTime.now(),
                     );
                     OrderController.create(myOrder);
@@ -147,7 +148,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 text: "PLACE ORDER",
               ),
             ),
-            const SizedBox(height: 10,)
+            const SizedBox(
+              height: 10,
+            )
           ],
         ),
       ),

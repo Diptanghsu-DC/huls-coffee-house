@@ -61,6 +61,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
               email: SignupPage.email,
               password: SignupPage.password,
               phone: num.parse(SignupPage.phone),
+              address: SignupPage.address,
             ));
             isUserCreated = true;
           }

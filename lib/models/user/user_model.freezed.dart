@@ -24,6 +24,7 @@ mixin _$UserModel {
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   num get phone => throw _privateConstructorUsedError;
+  String get address => throw _privateConstructorUsedError;
   bool get isSeller => throw _privateConstructorUsedError;
   DateTime? get lastLocalUpdate => throw _privateConstructorUsedError;
 
@@ -43,6 +44,7 @@ abstract class $UserModelCopyWith<$Res> {
       String email,
       String password,
       num phone,
+      String address,
       bool isSeller,
       DateTime? lastLocalUpdate});
 }
@@ -64,6 +66,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? email = null,
     Object? password = null,
     Object? phone = null,
+    Object? address = null,
     Object? isSeller = null,
     Object? lastLocalUpdate = freezed,
   }) {
@@ -84,6 +87,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as num,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
       isSeller: null == isSeller
           ? _value.isSeller
           : isSeller // ignore: cast_nullable_to_non_nullable
@@ -109,6 +116,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
       String email,
       String password,
       num phone,
+      String address,
       bool isSeller,
       DateTime? lastLocalUpdate});
 }
@@ -128,6 +136,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? email = null,
     Object? password = null,
     Object? phone = null,
+    Object? address = null,
     Object? isSeller = null,
     Object? lastLocalUpdate = freezed,
   }) {
@@ -148,6 +157,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as num,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
       isSeller: null == isSeller
           ? _value.isSeller
           : isSeller // ignore: cast_nullable_to_non_nullable
@@ -168,6 +181,7 @@ class _$UserModelImpl implements _UserModel {
       required this.email,
       required this.password,
       required this.phone,
+      required this.address,
       this.isSeller = false,
       this.lastLocalUpdate});
 
@@ -183,6 +197,8 @@ class _$UserModelImpl implements _UserModel {
   @override
   final num phone;
   @override
+  final String address;
+  @override
   @JsonKey()
   final bool isSeller;
   @override
@@ -190,7 +206,7 @@ class _$UserModelImpl implements _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(name: $name, email: $email, password: $password, phone: $phone, isSeller: $isSeller, lastLocalUpdate: $lastLocalUpdate)';
+    return 'UserModel(name: $name, email: $email, password: $password, phone: $phone, address: $address, isSeller: $isSeller, lastLocalUpdate: $lastLocalUpdate)';
   }
 
   @override
@@ -203,6 +219,7 @@ class _$UserModelImpl implements _UserModel {
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.address, address) || other.address == address) &&
             (identical(other.isSeller, isSeller) ||
                 other.isSeller == isSeller) &&
             (identical(other.lastLocalUpdate, lastLocalUpdate) ||
@@ -211,8 +228,8 @@ class _$UserModelImpl implements _UserModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, name, email, password, phone, isSeller, lastLocalUpdate);
+  int get hashCode => Object.hash(runtimeType, name, email, password, phone,
+      address, isSeller, lastLocalUpdate);
 
   @JsonKey(ignore: true)
   @override
@@ -234,6 +251,7 @@ abstract class _UserModel implements UserModel {
       required final String email,
       required final String password,
       required final num phone,
+      required final String address,
       final bool isSeller,
       final DateTime? lastLocalUpdate}) = _$UserModelImpl;
 
@@ -248,6 +266,8 @@ abstract class _UserModel implements UserModel {
   String get password;
   @override
   num get phone;
+  @override
+  String get address;
   @override
   bool get isSeller;
   @override

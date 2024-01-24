@@ -12,6 +12,7 @@ class UserModel with _$UserModel {
     required String email,
     required String password,
     required num phone,
+    required String address,
     @Default(false) bool isSeller,
     DateTime? lastLocalUpdate,
   }) = _UserModel;
@@ -24,6 +25,15 @@ UserModel minifiedFromJson(Map<String, dynamic> json) => UserModel(
     name: json[UserFields.name.name],
     email: "",
     password: "",
+    address: "",
     phone: json[UserFields.phone.name]);
 
-enum UserFields { name, email, password, phone, isSeller, lastLocalUpdate }
+enum UserFields {
+  name,
+  email,
+  password,
+  phone,
+  address,
+  isSeller,
+  lastLocalUpdate
+}

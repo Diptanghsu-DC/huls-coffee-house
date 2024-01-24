@@ -14,6 +14,7 @@ class OrderCard extends StatelessWidget {
     required this.price,
     required this.userName,
     required this.userPhone,
+    required this.userAddress,
   });
 
   final OrderModel order;
@@ -22,6 +23,7 @@ class OrderCard extends StatelessWidget {
   final num price;
   final String userName;
   final num userPhone;
+  final String userAddress;
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +71,14 @@ class OrderCard extends StatelessWidget {
                           fontFamily: "SofiaPro",
                         ),
                       ),
+                      Text(
+                        "Address",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: width * 0.045,
+                          fontFamily: "SofiaPro",
+                        ),
+                      ),
                     ].separate(10),
                   ),
                   Column(
@@ -105,6 +115,14 @@ class OrderCard extends StatelessWidget {
                       ),
                       Text(
                         ": $userPhone",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: width * 0.045,
+                          fontFamily: "SofiaPro",
+                        ),
+                      ),
+                      Text(
+                        ": $userAddress",
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: width * 0.045,
