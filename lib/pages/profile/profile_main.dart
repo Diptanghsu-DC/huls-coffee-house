@@ -16,6 +16,7 @@ class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
   static const String routeName = '/ProfilePage';
+
   @override
   State<ProfilePage> createState() => _ProfilePage();
 }
@@ -55,8 +56,8 @@ class _ProfilePage extends State<ProfilePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              GestureDetector(
-                                onTap: () async {
+                              TextButton(
+                                onPressed: () async {
                                   await Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -71,8 +72,8 @@ class _ProfilePage extends State<ProfilePage> {
                                   style: AppStyles.functionButtonText,
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () {
+                              TextButton(
+                                onPressed: () {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) =>
@@ -93,8 +94,8 @@ class _ProfilePage extends State<ProfilePage> {
                                 "My Account",
                                 style: AppStyles.pageText,
                               ),
-                              GestureDetector(
-                                onTap: () async {
+                              TextButton(
+                                onPressed: () async {
                                   if (await showLogoutWarning(context)) {
                                     UserController.logOut();
                                     Navigator.pushNamedAndRemoveUntil(context,
