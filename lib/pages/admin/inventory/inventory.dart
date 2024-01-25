@@ -27,12 +27,17 @@ class _InventoryState extends State<Inventory> {
   List<ProductModel> filteredProducts = [];
   Stream<List<ProductModel>>? allProductStream;
   TextEditingController searchController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Timer? _debounceTimer;
 
   @override
   void initState() {
     super.initState();
+    init();
+  }
+
+  void init() async {
     allProductStream = ProductController.getAll();
   }
 
@@ -59,7 +64,6 @@ class _InventoryState extends State<Inventory> {
                   .contains(searchValue.toLowerCase()))
               .toList();
 
-          // If no items match the search query, set filteredProducts to an empty list
           if (filteredProducts.isEmpty) {
             filteredProducts = [];
           }
@@ -75,92 +79,104 @@ class _InventoryState extends State<Inventory> {
     });
   }
 
+  Future<void> refresh() async {
+    setState(() {
+      init();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: buildCustomDrawer(context),
-      body: CustomBackground(
-        bodyWidget: Stack(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 120,
-                ),
-                MySearchBar(
-                  controller: searchController,
-                  onSearch: filterProducts,
-                ),
-                Flexible(
-                  child: StreamBuilder<List<ProductModel>>(
-                    stream: allProductStream,
-                    builder: (context, snapshot) {
-                      List<ProductModel> products = snapshot.data ?? [];
-                      if (filteredProducts.isNotEmpty) {
-                        products = filteredProducts;
-                      }
-                      if (snapshot.hasError) {
-                        return Text(
-                          'Error: ${snapshot.error}',
-                          style: const TextStyle(color: Colors.red),
+    return RefreshIndicator(
+      onRefresh: refresh,
+      color: orange,
+      child: Scaffold(
+        key: _scaffoldKey,
+        drawer: buildCustomDrawer(context),
+        body: CustomBackground(
+          bodyWidget: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 120,
+                  ),
+                  MySearchBar(
+                    controller: searchController,
+                    onSearch: filterProducts,
+                  ),
+                  Flexible(
+                    child: StreamBuilder<List<ProductModel>>(
+                      stream: allProductStream,
+                      builder: (context, snapshot) {
+                        List<ProductModel> products = snapshot.data ?? [];
+                        if (filteredProducts.isNotEmpty) {
+                          products = filteredProducts;
+                        }
+                        if (snapshot.hasError) {
+                          return Text(
+                            'Error: ${snapshot.error}',
+                            style: const TextStyle(color: Colors.red),
+                          );
+                        }
+
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: orange,
+                            ),
+                          );
+                        } else if (products.isEmpty) {
+                          return const Center(
+                            child: Text(
+                              'Products not found',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          );
+                        }
+
+                        return ListView.builder(
+                          itemCount: products.length,
+                          itemBuilder: (context, index) =>
+                              ItemBox(item: Item(product: products[index])),
                         );
-                      }
-
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(
-                            color: orange,
-                          ),
-                        );
-                      }else if (products.isEmpty) {
-                        return Center(
-                          child: Text(
-                            'Products not found',
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        );
-                      }
-
-
-
-                      return ListView.builder(
-                        itemCount: products.length,
-                        itemBuilder: (context, index) =>
-                            ItemBox(item: Item(product: products[index])),
+                      },
+                    ),
+                  ),
+                  ElevatedAddAnotherItem(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AddNewItem(),
+                        ),
                       );
                     },
                   ),
-                ),
-                ElevatedAddAnotherItem(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const AddNewItem(),
-                      ),
-                    );
+                  const SizedBox(
+                    height: 10,
+                  )
+                ].separate(10),
+              ),
+              Positioned(
+                left: 15,
+                top: 35,
+                child: IconButton(
+                  onPressed: () {
+                    if (_scaffoldKey.currentState != null) {
+                      _scaffoldKey.currentState!.openDrawer();
+                    }
                   },
-                ),
-                const SizedBox(
-                  height: 10,
-                )
-              ].separate(10),
-            ),
-            Positioned(
-              left: 15,
-              top: 35,
-              child: IconButton(
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                icon: const Icon(Icons.menu),
-                style: IconButton.styleFrom(
-                  backgroundColor: Colors.white,
+                  icon: const Icon(Icons.menu),
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.white,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
-import 'package:huls_coffee_house/controllers/services/user/user_controller.dart';
 import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/login_ui/login_page.dart';
 import 'package:huls_coffee_house/pages/profile/user_update_page.dart';
-import 'package:huls_coffee_house/pages/profile/utils/colors.dart';
 import 'package:huls_coffee_house/pages/profile/utils/styles.dart';
 import 'package:huls_coffee_house/utils/logout_message.dart';
 import 'package:huls_coffee_house/utils/screen_size.dart';
 import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
-import 'package:huls_coffee_house/widgets/custom_bottom_navigation_bar/custom_bottom_navigation.dart';
 
 import '../login_ui/widgets/buttons.dart';
 import 'widgets/confirm_delete.dart';
@@ -19,19 +16,12 @@ class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
   static const String routeName = '/ProfilePage';
+
   @override
   State<ProfilePage> createState() => _ProfilePage();
 }
 
 class _ProfilePage extends State<ProfilePage> {
-  int _currentIndex = 0;
-
-  void bottomNavigator(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     getSize(context);
@@ -49,6 +39,9 @@ class _ProfilePage extends State<ProfilePage> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Text(
                       UserController.currentUser!.name,
                       //name from backend
@@ -57,8 +50,8 @@ class _ProfilePage extends State<ProfilePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        GestureDetector(
-                          onTap: () async {
+                        TextButton(
+                          onPressed: () async {
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -72,8 +65,8 @@ class _ProfilePage extends State<ProfilePage> {
                             style: AppStyles.functionButtonText,
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
+                        TextButton(
+                          onPressed: () {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) =>
@@ -94,8 +87,8 @@ class _ProfilePage extends State<ProfilePage> {
                           "My Account",
                           style: AppStyles.pageText,
                         ),
-                        GestureDetector(
-                          onTap: () async {
+                        TextButton(
+                          onPressed: () async {
                             if (await showLogoutWarning(context)) {
                               UserController.logOut();
                               Navigator.pushNamedAndRemoveUntil(context,
