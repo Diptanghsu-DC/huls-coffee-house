@@ -38,83 +38,87 @@ class _ViewAllState extends State<ViewAll> {
     final Size screensize = MediaQuery.of(context).size;
     final double height = screensize.height;
     final double width = screensize.width;
-    return Scaffold(
-      appBar: AppBar(
-        leading: const GoBackButton(),
-        title: Text(
-          widget.category == null ? "All products" : widget.category!,
-          style: TextStyle(
-              fontSize: width * 0.07,
-              fontWeight: FontWeight.bold,
-              height: 1,
-              fontFamily: 'SofiaPro'),
+    return RefreshIndicator(
+      onRefresh: refresh,
+      color: orange,
+      child: Scaffold(
+        appBar: AppBar(
+          leading: const GoBackButton(),
+          title: Text(
+            widget.category == null ? "All products" : widget.category!,
+            style: TextStyle(
+                fontSize: width * 0.07,
+                fontWeight: FontWeight.bold,
+                height: 1,
+                fontFamily: 'SofiaPro'),
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: SafeArea(
-        child: Column(children: [
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(
-                  width * 0.055, height * 0.04, width * 0.055, 0),
-              child: StreamBuilder<List<ProductModel>>(
-                stream: widget.category == null
-                    ? ProductController.getAll()
-                    : ProductController.get(category: widget.category),
-                builder: (context, snapshot) {
-                  List<ProductModel> products = [];
-                  if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else if (snapshot.hasData) {
-                    products = snapshot.data ?? [];
-                  }
-                  return Expanded(
-                    child: snapshot.connectionState == ConnectionState.waiting
-                        ? const Center(
-                            child: SizedBox(
-                              height: 45,
-                              width: 45,
-                              child: CircularProgressIndicator(
-                                color: orange,
-                              ),
-                            ),
-                          )
-                        : products.isEmpty
-                            ? const Center(
-                                child: Text(
-                                  "No product found",
-                                  style: TextStyle(color: Colors.black),
+        body: SafeArea(
+          child: Column(children: [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(
+                    width * 0.055, height * 0.04, width * 0.055, 0),
+                child: StreamBuilder<List<ProductModel>>(
+                  stream: widget.category == null
+                      ? ProductController.getAll()
+                      : ProductController.get(category: widget.category),
+                  builder: (context, snapshot) {
+                    List<ProductModel> products = [];
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (snapshot.hasData) {
+                      products = snapshot.data ?? [];
+                    }
+                    return Expanded(
+                      child: snapshot.connectionState == ConnectionState.waiting
+                          ? const Center(
+                              child: SizedBox(
+                                height: 45,
+                                width: 45,
+                                child: CircularProgressIndicator(
+                                  color: orange,
                                 ),
-                              )
-                            : ListView.builder(
-                                itemCount: products.length,
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => ViewProduct(
-                                                product: products[index]),
-                                          ));
-                                    },
-                                    child: ItemsCard(
-                                      itemImage: products[index].imageURL,
-                                      itemName: products[index].itemName,
-                                      itemPrice: products[index].price,
-                                      itemRating: products[index].ratings,
-                                      category: products[index].category,
-                                      quantity: products[index].quantity,
-                                    ),
-                                  );
-                                },
                               ),
-                  );
-                },
+                            )
+                          : products.isEmpty
+                              ? const Center(
+                                  child: Text(
+                                    "No product found",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                )
+                              : ListView.builder(
+                                  itemCount: products.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => ViewProduct(
+                                                  product: products[index]),
+                                            ));
+                                      },
+                                      child: ItemsCard(
+                                        itemImage: products[index].imageURL,
+                                        itemName: products[index].itemName,
+                                        itemPrice: products[index].price,
+                                        itemRating: products[index].ratings,
+                                        category: products[index].category,
+                                        quantity: products[index].quantity,
+                                      ),
+                                    );
+                                  },
+                                ),
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-        ]),
+          ]),
+        ),
       ),
     );
   }
