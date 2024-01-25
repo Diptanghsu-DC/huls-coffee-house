@@ -31,7 +31,7 @@ class ItemCard extends StatelessWidget {
               fontWeight: FontWeight.w900),
         ),
         subtitle: Text(
-          "\$ ${item.price}",
+          "Rs ${item.price}",
           style: const TextStyle(
               fontSize: 16,
               fontFamily: 'SofiaPro',
