@@ -27,6 +27,7 @@ class _InventoryState extends State<Inventory> {
   List<ProductModel> filteredProducts = [];
   Stream<List<ProductModel>>? allProductStream;
   TextEditingController searchController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Timer? _debounceTimer;
 
@@ -90,6 +91,7 @@ class _InventoryState extends State<Inventory> {
       onRefresh: refresh,
       color: orange,
       child: Scaffold(
+        key: _scaffoldKey,
         drawer: buildCustomDrawer(context),
         body: CustomBackground(
           bodyWidget: Stack(
@@ -163,7 +165,9 @@ class _InventoryState extends State<Inventory> {
                 top: 35,
                 child: IconButton(
                   onPressed: () {
-                    Scaffold.of(context).openDrawer();
+                    if (_scaffoldKey.currentState != null) {
+                      _scaffoldKey.currentState!.openDrawer();
+                    }
                   },
                   icon: const Icon(Icons.menu),
                   style: IconButton.styleFrom(

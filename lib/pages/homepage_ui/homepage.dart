@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
@@ -182,67 +183,68 @@ class _HomepageState extends State<Homepage> {
                         StreamBuilder<List<ProductModel>>(
                           stream: allProductStream,
                           builder: (context, snapshot) {
+                            List<ProductModel> products = snapshot.data ?? [];
+                            if (filteredProducts.isNotEmpty) {
+                              products = filteredProducts;
+                            }
+                            if (snapshot.hasError) {
+                              return Text(
+                                'Error: ${snapshot.error}',
+                                style: const TextStyle(color: Colors.red),
+                              );
+                            }
+
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
-                              return const CircularProgressIndicator(
-                                  color: orange);
-                            } else if (!snapshot.hasData ||
-                                snapshot.data!.isEmpty) {
-                              return Center(
-                                child: Text(
-                                  "No items found",
-                                  style: TextStyle(
-                                    fontSize: width * 0.05,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey,
-                                  ),
+                              return const Center(
+                                child: CircularProgressIndicator(
+                                  color: orange,
                                 ),
                               );
-                            } else {
-                              filteredProducts = snapshot.data!;
-
-                              return SizedBox(
-                                height: height * 0.3,
-                                child: ListView.builder(
-                                  itemCount: filteredProducts.length,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => ViewProduct(
-                                              product: filteredProducts[index],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0),
-                                        child: ItemsCard(
-                                          itemImage:
-                                              filteredProducts[index].imageURL,
-                                          itemName:
-                                              filteredProducts[index].itemName,
-                                          itemPrice:
-                                              filteredProducts[index].price,
-                                          itemRating:
-                                              filteredProducts[index].ratings,
-                                          category:
-                                              filteredProducts[index].category,
-                                          quantity:
-                                              filteredProducts[index].quantity,
-                                        ),
-                                      ),
-                                    );
-                                  },
+                            } else if (products.isEmpty) {
+                              return const Center(
+                                child: Text(
+                                  'Products not found',
+                                  style: TextStyle(color: Colors.grey),
                                 ),
                               );
                             }
+
+                            return SizedBox(
+                              height: height * 0.3,
+                              child: ListView.builder(
+                                itemCount: products.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ViewProduct(
+                                            product: products[index],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0),
+                                      child: ItemsCard(
+                                        itemImage: products[index].imageURL,
+                                        itemName: products[index].itemName,
+                                        itemPrice: products[index].price,
+                                        itemRating: products[index].ratings,
+                                        category: products[index].category,
+                                        quantity: products[index].quantity,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
                           },
-                        ),
+                        )
                       ],
                     ),
                   ].separate(20),
