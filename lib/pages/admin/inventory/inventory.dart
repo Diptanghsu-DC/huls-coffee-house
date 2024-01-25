@@ -36,7 +36,7 @@ class _InventoryState extends State<Inventory> {
     init();
   }
 
-  void init() async{
+  void init() async {
     allProductStream = ProductController.getAll();
   }
 
@@ -63,7 +63,6 @@ class _InventoryState extends State<Inventory> {
                   .contains(searchValue.toLowerCase()))
               .toList();
 
-          // If no items match the search query, set filteredProducts to an empty list
           if (filteredProducts.isEmpty) {
             filteredProducts = [];
           }
@@ -80,13 +79,16 @@ class _InventoryState extends State<Inventory> {
   }
 
   Future<void> refresh() async {
-    init();
+    setState(() {
+      init();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: refresh,
+      color: orange,
       child: Scaffold(
         drawer: buildCustomDrawer(context),
         body: CustomBackground(
