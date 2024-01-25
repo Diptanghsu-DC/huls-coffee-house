@@ -35,7 +35,17 @@ class _HomepageState extends State<Homepage> {
     // TODO: implement initState
 
     super.initState();
+    init();
+  }
+
+  void init() {
     allProductStream = ProductController.getAll();
+  }
+
+  Future<void> refresh() async {
+    setState(() {
+      init();
+    });
   }
 
   @override
@@ -96,159 +106,164 @@ class _HomepageState extends State<Homepage> {
                 bottom: 20.0,
                 top: 95.0,
               ),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "What would you like to order",
-                      style: TextStyle(
-                          fontSize: width * 0.07,
-                          fontWeight: FontWeight.bold,
-                          height: 1,
-                          fontFamily: 'SofiaPro'),
-                    ),
-                    //search bar
-                    TextField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        labelText: 'Search for food',
-                        hintText: 'Search Your Food Item Here',
-                        prefixIcon: const Icon(Icons.search),
-                        prefixIconColor:
-                            const Color.fromARGB(255, 143, 142, 142),
-                        hintStyle: TextStyle(
-                            color: Colors.grey,
-                            fontSize: width * 0.037,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'SofiaPro'),
-                        labelStyle: const TextStyle(
-                            color: Color.fromARGB(255, 101, 100, 100),
-                            fontFamily: 'SofiaPro'),
-                        border: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(255, 192, 191, 191),
-                            width: 0.5,
-                          ),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                          borderSide: BorderSide(
-                            color: orange,
-                          ),
-                        ),
+              child: RefreshIndicator(
+                onRefresh: refresh,
+                color: orange,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 10,
                       ),
-                      onChanged: (value) {
-                        filterProducts(value);
-                      },
-                    ),
-                    //category view
-                    const CategoryViewer(),
-                    Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              _searchController.text.isEmpty
-                                  ? "Popular products"
-                                  : "Search Results",
-                              style: TextStyle(
-                                  fontSize: width * 0.07,
-                                  fontWeight: FontWeight.bold,
-                                  height: 1,
-                                  fontFamily: 'SofiaPro'),
+                      Text(
+                        "What would you like to order",
+                        style: TextStyle(
+                            fontSize: width * 0.07,
+                            fontWeight: FontWeight.bold,
+                            height: 1,
+                            fontFamily: 'SofiaPro'),
+                      ),
+                      //search bar
+                      TextField(
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                          labelText: 'Search for food',
+                          hintText: 'Search Your Food Item Here',
+                          prefixIcon: const Icon(Icons.search),
+                          prefixIconColor:
+                              const Color.fromARGB(255, 143, 142, 142),
+                          hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontSize: width * 0.037,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'SofiaPro'),
+                          labelStyle: const TextStyle(
+                              color: Color.fromARGB(255, 101, 100, 100),
+                              fontFamily: 'SofiaPro'),
+                          border: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color.fromARGB(255, 192, 191, 191),
+                              width: 0.5,
                             ),
-                            TextButton(
-                              onPressed: () => Navigator.pushNamed(
-                                  context, ViewAll.routeName),
-                              //to view all page
-                              style: TextButton.styleFrom(
-                                foregroundColor: orange,
-                              ),
-                              child: const Text(
-                                "View All >",
-                                style: TextStyle(fontFamily: 'SofiaPro'),
-                              ),
-                            )
-                          ],
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
+                            ),
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
+                            ),
+                            borderSide: BorderSide(
+                              color: orange,
+                            ),
+                          ),
                         ),
-                        StreamBuilder<List<ProductModel>>(
-                          stream: allProductStream,
-                          builder: (context, snapshot) {
-                            List<ProductModel> products = snapshot.data ?? [];
-                            if (filteredProducts.isNotEmpty) {
-                              products = filteredProducts;
-                            }
-                            if (snapshot.hasError) {
-                              return Text(
-                                'Error: ${snapshot.error}',
-                                style: const TextStyle(color: Colors.red),
-                              );
-                            }
-
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const Center(
-                                child: CircularProgressIndicator(
-                                  color: orange,
-                                ),
-                              );
-                            } else if (products.isEmpty) {
-                              return const Center(
-                                child: Text(
-                                  'Products not found',
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                              );
-                            }
-
-                            return SizedBox(
-                              height: height * 0.3,
-                              child: ListView.builder(
-                                itemCount: products.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => ViewProduct(
-                                            product: products[index],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0),
-                                      child: ItemsCard(
-                                        itemImage: products[index].imageURL,
-                                        itemName: products[index].itemName,
-                                        itemPrice: products[index].price,
-                                        itemRating: products[index].ratings,
-                                        category: products[index].category,
-                                        quantity: products[index].quantity,
-                                      ),
-                                    ),
-                                  );
-                                },
+                        onChanged: (value) {
+                          filterProducts(value);
+                        },
+                      ),
+                      //category view
+                      const CategoryViewer(),
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                _searchController.text.isEmpty
+                                    ? "Popular products"
+                                    : "Search Results",
+                                style: TextStyle(
+                                    fontSize: width * 0.07,
+                                    fontWeight: FontWeight.bold,
+                                    height: 1,
+                                    fontFamily: 'SofiaPro'),
                               ),
-                            );
-                          },
-                        )
-                      ],
-                    ),
-                  ].separate(20),
+                              TextButton(
+                                onPressed: () => Navigator.pushNamed(
+                                    context, ViewAll.routeName),
+                                //to view all page
+                                style: TextButton.styleFrom(
+                                  foregroundColor: orange,
+                                ),
+                                child: const Text(
+                                  "View All >",
+                                  style: TextStyle(fontFamily: 'SofiaPro'),
+                                ),
+                              )
+                            ],
+                          ),
+                          StreamBuilder<List<ProductModel>>(
+                            stream: allProductStream,
+                            builder: (context, snapshot) {
+                              List<ProductModel> products = snapshot.data ?? [];
+                              if (filteredProducts.isNotEmpty) {
+                                products = filteredProducts;
+                              }
+                              if (snapshot.hasError) {
+                                return Text(
+                                  'Error: ${snapshot.error}',
+                                  style: const TextStyle(color: Colors.red),
+                                );
+                              }
+
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                  child: CircularProgressIndicator(
+                                    color: orange,
+                                  ),
+                                );
+                              } else if (products.isEmpty) {
+                                return const Center(
+                                  child: Text(
+                                    'Products not found',
+                                    style: TextStyle(color: Colors.grey),
+                                  ),
+                                );
+                              }
+
+                              return SizedBox(
+                                height: height * 0.3,
+                                child: ListView.builder(
+                                  itemCount: products.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => ViewProduct(
+                                              product: products[index],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: ItemsCard(
+                                          itemImage: products[index].imageURL,
+                                          itemName: products[index].itemName,
+                                          itemPrice: products[index].price,
+                                          itemRating: products[index].ratings,
+                                          category: products[index].category,
+                                          quantity: products[index].quantity,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 200,)
+                    ].separate(20),
+                  ),
                 ),
               ),
             ),
