@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/utils/item_class.dart';
@@ -23,7 +24,10 @@ class _ProductStreamState extends State<ProductStream> {
           return Text('Error in productstream.dart: ${snapshot.error}');
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           // return const Text('Loading...');
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+              child: CircularProgressIndicator(
+            color: orange,
+          ));
         } else {
           final products = snapshot.data!;
           return Expanded(

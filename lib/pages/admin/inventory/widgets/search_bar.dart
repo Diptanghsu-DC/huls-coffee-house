@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class MySearchBar extends StatefulWidget {
   final Function(String) onSearch;
+  final TextEditingController? controller;
 
-  const MySearchBar({super.key, required this.onSearch});
+  const MySearchBar({super.key, required this.onSearch, this.controller});
 
   @override
   State<MySearchBar> createState() {
@@ -30,6 +31,7 @@ class _MySearchBarState extends State<MySearchBar> {
             ),
             Expanded(
               child: TextFormField(
+                controller: widget.controller,
                 onChanged: (query) {
                   widget.onSearch(query);
                 },
