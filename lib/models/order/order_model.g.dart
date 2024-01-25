@@ -12,6 +12,7 @@ _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
       quantity: json['quantity'] as num,
       user: json['user'] as String,
       userPhone: json['userPhone'] as num,
+      address: json['address'] as String,
       time: DateTime.parse(json['time'] as String),
       isCompleted: json['isCompleted'] as bool? ?? false,
       lastLocalUpdate: json['lastLocalUpdate'] == null
@@ -25,6 +26,7 @@ Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
       'quantity': instance.quantity,
       'user': instance.user,
       'userPhone': instance.userPhone,
+      'address': instance.address,
       'time': instance.time.toIso8601String(),
       'isCompleted': instance.isCompleted,
       'lastLocalUpdate': instance.lastLocalUpdate?.toIso8601String(),

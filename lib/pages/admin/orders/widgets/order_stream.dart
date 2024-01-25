@@ -34,6 +34,7 @@ class OrderStream extends StatelessWidget {
               price: orders[index].quantity,
               userName: orders[index].user,
               userPhone: orders[index].userPhone,
+              userAddress: orders[index].address,
             ),
           );
         }

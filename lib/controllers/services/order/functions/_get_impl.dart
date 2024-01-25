@@ -1,22 +1,26 @@
 part of '../order_controller.dart';
 
 Stream<List<OrderModel>> _getImpl({
-  required String product,
+  String? product,
   required String user,
   num? userPhone,
   bool forceGet = false,
 }) async* {
   print("entering fetch from backend...");
-  List<OrderModel> filteredModels = await _fetchFromBackend(
-    product: product,
-    user: user,
-    forceGet: forceGet,
-  );
-  yield filteredModels;
+  while (true) {
+    List<OrderModel> filteredModels = await _fetchFromBackend(
+      product: product,
+      user: user,
+      userPhone: userPhone,
+      forceGet: forceGet,
+    );
+    yield filteredModels;
+    await Future.delayed(const Duration(seconds: 100));
+  }
 }
 
 Future<List<OrderModel>> _fetchFromBackend({
-  required String product,
+  String? product,
   required String user,
   num? userPhone,
   bool forceGet = false,
@@ -33,7 +37,11 @@ Future<List<OrderModel>> _fetchFromBackend({
   print("query set");
 
   query = query.where(OrderFields.user.name, isEqualTo: user);
-  query = query.where(OrderFields.product.name, isEqualTo: product);
+
+  if (product != null) {
+    print("2nd query");
+    query = query.where(OrderFields.product.name, isEqualTo: product);
+  }
 
   print("query filtering done");
 
@@ -44,20 +52,24 @@ Future<List<OrderModel>> _fetchFromBackend({
   List<OrderModel> orders = [];
 
   if (querySnapshot.docs.isEmpty) {
-    print("query found empty, returing users...");
+    print("query found empty, returning orders...");
     return orders;
   }
 
-  List<Map<String, dynamic>> res = [
-    querySnapshot.docs.first.data() as Map<String, dynamic>
-  ];
+  // List<Map<String, dynamic>> res = [
+  //   querySnapshot.docs.first.data() as Map<String, dynamic>
+  // ];
+
+  List<Map<String, dynamic>> res = querySnapshot.docs
+      .map((doc) => doc.data() as Map<String, dynamic>)
+      .toList();
 
   print("List of order created");
-  // await db.find(selectorBuilder).toList();
+
   for (Map<String, dynamic> orderData in res) {
     OrderModel order = OrderModel.fromJson(orderData);
     orders.add(order);
   }
-  print("returning the user");
+  print("returning the orders");
   return orders;
 }
