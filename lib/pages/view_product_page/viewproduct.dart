@@ -40,6 +40,7 @@ class _ViewProductState extends State<ViewProduct> {
     final Size screensize = MediaQuery.of(context).size;
     final double height = screensize.height;
     final double width = screensize.width;
+    final ProductModel displayProduct = widget.product;
 
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
@@ -81,7 +82,7 @@ class _ViewProductState extends State<ViewProduct> {
           SizedBox(
             width: 319,
             child: Text(
-              widget.product.itemName,
+              displayProduct.itemName,
               style: const TextStyle(
                 color: Color(0xFF323643),
                 fontSize: 28,
@@ -118,7 +119,7 @@ class _ViewProductState extends State<ViewProduct> {
                 ),
                 GestureDetector(
                     onTap: () {
-                      if (quantity != 0) {
+                      if (quantity != 1) {
                         quantity--;
                         totalamount = totalamount - fixamount;
                         setState(() {});
@@ -147,11 +148,12 @@ class _ViewProductState extends State<ViewProduct> {
                 ),
                 GestureDetector(
                     onTap: () {
-                      quantity++;
-
-                      setState(() {
-                        totalamount = totalamount + fixamount;
-                      });
+                      if (quantity < widget.product.quantity) {
+                        quantity++;
+                        setState(() {
+                          totalamount = totalamount + fixamount;
+                        });
+                      }
                     },
                     child: Image.asset(
                       'assets/images/plusicon.png',
@@ -168,13 +170,13 @@ class _ViewProductState extends State<ViewProduct> {
             height: height * 0.0225,
           ),
           CheckoutButton(
-            product: widget.product,
+            product: displayProduct.copyWith(quantity: quantity),
           ),
           SizedBox(
             height: height * 0.1325,
           ),
           AddToCartButton(
-            product: widget.product,
+            product: displayProduct.copyWith(quantity: quantity),
           )
         ],
       ),
