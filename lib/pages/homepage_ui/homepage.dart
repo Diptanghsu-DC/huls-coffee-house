@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
@@ -159,7 +158,9 @@ class _HomepageState extends State<Homepage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Search Results",
+                              _searchController.text.isEmpty
+                                  ? "Popular products"
+                                  : "Search Results",
                               style: TextStyle(
                                   fontSize: width * 0.07,
                                   fontWeight: FontWeight.bold,
