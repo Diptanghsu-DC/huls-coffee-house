@@ -8,19 +8,16 @@ class TotalItemCost extends StatefulWidget {
     required this.item,
   });
 
-
   final ProductModel item;
-
 
   @override
   State<TotalItemCost> createState() => _TotalItemCostState();
 }
 
 class _TotalItemCostState extends State<TotalItemCost> {
-
+  late num count = widget.item.quantity;
   @override
   Widget build(BuildContext context) {
-    num count = widget.item.quantity;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -52,7 +49,7 @@ class _TotalItemCostState extends State<TotalItemCost> {
                   ),
                 ),
                 Text(
-                  "${count}",
+                  "$count",
                   style: const TextStyle(
                       fontSize: 16,
                       color: Colors.white,
@@ -79,7 +76,7 @@ class _TotalItemCostState extends State<TotalItemCost> {
           ),
         ),
         Text(
-          "\$${widget.item.quantity * count}",
+          "Rs ${widget.item.price * count}",
           style: const TextStyle(
               fontFamily: 'SofiaPro',
               fontSize: 14,

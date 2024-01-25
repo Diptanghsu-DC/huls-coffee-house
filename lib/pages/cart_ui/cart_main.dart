@@ -36,6 +36,10 @@ class _CartPage extends State<CartPage> {
     });
   }
 
+  void changeState() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +56,7 @@ class _CartPage extends State<CartPage> {
                   itemBuilder: (BuildContext context, int index) {
                     return CartItemCard(
                       cartItem: UserController.cartList[index],
+                      changeState: changeState,
                     ); // Create a separate function to build each card
                   },
                 ),
