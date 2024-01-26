@@ -4,10 +4,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/notifications/firebase_messagingapi.dart';
 import 'package:huls_coffee_house/pages/admin/main_page/main_page.dart';
 import 'package:huls_coffee_house/pages/main_page/main_page.dart';
 
-import '../../api/firebase_messagingapi.dart';
+
 import '../../controllers/services/user/user_controller.dart';
 import '../../firebase_options.dart';
 import '../../utils/local_database/local_database.dart';
@@ -30,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await dotenv.load(fileName: '.env');
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
-    Firebaseapi firebaseApi = Firebaseapi();
+    FirebaseApi firebaseApi = FirebaseApi();
     await firebaseApi.initFirebaseMessaging();
     await LocalDatabase.init();
     await UserController.loginSilently().last;
