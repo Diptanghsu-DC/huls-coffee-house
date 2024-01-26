@@ -10,6 +10,7 @@ part 'functions/_check_duplicate_impl.dart';
 part 'functions/_save_impl.dart';
 part 'functions/_get_impl.dart';
 part 'functions/_get_all_impl.dart';
+part 'functions/_get_quantity_impl.dart';
 
 class ProductController {
   static const String _collectionName = "products";
@@ -23,6 +24,9 @@ class ProductController {
     return await _checkDuplicateImpl(product);
   }
 
+  static Future<num> getQuantity(ProductModel product) async {
+    return await _getQuantityImpl(product);
+  }
   // static Future<ProductModel> _save(ProductModel product) async {
   //   return await _saveImpl(product);
   // }
