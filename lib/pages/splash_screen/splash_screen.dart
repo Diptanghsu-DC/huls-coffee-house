@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
     Firebaseapi firebaseApi = Firebaseapi();
-    await firebaseApi.initNotification();
+    await firebaseApi.initFirebaseMessaging();
     await LocalDatabase.init();
     await UserController.loginSilently().last;
     stopwatch.stop();
