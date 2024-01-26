@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/order/order_model.dart';
 import 'package:huls_coffee_house/pages/admin/orders/widgets/order_card.dart';
+import 'package:huls_coffee_house/utils/screen_size.dart';
 
 class OrderStream extends StatefulWidget {
   const OrderStream({
@@ -24,6 +25,7 @@ class _OrderStreamState extends State<OrderStream> {
 
   @override
   Widget build(context) {
+    getSize(context);
     return RefreshIndicator(
       onRefresh: refresh,
       child: StreamBuilder<List<OrderModel>>(
@@ -36,6 +38,18 @@ class _OrderStreamState extends State<OrderStream> {
           } else {
             // Process the data from snapshot
             final orders = snapshot.data!;
+
+            if (orders.isEmpty) {
+              return Center(
+                child: Text(
+                  "No orders currently",
+                  style: TextStyle(
+                    fontSize: width * 0.07,
+                    color: Color.fromARGB(255, 107, 106, 106),
+                  ),
+                ),
+              );
+            }
 
             return ListView.builder(
               itemCount: orders.length,
