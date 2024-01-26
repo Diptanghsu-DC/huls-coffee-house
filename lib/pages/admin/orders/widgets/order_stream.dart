@@ -4,41 +4,54 @@ import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/order/order_model.dart';
 import 'package:huls_coffee_house/pages/admin/orders/widgets/order_card.dart';
 
-class OrderStream extends StatelessWidget {
+class OrderStream extends StatefulWidget {
   const OrderStream({
     super.key,
     // required this.orderList,
   });
 
+  @override
+  State<OrderStream> createState() => _OrderStreamState();
+}
+
+class _OrderStreamState extends State<OrderStream> {
   // final List<OrderModel> orderList;
+  Future<void> refresh() async {
+    setState(() {
+      // init();
+    });
+  }
 
   @override
   Widget build(context) {
-    return StreamBuilder<List<OrderModel>>(
-      stream: OrderController.getAll(),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: const CircularProgressIndicator());
-        } else {
-          // Process the data from snapshot
-          final orders = snapshot.data!;
+    return RefreshIndicator(
+      onRefresh: refresh,
+      child: StreamBuilder<List<OrderModel>>(
+        stream: OrderController.getAll(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: const CircularProgressIndicator());
+          } else {
+            // Process the data from snapshot
+            final orders = snapshot.data!;
 
-          return ListView.builder(
-            itemCount: orders.length,
-            itemBuilder: (context, index) => OrderCard(
-              order: orders[index],
-              itemName: orders[index].product,
-              quantity: orders[index].quantity,
-              price: orders[index].quantity,
-              userName: orders[index].user,
-              userPhone: orders[index].userPhone,
-              userAddress: orders[index].address,
-            ),
-          );
-        }
-      },
+            return ListView.builder(
+              itemCount: orders.length,
+              itemBuilder: (context, index) => OrderCard(
+                order: orders[index],
+                itemName: orders[index].product,
+                quantity: orders[index].quantity,
+                price: orders[index].quantity,
+                userName: orders[index].user,
+                userPhone: orders[index].userPhone,
+                userAddress: orders[index].address,
+              ),
+            );
+          }
+        },
+      ),
     );
 
     // List<OrderModel> orderList = [
