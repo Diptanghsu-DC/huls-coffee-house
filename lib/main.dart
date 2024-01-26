@@ -1,3 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:huls_coffee_house/api/firebase_messagingapi.dart';
+import 'package:huls_coffee_house/firebase_options.dart';
 import 'package:huls_coffee_house/pages/about_us/about_us.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
 import 'package:huls_coffee_house/pages/admin/main_page/main_page.dart';
@@ -10,15 +14,19 @@ import 'package:huls_coffee_house/pages/privacy_policy/privacy_policy.dart';
 import 'package:huls_coffee_house/pages/profile/profile_main.dart';
 import 'package:huls_coffee_house/pages/profile/widgets/current_orders.dart';
 import 'package:huls_coffee_house/pages/splash_screen/splash_screen.dart';
+import 'package:huls_coffee_house/utils/local_database/local_database.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await dotenv.load(fileName: '.env');
   // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // await LocalDatabase.init();
+  
+  //  await dotenv.load(fileName: '.env');
+   
+  //  await LocalDatabase.init();
+  //  await Firebaseapi().initnotification();
   runApp(const MyApp());
 }
 
