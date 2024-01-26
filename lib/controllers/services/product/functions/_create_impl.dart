@@ -7,7 +7,7 @@ Future<ProductModel?> _createImpl(ProductModel product) async {
   Query query = collection;
   query = query
       .where(ProductFields.itemName.name, isEqualTo: product.itemName)
-      .where(ProductFields.price.name, isEqualTo: product.price);
+      .where(ProductFields.category.name, isEqualTo: product.category);
   print("product filtering done. found product");
   print("$query");
 
