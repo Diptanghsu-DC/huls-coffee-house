@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:huls_coffee_house/notifications/local_notifications.dart';
 
 Future<void> handleForegroundMessage(RemoteMessage message) async {
   debugPrint('Received message: ${message.notification?.title}');
@@ -15,7 +16,7 @@ class FirebaseApi {
 
     await _firebaseMessaging.requestPermission();
     final String? fcmToken = await _firebaseMessaging.getToken();
-    print('FCM Token: $fcmToken');
+    debugPrint('FCM Token: $fcmToken');
 
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
