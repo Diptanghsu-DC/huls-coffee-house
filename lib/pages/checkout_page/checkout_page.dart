@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/controllers/services/order/order_controller.dart';
 import 'package:huls_coffee_house/controllers/services/user/user_controller.dart';
 import 'package:huls_coffee_house/models/models.dart';
@@ -127,7 +128,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               width: width * 0.8,
               height: height * 0.075,
               child: CustomButton(
-                onPressed: () {
+                onPressed: () async {
                   for (var i = 0; i < widget.checkoutItems.length; i++) {
                     OrderModel myOrder = OrderModel(
                       product: widget.checkoutItems[i].itemName,
@@ -138,11 +139,22 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       time: DateTime.now(),
                     );
                     OrderController.create(myOrder);
+                    ProductController.create(widget.checkoutItems[i].copyWith(
+                        quantity: await ProductController.getQuantity(
+                                widget.checkoutItems[i]) -
+                            widget.checkoutItems[i].quantity));
+                    // ProductController.create(widget.checkoutItems[i].copyWith(
+                    //     quantity: await ProductController.get(
+                    //                 itemName: widget.checkoutItems[i].itemName)
+                    //             .first
+                    //             .then((value) => value[0].quantity) -
+                    //         widget.checkoutItems[i].quantity));
                     UserController.orderList.add(myOrder);
-                    toastMessage("Order Placed Successfully");
+                    // toastMessage("Order Placed Successfully", context);
                     Navigator.pushNamedAndRemoveUntil(context,
                         OrderSuccessfulPage.routeName, (route) => false);
                   }
+                  UserController.cartList.clear();
                 },
                 leadingIcon: Icons.list_alt_sharp,
                 text: "PLACE ORDER",

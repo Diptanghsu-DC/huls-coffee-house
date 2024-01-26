@@ -78,16 +78,19 @@ class _SignupPageState extends State<SignupPage> {
             Authenticator().sendEmailOtp(otp, emailController.text.toString(),
                 phoneController.text.toString());
 
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                    "Code sent to ${SignupPage.email}! Please check spam folder also"),
-              ),
-            );
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //   SnackBar(
+            //     content: Text(
+            //         "Code sent to ${SignupPage.email}! Please check spam folder also"),
+            //   ),
+            // );
+            toastMessage(
+                "Code sent to ${SignupPage.email}! Please check spam folder also",
+                context);
             print("code send $otp");
           } catch (error) {
             // Failed login
-            toastMessage(error.toString());
+            toastMessage(error.toString(), context);
           }
         },
         onCompleted: () {
@@ -95,7 +98,7 @@ class _SignupPageState extends State<SignupPage> {
         },
       );
     } else {
-      toastMessage("Please enter proper credentials");
+      toastMessage("Please enter proper credentials", context);
     }
   }
 

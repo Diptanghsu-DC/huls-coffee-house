@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
             isUserLogged = true;
           } catch (error) {
             // Failed login
-            toastMessage(error.toString());
+            toastMessage(error.toString(), context);
           }
         },
         onCompleted: () {
@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
         },
       );
     } else {
-      toastMessage("Please enter proper credentials");
+      toastMessage("Please enter proper credentials", context);
     }
   }
 
