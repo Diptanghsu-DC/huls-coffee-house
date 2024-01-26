@@ -22,7 +22,7 @@ class AddToCartButton extends StatelessWidget {
       onTap: () {
         final cart = Provider.of<Cart>(context, listen: false);
         cart.addToCart(product);
-        toastMessage("Item added to cart");
+        toastMessage("Item added to cart", context);
       },
       child: SizedBox(
         width: width * 0.4638,
@@ -72,7 +72,7 @@ class AddToCartButton extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: height * 0.06625/3,
+              top: height * 0.06625 / 3,
               right: 6,
               child: const Text(
                 'ADD TO CART ',
