@@ -67,7 +67,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
           }
         } catch (error) {
           // Failed login
-          toastMessage(error.toString());
+          toastMessage(error.toString(), context);
         }
       },
       onCompleted: () {
@@ -213,7 +213,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                                       print("code send $otp");
                                     } catch (error) {
                                       // Failed login
-                                      toastMessage(error.toString());
+                                      toastMessage(error.toString(), context);
                                     }
                                   },
                                   child: Text(
