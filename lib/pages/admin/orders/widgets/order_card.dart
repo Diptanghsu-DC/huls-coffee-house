@@ -143,7 +143,8 @@ class OrderCard extends StatelessWidget {
                     },
                     onCompleted: () {
                       toastMessage(
-                          "Order done. Notifying $userName. Updating the order list in the next 100 seconds");
+                          "Order done. Notifying $userName. Updating the order list in the next 100 seconds or you may pull to refresh",
+                          context);
                     },
                   );
                 },
