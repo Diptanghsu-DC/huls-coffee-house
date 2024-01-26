@@ -34,12 +34,12 @@ class _InventoryState extends State<Inventory> {
   @override
   void initState() {
     super.initState();
-    init();
+    // init();
   }
 
-  void init() async {
-    allProductStream = ProductController.getAll();
-  }
+  // void init() async {
+  //   allProductStream = ProductController.getAll();
+  // }
 
   @override
   void dispose() {
@@ -81,7 +81,7 @@ class _InventoryState extends State<Inventory> {
 
   Future<void> refresh() async {
     setState(() {
-      init();
+      // init();
     });
   }
 
@@ -108,7 +108,7 @@ class _InventoryState extends State<Inventory> {
                   ),
                   Flexible(
                     child: StreamBuilder<List<ProductModel>>(
-                      stream: allProductStream,
+                      stream: ProductController.getAll(),
                       builder: (context, snapshot) {
                         List<ProductModel> products = snapshot.data ?? [];
                         if (filteredProducts.isNotEmpty) {
