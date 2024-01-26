@@ -53,6 +53,7 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
     super.initState();
     if (widget.item.product != null) {
       imageUrl = widget.item.product!.imageURL;
+      imagePublicID = widget.item.product!.imagePublicID;
     }
   }
 
@@ -74,7 +75,10 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
   }
 
   Future<ProductModel?> prepareProduct() async {
-    toastMessage("Preparing Your product...");
+    toastMessage(
+        "Preparing Your product...Please wait and refresh after few moments",
+        context);
+    // print("the product is $")
     ProductModel? product;
     UploadInformation? productImageInfo;
 
@@ -88,6 +92,7 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
       productImageInfo =
           UploadInformation(url: imageUrl, publicID: imagePublicID);
     } else {
+      toastMessage("Please select an image", context);
       throw Exception("Please select an image");
     }
     if (productImageInfo.url == null || productImageInfo.publicID == null) {
@@ -370,7 +375,7 @@ class DefaultImagePicker extends StatelessWidget {
           fit: BoxFit.cover,
         ),
         Padding(
-          padding: EdgeInsets.only(top: width / 3),
+          padding: EdgeInsets.only(top: height * 0.14),
           child: SizedBox(
             height: height * 0.04,
             width: width * 0.4,
