@@ -8,6 +8,7 @@ import 'package:huls_coffee_house/pages/main_page/main_page.dart';
 import 'package:huls_coffee_house/pages/notifications_page/notifications_page.dart';
 import 'package:huls_coffee_house/pages/privacy_policy/privacy_policy.dart';
 import 'package:huls_coffee_house/pages/profile/profile_main.dart';
+import 'package:huls_coffee_house/pages/profile/widgets/current_orders.dart';
 import 'package:huls_coffee_house/pages/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,8 @@ class MyApp extends StatelessWidget {
               const OrderSuccessfulPage(),
           NotificationsPage.routeName: (context) => const NotificationsPage(),
           PrivacyPolicyPage.routeName: (context) => const PrivacyPolicyPage(),
-          AboutUsPage.routeName: (context) => const AboutUsPage()
+          AboutUsPage.routeName: (context) => const AboutUsPage(),
+          CurrentOrders.routeName: (context) => const CurrentOrders(),
         },
         initialRoute: SplashScreen.routeName,
       ),
