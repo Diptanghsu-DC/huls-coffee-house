@@ -16,6 +16,7 @@ class ProductModel with _$ProductModel {
     required num price,
     required num quantity,
     num? ratings,
+    int? discount,
     DateTime? lastLocalUpdate,
   }) = _ProductModel;
 
