@@ -34,11 +34,13 @@ class ProductModel with _$ProductModel {
 
 enum ProductFields {
   imageURL,
+  imagePublicID,
   itemName,
   itemDesc,
   category,
   price,
   ratings,
   quantity,
+  discount,
   lastLocalUpdate,
 }
