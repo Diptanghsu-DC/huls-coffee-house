@@ -26,10 +26,12 @@ Future<void> _updateImpl({
       "name": UserController.currentUser!.name,
       "email": UserController.currentUser!.email,
       "phone": UserController.currentUser!.phone,
-      "password": Encryptor.encrypt(
-        UserController.currentUser!.password,
-        dotenv.env[EnvValues.ENCRYPTER_SALT.name]!,
-      ),
+      "password": oldUser.password == UserController.currentUser!.password
+          ? oldUser.password
+          : Encryptor.encrypt(
+              UserController.currentUser!.password,
+              dotenv.env[EnvValues.ENCRYPTER_SALT.name]!,
+            ),
     };
 
     document.update(newData);
