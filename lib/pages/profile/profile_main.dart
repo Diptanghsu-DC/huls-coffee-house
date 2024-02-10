@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
-import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/login_ui/login_page.dart';
 import 'package:huls_coffee_house/pages/profile/user_update_page.dart';
 import 'package:huls_coffee_house/pages/profile/utils/styles.dart';
