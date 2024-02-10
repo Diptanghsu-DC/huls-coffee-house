@@ -15,6 +15,7 @@ _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
       address: json['address'] as String,
       time: DateTime.parse(json['time'] as String),
       isCompleted: json['isCompleted'] as bool? ?? false,
+      delay: json['delay'] as int?,
       lastLocalUpdate: json['lastLocalUpdate'] == null
           ? null
           : DateTime.parse(json['lastLocalUpdate'] as String),
@@ -29,5 +30,6 @@ Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
       'address': instance.address,
       'time': instance.time.toIso8601String(),
       'isCompleted': instance.isCompleted,
+      'delay': instance.delay,
       'lastLocalUpdate': instance.lastLocalUpdate?.toIso8601String(),
     };

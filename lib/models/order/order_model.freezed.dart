@@ -27,6 +27,7 @@ mixin _$OrderModel {
   String get address => throw _privateConstructorUsedError;
   DateTime get time => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
+  int? get delay => throw _privateConstructorUsedError;
   DateTime? get lastLocalUpdate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,6 +50,7 @@ abstract class $OrderModelCopyWith<$Res> {
       String address,
       DateTime time,
       bool isCompleted,
+      int? delay,
       DateTime? lastLocalUpdate});
 }
 
@@ -72,6 +74,7 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     Object? address = null,
     Object? time = null,
     Object? isCompleted = null,
+    Object? delay = freezed,
     Object? lastLocalUpdate = freezed,
   }) {
     return _then(_value.copyWith(
@@ -103,6 +106,10 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      delay: freezed == delay
+          ? _value.delay
+          : delay // ignore: cast_nullable_to_non_nullable
+              as int?,
       lastLocalUpdate: freezed == lastLocalUpdate
           ? _value.lastLocalUpdate
           : lastLocalUpdate // ignore: cast_nullable_to_non_nullable
@@ -127,6 +134,7 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       String address,
       DateTime time,
       bool isCompleted,
+      int? delay,
       DateTime? lastLocalUpdate});
 }
 
@@ -148,6 +156,7 @@ class __$$OrderModelImplCopyWithImpl<$Res>
     Object? address = null,
     Object? time = null,
     Object? isCompleted = null,
+    Object? delay = freezed,
     Object? lastLocalUpdate = freezed,
   }) {
     return _then(_$OrderModelImpl(
@@ -179,6 +188,10 @@ class __$$OrderModelImplCopyWithImpl<$Res>
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      delay: freezed == delay
+          ? _value.delay
+          : delay // ignore: cast_nullable_to_non_nullable
+              as int?,
       lastLocalUpdate: freezed == lastLocalUpdate
           ? _value.lastLocalUpdate
           : lastLocalUpdate // ignore: cast_nullable_to_non_nullable
@@ -198,6 +211,7 @@ class _$OrderModelImpl implements _OrderModel {
       required this.address,
       required this.time,
       this.isCompleted = false,
+      this.delay,
       this.lastLocalUpdate});
 
   factory _$OrderModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -219,11 +233,13 @@ class _$OrderModelImpl implements _OrderModel {
   @JsonKey()
   final bool isCompleted;
   @override
+  final int? delay;
+  @override
   final DateTime? lastLocalUpdate;
 
   @override
   String toString() {
-    return 'OrderModel(product: $product, quantity: $quantity, user: $user, userPhone: $userPhone, address: $address, time: $time, isCompleted: $isCompleted, lastLocalUpdate: $lastLocalUpdate)';
+    return 'OrderModel(product: $product, quantity: $quantity, user: $user, userPhone: $userPhone, address: $address, time: $time, isCompleted: $isCompleted, delay: $delay, lastLocalUpdate: $lastLocalUpdate)';
   }
 
   @override
@@ -241,6 +257,7 @@ class _$OrderModelImpl implements _OrderModel {
             (identical(other.time, time) || other.time == time) &&
             (identical(other.isCompleted, isCompleted) ||
                 other.isCompleted == isCompleted) &&
+            (identical(other.delay, delay) || other.delay == delay) &&
             (identical(other.lastLocalUpdate, lastLocalUpdate) ||
                 other.lastLocalUpdate == lastLocalUpdate));
   }
@@ -248,7 +265,7 @@ class _$OrderModelImpl implements _OrderModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, product, quantity, user,
-      userPhone, address, time, isCompleted, lastLocalUpdate);
+      userPhone, address, time, isCompleted, delay, lastLocalUpdate);
 
   @JsonKey(ignore: true)
   @override
@@ -273,6 +290,7 @@ abstract class _OrderModel implements OrderModel {
       required final String address,
       required final DateTime time,
       final bool isCompleted,
+      final int? delay,
       final DateTime? lastLocalUpdate}) = _$OrderModelImpl;
 
   factory _OrderModel.fromJson(Map<String, dynamic> json) =
@@ -292,6 +310,8 @@ abstract class _OrderModel implements OrderModel {
   DateTime get time;
   @override
   bool get isCompleted;
+  @override
+  int? get delay;
   @override
   DateTime? get lastLocalUpdate;
   @override

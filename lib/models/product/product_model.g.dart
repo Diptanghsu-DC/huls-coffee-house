@@ -16,6 +16,7 @@ _$ProductModelImpl _$$ProductModelImplFromJson(Map<String, dynamic> json) =>
       price: json['price'] as num,
       quantity: json['quantity'] as num,
       ratings: json['ratings'] as num?,
+      discount: json['discount'] as int?,
       lastLocalUpdate: json['lastLocalUpdate'] == null
           ? null
           : DateTime.parse(json['lastLocalUpdate'] as String),
@@ -31,5 +32,6 @@ Map<String, dynamic> _$$ProductModelImplToJson(_$ProductModelImpl instance) =>
       'price': instance.price,
       'quantity': instance.quantity,
       'ratings': instance.ratings,
+      'discount': instance.discount,
       'lastLocalUpdate': instance.lastLocalUpdate?.toIso8601String(),
     };

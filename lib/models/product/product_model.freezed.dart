@@ -28,6 +28,7 @@ mixin _$ProductModel {
   num get price => throw _privateConstructorUsedError;
   num get quantity => throw _privateConstructorUsedError;
   num? get ratings => throw _privateConstructorUsedError;
+  int? get discount => throw _privateConstructorUsedError;
   DateTime? get lastLocalUpdate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,6 +52,7 @@ abstract class $ProductModelCopyWith<$Res> {
       num price,
       num quantity,
       num? ratings,
+      int? discount,
       DateTime? lastLocalUpdate});
 }
 
@@ -75,6 +77,7 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? price = null,
     Object? quantity = null,
     Object? ratings = freezed,
+    Object? discount = freezed,
     Object? lastLocalUpdate = freezed,
   }) {
     return _then(_value.copyWith(
@@ -110,6 +113,10 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.ratings
           : ratings // ignore: cast_nullable_to_non_nullable
               as num?,
+      discount: freezed == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as int?,
       lastLocalUpdate: freezed == lastLocalUpdate
           ? _value.lastLocalUpdate
           : lastLocalUpdate // ignore: cast_nullable_to_non_nullable
@@ -135,6 +142,7 @@ abstract class _$$ProductModelImplCopyWith<$Res>
       num price,
       num quantity,
       num? ratings,
+      int? discount,
       DateTime? lastLocalUpdate});
 }
 
@@ -157,6 +165,7 @@ class __$$ProductModelImplCopyWithImpl<$Res>
     Object? price = null,
     Object? quantity = null,
     Object? ratings = freezed,
+    Object? discount = freezed,
     Object? lastLocalUpdate = freezed,
   }) {
     return _then(_$ProductModelImpl(
@@ -192,6 +201,10 @@ class __$$ProductModelImplCopyWithImpl<$Res>
           ? _value.ratings
           : ratings // ignore: cast_nullable_to_non_nullable
               as num?,
+      discount: freezed == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as int?,
       lastLocalUpdate: freezed == lastLocalUpdate
           ? _value.lastLocalUpdate
           : lastLocalUpdate // ignore: cast_nullable_to_non_nullable
@@ -212,6 +225,7 @@ class _$ProductModelImpl extends _ProductModel {
       required this.price,
       required this.quantity,
       this.ratings,
+      this.discount,
       this.lastLocalUpdate})
       : super._();
 
@@ -235,11 +249,13 @@ class _$ProductModelImpl extends _ProductModel {
   @override
   final num? ratings;
   @override
+  final int? discount;
+  @override
   final DateTime? lastLocalUpdate;
 
   @override
   String toString() {
-    return 'ProductModel(imageURL: $imageURL, imagePublicID: $imagePublicID, itemName: $itemName, itemDesc: $itemDesc, category: $category, price: $price, quantity: $quantity, ratings: $ratings, lastLocalUpdate: $lastLocalUpdate)';
+    return 'ProductModel(imageURL: $imageURL, imagePublicID: $imagePublicID, itemName: $itemName, itemDesc: $itemDesc, category: $category, price: $price, quantity: $quantity, ratings: $ratings, discount: $discount, lastLocalUpdate: $lastLocalUpdate)';
   }
 
   @override
@@ -261,14 +277,26 @@ class _$ProductModelImpl extends _ProductModel {
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
             (identical(other.ratings, ratings) || other.ratings == ratings) &&
+            (identical(other.discount, discount) ||
+                other.discount == discount) &&
             (identical(other.lastLocalUpdate, lastLocalUpdate) ||
                 other.lastLocalUpdate == lastLocalUpdate));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, imageURL, imagePublicID,
-      itemName, itemDesc, category, price, quantity, ratings, lastLocalUpdate);
+  int get hashCode => Object.hash(
+      runtimeType,
+      imageURL,
+      imagePublicID,
+      itemName,
+      itemDesc,
+      category,
+      price,
+      quantity,
+      ratings,
+      discount,
+      lastLocalUpdate);
 
   @JsonKey(ignore: true)
   @override
@@ -294,6 +322,7 @@ abstract class _ProductModel extends ProductModel {
       required final num price,
       required final num quantity,
       final num? ratings,
+      final int? discount,
       final DateTime? lastLocalUpdate}) = _$ProductModelImpl;
   const _ProductModel._() : super._();
 
@@ -316,6 +345,8 @@ abstract class _ProductModel extends ProductModel {
   num get quantity;
   @override
   num? get ratings;
+  @override
+  int? get discount;
   @override
   DateTime? get lastLocalUpdate;
   @override

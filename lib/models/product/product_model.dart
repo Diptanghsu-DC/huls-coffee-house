@@ -16,6 +16,7 @@ class ProductModel with _$ProductModel {
     required num price,
     required num quantity,
     num? ratings,
+    int? discount,
     DateTime? lastLocalUpdate,
   }) = _ProductModel;
 
@@ -33,11 +34,13 @@ class ProductModel with _$ProductModel {
 
 enum ProductFields {
   imageURL,
+  imagePublicID,
   itemName,
   itemDesc,
   category,
   price,
   ratings,
   quantity,
+  discount,
   lastLocalUpdate,
 }
