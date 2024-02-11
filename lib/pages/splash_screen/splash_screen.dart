@@ -46,6 +46,18 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
+  //function to handle background messages
+  Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+    await Firebase.initializeApp();
+
+    if (kDebugMode) {
+      print("Handling a background message: ${message.messageId}");
+      print('Message data: ${message.data}');
+      print('Message notification: ${message.notification?.title}');
+      print('Message notification: ${message.notification?.body}');
+    }
+  }
+
   // Function to process all async functions
   Future<int> init() async {
     Stopwatch stopwatch = Stopwatch()..start();
@@ -86,9 +98,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
       _messageStreamController.sink.add(message);
     });
+
     // TODO: Set up background message handler
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+    //TODO: initialise local database
     await LocalDatabase.init();
+
+    //TODO: login the user silently
     await UserController.loginSilently().last;
+
     stopwatch.stop();
     return stopwatch.elapsed.inMilliseconds;
   }
