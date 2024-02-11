@@ -19,11 +19,16 @@ class UserUpdatePage extends StatefulWidget {
 
 class _UserUpdatePageState extends State<UserUpdatePage> {
   //password showing boolean
-  bool isObscure = true;
+  bool isObscurePass = true;
+  bool isObscureConfirm = true;
 
-  void showPass() {
+  void showPass(String controller) {
     setState(() {
-      isObscure = !isObscure;
+      if (controller == "passController") {
+        isObscurePass = !isObscurePass;
+      } else if (controller == "confirmController") {
+        isObscureConfirm = !isObscureConfirm;
+      }
     });
   }
 
@@ -264,10 +269,11 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
                                 child: CustomField(
                                   controller: passController,
                                   hintText: "Password",
-                                  obscureText: isObscure ? true : false,
+                                  obscureText: isObscurePass ? true : false,
                                   suffixIcon: IconButton(
-                                      onPressed: () => showPass(),
-                                      icon: isObscure
+                                      onPressed: () =>
+                                          showPass("passController"),
+                                      icon: isObscurePass
                                           ? const Icon(Icons.visibility)
                                           : const Icon(Icons.visibility_off)),
                                   validator: (value) {
@@ -292,10 +298,12 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
                                   child: CustomField(
                                     controller: confirmController,
                                     hintText: "Confirm Password",
-                                    obscureText: isObscure ? true : false,
+                                    obscureText:
+                                        isObscureConfirm ? true : false,
                                     suffixIcon: IconButton(
-                                        onPressed: () => showPass(),
-                                        icon: isObscure
+                                        onPressed: () =>
+                                            showPass("confirmController"),
+                                        icon: isObscureConfirm
                                             ? const Icon(Icons.visibility)
                                             : const Icon(Icons.visibility_off)),
                                     validator: (value) {
