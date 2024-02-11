@@ -54,7 +54,7 @@ dependencies:
   font_awesome_flutter: ^10.6.0
   provider: ^6.1.1
   audioplayers: ^5.2.1
-  firebase_messaging: ^14.7.10
+  firebase_messaging: ^14.7.15
   mailer: ^6.0.1
   flutter_email_sender: ^6.0.2
   http: ^1.1.0

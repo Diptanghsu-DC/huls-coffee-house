@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:huls_coffee_house/config/config.dart';
@@ -11,6 +12,7 @@ import '../../controllers/services/user/user_controller.dart';
 import '../../firebase_options.dart';
 import '../../utils/local_database/local_database.dart';
 import '../pages.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -30,8 +32,24 @@ class _SplashScreenState extends State<SplashScreen> {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
     // TODO: Request permission
+    final messaging = FirebaseMessaging.instance;
+
+    final settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (kDebugMode) {
+      print('Permission granted: ${settings.authorizationStatus}');
+    }
 
     // TODO: Register with FCM
+
     // TODO: Set up foreground message handler
     // TODO: Set up background message handler
     await LocalDatabase.init();
