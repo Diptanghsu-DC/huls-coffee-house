@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/models.dart';
-import 'package:huls_coffee_house/notifications/local_notifications.dart';
 import 'package:huls_coffee_house/pages/checkout_page/widgets/item_card.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
