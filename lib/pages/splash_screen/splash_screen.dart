@@ -49,7 +49,11 @@ class _SplashScreenState extends State<SplashScreen> {
     }
 
     // TODO: Register with FCM
+    String? token = await messaging.getToken();
 
+    if (kDebugMode) {
+      print('Registration Token=$token');
+    }
     // TODO: Set up foreground message handler
     // TODO: Set up background message handler
     await LocalDatabase.init();
