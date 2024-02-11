@@ -13,6 +13,10 @@ import '../../firebase_options.dart';
 import '../../utils/local_database/local_database.dart';
 import '../pages.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:rxdart/rxdart.dart';
+
+// used to pass messages from event handler to the UI
+final _messageStreamController = BehaviorSubject<RemoteMessage>();
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -55,6 +59,16 @@ class _SplashScreenState extends State<SplashScreen> {
     //   print('Registration Token=$token');
     // }
     // TODO: Set up foreground message handler
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      if (kDebugMode) {
+        print('Handling a foreground message: ${message.messageId}');
+        print('Message data: ${message.data}');
+        print('Message notification: ${message.notification?.title}');
+        print('Message notification: ${message.notification?.body}');
+      }
+
+      _messageStreamController.sink.add(message);
+    });
     // TODO: Set up background message handler
     await LocalDatabase.init();
     await UserController.loginSilently().last;
