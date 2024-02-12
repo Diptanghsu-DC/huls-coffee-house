@@ -7,3 +7,4 @@ export 'login_ui/otp_verification_page.dart';
 export 'checkout_page/checkout_page.dart';
 export 'admin/orders/order_page.dart';
 export 'order_successful_page/order_successful_page.dart';
+export 'notifications_page/notifications_page.dart';

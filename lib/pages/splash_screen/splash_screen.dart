@@ -7,6 +7,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/pages/admin/main_page/main_page.dart';
 import 'package:huls_coffee_house/pages/main_page/main_page.dart';
+import 'package:huls_coffee_house/utils/utils.dart';
 
 import '../../controllers/services/user/user_controller.dart';
 import '../../firebase_options.dart';
@@ -30,33 +31,34 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   String _lastMessage = "";
+  // NotificationManager notificationManager = NotificationManager();
 
-  _SplashScreenState() {
-    _messageStreamController.listen((message) {
-      setState(() {
-        if (message.notification != null) {
-          _lastMessage = 'Received a notification message:'
-              '\nTitle=${message.notification?.title},'
-              '\nBody=${message.notification?.body},'
-              '\nData=${message.data}';
-        } else {
-          _lastMessage = 'Received a data message: ${message.data}';
-        }
-      });
-    });
-  }
+  // _SplashScreenState() {
+  //   _messageStreamController.listen((message) {
+  //     setState(() {
+  //       if (message.notification != null) {
+  //         _lastMessage = 'Received a notification message:'
+  //             '\nTitle=${message.notification?.title},'
+  //             '\nBody=${message.notification?.body},'
+  //             '\nData=${message.data}';
+  //       } else {
+  //         _lastMessage = 'Received a data message: ${message.data}';
+  //       }
+  //     });
+  //   });
+  // }
 
   //function to handle background messages
-  Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-    await Firebase.initializeApp();
+  // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  //   await Firebase.initializeApp();
 
-    if (kDebugMode) {
-      print("Handling a background message: ${message.messageId}");
-      print('Message data: ${message.data}');
-      print('Message notification: ${message.notification?.title}');
-      print('Message notification: ${message.notification?.body}');
-    }
-  }
+  //   if (kDebugMode) {
+  //     print("Handling a background message: ${message.messageId}");
+  //     print('Message data: ${message.data}');
+  //     print('Message notification: ${message.notification?.title}');
+  //     print('Message notification: ${message.notification?.body}');
+  //   }
+  // }
 
   // Function to process all async functions
   Future<int> init() async {
@@ -64,49 +66,14 @@ class _SplashScreenState extends State<SplashScreen> {
     await dotenv.load(fileName: '.env');
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
-    // TODO: Request permission
-    final messaging = FirebaseMessaging.instance;
-
-    final settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-
-    if (kDebugMode) {
-      print('Permission granted: ${settings.authorizationStatus}');
-    }
-
-    // TODO: Register with FCM
-    // String? token = await messaging.getToken();
-    //
-    // if (kDebugMode) {
-    //   print('Registration Token=$token');
-    // }
-    // TODO: Set up foreground message handler
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      if (kDebugMode) {
-        print('Handling a foreground message: ${message.messageId}');
-        print('Message data: ${message.data}');
-        print('Message notification: ${message.notification?.title}');
-        print('Message notification: ${message.notification?.body}');
-      }
-
-      _messageStreamController.sink.add(message);
-    });
-
-    // TODO: Set up background message handler
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
     //TODO: initialise local database
     await LocalDatabase.init();
 
     //TODO: login the user silently
     await UserController.loginSilently().last;
+
+    NotificationManager().init();
 
     stopwatch.stop();
     return stopwatch.elapsed.inMilliseconds;
