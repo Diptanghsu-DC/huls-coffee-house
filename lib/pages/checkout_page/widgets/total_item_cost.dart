@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/models.dart';
 
 class TotalItemCost extends StatefulWidget {
@@ -16,6 +17,19 @@ class TotalItemCost extends StatefulWidget {
 
 class _TotalItemCostState extends State<TotalItemCost> {
   late num count = widget.item.quantity;
+  num originalCount = 0;
+
+  void getQuantity() async {
+    originalCount = await ProductController.getQuantity(widget.item);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getQuantity();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -59,7 +73,9 @@ class _TotalItemCostState extends State<TotalItemCost> {
                 InkWell(
                   onTap: () {
                     setState(() {
-                      count++;
+                      if (count < originalCount) {
+                        count++;
+                      }
                     });
                   },
                   child: const Text(
