@@ -3,7 +3,7 @@ part of '../order_controller.dart';
 Stream<List<OrderModel>> _getAllImpl({
   bool forceGet = false,
 }) async* {
-  print("entering fetch from backend...");
+  // print("entering fetch from backend...");
   while (true) {
     List<OrderModel> filteredModels = await _fetchAllFromBackend(
       forceGet: forceGet,
@@ -20,23 +20,23 @@ Future<List<OrderModel>> _fetchAllFromBackend({
   CollectionReference<Map<String, dynamic>> db =
       FirebaseFirestore.instance.collection(OrderController._collectionName);
 
-  print("database initialization done");
-  print("setting query...");
+  // print("database initialization done");
+  // print("setting query...");
 
   Query query = db.orderBy('time');
 
-  print("query set");
+  // print("query set");
 
-  print("query filtering done");
+  // print("query filtering done");
 
   QuerySnapshot querySnapshot = await query.get();
 
-  print("query snapshot created");
+  // print("query snapshot created");
 
   List<OrderModel> orders = [];
 
   if (querySnapshot.docs.isEmpty) {
-    print("query found empty, returing users...");
+    // print("query found empty, returing users...");
     return orders;
   }
 
@@ -44,13 +44,13 @@ Future<List<OrderModel>> _fetchAllFromBackend({
       .map((doc) => doc.data() as Map<String, dynamic>)
       .toList();
 
-  print("List of order created");
+  // print("List of order created");
   // await db.find(selectorBuilder).toList();
   for (Map<String, dynamic> orderData in res) {
-    print(orderData);
+    // print(orderData);
     OrderModel order = OrderModel.fromJson(orderData);
     orders.add(order);
   }
-  print("returning the user");
+  // print("returning the user");
   return orders;
 }
