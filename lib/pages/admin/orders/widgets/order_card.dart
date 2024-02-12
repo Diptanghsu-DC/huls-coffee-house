@@ -140,6 +140,27 @@ class OrderCard extends StatelessWidget {
                     context: context,
                     asyncTask: () async {
                       await OrderController.delete(order);
+                      await NotificationController.pushNotification(
+                        NotificationModel(
+                          title: "Order Completed !!",
+                          message:
+                              "Your order for ${order.product} is completed",
+                          sender: UserController.currentUser!.email,
+                          receiver: order.userEmail,
+                          product: order.product,
+                          time: DateTime.now(),
+                        ),
+                      );
+                      await NotificationController.deleteNotification(
+                        NotificationModel(
+                          title: "",
+                          message: "",
+                          sender: order.userEmail,
+                          receiver: UserController.currentUser!.email,
+                          product: order.product,
+                          time: DateTime.now(),
+                        ),
+                      );
                     },
                     onCompleted: () {
                       toastMessage(
