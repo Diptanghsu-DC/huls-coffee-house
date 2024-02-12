@@ -124,33 +124,52 @@ class _CheckoutPageState extends State<CheckoutPage> {
               width: width * 0.8,
               height: height * 0.075,
               child: CustomButton(
-                onPressed: () async {
-                  for (var i = 0; i < widget.checkoutItems.length; i++) {
-                    OrderModel myOrder = OrderModel(
-                      product: widget.checkoutItems[i].itemName,
-                      quantity: widget.checkoutItems[i].quantity,
-                      user: UserController.currentUser!.name,
-                      userPhone: UserController.currentUser!.phone,
-                      address: UserController.currentUser!.address,
-                      time: DateTime.now(),
-                    );
-                    OrderController.create(myOrder);
-                    ProductController.create(widget.checkoutItems[i].copyWith(
-                        quantity: await ProductController.getQuantity(
-                                widget.checkoutItems[i]) -
-                            widget.checkoutItems[i].quantity));
-                    // ProductController.create(widget.checkoutItems[i].copyWith(
-                    //     quantity: await ProductController.get(
-                    //                 itemName: widget.checkoutItems[i].itemName)
-                    //             .first
-                    //             .then((value) => value[0].quantity) -
-                    //         widget.checkoutItems[i].quantity));
-                    UserController.orderList.add(myOrder);
-                    // toastMessage("Order Placed Successfully", context);
-                    Navigator.pushNamedAndRemoveUntil(context,
-                        OrderSuccessfulPage.routeName, (route) => false);
-                  }
-                  UserController.cartList.clear();
+                onPressed: () {
+                  showLoadingOverlay(
+                    context: context,
+                    asyncTask: () async {
+                      for (var i = 0; i < widget.checkoutItems.length; i++) {
+                        OrderModel myOrder = OrderModel(
+                          product: widget.checkoutItems[i].itemName,
+                          quantity: widget.checkoutItems[i].quantity,
+                          user: UserController.currentUser!.name,
+                          userPhone: UserController.currentUser!.phone,
+                          userEmail: UserController.currentUser!.email,
+                          address: UserController.currentUser!.address,
+                          time: DateTime.now(),
+                        );
+                        await OrderController.create(myOrder);
+                        await ProductController.create(widget.checkoutItems[i]
+                            .copyWith(
+                                quantity: await ProductController.getQuantity(
+                                        widget.checkoutItems[i]) -
+                                    widget.checkoutItems[i].quantity));
+                        final admin = await UserController.getAdmin();
+                        await NotificationController.pushNotification(
+                          NotificationModel(
+                            title: "New Order!!",
+                            message: "A new order arrived at your desk",
+                            sender: UserController.currentUser!.email,
+                            receiver: admin.email,
+                            product: widget.checkoutItems[i].itemName,
+                            time: DateTime.now(),
+                          ),
+                        );
+                        // ProductController.create(widget.checkoutItems[i].copyWith(
+                        //     quantity: await ProductController.get(
+                        //                 itemName: widget.checkoutItems[i].itemName)
+                        //             .first
+                        //             .then((value) => value[0].quantity) -
+                        //         widget.checkoutItems[i].quantity));
+                        UserController.orderList.add(myOrder);
+                      }
+                    },
+                    onCompleted: () {
+                      UserController.cartList.clear();
+                      Navigator.pushNamedAndRemoveUntil(context,
+                          OrderSuccessfulPage.routeName, (route) => false);
+                    },
+                  );
                 },
                 leadingIcon: Icons.list_alt_sharp,
                 text: "PLACE ORDER",
