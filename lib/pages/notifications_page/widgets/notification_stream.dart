@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/models.dart';
+import 'package:huls_coffee_house/pages/notifications_page/widgets/notification_card.dart';
+import 'package:huls_coffee_house/pages/pages.dart';
 
 class NotificationStream extends StatefulWidget {
   const NotificationStream({super.key});
@@ -27,7 +31,11 @@ class _NotificationStreamState extends State<NotificationStream> {
           if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(
+                color: orange,
+              ),
+            );
           } else {
             // Process the data from snapshot
             final notifications = snapshot.data!;
@@ -56,8 +64,15 @@ class _NotificationStreamState extends State<NotificationStream> {
             return Expanded(
               child: ListView.builder(
                 itemCount: notifications.length,
-                itemBuilder: (context, index) =>
-                    Text(notifications[index].message),
+                itemBuilder: (context, index) => InkWell(
+                  onTap: () => UserController.currentUser!.isSeller
+                      ? Navigator.pushNamed(context, OrderPage.routeName)
+                      : null,
+                  child: NotificationCard(
+                    notification: notifications[index],
+                    refresh: _refresh,
+                  ),
+                ),
               ),
             );
           }
