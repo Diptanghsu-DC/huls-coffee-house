@@ -18,7 +18,8 @@ Future<OrderModel?> _createImpl(OrderModel order) async {
 
   QuerySnapshot querySnapshot = await query.get();
 
-  Map<String, dynamic>? res = querySnapshot.docs.first as Map<String, dynamic>?;
+  Map<String, dynamic>? res =
+      querySnapshot.docs.first.data() as Map<String, dynamic>?;
 
   if (res == null) return null;
   order = OrderModel.fromJson(res);
