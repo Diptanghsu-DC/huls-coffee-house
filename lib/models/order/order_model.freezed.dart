@@ -24,6 +24,7 @@ mixin _$OrderModel {
   num get quantity => throw _privateConstructorUsedError;
   String get user => throw _privateConstructorUsedError;
   num get userPhone => throw _privateConstructorUsedError;
+  String get userEmail => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   DateTime get time => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
@@ -47,6 +48,7 @@ abstract class $OrderModelCopyWith<$Res> {
       num quantity,
       String user,
       num userPhone,
+      String userEmail,
       String address,
       DateTime time,
       bool isCompleted,
@@ -71,6 +73,7 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     Object? quantity = null,
     Object? user = null,
     Object? userPhone = null,
+    Object? userEmail = null,
     Object? address = null,
     Object? time = null,
     Object? isCompleted = null,
@@ -94,6 +97,10 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
           ? _value.userPhone
           : userPhone // ignore: cast_nullable_to_non_nullable
               as num,
+      userEmail: null == userEmail
+          ? _value.userEmail
+          : userEmail // ignore: cast_nullable_to_non_nullable
+              as String,
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -131,6 +138,7 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       num quantity,
       String user,
       num userPhone,
+      String userEmail,
       String address,
       DateTime time,
       bool isCompleted,
@@ -153,6 +161,7 @@ class __$$OrderModelImplCopyWithImpl<$Res>
     Object? quantity = null,
     Object? user = null,
     Object? userPhone = null,
+    Object? userEmail = null,
     Object? address = null,
     Object? time = null,
     Object? isCompleted = null,
@@ -176,6 +185,10 @@ class __$$OrderModelImplCopyWithImpl<$Res>
           ? _value.userPhone
           : userPhone // ignore: cast_nullable_to_non_nullable
               as num,
+      userEmail: null == userEmail
+          ? _value.userEmail
+          : userEmail // ignore: cast_nullable_to_non_nullable
+              as String,
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -208,6 +221,7 @@ class _$OrderModelImpl implements _OrderModel {
       required this.quantity,
       required this.user,
       required this.userPhone,
+      required this.userEmail,
       required this.address,
       required this.time,
       this.isCompleted = false,
@@ -226,6 +240,8 @@ class _$OrderModelImpl implements _OrderModel {
   @override
   final num userPhone;
   @override
+  final String userEmail;
+  @override
   final String address;
   @override
   final DateTime time;
@@ -239,7 +255,7 @@ class _$OrderModelImpl implements _OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(product: $product, quantity: $quantity, user: $user, userPhone: $userPhone, address: $address, time: $time, isCompleted: $isCompleted, delay: $delay, lastLocalUpdate: $lastLocalUpdate)';
+    return 'OrderModel(product: $product, quantity: $quantity, user: $user, userPhone: $userPhone, userEmail: $userEmail, address: $address, time: $time, isCompleted: $isCompleted, delay: $delay, lastLocalUpdate: $lastLocalUpdate)';
   }
 
   @override
@@ -253,6 +269,8 @@ class _$OrderModelImpl implements _OrderModel {
             (identical(other.user, user) || other.user == user) &&
             (identical(other.userPhone, userPhone) ||
                 other.userPhone == userPhone) &&
+            (identical(other.userEmail, userEmail) ||
+                other.userEmail == userEmail) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.time, time) || other.time == time) &&
             (identical(other.isCompleted, isCompleted) ||
@@ -265,7 +283,7 @@ class _$OrderModelImpl implements _OrderModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, product, quantity, user,
-      userPhone, address, time, isCompleted, delay, lastLocalUpdate);
+      userPhone, userEmail, address, time, isCompleted, delay, lastLocalUpdate);
 
   @JsonKey(ignore: true)
   @override
@@ -287,6 +305,7 @@ abstract class _OrderModel implements OrderModel {
       required final num quantity,
       required final String user,
       required final num userPhone,
+      required final String userEmail,
       required final String address,
       required final DateTime time,
       final bool isCompleted,
@@ -304,6 +323,8 @@ abstract class _OrderModel implements OrderModel {
   String get user;
   @override
   num get userPhone;
+  @override
+  String get userEmail;
   @override
   String get address;
   @override
