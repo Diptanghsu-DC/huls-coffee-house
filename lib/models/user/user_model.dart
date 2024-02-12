@@ -8,6 +8,7 @@ part 'user_model.g.dart';
 @Freezed()
 class UserModel with _$UserModel {
   const factory UserModel({
+    String? deviceToken,
     required String name,
     required String email,
     required String password,
@@ -29,6 +30,7 @@ UserModel minifiedFromJson(Map<String, dynamic> json) => UserModel(
     phone: json[UserFields.phone.name]);
 
 enum UserFields {
+  deviceToken,
   name,
   email,
   password,

@@ -34,7 +34,7 @@ class _OrderStreamState extends State<OrderStream> {
           if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: const CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else {
             // Process the data from snapshot
             final orders = snapshot.data!;

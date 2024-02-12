@@ -14,6 +14,7 @@ import 'package:huls_coffee_house/pages/login_ui/widgets/custom_field.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/forgot_alert.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/new_pass.dart';
 import 'package:huls_coffee_house/pages/main_page/main_page.dart';
+import 'package:huls_coffee_house/utils/notifications.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
 import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
 
@@ -57,6 +58,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
           print("entering user creation protocol...");
           if (ForgotAlert.forgotOtp == "") {
             user = await UserController.create(UserModel(
+              deviceToken: NotificationManager().token,
               name: SignupPage.name,
               email: SignupPage.email,
               password: SignupPage.password,

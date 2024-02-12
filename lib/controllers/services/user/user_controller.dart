@@ -18,6 +18,7 @@ part 'functions/_delete_impl.dart';
 part 'functions/_login_silently_impl.dart';
 part 'functions/_cart_impl.dart';
 part 'functions/_update_impl.dart';
+part 'functions/_get_admin_impl.dart';
 
 class UserController {
   static const String _collectionName = "users";
@@ -88,6 +89,10 @@ class UserController {
       keepPassword: keepPassword,
       forceGet: forceGet,
     );
+  }
+
+  static Future<UserModel> getAdmin() {
+    return _getAdminImpl();
   }
 
   /// Deletes the user if exists from both local database and server
