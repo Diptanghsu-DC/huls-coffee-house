@@ -3,9 +3,12 @@ part of '../notification_controller.dart';
 Stream<List<NotificationModel>> _getImpl({
   required String receiver,
 }) async* {
-  List<NotificationModel> filteredModels =
-      await _fetchFromBackend(receiver: receiver);
-  yield filteredModels;
+  while (true) {
+    List<NotificationModel> filteredModels =
+        await _fetchFromBackend(receiver: receiver);
+    yield filteredModels;
+    Future.delayed(const Duration(seconds: 100));
+  }
 }
 
 Future<List<NotificationModel>> _fetchFromBackend({
