@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:huls_coffee_house/controllers/controllers.dart';
+import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/cart_ui/cart_main.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/homepage.dart';
 import 'package:huls_coffee_house/pages/notifications_page/notifications_page.dart';
@@ -30,6 +33,12 @@ class _MainPageState extends State<MainPage> {
   void navigate(int index) {
     setState(() {
       currentIndex = index;
+      if (index == 3) {
+        UserModel? oldUser = UserController.currentUser;
+        UserController.currentUser =
+            UserController.currentUser!.copyWith(newNotification: false);
+        UserController.update(oldUser: oldUser);
+      }
     });
   }
 
@@ -38,7 +47,7 @@ class _MainPageState extends State<MainPage> {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) async {
-        if(currentIndex != 1){
+        if (currentIndex != 1) {
           navigate(1);
           return;
         }
@@ -56,20 +65,20 @@ class _MainPageState extends State<MainPage> {
           type: BottomNavigationBarType.fixed,
           onTap: navigate,
           currentIndex: currentIndex,
-          items: const [
-            BottomNavigationBarItem(
+          items: [
+            const BottomNavigationBarItem(
               icon: Icon(
                 CupertinoIcons.profile_circled,
               ),
               label: "Account",
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               label: "Home",
               icon: Icon(
                 Icons.home,
               ),
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               label: "Cart",
               icon: Icon(
                 CupertinoIcons.cart,
@@ -77,8 +86,21 @@ class _MainPageState extends State<MainPage> {
             ),
             BottomNavigationBarItem(
               label: "Notifications",
-              icon: Icon(
-                CupertinoIcons.bell,
+              icon: Stack(
+                children: [
+                  const Icon(
+                    CupertinoIcons.bell,
+                  ),
+                  Visibility(
+                    visible: UserController.currentUser!.newNotification,
+                    child: const Positioned(
+                      child: CircleAvatar(
+                        backgroundColor: orange,
+                        radius: 3.5,
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ],
