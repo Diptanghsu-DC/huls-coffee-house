@@ -25,7 +25,7 @@ class _ViewAllState extends State<ViewAll> {
   double num1 = 0.444;
   double num2 = 0.375;
 
-  Future<void> refresh() async{
+  Future<void> refresh() async {
     setState(() {
       widget.category == null
           ? ProductController.getAll()
@@ -94,20 +94,28 @@ class _ViewAllState extends State<ViewAll> {
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
-                                        Navigator.push(
+                                        if (products[index].quantity != 0) {
+                                          Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) => ViewProduct(
-                                                  product: products[index]),
-                                            ));
+                                                product: products[index],
+                                              ),
+                                            ),
+                                          );
+                                        }
                                       },
-                                      child: ItemsCard(
-                                        itemImage: products[index].imageURL,
-                                        itemName: products[index].itemName,
-                                        itemPrice: products[index].price,
-                                        itemRating: products[index].ratings,
-                                        category: products[index].category,
-                                        quantity: products[index].quantity,
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 12.0),
+                                        child: ItemsCard(
+                                          itemImage: products[index].imageURL,
+                                          itemName: products[index].itemName,
+                                          itemPrice: products[index].price,
+                                          itemRating: products[index].ratings,
+                                          category: products[index].category,
+                                          quantity: products[index].quantity,
+                                        ),
                                       ),
                                     );
                                   },
