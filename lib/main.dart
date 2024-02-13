@@ -1,4 +1,3 @@
-
 import 'package:huls_coffee_house/pages/about_us/about_us.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/inventory.dart';
 import 'package:huls_coffee_house/pages/admin/main_page/main_page.dart';
@@ -18,9 +17,9 @@ import 'package:huls_coffee_house/pages/pages.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  
+
   //  await dotenv.load(fileName: '.env');
-   
+
   //  await LocalDatabase.init();
   //  await Firebaseapi().initnotification();
   runApp(const MyApp());
@@ -65,7 +64,7 @@ class MyApp extends StatelessWidget {
           NotificationsPage.routeName: (context) => const NotificationsPage(),
           PrivacyPolicyPage.routeName: (context) => const PrivacyPolicyPage(),
           AboutUsPage.routeName: (context) => const AboutUsPage(),
-          CurrentOrders.routeName: (context) => const CurrentOrders(),
+          // CurrentOrders.routeName: (context) => const CurrentOrders(),
         },
         initialRoute: SplashScreen.routeName,
       ),
