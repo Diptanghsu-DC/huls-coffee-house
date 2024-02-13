@@ -232,14 +232,16 @@ class _HomepageState extends State<Homepage> {
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => ViewProduct(
-                                              product: products[index],
+                                        if (products[index].quantity != 0) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => ViewProduct(
+                                                product: products[index],
+                                              ),
                                             ),
-                                          ),
-                                        );
+                                          );
+                                        }
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -261,7 +263,9 @@ class _HomepageState extends State<Homepage> {
                           )
                         ],
                       ),
-                      const SizedBox(height: 200,)
+                      const SizedBox(
+                        height: 200,
+                      )
                     ].separate(20),
                   ),
                 ),
