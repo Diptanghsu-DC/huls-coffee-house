@@ -155,6 +155,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             time: DateTime.now(),
                           ),
                         );
+                        UserModel? newAdmin =
+                            admin.copyWith(newNotification: true);
+                        await UserController.update(
+                            oldUser: admin, newUser: newAdmin);
                         // ProductController.create(widget.checkoutItems[i].copyWith(
                         //     quantity: await ProductController.get(
                         //                 itemName: widget.checkoutItems[i].itemName)
