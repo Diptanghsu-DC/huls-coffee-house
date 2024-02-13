@@ -7,7 +7,8 @@ import 'package:huls_coffee_house/utils/utils.dart';
 import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
 
 class CurrentOrders extends StatefulWidget {
-  const CurrentOrders({super.key});
+  final UserModel admin;
+  const CurrentOrders({super.key, required this.admin});
 
   static const String routeName = "/currentOrders";
 
@@ -73,26 +74,37 @@ class _CurrentOrdersState extends State<CurrentOrders> {
                             child: ListView.builder(
                               itemCount: orders.length,
                               itemBuilder: (context, index) => Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                padding: const EdgeInsets.only(bottom: 20.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      orders[index].product,
-                                      style: TextStyle(
-                                        fontSize: width * 0.06,
-                                        color: const Color.fromARGB(
-                                            255, 57, 57, 60),
-                                        fontFamily: "SofiaPro",
-                                      ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          orders[index].product,
+                                          style: TextStyle(
+                                            fontSize: width * 0.06,
+                                            color: const Color.fromARGB(
+                                                255, 57, 57, 60),
+                                            fontFamily: "SofiaPro",
+                                          ),
+                                        ),
+                                        Text(
+                                          "${orders[index].quantity}",
+                                          style: TextStyle(
+                                            fontSize: width * 0.06,
+                                            color: const Color.fromARGB(
+                                                255, 57, 57, 60),
+                                            fontFamily: "SofiaPro",
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     Text(
-                                      "${orders[index].quantity}",
-                                      style: TextStyle(
-                                        fontSize: width * 0.06,
-                                        color: const Color.fromARGB(
-                                            255, 57, 57, 60),
+                                      "Seller Contact Info : ${widget.admin.phone}",
+                                      style: const TextStyle(
                                         fontFamily: "SofiaPro",
                                       ),
                                     ),
