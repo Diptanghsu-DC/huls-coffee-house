@@ -1,8 +1,6 @@
 part of '../user_controller.dart';
 
-Future<void> _updateImpl({
-  UserModel? oldUser,
-}) async {
+Future<void> _updateImpl({UserModel? oldUser, UserModel? newUser}) async {
   if (UserController.currentUser == null || oldUser == null) {
     throw Exception("Some unexpected error occured. Please contact developers");
   }
@@ -22,16 +20,19 @@ Future<void> _updateImpl({
 
     final document = collection.doc(documentId);
 
+    final updateUser = newUser ?? UserController.currentUser;
+
     Map<String, dynamic> newData = {
-      "name": UserController.currentUser!.name,
-      "email": UserController.currentUser!.email,
-      "phone": UserController.currentUser!.phone,
-      "password": oldUser.password == UserController.currentUser!.password
+      "name": updateUser!.name,
+      "email": updateUser.email,
+      "phone": updateUser.phone,
+      "password": oldUser.password == updateUser.password
           ? oldUser.password
           : Encryptor.encrypt(
-              UserController.currentUser!.password,
+              updateUser.password,
               dotenv.env[EnvValues.ENCRYPTER_SALT.name]!,
             ),
+      "newNotification": updateUser.newNotification,
     };
 
     document.update(newData);
