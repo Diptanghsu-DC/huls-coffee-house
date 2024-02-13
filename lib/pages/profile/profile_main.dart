@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
+import 'package:huls_coffee_house/models/models.dart';
+import 'package:huls_coffee_house/models/user/user_model.dart';
 import 'package:huls_coffee_house/pages/login_ui/login_page.dart';
 import 'package:huls_coffee_house/pages/profile/user_update_page.dart';
 import 'package:huls_coffee_house/pages/profile/utils/styles.dart';
@@ -41,7 +43,7 @@ class _ProfilePage extends State<ProfilePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(
-                        height: 20,
+                        height: 30,
                       ),
                       Text(
                         UserController.currentUser!.name,
@@ -140,10 +142,35 @@ class _ProfilePage extends State<ProfilePage> {
                         thickness: 1,
                         height: 16.0,
                       ),
+                      // const Text(
+                      //   "Seller",
+                      //   style: AppStyles.pageText,
+                      // ),
+                      // const Text(
+                      //   "Huls Coffee House", // Placeholder text
+                      //   style: AppStyles.userDetailText,
+                      // ),
+                      // const Text(
+                      //   "Huls Coffee House", // Placeholder text
+                      //   style: AppStyles.userDetailText,
+                      // ),
+                      // Divider(
+                      //   color: Colors.grey[400],
+                      //   thickness: 1,
+                      //   height: 16.0,
+                      // ),
                       !UserController.currentUser!.isSeller
                           ? TextButton.icon(
-                              onPressed: () => Navigator.pushNamed(
-                                  context, CurrentOrders.routeName),
+                              onPressed: () async {
+                                final admin = await UserController.getAdmin();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        CurrentOrders(admin: admin),
+                                  ),
+                                );
+                              },
                               label: const Text(
                                 "Current Orders",
                                 style: AppStyles.pageText,
