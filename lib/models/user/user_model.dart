@@ -15,6 +15,7 @@ class UserModel with _$UserModel {
     required num phone,
     required String address,
     @Default(false) bool isSeller,
+    @Default(false) bool newNotification,
     DateTime? lastLocalUpdate,
   }) = _UserModel;
 

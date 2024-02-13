@@ -15,6 +15,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       phone: json['phone'] as num,
       address: json['address'] as String,
       isSeller: json['isSeller'] as bool? ?? false,
+      newNotification: json['newNotification'] as bool? ?? false,
       lastLocalUpdate: json['lastLocalUpdate'] == null
           ? null
           : DateTime.parse(json['lastLocalUpdate'] as String),
@@ -29,5 +30,6 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'phone': instance.phone,
       'address': instance.address,
       'isSeller': instance.isSeller,
+      'newNotification': instance.newNotification,
       'lastLocalUpdate': instance.lastLocalUpdate?.toIso8601String(),
     };

@@ -65,7 +65,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
               BottomNavigationBarItem(
                 label: "Notifications",
                 icon: Icon(
-                  CupertinoIcons.bell,
+                  CupertinoIcons.bell_circle,
                 ),
               ),
             ],
@@ -82,7 +82,6 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
               //   Navigator.pushNamed(context, OrderPage.routeName);
               // }
               widget.currentIndex = index;
-
             },
             items: const [
               BottomNavigationBarItem(

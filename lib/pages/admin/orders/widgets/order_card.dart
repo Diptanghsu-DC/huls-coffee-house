@@ -151,6 +151,14 @@ class OrderCard extends StatelessWidget {
                           time: DateTime.now(),
                         ),
                       );
+                      UserModel? oldUser =
+                          await UserController.get(email: order.userEmail)
+                              .first
+                              .then((value) => value.first);
+                      UserModel? newUser =
+                          oldUser!.copyWith(newNotification: true);
+                      await UserController.update(
+                          oldUser: oldUser, newUser: newUser);
                       await NotificationController.deleteNotification(
                         NotificationModel(
                           title: "",

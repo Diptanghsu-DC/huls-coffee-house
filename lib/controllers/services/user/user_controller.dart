@@ -106,7 +106,7 @@ class UserController {
     debugPrint("logged out");
   }
 
-  static Future<void> update({UserModel? oldUser}) async {
-    await _updateImpl(oldUser: oldUser);
+  static Future<void> update({UserModel? oldUser, UserModel? newUser}) async {
+    await _updateImpl(oldUser: oldUser, newUser: newUser);
   }
 }
