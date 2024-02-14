@@ -61,19 +61,18 @@ class _NotificationStreamState extends State<NotificationStream> {
               );
             }
 
-            return Expanded(
-              child: ListView.builder(
-                itemCount: notifications.length,
-                itemBuilder: (context, index) => InkWell(
-                  onTap: () => UserController.currentUser!.isSeller
-                      ? Navigator.pushNamed(context, OrderPage.routeName)
-                      : null,
-                  child: NotificationCard(
-                    notification: notifications[index],
-                    refresh: _refresh,
-                  ),
+            return ListView.builder(
+              itemCount: notifications.length,
+              itemBuilder: (context, index) => InkWell(
+                onTap: () => UserController.currentUser!.isSeller
+                    ? Navigator.pushNamed(context, OrderPage.routeName)
+                    : null,
+                child: NotificationCard(
+                  notification: notifications[index],
+                  refresh: _refresh,
                 ),
               ),
+              // ),
             );
           }
         },
