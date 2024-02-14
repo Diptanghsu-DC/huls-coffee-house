@@ -92,7 +92,7 @@ class _TotalItemCostState extends State<TotalItemCost> {
           ),
         ),
         Text(
-          "Rs ${widget.item.price * count}",
+          "Rs ${widget.item.price * widget.item.quantity}",
           style: const TextStyle(
               fontFamily: 'SofiaPro',
               fontSize: 14,
