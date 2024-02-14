@@ -16,7 +16,7 @@ class TotalItemCost extends StatefulWidget {
 }
 
 class _TotalItemCostState extends State<TotalItemCost> {
-  late num count = widget.item.quantity;
+  // late num count = widget.item.quantity;
   num originalCount = 0;
 
   void getQuantity() async {
@@ -46,15 +46,15 @@ class _TotalItemCostState extends State<TotalItemCost> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 InkWell(
-                  onTap: () {
-                    setState(() {
-                      if (count > 0) {
-                        count--;
-                      }
-                    });
-                  },
+                  // onTap: () {
+                  //   setState(() {
+                  //     if (count > 0) {
+                  //       count--;
+                  //     }
+                  //   });
+                  // },
                   child: const Text(
-                    "-",
+                    " ",
                     style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
@@ -63,7 +63,7 @@ class _TotalItemCostState extends State<TotalItemCost> {
                   ),
                 ),
                 Text(
-                  "$count",
+                  "${widget.item.quantity}",
                   style: const TextStyle(
                       fontSize: 16,
                       color: Colors.white,
@@ -71,15 +71,15 @@ class _TotalItemCostState extends State<TotalItemCost> {
                       fontFamily: 'SofiaPro'),
                 ),
                 InkWell(
-                  onTap: () {
-                    setState(() {
-                      if (count < originalCount) {
-                        count++;
-                      }
-                    });
-                  },
+                  // onTap: () {
+                  //   setState(() {
+                  //     if (count < originalCount) {
+                  //       count++;
+                  //     }
+                  //   });
+                  // },
                   child: const Text(
-                    "+",
+                    " ",
                     style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
