@@ -165,16 +165,13 @@ class _ViewProductState extends State<ViewProduct> {
             ),
           ),
           SizedBox(
-            height: height * 0.03375,
-          ),
-          SizedBox(
-            height: height * 0.0225,
+            height: height * 0.13375,
           ),
           CheckoutButton(
             product: displayProduct.copyWith(quantity: quantity),
           ),
           SizedBox(
-            height: height * 0.1325,
+            height: height * 0.03375,
           ),
           AddToCartButton(
             product: displayProduct.copyWith(quantity: quantity),
