@@ -70,48 +70,47 @@ class _CurrentOrdersState extends State<CurrentOrders> {
                               ),
                             );
                           }
-                          return Expanded(
-                            child: ListView.builder(
-                              itemCount: orders.length,
-                              itemBuilder: (context, index) => Padding(
-                                padding: const EdgeInsets.only(bottom: 20.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          orders[index].product,
-                                          style: TextStyle(
-                                            fontSize: width * 0.06,
-                                            color: const Color.fromARGB(
-                                                255, 57, 57, 60),
-                                            fontFamily: "SofiaPro",
-                                          ),
+                          return ListView.builder(
+                            itemCount: orders.length,
+                            itemBuilder: (context, index) => Padding(
+                              padding: const EdgeInsets.only(bottom: 20.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        orders[index].product,
+                                        style: TextStyle(
+                                          fontSize: width * 0.06,
+                                          color: const Color.fromARGB(
+                                              255, 57, 57, 60),
+                                          fontFamily: "SofiaPro",
                                         ),
-                                        Text(
-                                          "${orders[index].quantity}",
-                                          style: TextStyle(
-                                            fontSize: width * 0.06,
-                                            color: const Color.fromARGB(
-                                                255, 57, 57, 60),
-                                            fontFamily: "SofiaPro",
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Text(
-                                      "Seller Contact Info : ${widget.admin.phone}",
-                                      style: const TextStyle(
-                                        fontFamily: "SofiaPro",
                                       ),
+                                      Text(
+                                        "${orders[index].quantity}",
+                                        style: TextStyle(
+                                          fontSize: width * 0.06,
+                                          color: const Color.fromARGB(
+                                              255, 57, 57, 60),
+                                          fontFamily: "SofiaPro",
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    "Seller Contact Info : ${widget.admin.phone}",
+                                    style: const TextStyle(
+                                      fontFamily: "SofiaPro",
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
+                            // ),
                           );
                         },
                       )
