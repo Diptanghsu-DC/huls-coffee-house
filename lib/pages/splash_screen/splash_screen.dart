@@ -31,6 +31,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   String _lastMessage = "";
+
   // NotificationManager notificationManager = NotificationManager();
 
   // _SplashScreenState() {
@@ -107,10 +108,43 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(
-          color: orange,
+    Size size = MediaQuery.of(context).size;
+    double width = size.width;
+    return Scaffold(
+      body: SizedBox(
+        width: width,
+        child: Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                    "assets/images/Blue_and_White_Circle_Surfing_Club_Logo-removebg-preview (1).png"),
+                CircularProgressIndicator(
+                  color: orange,
+                )
+              ],
+            ),
+            Positioned(
+                bottom: 20,
+                child: SizedBox(
+                  width: width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Developed by",
+                        style: TextStyle(fontFamily: 'SofiaPro'),
+                      ),
+                      Image.asset(
+                        "assets/images/ecell_logo.png",
+                        height: 100,
+                      )
+                    ],
+                  ),
+                ))
+          ],
         ),
       ),
     );

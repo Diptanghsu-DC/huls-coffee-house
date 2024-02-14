@@ -11,6 +11,7 @@ class ViewProduct extends StatefulWidget {
   final ProductModel product;
 
   const ViewProduct({super.key, required this.product});
+
   static const String routeName = '/viewproduct';
 
   @override
@@ -125,10 +126,10 @@ class _ViewProductState extends State<ViewProduct> {
                         setState(() {});
                       }
                     },
-                    child: Image.asset(
-                      'assets/images/minusicon.png',
-                      height: height * 0.0375,
-                      width: width * 0.0833,
+                    child: const Icon(
+                      Icons.do_not_disturb_on_outlined,
+                      color: orange,
+                      size: 30,
                     )),
                 SizedBox(
                   width: width * 0.1091388888888889,
@@ -155,25 +156,22 @@ class _ViewProductState extends State<ViewProduct> {
                         });
                       }
                     },
-                    child: Image.asset(
-                      'assets/images/plusicon.png',
-                      height: height * 0.0375,
-                      width: width * 0.0833,
+                    child: const Icon(
+                      Icons.add_circle,
+                      color: orange,
+                      size: 30,
                     )),
               ],
             ),
           ),
           SizedBox(
-            height: height * 0.03375,
-          ),
-          SizedBox(
-            height: height * 0.0225,
+            height: height * 0.13375,
           ),
           CheckoutButton(
             product: displayProduct.copyWith(quantity: quantity),
           ),
           SizedBox(
-            height: height * 0.1325,
+            height: height * 0.03375,
           ),
           AddToCartButton(
             product: displayProduct.copyWith(quantity: quantity),
