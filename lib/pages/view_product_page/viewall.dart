@@ -55,24 +55,24 @@ class _ViewAllState extends State<ViewAll> {
           centerTitle: true,
         ),
         body: SafeArea(
-          child: Column(children: [
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(
-                    width * 0.055, height * 0.04, width * 0.055, 0),
-                child: StreamBuilder<List<ProductModel>>(
-                  stream: widget.category == null
-                      ? ProductController.getAll()
-                      : ProductController.get(category: widget.category),
-                  builder: (context, snapshot) {
-                    List<ProductModel> products = [];
-                    if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else if (snapshot.hasData) {
-                      products = snapshot.data ?? [];
-                    }
-                    return Expanded(
-                      child: snapshot.connectionState == ConnectionState.waiting
+          child: Column(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      width * 0.055, height * 0.04, width * 0.055, 0),
+                  child: StreamBuilder<List<ProductModel>>(
+                    stream: widget.category == null
+                        ? ProductController.getAll()
+                        : ProductController.get(category: widget.category),
+                    builder: (context, snapshot) {
+                      List<ProductModel> products = [];
+                      if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else if (snapshot.hasData) {
+                        products = snapshot.data ?? [];
+                      }
+                      return snapshot.connectionState == ConnectionState.waiting
                           ? const Center(
                               child: SizedBox(
                                 height: 45,
@@ -119,13 +119,15 @@ class _ViewAllState extends State<ViewAll> {
                                       ),
                                     );
                                   },
-                                ),
-                    );
-                  },
+                                  // ),
+                                );
+                    },
+                  ),
                 ),
               ),
-            ),
-          ]),
+              // ),
+            ],
+          ),
         ),
       ),
     );
