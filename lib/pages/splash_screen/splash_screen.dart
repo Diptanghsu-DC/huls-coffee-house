@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/pages/admin/main_page/main_page.dart';
+import 'package:huls_coffee_house/pages/admin/orders/utils/order_history.dart';
 import 'package:huls_coffee_house/pages/main_page/main_page.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
 
@@ -75,6 +76,8 @@ class _SplashScreenState extends State<SplashScreen> {
     await UserController.loginSilently().last;
 
     NotificationManager().init();
+
+    LogOrder.init();
 
     stopwatch.stop();
     return stopwatch.elapsed.inMilliseconds;

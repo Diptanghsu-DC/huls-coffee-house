@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/models.dart';
+import 'package:huls_coffee_house/pages/admin/orders/utils/order_history.dart';
+import 'package:huls_coffee_house/pages/admin/orders/utils/order_log_class.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
 
@@ -169,6 +171,15 @@ class OrderCard extends StatelessWidget {
                           time: DateTime.now(),
                         ),
                       );
+                      final orderLog = OrderLog(
+                          date: Formatter.dateOnly(DateTime.now()),
+                          time: Formatter.timeOnly(DateTime.now()),
+                          orderName: itemName,
+                          orderQuantity: order.quantity,
+                          totalPrice: order.price,
+                          orderCompletedBy:
+                              UserController.currentUser!.address);
+                      await LogOrder.log(orderLog.toJson());
                     },
                     onCompleted: () {
                       toastMessage(

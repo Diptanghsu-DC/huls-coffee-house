@@ -22,6 +22,7 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) {
 mixin _$OrderModel {
   String get product => throw _privateConstructorUsedError;
   num get quantity => throw _privateConstructorUsedError;
+  num get price => throw _privateConstructorUsedError;
   String get user => throw _privateConstructorUsedError;
   num get userPhone => throw _privateConstructorUsedError;
   String get userEmail => throw _privateConstructorUsedError;
@@ -46,6 +47,7 @@ abstract class $OrderModelCopyWith<$Res> {
   $Res call(
       {String product,
       num quantity,
+      num price,
       String user,
       num userPhone,
       String userEmail,
@@ -71,6 +73,7 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
   $Res call({
     Object? product = null,
     Object? quantity = null,
+    Object? price = null,
     Object? user = null,
     Object? userPhone = null,
     Object? userEmail = null,
@@ -88,6 +91,10 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
+              as num,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
               as num,
       user: null == user
           ? _value.user
@@ -136,6 +143,7 @@ abstract class _$$OrderModelImplCopyWith<$Res>
   $Res call(
       {String product,
       num quantity,
+      num price,
       String user,
       num userPhone,
       String userEmail,
@@ -159,6 +167,7 @@ class __$$OrderModelImplCopyWithImpl<$Res>
   $Res call({
     Object? product = null,
     Object? quantity = null,
+    Object? price = null,
     Object? user = null,
     Object? userPhone = null,
     Object? userEmail = null,
@@ -176,6 +185,10 @@ class __$$OrderModelImplCopyWithImpl<$Res>
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
+              as num,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
               as num,
       user: null == user
           ? _value.user
@@ -219,6 +232,7 @@ class _$OrderModelImpl implements _OrderModel {
   const _$OrderModelImpl(
       {required this.product,
       required this.quantity,
+      required this.price,
       required this.user,
       required this.userPhone,
       required this.userEmail,
@@ -235,6 +249,8 @@ class _$OrderModelImpl implements _OrderModel {
   final String product;
   @override
   final num quantity;
+  @override
+  final num price;
   @override
   final String user;
   @override
@@ -255,7 +271,7 @@ class _$OrderModelImpl implements _OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(product: $product, quantity: $quantity, user: $user, userPhone: $userPhone, userEmail: $userEmail, address: $address, time: $time, isCompleted: $isCompleted, delay: $delay, lastLocalUpdate: $lastLocalUpdate)';
+    return 'OrderModel(product: $product, quantity: $quantity, price: $price, user: $user, userPhone: $userPhone, userEmail: $userEmail, address: $address, time: $time, isCompleted: $isCompleted, delay: $delay, lastLocalUpdate: $lastLocalUpdate)';
   }
 
   @override
@@ -266,6 +282,7 @@ class _$OrderModelImpl implements _OrderModel {
             (identical(other.product, product) || other.product == product) &&
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
+            (identical(other.price, price) || other.price == price) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.userPhone, userPhone) ||
                 other.userPhone == userPhone) &&
@@ -282,7 +299,7 @@ class _$OrderModelImpl implements _OrderModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, product, quantity, user,
+  int get hashCode => Object.hash(runtimeType, product, quantity, price, user,
       userPhone, userEmail, address, time, isCompleted, delay, lastLocalUpdate);
 
   @JsonKey(ignore: true)
@@ -303,6 +320,7 @@ abstract class _OrderModel implements OrderModel {
   const factory _OrderModel(
       {required final String product,
       required final num quantity,
+      required final num price,
       required final String user,
       required final num userPhone,
       required final String userEmail,
@@ -319,6 +337,8 @@ abstract class _OrderModel implements OrderModel {
   String get product;
   @override
   num get quantity;
+  @override
+  num get price;
   @override
   String get user;
   @override

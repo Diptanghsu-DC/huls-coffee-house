@@ -12,6 +12,7 @@ migrate_working_dir/
 .env
 google-services.json
 firebase_options.dart
+spreadsheet_credentials.dart
 
 # IntelliJ related
 *.iml

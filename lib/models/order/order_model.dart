@@ -11,6 +11,7 @@ class OrderModel with _$OrderModel {
   const factory OrderModel({
     required String product,
     required num quantity,
+    required num price,
     required String user,
     required num userPhone,
     required String userEmail,
@@ -28,6 +29,7 @@ class OrderModel with _$OrderModel {
 enum OrderFields {
   product,
   quantity,
+  price,
   user,
   userPhone,
   userEmail,

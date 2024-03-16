@@ -132,6 +132,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         OrderModel myOrder = OrderModel(
                           product: widget.checkoutItems[i].itemName,
                           quantity: widget.checkoutItems[i].quantity,
+                          price: widget.checkoutItems[i].quantity *
+                              widget.checkoutItems[i].price,
                           user: UserController.currentUser!.name,
                           userPhone: UserController.currentUser!.phone,
                           userEmail: UserController.currentUser!.email,

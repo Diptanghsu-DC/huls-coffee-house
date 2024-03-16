@@ -10,6 +10,7 @@ _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
     _$OrderModelImpl(
       product: json['product'] as String,
       quantity: json['quantity'] as num,
+      price: json['price'] as num,
       user: json['user'] as String,
       userPhone: json['userPhone'] as num,
       userEmail: json['userEmail'] as String,
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
     <String, dynamic>{
       'product': instance.product,
       'quantity': instance.quantity,
+      'price': instance.price,
       'user': instance.user,
       'userPhone': instance.userPhone,
       'userEmail': instance.userEmail,
