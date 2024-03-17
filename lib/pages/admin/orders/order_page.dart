@@ -15,16 +15,21 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
-  late final orders;
+  late Stream<List<OrderModel>> ordersStream;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    orders = OrderController.getAll();
+    ordersStream = OrderController.getAll();
   }
 
-  Future<void> refresh() async{
-    orders = OrderController.getAll();
+  Future<void> refresh() async {
+    OrderStreamState orderStreamState = OrderStreamState();
+    orderStreamState.refresh();
+    // Refresh the ordersStream
+    setState(() {
+      ordersStream = OrderController.getAll();
+    });
   }
 
   @override
@@ -34,8 +39,7 @@ class _OrderPageState extends State<OrderPage> {
         centerTitle: true,
         leading: const GoBackButton(),
         title: StreamBuilder<List<OrderModel>>(
-          stream: orders,
-          // Assuming getAll returns Stream<List<Order>>
+          stream: ordersStream,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Text(
@@ -56,11 +60,9 @@ class _OrderPageState extends State<OrderPage> {
       ),
       body: RefreshIndicator(
         color: orange,
-        onRefresh: () async{
-          OrderStreamState orderStreamState = OrderStreamState();
-          orderStreamState.refresh();
-        },
-          child: OrderStream()),
+        onRefresh: () => refresh(),
+        child: OrderStream(),
+      ),
     );
   }
 }
