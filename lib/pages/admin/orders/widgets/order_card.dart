@@ -193,6 +193,8 @@ class OrderCard extends StatelessWidget {
                       if (_formKey.currentState!.validate()) {
                         await OrderController.setTimer(
                             order, int.parse(timerController.text.toString()));
+                        OrderController.initCountDown(
+                            order, int.parse(timerController.text.toString()));
                         refresh();
                       }
                     },
@@ -245,8 +247,7 @@ class OrderCard extends StatelessWidget {
                         },
                         onCompleted: () {
                           toastMessage(
-                              "Order done. Notifying $userName. Updating the order list in the next 100 seconds or you may pull to refresh",
-                              context);
+                              "Order done. Notifying $userName.", context);
                           refresh();
                         },
                       );
