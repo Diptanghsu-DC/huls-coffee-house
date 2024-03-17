@@ -62,6 +62,7 @@ class _OrderStreamState extends State<OrderStream> {
                 userName: orders[index].user,
                 userPhone: orders[index].userPhone,
                 userAddress: orders[index].address,
+                refresh: refresh,
               ),
             );
           }

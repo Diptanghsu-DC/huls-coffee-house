@@ -23,6 +23,7 @@ class _OrderPageState extends State<OrderPage> {
 
   @override
   Widget build(BuildContext context) {
+    final orderList = OrderController.getAll();
     getSize(context);
     return Scaffold(
       // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
@@ -30,7 +31,7 @@ class _OrderPageState extends State<OrderPage> {
         centerTitle: true,
         leading: const GoBackButton(),
         title: Text(
-          "Orders Pending: ${OrderController.orderQueue.length}",
+          "Orders Pending: ${orderList.length}",
           style:
               const TextStyle(fontFamily: 'SofiaPro', fontWeight: FontWeight.bold),
         ),

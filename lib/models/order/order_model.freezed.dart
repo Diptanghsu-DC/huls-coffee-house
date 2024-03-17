@@ -28,7 +28,7 @@ mixin _$OrderModel {
   String get userEmail => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   DateTime get time => throw _privateConstructorUsedError;
-  bool get isCompleted => throw _privateConstructorUsedError;
+  bool get isDelaySet => throw _privateConstructorUsedError;
   int? get delay => throw _privateConstructorUsedError;
   DateTime? get lastLocalUpdate => throw _privateConstructorUsedError;
 
@@ -53,7 +53,7 @@ abstract class $OrderModelCopyWith<$Res> {
       String userEmail,
       String address,
       DateTime time,
-      bool isCompleted,
+      bool isDelaySet,
       int? delay,
       DateTime? lastLocalUpdate});
 }
@@ -79,7 +79,7 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     Object? userEmail = null,
     Object? address = null,
     Object? time = null,
-    Object? isCompleted = null,
+    Object? isDelaySet = null,
     Object? delay = freezed,
     Object? lastLocalUpdate = freezed,
   }) {
@@ -116,9 +116,9 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      isCompleted: null == isCompleted
-          ? _value.isCompleted
-          : isCompleted // ignore: cast_nullable_to_non_nullable
+      isDelaySet: null == isDelaySet
+          ? _value.isDelaySet
+          : isDelaySet // ignore: cast_nullable_to_non_nullable
               as bool,
       delay: freezed == delay
           ? _value.delay
@@ -149,7 +149,7 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       String userEmail,
       String address,
       DateTime time,
-      bool isCompleted,
+      bool isDelaySet,
       int? delay,
       DateTime? lastLocalUpdate});
 }
@@ -173,7 +173,7 @@ class __$$OrderModelImplCopyWithImpl<$Res>
     Object? userEmail = null,
     Object? address = null,
     Object? time = null,
-    Object? isCompleted = null,
+    Object? isDelaySet = null,
     Object? delay = freezed,
     Object? lastLocalUpdate = freezed,
   }) {
@@ -210,9 +210,9 @@ class __$$OrderModelImplCopyWithImpl<$Res>
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      isCompleted: null == isCompleted
-          ? _value.isCompleted
-          : isCompleted // ignore: cast_nullable_to_non_nullable
+      isDelaySet: null == isDelaySet
+          ? _value.isDelaySet
+          : isDelaySet // ignore: cast_nullable_to_non_nullable
               as bool,
       delay: freezed == delay
           ? _value.delay
@@ -238,7 +238,7 @@ class _$OrderModelImpl implements _OrderModel {
       required this.userEmail,
       required this.address,
       required this.time,
-      this.isCompleted = false,
+      this.isDelaySet = false,
       this.delay,
       this.lastLocalUpdate});
 
@@ -263,7 +263,7 @@ class _$OrderModelImpl implements _OrderModel {
   final DateTime time;
   @override
   @JsonKey()
-  final bool isCompleted;
+  final bool isDelaySet;
   @override
   final int? delay;
   @override
@@ -271,7 +271,7 @@ class _$OrderModelImpl implements _OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(product: $product, quantity: $quantity, price: $price, user: $user, userPhone: $userPhone, userEmail: $userEmail, address: $address, time: $time, isCompleted: $isCompleted, delay: $delay, lastLocalUpdate: $lastLocalUpdate)';
+    return 'OrderModel(product: $product, quantity: $quantity, price: $price, user: $user, userPhone: $userPhone, userEmail: $userEmail, address: $address, time: $time, isDelaySet: $isDelaySet, delay: $delay, lastLocalUpdate: $lastLocalUpdate)';
   }
 
   @override
@@ -290,8 +290,8 @@ class _$OrderModelImpl implements _OrderModel {
                 other.userEmail == userEmail) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.time, time) || other.time == time) &&
-            (identical(other.isCompleted, isCompleted) ||
-                other.isCompleted == isCompleted) &&
+            (identical(other.isDelaySet, isDelaySet) ||
+                other.isDelaySet == isDelaySet) &&
             (identical(other.delay, delay) || other.delay == delay) &&
             (identical(other.lastLocalUpdate, lastLocalUpdate) ||
                 other.lastLocalUpdate == lastLocalUpdate));
@@ -300,7 +300,7 @@ class _$OrderModelImpl implements _OrderModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, product, quantity, price, user,
-      userPhone, userEmail, address, time, isCompleted, delay, lastLocalUpdate);
+      userPhone, userEmail, address, time, isDelaySet, delay, lastLocalUpdate);
 
   @JsonKey(ignore: true)
   @override
@@ -326,7 +326,7 @@ abstract class _OrderModel implements OrderModel {
       required final String userEmail,
       required final String address,
       required final DateTime time,
-      final bool isCompleted,
+      final bool isDelaySet,
       final int? delay,
       final DateTime? lastLocalUpdate}) = _$OrderModelImpl;
 
@@ -350,7 +350,7 @@ abstract class _OrderModel implements OrderModel {
   @override
   DateTime get time;
   @override
-  bool get isCompleted;
+  bool get isDelaySet;
   @override
   int? get delay;
   @override
