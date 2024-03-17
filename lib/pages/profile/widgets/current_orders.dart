@@ -101,11 +101,27 @@ class _CurrentOrdersState extends State<CurrentOrders> {
                                       ),
                                     ],
                                   ),
-                                  Text(
-                                    "Seller Contact Info : ${widget.admin.phone}",
-                                    style: const TextStyle(
-                                      fontFamily: "SofiaPro",
-                                    ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Seller Contact Info : ${widget.admin.phone}",
+                                        style: const TextStyle(
+                                          fontFamily: "SofiaPro",
+                                        ),
+                                      ),
+                                      orders[index].delay != null
+                                          ? Text(
+                                              "Delay: ${orders[index].delay! - 10} min",
+                                              style: const TextStyle(
+                                                color: Colors.red,
+                                                fontFamily: "SofiaPro",
+                                                fontWeight: FontWeight.w800,
+                                              ),
+                                            )
+                                          : const Text(""),
+                                    ],
                                   ),
                                 ],
                               ),

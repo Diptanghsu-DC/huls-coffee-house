@@ -11,6 +11,7 @@ part 'functions/_check_duplicate.dart';
 part 'functions/_delete_impl.dart';
 part 'functions/_get_impl.dart';
 part 'functions/_get_all.dart';
+part 'functions/_set_timer_impl.dart';
 
 class OrderController {
   static const String _collectionName = "orders";
@@ -49,5 +50,9 @@ class OrderController {
   /// Deletes the order when completed or cancelled
   static Future<void> delete(OrderModel order) async {
     return await _deleteImpl(order);
+  }
+
+  static Future<void> setTimer(OrderModel order, int delay) async {
+    return await _setTimerImpl(order, delay);
   }
 }
