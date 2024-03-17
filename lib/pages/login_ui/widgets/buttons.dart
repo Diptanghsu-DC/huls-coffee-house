@@ -2,18 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton(
-      {super.key, required this.text, this.onPressed, this.leadingIcon});
+  const CustomButton({
+    super.key,
+    required this.text,
+    this.onPressed,
+    this.leadingIcon,
+    this.color,
+  });
 
   final String text;
   final VoidCallback? onPressed;
   final IconData? leadingIcon;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     //constants
     double buttonRadius = 28.5;
-    Color buttonColor = const Color.fromRGBO(254, 114, 76, 1);
+    Color buttonColor = color ?? const Color.fromRGBO(254, 114, 76, 1);
     double fontSize = 15;
     return ElevatedButton(
         onPressed: onPressed,
