@@ -12,10 +12,10 @@ class OrderStream extends StatefulWidget {
   });
 
   @override
-  State<OrderStream> createState() => _OrderStreamState();
+  State<OrderStream> createState() => OrderStreamState();
 }
 
-class _OrderStreamState extends State<OrderStream> {
+class OrderStreamState extends State<OrderStream> {
   // final List<OrderModel> orderList;
   Future<void> refresh() async {
     setState(() {
@@ -26,48 +26,45 @@ class _OrderStreamState extends State<OrderStream> {
   @override
   Widget build(context) {
     getSize(context);
-    return RefreshIndicator(
-      onRefresh: refresh,
-      child: StreamBuilder<List<OrderModel>>(
-        stream: OrderController.getAll(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else {
-            // Process the data from snapshot
-            final orders = snapshot.data!;
+    return StreamBuilder<List<OrderModel>>(
+      stream: OrderController.getAll(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else {
+          // Process the data from snapshot
+          final orders = snapshot.data!;
 
 
-            if (orders.isEmpty) {
-              return Center(
-                child: Text(
-                  "No orders currently",
-                  style: TextStyle(
-                    fontSize: width * 0.07,
-                    color: Color.fromARGB(255, 107, 106, 106),
-                  ),
+          if (orders.isEmpty) {
+            return Center(
+              child: Text(
+                "No orders currently",
+                style: TextStyle(
+                  fontSize: width * 0.07,
+                  color: Color.fromARGB(255, 107, 106, 106),
                 ),
-              );
-            }
-
-            return ListView.builder(
-              itemCount: orders.length,
-              itemBuilder: (context, index) => OrderCard(
-                order: orders[index],
-                itemName: orders[index].product,
-                quantity: orders[index].quantity,
-                price: orders[index].quantity,
-                userName: orders[index].user,
-                userPhone: orders[index].userPhone,
-                userAddress: orders[index].address,
-                refresh: refresh,
               ),
             );
           }
-        },
-      ),
+
+          return ListView.builder(
+            itemCount: orders.length,
+            itemBuilder: (context, index) => OrderCard(
+              order: orders[index],
+              itemName: orders[index].product,
+              quantity: orders[index].quantity,
+              price: orders[index].quantity,
+              userName: orders[index].user,
+              userPhone: orders[index].userPhone,
+              userAddress: orders[index].address,
+              refresh: refresh,
+            ),
+          );
+        }
+      },
     );
 
     // List<OrderModel> orderList = [
