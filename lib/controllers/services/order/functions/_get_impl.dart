@@ -15,7 +15,7 @@ Stream<List<OrderModel>> _getImpl({
       forceGet: forceGet,
     );
     yield filteredModels;
-    await Future.delayed(const Duration(seconds: 100));
+    await Future.delayed(const Duration(seconds: 60));
   }
 }
 
