@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/models.dart';
@@ -101,7 +100,7 @@ class OrderCard extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
+                      SizedBox(
                         width: width * 0.5,
                         child: Text(
                           ": $itemName",
@@ -160,29 +159,29 @@ class OrderCard extends StatelessWidget {
               ),
               order.isDelaySet
                   ? Padding(
-                      padding: const EdgeInsets.only(top: 18.0),
-                      child: Text(
-                        "${order.delay} min delay is already set for this order",
-                        style: const TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    )
+                padding: const EdgeInsets.only(top: 18.0),
+                child: Text(
+                  "${order.delay} min delay is already set for this order",
+                  style: const TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              )
                   : Form(
-                      key: _formKey,
-                      child: CustomField(
-                        controller: timerController,
-                        hintText: "Add Delivery time in minutes",
-                        textInputType: TextInputType.number,
-                        validator: (value) {
-                          if (value!.isEmpty || num.parse(value) < 10) {
-                            return "Delivery time must be greater than 10 min";
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
+                key: _formKey,
+                child: CustomField(
+                  controller: timerController,
+                  hintText: "Add Delivery time in minutes",
+                  textInputType: TextInputType.number,
+                  validator: (value) {
+                    if (value!.isEmpty || num.parse(value) < 10) {
+                      return "Delivery time must be greater than 10 min";
+                    }
+                    return null;
+                  },
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -208,7 +207,7 @@ class OrderCard extends StatelessWidget {
                             NotificationModel(
                               title: "Order Completed !!",
                               message:
-                                  "Your order for ${order.product} is completed",
+                              "Your order for ${order.product} is completed",
                               sender: UserController.currentUser!.email,
                               receiver: order.userEmail,
                               product: order.product,
@@ -216,11 +215,11 @@ class OrderCard extends StatelessWidget {
                             ),
                           );
                           UserModel? oldUser =
-                              await UserController.get(email: order.userEmail)
-                                  .first
-                                  .then((value) => value.first);
+                          await UserController.get(email: order.userEmail)
+                              .first
+                              .then((value) => value.first);
                           UserModel? newUser =
-                              oldUser!.copyWith(newNotification: true);
+                          oldUser!.copyWith(newNotification: true);
                           await UserController.update(
                               oldUser: oldUser, newUser: newUser);
                           await NotificationController.deleteNotification(
@@ -240,7 +239,7 @@ class OrderCard extends StatelessWidget {
                               orderQuantity: order.quantity,
                               totalPrice: order.price,
                               orderCompletedBy:
-                                  UserController.currentUser!.address);
+                              UserController.currentUser!.address);
                           await LogOrder.log(orderLog.toJson());
                         },
                         onCompleted: () {

@@ -21,7 +21,7 @@ void main() async {
   //  await dotenv.load(fileName: '.env');
 
   //  await LocalDatabase.init();
-  //  await Firebaseapi().initnotification();
+
   runApp(const MyApp());
 }
 
