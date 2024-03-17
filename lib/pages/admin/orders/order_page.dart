@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/pages/admin/orders/widgets/order_stream.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
 
-import '../../../widgets/custom_bottom_navigation_bar/custom_bottom_navigation.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({super.key});
@@ -27,17 +27,15 @@ class _OrderPageState extends State<OrderPage> {
     return Scaffold(
       // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       appBar: AppBar(
+        centerTitle: true,
         leading: const GoBackButton(),
-        title: Padding(
-          padding: EdgeInsets.only(left: width * 0.23),
-          child: const Text(
-            "Orders",
-            style:
-                TextStyle(fontFamily: 'SofiaPro', fontWeight: FontWeight.bold),
-          ),
+        title: Text(
+          "Orders Pending: ${OrderController.orderQueue.length}",
+          style:
+              const TextStyle(fontFamily: 'SofiaPro', fontWeight: FontWeight.bold),
         ),
       ),
-      body: const OrderStream(),
+      body: OrderStream(),
       // ),
     );
   }

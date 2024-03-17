@@ -7,7 +7,7 @@ import 'package:huls_coffee_house/pages/admin/orders/utils/order_log_class.dart'
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
 
-class OrderCard extends StatelessWidget {
+class OrderCard extends StatefulWidget {
   const OrderCard({
     super.key,
     required this.order,
@@ -27,6 +27,11 @@ class OrderCard extends StatelessWidget {
   final num userPhone;
   final String userAddress;
 
+  @override
+  State<OrderCard> createState() => _OrderCardState();
+}
+
+class _OrderCardState extends State<OrderCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -86,10 +91,10 @@ class OrderCard extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
+                      SizedBox(
                         width: width * 0.5,
                         child: Text(
-                          ": $itemName",
+                          ": ${widget.itemName}",
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: TextStyle(
@@ -100,7 +105,7 @@ class OrderCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        ": $quantity",
+                        ": ${widget.quantity}",
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: width * 0.045,
@@ -108,7 +113,7 @@ class OrderCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        ": $userName",
+                        ": ${widget.userName}",
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: width * 0.045,
@@ -116,7 +121,7 @@ class OrderCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        ": $userPhone",
+                        ": ${widget.userPhone}",
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: width * 0.045,
@@ -124,7 +129,7 @@ class OrderCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        ": $userAddress",
+                        ": ${widget.userAddress}",
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: width * 0.045,
@@ -141,22 +146,22 @@ class OrderCard extends StatelessWidget {
                   showLoadingOverlay(
                     context: context,
                     asyncTask: () async {
-                      await OrderController.delete(order);
+                      await OrderController.delete(widget.order);
                       await NotificationController.pushNotification(
                         NotificationModel(
                           title: "Order Completed !!",
                           message:
-                              "Your order for ${order.product} is completed",
+                              "Your order for ${widget.order.product} is completed",
                           sender: UserController.currentUser!.email,
-                          receiver: order.userEmail,
-                          product: order.product,
+                          receiver: widget.order.userEmail,
+                          product: widget.order.product,
                           time: DateTime.now(),
                         ),
                       );
-                      UserModel? oldUser =
-                          await UserController.get(email: order.userEmail)
-                              .first
-                              .then((value) => value.first);
+                      UserModel? oldUser = await UserController.get(
+                              email: widget.order.userEmail)
+                          .first
+                          .then((value) => value.first);
                       UserModel? newUser =
                           oldUser!.copyWith(newNotification: true);
                       await UserController.update(
@@ -165,26 +170,27 @@ class OrderCard extends StatelessWidget {
                         NotificationModel(
                           title: "",
                           message: "",
-                          sender: order.userEmail,
+                          sender: widget.order.userEmail,
                           receiver: UserController.currentUser!.email,
-                          product: order.product,
+                          product: widget.order.product,
                           time: DateTime.now(),
                         ),
                       );
                       final orderLog = OrderLog(
                           date: Formatter.dateOnly(DateTime.now()),
                           time: Formatter.timeOnly(DateTime.now()),
-                          orderName: itemName,
-                          orderQuantity: order.quantity,
-                          totalPrice: order.price,
+                          orderName: widget.itemName,
+                          orderQuantity: widget.order.quantity,
+                          totalPrice: widget.order.price,
                           orderCompletedBy:
                               UserController.currentUser!.address);
                       await LogOrder.log(orderLog.toJson());
                     },
                     onCompleted: () {
                       toastMessage(
-                          "Order done. Notifying $userName. Updating the order list in the next 100 seconds or you may pull to refresh",
+                          "Order done. Notifying ${widget.userName}. Updating the order list in the next 100 seconds or you may pull to refresh",
                           context);
+                      setState(() {});
                     },
                   );
                 },

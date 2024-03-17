@@ -6,7 +6,7 @@ import 'package:huls_coffee_house/pages/admin/orders/widgets/order_card.dart';
 import 'package:huls_coffee_house/utils/screen_size.dart';
 
 class OrderStream extends StatefulWidget {
-  const OrderStream({
+  OrderStream({
     super.key,
     // required this.orderList,
   });
@@ -38,6 +38,7 @@ class _OrderStreamState extends State<OrderStream> {
           } else {
             // Process the data from snapshot
             final orders = snapshot.data!;
+
 
             if (orders.isEmpty) {
               return Center(
