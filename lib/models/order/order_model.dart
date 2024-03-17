@@ -17,7 +17,7 @@ class OrderModel with _$OrderModel {
     required String userEmail,
     required String address,
     required DateTime time,
-    @Default(false) bool isCompleted,
+    @Default(false) bool isDelaySet,
     int? delay,
     DateTime? lastLocalUpdate,
   }) = _OrderModel;
@@ -35,7 +35,7 @@ enum OrderFields {
   userEmail,
   address,
   time,
-  isCompleted,
+  isDelaySet,
   delay,
   lastLocalUpdate
 }
