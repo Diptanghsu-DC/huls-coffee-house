@@ -265,6 +265,21 @@ class _HomepageState extends State<Homepage> {
                       ),
                       const SizedBox(
                         height: 200,
+                      ),
+                      SizedBox(
+                        width: width,
+                        child: Column(
+                          children: [
+                            const Text(
+                              "Developed by",
+                              style: TextStyle(fontFamily: 'SofiaPro'),
+                            ),
+                            Image.asset(
+                              "assets/images/ecell_logo.png",
+                              height: 100,
+                            )
+                          ],
+                        ),
                       )
                     ].separate(20),
                   ),
