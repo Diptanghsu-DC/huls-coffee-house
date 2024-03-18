@@ -12,6 +12,7 @@ part 'functions/_delete_impl.dart';
 part 'functions/_get_impl.dart';
 part 'functions/_get_all.dart';
 part 'functions/_set_timer_impl.dart';
+part 'functions/_countdown_timer_impl.dart';
 
 class OrderController {
   static const String _collectionName = "orders";
@@ -54,5 +55,9 @@ class OrderController {
 
   static Future<void> setTimer(OrderModel order, int delay) async {
     return await _setTimerImpl(order, delay);
+  }
+
+  static Future<void> initCountDown(OrderModel order, int initDelay) async {
+    return await _countdownTimerImpl(order, initDelay);
   }
 }
