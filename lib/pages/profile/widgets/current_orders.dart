@@ -113,7 +113,7 @@ class _CurrentOrdersState extends State<CurrentOrders> {
                                       ),
                                       orders[index].delay != null
                                           ? Text(
-                                              "Delay: + ${orders[index].delay! - 10} min",
+                                              "Delay: + ${orders[index].delay!} min",
                                               style: const TextStyle(
                                                 color: Colors.red,
                                                 fontFamily: "SofiaPro",
