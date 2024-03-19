@@ -69,6 +69,7 @@ dependencies:
   app_settings: ^5.1.1
   firebase_messaging: ^14.7.15
   gsheets: ^0.5.0
+  url_launcher: ^6.2.5
 
 dev_dependencies:
   freezed: ^2.4.6
