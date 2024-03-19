@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:huls_coffee_house/utils/utils.dart';
+import 'package:huls_coffee_house/utils/database/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/models.dart';
@@ -180,7 +184,25 @@ class _ProfilePage extends State<ProfilePage> {
                                 color: Colors.grey,
                               ),
                             )
-                          : Container(),
+                          : TextButton.icon(
+                              onPressed: () async {
+                                final Uri _url = Uri.parse(dotenv
+                                    .env[EnvValues.SPREADSHEET_URL.name]!);
+                                if (!await launchUrl(_url)) {
+                                  toastMessage(
+                                      "Cannot open Order History. Please contact developers",
+                                      context);
+                                }
+                              },
+                              label: const Text(
+                                "Previous Orders",
+                                style: AppStyles.pageText,
+                              ),
+                              icon: const Icon(
+                                Icons.chevron_right,
+                                color: Colors.grey,
+                              ),
+                            ),
 
                       // List of items
                     ].separate(20),
