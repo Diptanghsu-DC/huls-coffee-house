@@ -1,4 +1,4 @@
-# Campus Need - a Food Ordering and Delivery App by E-Cell NIT, Silchar
+# Campus Need - A Food Ordering and Delivery App by E-Cell NIT, Silchar
 
 Welcome to the E-Cell Food Delivery and Ordering App! This app provides a convenient platform for users to order food and have it delivered to their location (currently default to NIT Silchar).
 
