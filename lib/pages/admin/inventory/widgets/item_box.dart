@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/utils/item_class.dart';
+import 'package:huls_coffee_house/pages/admin/inventory/widgets/confirm_delete.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/widgets/edit_item_box.dart';
 import 'package:huls_coffee_house/utils/screen_size.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
@@ -54,36 +57,51 @@ class _ItemBoxState extends State<ItemBox> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: 150,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    // Placeholder for image
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(18.21),
-                      child: imageUrl == defaultImage
-                          ? Image.asset(
-                              imageUrl,
-                              fit: BoxFit.fill,
-                            )
-                          : CustomNetworkImage(
-                              url: imageUrl,
-                              height: height * 0.4,
-                              errorWidget: (BuildContext context, _, __) {
-                                return Image.asset(
-                                  mediaImage,
-                                  fit: BoxFit.cover,
+                  Stack(
+                    children: [
+                      Container(
+                        height: 150,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        // Placeholder for image
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(18.21),
+                          child: imageUrl == defaultImage
+                              ? Image.asset(
+                                  imageUrl,
+                                  fit: BoxFit.fill,
+                                )
+                              : CustomNetworkImage(
+                                  url: imageUrl,
                                   height: height * 0.4,
-                                );
-                              },
-                            ),
-                    ),
-                    // child: const Center(
-                    //   child: Icon(Icons.image, size: 50, color: Colors.grey),
-                    // ),
+                                  errorWidget: (BuildContext context, _, __) {
+                                    return Image.asset(
+                                      mediaImage,
+                                      fit: BoxFit.cover,
+                                      height: height * 0.4,
+                                    );
+                                  },
+                                ),
+                        ),
+                        // child: const Center(
+                        //   child: Icon(Icons.image, size: 50, color: Colors.grey),
+                        // ),
+                      ),
+                      widget.item.product!.isPopular
+                          ? Positioned(
+                              top: 0,
+                              right: 0,
+                              child: Icon(
+                                Icons.star,
+                                color: Colors.orange,
+                                size: width * 0.08,
+                              ),
+                            )
+                          : Container(),
+                    ],
                   ),
                   const SizedBox(height: 8),
                   Row(
@@ -160,21 +178,40 @@ class _ItemBoxState extends State<ItemBox> {
                     style: TextStyle(
                         fontFamily: 'SofiaPro', fontSize: width * 0.04),
                   ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: ElevatedButton(
-                      onPressed: editMode,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: orange,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(
+                        onPressed: editMode,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: orange,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                        ),
+                        child: const Text(
+                          "Edit",
+                          style: TextStyle(
+                              color: Colors.white, fontFamily: 'SofiaPro'),
+                        ),
                       ),
-                      child: const Text(
-                        "Edit",
-                        style: TextStyle(
-                            color: Colors.white, fontFamily: 'SofiaPro'),
+                      ElevatedButton(
+                        onPressed: () => showDialog(
+                          context: context,
+                          builder: (context) =>
+                              ConfirmDelProduct(product: widget.item.product),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                        ),
+                        child: const Text(
+                          "Delete",
+                          style: TextStyle(
+                              color: Colors.white, fontFamily: 'SofiaPro'),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
               ),
