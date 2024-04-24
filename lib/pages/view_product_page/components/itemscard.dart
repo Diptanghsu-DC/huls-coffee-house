@@ -6,7 +6,7 @@ import 'package:huls_coffee_house/utils/utils.dart';
 class ItemsCard extends StatelessWidget {
   String itemName;
   num itemPrice;
-  String category;
+  String? itemDesc;
   num? itemRating;
   String itemImage;
   num quantity;
@@ -15,7 +15,7 @@ class ItemsCard extends StatelessWidget {
     super.key,
     required this.itemName,
     required this.itemPrice,
-    required this.category,
+    this.itemDesc,
     this.itemRating,
     required this.itemImage,
     required this.quantity,
@@ -181,16 +181,18 @@ class ItemsCard extends StatelessWidget {
         Positioned(
           top: height * 0.274,
           left: width * 0.037,
-          child: Text(
-            category, //itemsubname
-            style: const TextStyle(
-              color: Color(0xFF5B5B5E),
-              fontSize: 14.57,
-              fontFamily: 'Sofia Pro',
-              fontWeight: FontWeight.w400,
-              height: 0,
-            ),
-          ),
+          child: itemDesc != null
+              ? Text(
+                  itemDesc!, //itemsubname
+                  style: const TextStyle(
+                    color: Color(0xFF5B5B5E),
+                    fontSize: 14.57,
+                    fontFamily: 'Sofia Pro',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                )
+              : Text(""),
         ),
         Visibility(
           visible: quantity == 0,

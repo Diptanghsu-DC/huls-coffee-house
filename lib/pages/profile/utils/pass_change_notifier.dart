@@ -1,5 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:huls_coffee_house/utils/database/constants.dart';
 
 class PassChangeNotifier {
   Future<void> sendEmailVer(String recipient) async {
@@ -8,7 +9,7 @@ class PassChangeNotifier {
     final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
     final bodyMap = {
       'apikey': emailVerAPI,
-      'from': "diptangshu1617@gmail.com",
+      'from': dotenv.env[EnvValues.SENDER_EMAIL.name],
       'to': recipient,
       'subject': "Password change alert",
       'body_html':

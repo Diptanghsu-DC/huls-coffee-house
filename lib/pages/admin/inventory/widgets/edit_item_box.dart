@@ -29,6 +29,8 @@ class ElevatedItemBox extends StatefulWidget {
 class _ElevatedItemBoxState extends State<ElevatedItemBox> {
   late num counter = widget.item.count;
 
+  bool isPopular = false;
+
   //image variable
   Uint8List? _image;
 
@@ -54,7 +56,14 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
     if (widget.item.product != null) {
       imageUrl = widget.item.product!.imageURL;
       imagePublicID = widget.item.product!.imagePublicID;
+      isPopular = widget.item.product!.isPopular;
     }
+  }
+
+  void togglePopular() {
+    setState(() {
+      isPopular = !isPopular;
+    });
   }
 
   //function to get image from gallery
@@ -75,9 +84,9 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
   }
 
   Future<ProductModel?> prepareProduct() async {
-    toastMessage(
-        "Preparing Your product...Please wait and refresh after few moments",
-        context);
+    // toastMessage(
+    //     "Preparing Your product...Please wait and refresh after few moments",
+    //     context);
     // print("the product is $")
     ProductModel? product;
     UploadInformation? productImageInfo;
@@ -99,23 +108,53 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
       throw Exception("Couldn't upload image. Please try again");
     }
     print("creating product");
-    product = ProductModel(
-      imageURL: productImageInfo.url!,
-      imagePublicID: productImageInfo.publicID!,
-      itemName: widget.item.itemNameController.text.toString().trim() == ""
-          ? widget.item.product!.itemName
-          : widget.item.itemNameController.text.toString().trim(),
-      itemDesc: widget.item.descriptionController.text.toString().trim() == ""
-          ? widget.item.product?.itemDesc
-          : widget.item.descriptionController.text.toString().trim(),
-      category: widget.item.categoryController.text.toString().trim() == ""
-          ? widget.item.product!.category
-          : widget.item.categoryController.text.toString().trim(),
-      price: widget.item.priceController.text.toString().trim() == ""
-          ? widget.item.product!.price
-          : num.parse(widget.item.priceController.text.toString()),
-      quantity: counter,
-    );
+    if (widget.item.product != null) {
+      toastMessage(
+          "Preparing Your product...Please wait and refresh after few moments",
+          context);
+      product = ProductModel(
+        imageURL: productImageInfo.url!,
+        imagePublicID: productImageInfo.publicID!,
+        itemName: widget.item.itemNameController.text.toString().trim() == ""
+            ? widget.item.product!.itemName
+            : widget.item.itemNameController.text.toString().trim(),
+        itemDesc: widget.item.descriptionController.text.toString().trim() == ""
+            ? widget.item.product?.itemDesc
+            : widget.item.descriptionController.text.toString().trim(),
+        category: widget.item.categoryController.text.toString().trim() == ""
+            ? widget.item.product!.category
+            : widget.item.categoryController.text.toString().trim(),
+        price: widget.item.priceController.text.toString().trim() == ""
+            ? widget.item.product!.price
+            : num.parse(widget.item.priceController.text.toString()),
+        quantity: counter,
+        isPopular: isPopular,
+      );
+    } else {
+      if (widget.item.itemNameController.text.toString().trim() == "" ||
+          widget.item.categoryController.text.toString().trim() == "" ||
+          widget.item.priceController.text.toString().trim() == "" ||
+          counter < 0) {
+        toastMessage(
+            "Name, Category, Price and Quantity cannot be empty", context);
+        throw Exception();
+      }
+      toastMessage(
+          "Preparing Your product...Please wait and refresh after few moments",
+          context);
+      product = ProductModel(
+        imageURL: productImageInfo.url!,
+        imagePublicID: productImageInfo.publicID!,
+        itemName: widget.item.itemNameController.text.toString().trim(),
+        itemDesc: widget.item.descriptionController.text.toString().trim() == ""
+            ? null
+            : widget.item.descriptionController.text.toString().trim(),
+        category: widget.item.categoryController.text.toString().trim(),
+        price: num.parse(widget.item.priceController.text.toString().trim()),
+        quantity: counter,
+        isPopular: isPopular,
+      );
+    }
     print("returning product");
     return product;
   }
@@ -194,6 +233,12 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
                           : "Name : ${widget.item.product?.itemName}",
                       border: InputBorder.none,
                     ),
+                    validator: (value) {
+                      if (value!.isEmpty && widget.item.product == null) {
+                        return "Item Name Cannot be empty";
+                      }
+                      return null;
+                    },
                   ),
                 ),
                 Row(
@@ -255,15 +300,44 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
               ].separate(5),
             ),
             // const SizedBox(height: 4),
-            TextField(
-              controller: widget.item.descriptionController,
-              decoration: InputDecoration(
-                hintStyle: const TextStyle(fontFamily: 'SofiaPro'),
-                hintText: widget.item.product?.itemDesc == null
-                    ? "Add Desc"
-                    : "Desc : ${widget.item.product?.itemDesc}",
-                border: InputBorder.none,
-              ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: widget.item.descriptionController,
+                    decoration: InputDecoration(
+                      hintStyle: const TextStyle(fontFamily: 'SofiaPro'),
+                      hintText: widget.item.product?.itemDesc == null
+                          ? "Add Desc"
+                          : "Desc : ${widget.item.product?.itemDesc}",
+                      border: InputBorder.none,
+                    ),
+                  ),
+                ),
+                !isPopular
+                    ? Container(
+                        width: 40,
+                        height: 40,
+                        child: IconButton(
+                          onPressed: togglePopular,
+                          icon: Icon(
+                            Icons.star_border_outlined,
+                            color: Color.fromARGB(255, 179, 164, 22),
+                          ),
+                        ),
+                      )
+                    : Container(
+                        width: 40,
+                        height: 40,
+                        child: IconButton(
+                          onPressed: togglePopular,
+                          icon: Icon(
+                            Icons.star,
+                            color: Color.fromARGB(255, 179, 164, 22),
+                          ),
+                        ),
+                      ),
+              ],
             ),
             TextField(
               controller: widget.item.categoryController,
@@ -284,6 +358,7 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
                     : "Price : ${widget.item.product?.price}",
                 border: InputBorder.none,
               ),
+              keyboardType: TextInputType.number,
             ),
             Align(
               alignment: Alignment.bottomRight,

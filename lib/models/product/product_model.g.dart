@@ -20,6 +20,7 @@ _$ProductModelImpl _$$ProductModelImplFromJson(Map<String, dynamic> json) =>
       lastLocalUpdate: json['lastLocalUpdate'] == null
           ? null
           : DateTime.parse(json['lastLocalUpdate'] as String),
+      isPopular: json['isPopular'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$ProductModelImplToJson(_$ProductModelImpl instance) =>
@@ -34,4 +35,5 @@ Map<String, dynamic> _$$ProductModelImplToJson(_$ProductModelImpl instance) =>
       'ratings': instance.ratings,
       'discount': instance.discount,
       'lastLocalUpdate': instance.lastLocalUpdate?.toIso8601String(),
+      'isPopular': instance.isPopular,
     };

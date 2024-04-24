@@ -123,7 +123,8 @@ class _SplashScreenState extends State<SplashScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                    "assets/images/Blue_and_White_Circle_Surfing_Club_Logo-removebg-preview (1).png"),
+                  logoImg,
+                ),
                 CircularProgressIndicator(
                   color: orange,
                 )

@@ -32,7 +32,10 @@ Future<bool> _checkDuplicateImpl(ProductModel product) async {
       "quantity": product.quantity,
       "ratings": product.ratings,
       "imageURL": product.imageURL,
+      "imagePublicID": product.imagePublicID,
       "lastLocalUpdate": product.lastLocalUpdate,
+      "isPopular": product.isPopular,
+      "discount": product.discount,
     };
 
     print("new data created");

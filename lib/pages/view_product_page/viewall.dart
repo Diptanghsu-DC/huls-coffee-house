@@ -113,7 +113,7 @@ class _ViewAllState extends State<ViewAll> {
                                           itemName: products[index].itemName,
                                           itemPrice: products[index].price,
                                           itemRating: products[index].ratings,
-                                          category: products[index].category,
+                                          itemDesc: products[index].itemDesc,
                                           quantity: products[index].quantity,
                                         ),
                                       ),

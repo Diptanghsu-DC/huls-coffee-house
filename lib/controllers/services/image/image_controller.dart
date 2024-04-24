@@ -5,6 +5,7 @@ import 'package:cloudinary/cloudinary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:huls_coffee_house/utils/database/constants.dart';
 import 'package:huls_coffee_house/widgets/compressed_image/image_compressor.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:efficacy_admin/widgets/compressed_image/image_compressor.dart';
@@ -13,7 +14,7 @@ part 'functions/_upload_image_impl.dart';
 part 'functions/_compress_image_impl.dart';
 part 'functions/_get_min_size_impl.dart';
 part 'functions/_user_compression_impl.dart';
-// part 'functions/_delete_impl.dart';
+part 'functions/_delete_impl.dart';
 
 class UploadInformation {
   final String? url;
@@ -89,7 +90,7 @@ class ImageController {
     );
   }
 
-  // static Future<void> delete({required String publicID}) async {
-  //   return await _deleteImpl(publicID: publicID);
-  // }
+  static Future<void> delete({required String publicID}) async {
+    return await _deleteImpl(publicID: publicID);
+  }
 }

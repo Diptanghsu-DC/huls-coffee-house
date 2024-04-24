@@ -200,6 +200,13 @@ class _HomepageState extends State<Homepage> {
                               List<ProductModel> products = snapshot.data ?? [];
                               if (filteredProducts.isNotEmpty) {
                                 products = filteredProducts;
+                              } else {
+                                List<ProductModel> new_products = products
+                                    .where((element) => element.isPopular)
+                                    .toList();
+                                if (new_products.length >= 4) {
+                                  products = new_products;
+                                }
                               }
                               if (snapshot.hasError) {
                                 return Text(
@@ -227,7 +234,8 @@ class _HomepageState extends State<Homepage> {
                               return SizedBox(
                                 height: height * 0.3,
                                 child: ListView.builder(
-                                  itemCount: products.length,
+                                  itemCount:
+                                      products.length > 4 ? 4 : products.length,
                                   scrollDirection: Axis.horizontal,
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
@@ -251,7 +259,7 @@ class _HomepageState extends State<Homepage> {
                                           itemName: products[index].itemName,
                                           itemPrice: products[index].price,
                                           itemRating: products[index].ratings,
-                                          category: products[index].category,
+                                          itemDesc: products[index].itemDesc,
                                           quantity: products[index].quantity,
                                         ),
                                       ),
