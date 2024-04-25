@@ -30,7 +30,7 @@ class PrivacyPolicyPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               const Text(
-                'Last Updated: 20 March, 2024', //date to be updated later
+                'Last Updated: 24 April, 2024', //date to be updated later
                 style: TextStyle(fontFamily: 'SofiaPro'),
               ),
               const SizedBox(height: 16),
@@ -220,7 +220,7 @@ class PrivacyPolicyPage extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               const Text(
-                'If you have any questions or concerns about this Privacy Policy or our practices, please contact us at [contact@hulcoffeehouse.com].',
+                'If you have any questions or concerns about this Privacy Policy or our practices, please contact us at seensaseedbond64@gmail.com.',
                 style: TextStyle(fontFamily: 'SofiaPro'),
               ),
               const SizedBox(height: 16),
