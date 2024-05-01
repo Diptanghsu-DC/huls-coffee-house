@@ -16,7 +16,7 @@ class Authenticator {
       'to': recipient,
       'subject': "OTP for Email Verification",
       'body_html':
-          "Dear user, your otp for huls coffee house is $otp. Thank you for supporting huls coffee house",
+          "Dear user, your OTP for Campus 24 x 7 is $otp. Thank you for supporting Campus 24 x 7",
     };
 
     // try {

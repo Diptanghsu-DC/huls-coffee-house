@@ -42,11 +42,13 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
   final TextEditingController passController = TextEditingController();
   final TextEditingController confirmController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
 
   void init() {
     nameController.text = UserController.currentUser!.name;
     emailController.text = UserController.currentUser!.email;
     phoneController.text = UserController.currentUser!.phone.toString();
+    addressController.text = UserController.currentUser!.address;
   }
 
   @override
@@ -65,14 +67,18 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
           UserController.currentUser = !isPermit
               ? UserController.currentUser?.copyWith(
                   name: nameController.text,
-                  email: emailController.text,
+                  email: emailController.text.trim(),
                   // password: passController.text.toString() == confirmController.text.toString() ? passController.text,
-                  phone: num.parse(phoneController.text))
+                  phone: num.parse(phoneController.text),
+                  address: addressController.text.trim(),
+                )
               : UserController.currentUser?.copyWith(
                   name: nameController.text,
-                  email: emailController.text,
-                  password: passController.text,
-                  phone: num.parse(phoneController.text));
+                  email: emailController.text.trim(),
+                  password: passController.text.trim(),
+                  phone: num.parse(phoneController.text),
+                  address: addressController.text.trim(),
+                );
           await UserController.update(oldUser: oldUser);
           if (isPermit) {
             await PassChangeNotifier()
@@ -188,11 +194,43 @@ class _UserUpdatePageState extends State<UserUpdatePage> {
                         child: SizedBox(
                             height: fieldHeight,
                             child: CustomField(
+                              enabled: false,
                               controller: emailController,
                               hintText: "Your email",
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "email cannot be empty";
+                                }
+                                return null;
+                              },
+                            )),
+                      ),
+                      SizedBox(
+                        height: sGap,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: padding),
+                        child: Text(
+                          "Address",
+                          style: TextStyle(
+                              fontFamily: 'SofiaPro',
+                              color: fontColor,
+                              fontSize: sFontSize),
+                        ),
+                      ),
+                      SizedBox(
+                        height: sGap,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: padding, right: padding),
+                        child: SizedBox(
+                            height: fieldHeight,
+                            child: CustomField(
+                              controller: addressController,
+                              hintText: "Your address",
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "address cannot be empty";
                                 }
                                 return null;
                               },

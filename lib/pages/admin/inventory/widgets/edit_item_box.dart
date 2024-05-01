@@ -84,9 +84,7 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
   }
 
   Future<ProductModel?> prepareProduct() async {
-    // toastMessage(
-    //     "Preparing Your product...Please wait and refresh after few moments",
-    //     context);
+    toastMessage("Preparing Your product...Please wait", context);
     // print("the product is $")
     ProductModel? product;
     UploadInformation? productImageInfo;
@@ -109,9 +107,9 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
     }
     print("creating product");
     if (widget.item.product != null) {
-      toastMessage(
-          "Preparing Your product...Please wait and refresh after few moments",
-          context);
+      // toastMessage(
+      //     "Preparing Your product...Please wait and refresh after few moments",
+      //     context);
       product = ProductModel(
         imageURL: productImageInfo.url!,
         imagePublicID: productImageInfo.publicID!,
@@ -149,7 +147,8 @@ class _ElevatedItemBoxState extends State<ElevatedItemBox> {
         itemDesc: widget.item.descriptionController.text.toString().trim() == ""
             ? null
             : widget.item.descriptionController.text.toString().trim(),
-        category: widget.item.categoryController.text.toString().trim(),
+        category:
+            widget.item.categoryController.text.toString().trim().toLowerCase(),
         price: num.parse(widget.item.priceController.text.toString().trim()),
         quantity: counter,
         isPopular: isPopular,

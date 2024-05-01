@@ -73,7 +73,7 @@ class AddToCartButton extends StatelessWidget {
             ),
             Positioned(
               top: height * 0.06625 / 3,
-              right: 6,
+              right: 12,
               child: const Text(
                 'ADD TO CART ',
                 style: TextStyle(

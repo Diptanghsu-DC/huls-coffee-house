@@ -47,10 +47,11 @@ class _NewPassPageState extends State<NewPassPage> {
         context: context,
         asyncTask: () async {
           List<UserModel?> listUser =
-              await UserController.get(email: ForgotAlert.emailEntered).first;
+              await UserController.get(email: ForgotAlert.emailEntered.trim())
+                  .first;
           UserModel? oldUser = listUser[0];
           UserController.currentUser = oldUser?.copyWith(
-            password: passChangeController.text,
+            password: passChangeController.text.trim(),
           );
           await UserController.update(oldUser: oldUser);
           await PassChangeNotifier()

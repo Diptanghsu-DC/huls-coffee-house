@@ -68,8 +68,10 @@ class _CartPage extends State<CartPage> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 16),
                     child: CartTotalCost(
-                        totalFunc: () =>
-                            calculateTotalCost(UserController.cartList)),
+                      cartQuantity: UserController.cartList.length,
+                      totalFunc: () =>
+                          calculateTotalCost(UserController.cartList),
+                    ),
                   ),
                 ),
               ],

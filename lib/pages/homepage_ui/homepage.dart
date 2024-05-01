@@ -272,7 +272,19 @@ class _HomepageState extends State<Homepage> {
                         ],
                       ),
                       const SizedBox(
-                        height: 200,
+                        height: 25,
+                      ),
+                      const Center(
+                        child: Text(
+                          "Swipe Right >>",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: orange,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 75,
                       ),
                       SizedBox(
                         width: width,

@@ -22,7 +22,7 @@ class PrivacyPolicyPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Privacy Policy for Campus Need App',
+                'Privacy Policy for Campus 24 x 7 App',
                 style: TextStyle(
                     fontFamily: 'SofiaPro',
                     fontSize: 20,
@@ -30,12 +30,12 @@ class PrivacyPolicyPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               const Text(
-                'Last Updated: 24 April, 2024', //date to be updated later
+                'Last Updated: 26 April, 2024', //date to be updated later
                 style: TextStyle(fontFamily: 'SofiaPro'),
               ),
               const SizedBox(height: 16),
               const Text(
-                'Thank you for choosing Campus Need, your trusted online grocery and fast-food selling app. This Privacy Policy is designed to help you understand how we collect, use, disclose, and safeguard your personal information when you use our mobile application and services. Please take a moment to review this policy and contact us if you have any questions or concerns.',
+                'Thank you for choosing Campus 24 x 7, your trusted online grocery and fast-food selling app. This Privacy Policy is designed to help you understand how we collect, use, disclose, and safeguard your personal information when you use our mobile application and services. Please take a moment to review this policy and contact us if you have any questions or concerns.',
                 style: TextStyle(fontFamily: 'SofiaPro'),
               ),
               const SizedBox(height: 16),

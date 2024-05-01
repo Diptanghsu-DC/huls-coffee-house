@@ -1,6 +1,9 @@
 import 'dart:math';
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:huls_coffee_house/controllers/controllers.dart';
+import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/login_ui/utils/authenticator.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
@@ -48,6 +51,8 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController addressController = TextEditingController();
   TextEditingController countryCode = TextEditingController();
 
+  bool isAvailable = false;
+
   void initState() {
     countryCode.text = "+91";
     super.initState();
@@ -66,6 +71,15 @@ class _SignupPageState extends State<SignupPage> {
         context: context,
         asyncTask: () async {
           try {
+            List<UserModel> user = await UserController.get(
+              email: emailController.text.toString().trim(),
+              keepPassword: true,
+              forceGet: true,
+            ).first;
+            if (user.isNotEmpty) {
+              isAvailable = true;
+              throw Exception("User already exists!");
+            }
             final String otp = _generateRandomOtp(6);
             print("email entered is ${emailController.text.toString()}");
             SignupPage.verifyId = otp;
@@ -94,7 +108,9 @@ class _SignupPageState extends State<SignupPage> {
           }
         },
         onCompleted: () {
-          Navigator.pushNamed(context, OtpVerificationPage.routeName);
+          if(!isAvailable) {
+            Navigator.pushNamed(context, OtpVerificationPage.routeName);
+          }
         },
       );
     } else {
@@ -232,6 +248,9 @@ class _SignupPageState extends State<SignupPage> {
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return "email cannot be empty";
+                                        } else if (!EmailValidator.validate(
+                                            value)) {
+                                          return "Please enter valid email address";
                                         }
                                         return null;
                                       },
