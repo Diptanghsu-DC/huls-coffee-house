@@ -1,4 +1,4 @@
-# Campus Need - A Food Ordering and Delivery App by E-Cell NIT, Silchar
+# Campus 24 x 7 - A Food Ordering and Delivery App by E-Cell NIT, Silchar
 
 Welcome to the E-Cell Food Delivery and Ordering App! This app provides a convenient platform for users to order food and have it delivered to their location (currently default to NIT Silchar).
 
@@ -12,7 +12,7 @@ Welcome to the E-Cell Food Delivery and Ordering App! This app provides a conven
 
 ## Getting Started
 
-To get started with Campus Need, follow these steps:
+To get started with Campus 24 x 7, follow these steps:
 
 1. **Installation:** [Insert installation instructions here]
 2. **Sign Up:** Create an account or sign in to start ordering food.
@@ -23,11 +23,11 @@ To get started with Campus Need, follow these steps:
 
 ## Contributing
 
-We welcome contributions from the community to help improve the Campus Need App. If you have suggestions for new features, bug fixes, or other enhancements, please feel free to submit a pull request.
+We welcome contributions from the community to help improve the Campus 24 x 7 App. If you have suggestions for new features, bug fixes, or other enhancements, please feel free to submit a pull request.
 
 ## Support
 
-If you encounter any issues or have questions about the Campus Need App, please don't hesitate to contact our support team at ecell@nits.ac.in.
+If you encounter any issues or have questions about the Campus 24 x 7 App, please don't hesitate to contact our support team at ecell@nits.ac.in.
 
 ## License
 
@@ -35,6 +35,6 @@ This project is licensed under the [E-Cell Food Delivery and Ordering App Propri
 
 ## Acknowledgements
 
-We would like to thank all contributors who have helped make the Campus Need App possible.
+We would like to thank all contributors who have helped make the Campus 24 x 7 App possible.
 
 

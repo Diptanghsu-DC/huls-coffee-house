@@ -11,9 +11,11 @@ class CartTotalCost extends StatelessWidget {
   const CartTotalCost({
     super.key,
     required this.totalFunc,
+    required this.cartQuantity,
   });
 
   final Function totalFunc;
+  final int cartQuantity;
 
   @override
   Widget build(BuildContext context) {
@@ -73,11 +75,13 @@ class CartTotalCost extends StatelessWidget {
               height: height * 0.075,
               child: CustomButton(
                 text: "CHECKOUT",
-                onPressed: () => Navigator.pushNamed(
-                  context,
-                  CheckoutPage.routeName,
-                  arguments: {'checkoutItems': UserController.cartList},
-                ),
+                onPressed: () => cartQuantity != 0
+                    ? Navigator.pushNamed(
+                        context,
+                        CheckoutPage.routeName,
+                        arguments: {'checkoutItems': UserController.cartList},
+                      )
+                    : null,
               ),
             )),
       ],

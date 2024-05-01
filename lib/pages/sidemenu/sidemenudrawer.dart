@@ -87,30 +87,6 @@ Widget buildCustomDrawer(BuildContext context) {
                           children: [
                             InkWell(
                               onTap: () => Navigator.pushNamed(
-                                  context, AboutUsPage.routeName),
-                              child: const SideMenuCard(
-                                iconname: CupertinoIcons.info,
-                                title: 'About Us',
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () => Navigator.pushNamed(
-                                  context, PrivacyPolicyPage.routeName),
-                              child: const SideMenuCard(
-                                iconname: CupertinoIcons.lock,
-                                title: 'Privacy Policy',
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () => Navigator.pushNamed(
-                                  context, ProfilePage.routeName),
-                              child: const SideMenuCard(
-                                iconname: CupertinoIcons.profile_circled,
-                                title: 'Account',
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () => Navigator.pushNamed(
                                   context, CartPage.routeName),
                               child: const SideMenuCard(
                                 iconname: CupertinoIcons.cart,
@@ -126,7 +102,31 @@ Widget buildCustomDrawer(BuildContext context) {
                                 iconname: CupertinoIcons.bell,
                                 title: 'Notifications',
                               ),
-                            )
+                            ),
+                            InkWell(
+                              onTap: () => Navigator.pushNamed(
+                                  context, ProfilePage.routeName),
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.profile_circled,
+                                title: 'Account',
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () => Navigator.pushNamed(
+                                  context, AboutUsPage.routeName),
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.info,
+                                title: 'About Us',
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () => Navigator.pushNamed(
+                                  context, PrivacyPolicyPage.routeName),
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.lock,
+                                title: 'Privacy Policy',
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -137,32 +137,6 @@ Widget buildCustomDrawer(BuildContext context) {
                             left: width * 0.036, right: width * 0.075),
                         child: ListView(
                           children: [
-                            InkWell(
-                              onTap: () => Navigator.pushNamed(
-                                  context, AboutUsPage.routeName),
-                              child: const SideMenuCard(
-                                iconname: CupertinoIcons.info,
-                                title: 'About Us',
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(
-                                    context, PrivacyPolicyPage.routeName);
-                              },
-                              child: const SideMenuCard(
-                                iconname: CupertinoIcons.lock,
-                                title: 'Privacy Policy',
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () => Navigator.pushNamed(
-                                  context, ProfilePage.routeName),
-                              child: const SideMenuCard(
-                                iconname: CupertinoIcons.profile_circled,
-                                title: 'Account',
-                              ),
-                            ),
                             InkWell(
                               onTap: () {
                                 Navigator.pushNamed(
@@ -190,7 +164,33 @@ Widget buildCustomDrawer(BuildContext context) {
                                 iconname: CupertinoIcons.bell,
                                 title: 'Notifications',
                               ),
-                            )
+                            ),
+                            InkWell(
+                              onTap: () => Navigator.pushNamed(
+                                  context, ProfilePage.routeName),
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.profile_circled,
+                                title: 'Account',
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () => Navigator.pushNamed(
+                                  context, AboutUsPage.routeName),
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.info,
+                                title: 'About Us',
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, PrivacyPolicyPage.routeName);
+                              },
+                              child: const SideMenuCard(
+                                iconname: CupertinoIcons.lock,
+                                title: 'Privacy Policy',
+                              ),
+                            ),
                           ],
                         ),
                       ),

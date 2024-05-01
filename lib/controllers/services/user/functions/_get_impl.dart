@@ -8,17 +8,17 @@ Stream<List<UserModel>> _getImpl({
   bool forceGet = false,
 }) async* {
   print("entering fetchLocal...");
-  List<UserModel> filteredModels = await _fetchLocal(
-    email: email,
-    id: id,
-    nameStartsWith: nameStartsWith,
-    keepPassword: keepPassword,
-    forceGet: forceGet,
-  );
-  if (filteredModels.isNotEmpty) yield filteredModels;
+  // List<UserModel> filteredModels = await _fetchLocal(
+  //   email: email,
+  //   id: id,
+  //   nameStartsWith: nameStartsWith,
+  //   keepPassword: keepPassword,
+  //   forceGet: forceGet,
+  // );
+  // if (filteredModels.isNotEmpty) yield filteredModels;
 
   print("entering fetch from backend...");
-  filteredModels = await _fetchFromBackend(
+  List<UserModel> filteredModels = await _fetchFromBackend(
     email: email,
     id: id,
     nameStartsWith: nameStartsWith,

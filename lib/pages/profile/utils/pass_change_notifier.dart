@@ -13,7 +13,7 @@ class PassChangeNotifier {
       'to': recipient,
       'subject': "Password change alert",
       'body_html':
-          "Dear user, your password for huls coffee house has been successfully changed. Thank you for supporting huls coffee house",
+          "Dear user, your password for Campus 24 x 7 has been successfully changed. Thank you for supporting Campus 24 x 7",
     };
 
     // try {

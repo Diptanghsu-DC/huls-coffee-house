@@ -9,19 +9,22 @@ class CustomField extends StatelessWidget {
   TextStyle? textStyle;
   TextInputType? textInputType;
   TextAlign textAlign;
+  bool? enabled;
   final String? Function(String?) validator;
 
-  CustomField(
-      {super.key,
-      this.hintText,
-      this.controller,
-      this.maxLength,
-      this.suffixIcon,
-      required this.validator,
-      this.obscureText = false,
-      this.textStyle,
-      this.textInputType,
-      this.textAlign = TextAlign.start});
+  CustomField({
+    super.key,
+    this.hintText,
+    this.controller,
+    this.maxLength,
+    this.suffixIcon,
+    required this.validator,
+    this.obscureText = false,
+    this.textStyle,
+    this.textInputType,
+    this.textAlign = TextAlign.start,
+    this.enabled,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +33,7 @@ class CustomField extends StatelessWidget {
     Color borderColor = const Color.fromRGBO(254, 114, 76, 1);
     double radius = 10;
     return TextFormField(
+      enabled: enabled,
       style: textStyle,
       keyboardType: textInputType,
       validator: validator,
