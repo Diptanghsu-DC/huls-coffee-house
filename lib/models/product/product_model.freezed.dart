@@ -30,6 +30,7 @@ mixin _$ProductModel {
   num? get ratings => throw _privateConstructorUsedError;
   int? get discount => throw _privateConstructorUsedError;
   DateTime? get lastLocalUpdate => throw _privateConstructorUsedError;
+  bool get isPopular => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +54,8 @@ abstract class $ProductModelCopyWith<$Res> {
       num quantity,
       num? ratings,
       int? discount,
-      DateTime? lastLocalUpdate});
+      DateTime? lastLocalUpdate,
+      bool isPopular});
 }
 
 /// @nodoc
@@ -79,6 +81,7 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? ratings = freezed,
     Object? discount = freezed,
     Object? lastLocalUpdate = freezed,
+    Object? isPopular = null,
   }) {
     return _then(_value.copyWith(
       imageURL: null == imageURL
@@ -121,6 +124,10 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.lastLocalUpdate
           : lastLocalUpdate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      isPopular: null == isPopular
+          ? _value.isPopular
+          : isPopular // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -143,7 +150,8 @@ abstract class _$$ProductModelImplCopyWith<$Res>
       num quantity,
       num? ratings,
       int? discount,
-      DateTime? lastLocalUpdate});
+      DateTime? lastLocalUpdate,
+      bool isPopular});
 }
 
 /// @nodoc
@@ -167,6 +175,7 @@ class __$$ProductModelImplCopyWithImpl<$Res>
     Object? ratings = freezed,
     Object? discount = freezed,
     Object? lastLocalUpdate = freezed,
+    Object? isPopular = null,
   }) {
     return _then(_$ProductModelImpl(
       imageURL: null == imageURL
@@ -209,6 +218,10 @@ class __$$ProductModelImplCopyWithImpl<$Res>
           ? _value.lastLocalUpdate
           : lastLocalUpdate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      isPopular: null == isPopular
+          ? _value.isPopular
+          : isPopular // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -226,7 +239,8 @@ class _$ProductModelImpl extends _ProductModel {
       required this.quantity,
       this.ratings,
       this.discount,
-      this.lastLocalUpdate})
+      this.lastLocalUpdate,
+      this.isPopular = false})
       : super._();
 
   factory _$ProductModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -252,10 +266,13 @@ class _$ProductModelImpl extends _ProductModel {
   final int? discount;
   @override
   final DateTime? lastLocalUpdate;
+  @override
+  @JsonKey()
+  final bool isPopular;
 
   @override
   String toString() {
-    return 'ProductModel(imageURL: $imageURL, imagePublicID: $imagePublicID, itemName: $itemName, itemDesc: $itemDesc, category: $category, price: $price, quantity: $quantity, ratings: $ratings, discount: $discount, lastLocalUpdate: $lastLocalUpdate)';
+    return 'ProductModel(imageURL: $imageURL, imagePublicID: $imagePublicID, itemName: $itemName, itemDesc: $itemDesc, category: $category, price: $price, quantity: $quantity, ratings: $ratings, discount: $discount, lastLocalUpdate: $lastLocalUpdate, isPopular: $isPopular)';
   }
 
   @override
@@ -280,7 +297,9 @@ class _$ProductModelImpl extends _ProductModel {
             (identical(other.discount, discount) ||
                 other.discount == discount) &&
             (identical(other.lastLocalUpdate, lastLocalUpdate) ||
-                other.lastLocalUpdate == lastLocalUpdate));
+                other.lastLocalUpdate == lastLocalUpdate) &&
+            (identical(other.isPopular, isPopular) ||
+                other.isPopular == isPopular));
   }
 
   @JsonKey(ignore: true)
@@ -296,7 +315,8 @@ class _$ProductModelImpl extends _ProductModel {
       quantity,
       ratings,
       discount,
-      lastLocalUpdate);
+      lastLocalUpdate,
+      isPopular);
 
   @JsonKey(ignore: true)
   @override
@@ -323,7 +343,8 @@ abstract class _ProductModel extends ProductModel {
       required final num quantity,
       final num? ratings,
       final int? discount,
-      final DateTime? lastLocalUpdate}) = _$ProductModelImpl;
+      final DateTime? lastLocalUpdate,
+      final bool isPopular}) = _$ProductModelImpl;
   const _ProductModel._() : super._();
 
   factory _ProductModel.fromJson(Map<String, dynamic> json) =
@@ -349,6 +370,8 @@ abstract class _ProductModel extends ProductModel {
   int? get discount;
   @override
   DateTime? get lastLocalUpdate;
+  @override
+  bool get isPopular;
   @override
   @JsonKey(ignore: true)
   _$$ProductModelImplCopyWith<_$ProductModelImpl> get copyWith =>

@@ -44,8 +44,8 @@ class _LoginPageState extends State<LoginPage> {
         asyncTask: () async {
           try {
             user = await UserController.login(
-                email: emailController.text.toString(),
-                password: passController.text.toString());
+                email: emailController.text.toString().trim(),
+                password: passController.text.toString().trim());
             isUserLogged = true;
           } catch (error) {
             // Failed login

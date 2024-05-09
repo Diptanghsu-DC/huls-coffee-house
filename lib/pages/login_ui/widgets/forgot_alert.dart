@@ -77,7 +77,7 @@ class _ForgotAlertState extends State<ForgotAlert> {
                 context: context,
                 asyncTask: () async {
                   user = await UserController.get(
-                    email: _emailController.text,
+                    email: _emailController.text.trim(),
                     keepPassword: true,
                     forceGet: true,
                   ).first;
@@ -98,9 +98,9 @@ class _ForgotAlertState extends State<ForgotAlert> {
                     // );
                     ForgotAlert.forgotOtp += _generateRandomOtp(6);
                     Authenticator().sendEmailOtp(ForgotAlert.forgotOtp,
-                        _emailController.text, user[0].phone.toString());
+                        _emailController.text.trim(), user[0].phone.toString());
                     ForgotAlert.emailEntered +=
-                        _emailController.text.toString();
+                        _emailController.text.toString().trim();
                     Navigator.pushNamed(context, OtpVerificationPage.routeName);
                   } else {
                     if (!dialogContext.mounted) return;

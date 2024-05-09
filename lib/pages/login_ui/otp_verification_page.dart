@@ -60,8 +60,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
             user = await UserController.create(UserModel(
               deviceToken: NotificationManager().token,
               name: SignupPage.name,
-              email: SignupPage.email,
-              password: SignupPage.password,
+              email: SignupPage.email.trim(),
+              password: SignupPage.password.trim(),
               phone: num.parse(SignupPage.phone),
               address: SignupPage.address,
             ));
@@ -78,7 +78,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
             Navigator.pushNamedAndRemoveUntil(
                 context, MainPage.routeName, (route) => false);
           }
-        } else if (ForgotAlert.forgotOtp != "") {
+        } else if (ForgotAlert.forgotOtp == otp) {
           Navigator.pushNamed(context, NewPassPage.routeName);
         }
       },

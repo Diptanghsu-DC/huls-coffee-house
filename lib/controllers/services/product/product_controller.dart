@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/utils/local_database/local_database.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
@@ -11,6 +12,7 @@ part 'functions/_save_impl.dart';
 part 'functions/_get_impl.dart';
 part 'functions/_get_all_impl.dart';
 part 'functions/_get_quantity_impl.dart';
+part 'functions/_delete_impl.dart';
 
 class ProductController {
   static const String _collectionName = "products";
@@ -54,7 +56,7 @@ class ProductController {
     );
   }
 
-  static Future<void> delete(String id) async {
-    throw UnimplementedError();
+  static Future<void> delete(ProductModel product) async {
+    return await _deleteImpl(product);
   }
 }
