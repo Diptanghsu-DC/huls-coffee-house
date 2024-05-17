@@ -232,7 +232,7 @@ class _HomepageState extends State<Homepage> {
                               }
 
                               return SizedBox(
-                                height: height * 0.3,
+                                height: height * 0.4,
                                 child: ListView.builder(
                                   itemCount:
                                       products.length > 4 ? 4 : products.length,

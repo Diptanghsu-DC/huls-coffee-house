@@ -34,7 +34,7 @@ class ItemsCard extends StatelessWidget {
       children: [
         Container(
           width: width * 0.897,
-          height: height * 0.309,
+          // height: height * 0.309,
           decoration: ShapeDecoration(
             color: Colors.white,
             shape: RoundedRectangleBorder(
@@ -50,62 +50,121 @@ class ItemsCard extends StatelessWidget {
             ],
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(children: [
-                Container(
-                  width: width * 0.897,
-                  height: height * 0.206,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18.21),
-                    color: Colors.amber,
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(18.21),
-                    child: imageUrl == defaultImage
-                        ? Image.asset(
-                            imageUrl,
-                            fit: BoxFit.fill,
-                          )
-                        : CustomNetworkImage(
-                            url: imageUrl,
-                            height: height * 0.4,
-                            errorWidget: (BuildContext context, _, __) {
-                              return Image.asset(
-                                mediaImage,
-                                fit: BoxFit.cover,
-                                height: height * 0.4,
-                              );
-                            },
-                          ),
-                  ),
-                ),
-                Positioned(
-                  top: height * 0.0175,
-                  left: width * 0.037,
-                  child: Container(
-                    width: width * 0.226,
-                    height: height * 0.0425,
+              Stack(
+                children: [
+                  Container(
+                    width: width * 0.897,
+                    height: height * 0.206,
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          '₹',
-                          style:
-                              TextStyle(color: Color(0xFFFE724C), fontSize: 20),
-                        ),
-                        Text(
-                          itemPrice.toString(), //itemprice
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                      ],
+                      borderRadius: BorderRadius.circular(18.21),
+                      color: Colors.amber,
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(18.21),
+                      child: imageUrl == defaultImage
+                          ? Image.asset(
+                              imageUrl,
+                              fit: BoxFit.fill,
+                            )
+                          : CustomNetworkImage(
+                              url: imageUrl,
+                              height: height * 0.4,
+                              errorWidget: (BuildContext context, _, __) {
+                                return Image.asset(
+                                  mediaImage,
+                                  fit: BoxFit.cover,
+                                  height: height * 0.4,
+                                );
+                              },
+                            ),
                     ),
                   ),
-                ),
-              ])
-            ],
+                  Positioned(
+                    top: height * 0.0175,
+                    left: width * 0.037,
+                    child: Container(
+                      width: width * 0.226,
+                      height: height * 0.0425,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            '₹',
+                            style: TextStyle(
+                                color: Color(0xFFFE724C), fontSize: 20),
+                          ),
+                          Text(
+                            itemPrice.toString(), //itemprice
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(
+                    width: width * 0.7,
+                    child: Text(
+                      itemName, //itemname
+                      maxLines: 2,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.21,
+                        fontFamily: 'Sofia Pro',
+                        fontWeight: FontWeight.w400,
+                        height: 0,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    // width: width * 0.0944,
+                    // height: height * 0.0425,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(200),
+                      color: const Color(0xFFFE724C),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "$quantity",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          height: 0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 18.0, bottom: 18.0),
+                child: itemDesc != null
+                    ? Text(
+                        itemDesc!, //itemsubname
+                        style: const TextStyle(
+                          color: Color(0xFF5B5B5E),
+                          fontSize: 14.57,
+                          fontFamily: 'Sofia Pro',
+                          fontWeight: FontWeight.w400,
+                          height: 0,
+                        ),
+                      )
+                    : Text(""),
+              ),
+            ].separate(30),
           ),
         ),
         Positioned(
@@ -142,58 +201,66 @@ class ItemsCard extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-            top: height * 0.21,
-            left: width * 0.766,
-            child: Container(
-              alignment: Alignment.center,
-              width: width * 0.0944,
-              height: height * 0.0425,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: const Color(0xFFFE724C),
-              ),
-              child: Text(
-                "$quantity",
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
-                  height: 0,
-                ),
-              ),
-            )),
-        Positioned(
-          top: height * 0.239,
-          left: width * 0.037,
-          child: Text(
-            itemName, //itemname
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 18.21,
-              fontFamily: 'Sofia Pro',
-              fontWeight: FontWeight.w400,
-              height: 0,
-            ),
-          ),
-        ),
-        Positioned(
-          top: height * 0.274,
-          left: width * 0.037,
-          child: itemDesc != null
-              ? Text(
-                  itemDesc!, //itemsubname
-                  style: const TextStyle(
-                    color: Color(0xFF5B5B5E),
-                    fontSize: 14.57,
-                    fontFamily: 'Sofia Pro',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
-                  ),
-                )
-              : Text(""),
-        ),
+        // Positioned(
+        //   top: height * 0.21,
+        //   right: width * 0.03,
+        //   child: Container(
+        //     alignment: Alignment.center,
+        //     // width: width * 0.0944,
+        //     // height: height * 0.0425,
+        //     decoration: BoxDecoration(
+        //       borderRadius: BorderRadius.circular(200),
+        //       color: const Color(0xFFFE724C),
+        //     ),
+        //     child: Padding(
+        //       padding: const EdgeInsets.all(8.0),
+        //       child: Text(
+        //         "$quantity",
+        //         style: const TextStyle(
+        //           color: Colors.white,
+        //           fontSize: 20,
+        //           fontFamily: 'Poppins',
+        //           fontWeight: FontWeight.w500,
+        //           height: 0,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        // Positioned(
+        //   top: height * 0.239,
+        //   left: width * 0.037,
+        //   child: SizedBox(
+        //     width: width * 0.7,
+        //     child: Text(
+        //       itemName, //itemname
+        //       maxLines: 2,
+        //       style: const TextStyle(
+        //         color: Colors.black,
+        //         fontSize: 18.21,
+        //         fontFamily: 'Sofia Pro',
+        //         fontWeight: FontWeight.w400,
+        //         height: 0,
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        // Positioned(
+        //   top: height * 0.294,
+        //   left: width * 0.037,
+        //   child: itemDesc != null
+        //       ? Text(
+        //           itemDesc!, //itemsubname
+        //           style: const TextStyle(
+        //             color: Color(0xFF5B5B5E),
+        //             fontSize: 14.57,
+        //             fontFamily: 'Sofia Pro',
+        //             fontWeight: FontWeight.w400,
+        //             height: 0,
+        //           ),
+        //         )
+        //       : Text(""),
+        // ),
         Visibility(
           visible: quantity == 0,
           child: Container(
