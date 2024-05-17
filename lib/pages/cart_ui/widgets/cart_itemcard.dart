@@ -50,6 +50,7 @@ class _CartItemCardState extends State<CartItemCard> {
                     Text(
                       widget.cartItem.itemName, // Item name from backend
                       style: AppStyles.itemNameStyle,
+                      overflow: TextOverflow.clip,
                     ),
                     const SizedBox(
                       height: 20,
