@@ -43,13 +43,21 @@ class CategoryButton extends StatelessWidget {
                 backgroundImage: AssetImage(categoryImage),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 18.0),
-                child: Text(
-                  category,
-                  style: const TextStyle(
-                    color: orange,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
+                padding: const EdgeInsets.only(
+                  bottom: 18.0,
+                  left: 6.0,
+                ),
+                child: SizedBox(
+                  width: width * 0.2,
+                  child: Text(
+                    category,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      color: orange,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
                   ),
                 ),
               ),
