@@ -36,7 +36,7 @@ Future<List<OrderModel>> _fetchFromBackend({
 
   // print("query set");
 
-  query = query.where(OrderFields.user.name, isEqualTo: user);
+  query = query.where(OrderFields.userEmail.name, isEqualTo: user);
 
   if (product != null) {
     // print("2nd query");

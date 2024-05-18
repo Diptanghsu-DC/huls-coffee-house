@@ -19,6 +19,8 @@ class OrderController {
   static List<OrderModel> orderQueue = [];
   const OrderController._();
 
+  /// Sends a order to the vendor
+  /// If same order already given, then throws exception
   static Future<OrderModel?> create(OrderModel order) async {
     return await _createImpl(order);
   }
@@ -27,6 +29,7 @@ class OrderController {
     return await _checkDuplicateImpl(order);
   }
 
+  /// For a given user, returns all its current orders
   static Stream<List<OrderModel>> get({
     String? product,
     required String user,
@@ -40,6 +43,7 @@ class OrderController {
     );
   }
 
+  /// Returns all the active orders
   static Stream<List<OrderModel>> getAll({
     bool forceGet = false,
   }) {
@@ -53,10 +57,12 @@ class OrderController {
     return await _deleteImpl(order);
   }
 
+  /// Sets timer for the order
   static Future<void> setTimer(OrderModel order, int delay) async {
     return await _setTimerImpl(order, delay);
   }
 
+  /// Initializes timer for the order
   static Future<void> initCountDown(OrderModel order, int initDelay) async {
     return await _countdownTimerImpl(order, initDelay);
   }

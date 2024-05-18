@@ -9,15 +9,18 @@ class NotificationController {
   static const String _collectionName = "notifications";
   const NotificationController._();
 
+  /// Pushes a notification from user to vendor and vice-versa
   static Future<NotificationModel?> pushNotification(
       NotificationModel notification) async {
     return await _pushNotificationImpl(notification);
   }
 
+  /// Removes a notification after clearing
   static Future<void> deleteNotification(NotificationModel notification) async {
     return _deleteNotificationImpl(notification);
   }
 
+  /// Provided the receiver, returns all the notifications received by the receiver
   static Stream<List<NotificationModel>> get({
     required String receiver,
   }) {

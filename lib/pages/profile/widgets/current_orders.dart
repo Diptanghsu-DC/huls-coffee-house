@@ -42,7 +42,7 @@ class _CurrentOrdersState extends State<CurrentOrders> {
                 child: !UserController.currentUser!.isSeller
                     ? StreamBuilder<List<OrderModel>>(
                         stream: OrderController.get(
-                            user: UserController.currentUser!.name),
+                            user: UserController.currentUser!.email),
                         builder: (context, snapshot) {
                           if (snapshot.hasError) {
                             return Text('Error: ${snapshot.error}');

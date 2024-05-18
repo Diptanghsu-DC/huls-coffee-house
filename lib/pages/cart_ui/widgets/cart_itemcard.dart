@@ -47,10 +47,13 @@ class _CartItemCardState extends State<CartItemCard> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      widget.cartItem.itemName, // Item name from backend
-                      style: AppStyles.itemNameStyle,
-                      overflow: TextOverflow.clip,
+                    SizedBox(
+                      width: width * 0.4,
+                      child: Text(
+                        widget.cartItem.itemName, // Item name from backend
+                        style: AppStyles.itemNameStyle,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     const SizedBox(
                       height: 20,
