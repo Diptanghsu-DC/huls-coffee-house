@@ -17,20 +17,22 @@ class CheckoutButton extends StatelessWidget {
     final double height = screensize.height;
     final double width = screensize.width;
     return Container(
-        alignment: Alignment.center,
-        width: width * 0.930,
-        height: height * 0.063,
-        decoration: BoxDecoration(
-            shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(10)),
-        child: CustomButton(
+      alignment: Alignment.center,
+      width: width * 0.930,
+      height: height * 0.063,
+      decoration: BoxDecoration(
+          shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(10)),
+      child: CustomButton(
           text: "CHECKOUT NOW",
-          onPressed: () => Navigator.pushNamed(
-            context,
-            CheckoutPage.routeName,
-            arguments: {
-              'checkoutItems': [product]
-            },
-          ),
-        ));
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              CheckoutPage.routeName,
+              arguments: {
+                'checkoutItems': [product]
+              },
+            );
+          }),
+    );
   }
 }

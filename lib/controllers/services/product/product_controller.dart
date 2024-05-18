@@ -18,6 +18,8 @@ class ProductController {
   static const String _collectionName = "products";
   const ProductController._();
 
+  /// Creates a new product
+  /// If product already exists, updates it
   static Future<ProductModel?> create(ProductModel product) async {
     return await _createImpl(product);
   }
@@ -26,9 +28,11 @@ class ProductController {
     return await _checkDuplicateImpl(product);
   }
 
+  ///returns the quantity of the specified product from database
   static Future<num> getQuantity(ProductModel product) async {
     return await _getQuantityImpl(product);
   }
+
   // static Future<ProductModel> _save(ProductModel product) async {
   //   return await _saveImpl(product);
   // }
@@ -48,6 +52,7 @@ class ProductController {
     );
   }
 
+  /// Returns the stream of all products available
   static Stream<List<ProductModel>> getAll({
     bool forceGet = false,
   }) {
@@ -56,6 +61,7 @@ class ProductController {
     );
   }
 
+  /// Deletes a product from database
   static Future<void> delete(ProductModel product) async {
     return await _deleteImpl(product);
   }
