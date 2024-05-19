@@ -14,7 +14,7 @@ Welcome to the E-Cell Food Delivery and Ordering App! This app provides a conven
 
 To get started with Campus 24 x 7, follow these steps:
 
-1. **Installation:** [Insert installation instructions here]
+1. **Installation:** https://play.google.com/store/apps/details?id=com.campusneed.app
 2. **Sign Up:** Create an account or sign in to start ordering food.
 3. **Browse Restaurants:** Explore the list of available food items.
 4. **Place Your Order:** Select your desired items and proceed to checkout.
