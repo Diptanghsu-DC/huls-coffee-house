@@ -35,6 +35,7 @@ Future<bool> _checkDuplicateImpl(ProductModel product) async {
       "imagePublicID": product.imagePublicID,
       "lastLocalUpdate": product.lastLocalUpdate,
       "isPopular": product.isPopular,
+      "isDisabled": product.isDisabled,
       "discount": product.discount,
     };
 

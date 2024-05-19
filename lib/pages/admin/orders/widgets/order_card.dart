@@ -196,7 +196,7 @@ class OrderCard extends StatelessWidget {
                     text: "Notify Customer",
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        if (await showConfirmWarning(context, false)) {
+                        if (await showConfirmWarning(context, 0)) {
                           await OrderController.setTimer(order,
                               int.parse(timerController.text.toString()));
                           OrderController.initCountDown(order,
@@ -209,7 +209,7 @@ class OrderCard extends StatelessWidget {
                   CustomButton(
                     text: "Done",
                     onPressed: () async {
-                      if (await showConfirmWarning(context, true)) {
+                      if (await showConfirmWarning(context, 1)) {
                         showLoadingOverlay(
                           context: context,
                           asyncTask: () async {
@@ -263,6 +263,62 @@ class OrderCard extends StatelessWidget {
                     },
                   ),
                 ],
+              ),
+              CustomButton(
+                text: "Reject Order",
+                color: Colors.red,
+                onPressed: () async {
+                  if (await showConfirmWarning(context, 2)) {
+                    showLoadingOverlay(
+                      context: context,
+                      asyncTask: () async {
+                        final product =
+                            await ProductController.get(itemName: order.product)
+                                .first
+                                .then((value) => value[0]);
+                        final productQuantity =
+                            await ProductController.getQuantity(product);
+                        ProductController.create(product.copyWith(
+                            quantity: productQuantity + order.quantity));
+                        await OrderController.delete(order);
+                        await NotificationController.pushNotification(
+                          NotificationModel(
+                            title: "Order Rejected !!",
+                            message:
+                                "We are very sorry. Your order for ${order.product} could not be completed. Please visit Huls Coffee House for further queries",
+                            sender: UserController.currentUser!.email,
+                            receiver: order.userEmail,
+                            product: order.product,
+                            time: DateTime.now(),
+                          ),
+                        );
+                        UserModel? oldUser =
+                            await UserController.get(email: order.userEmail)
+                                .first
+                                .then((value) => value.first);
+                        UserModel? newUser =
+                            oldUser!.copyWith(newNotification: true);
+                        await UserController.update(
+                            oldUser: oldUser, newUser: newUser);
+                        await NotificationController.deleteNotification(
+                          NotificationModel(
+                            title: "",
+                            message: "",
+                            sender: order.userEmail,
+                            receiver: UserController.currentUser!.email,
+                            product: order.product,
+                            time: DateTime.now(),
+                          ),
+                        );
+                      },
+                      onCompleted: () {
+                        toastMessage(
+                            "Order rejected. Notifying $userName.", context);
+                        refresh();
+                      },
+                    );
+                  }
+                },
               ),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

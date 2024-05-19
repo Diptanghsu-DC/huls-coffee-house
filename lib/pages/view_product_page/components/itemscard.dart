@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
 
 class ItemsCard extends StatelessWidget {
@@ -10,6 +11,7 @@ class ItemsCard extends StatelessWidget {
   num? itemRating;
   String itemImage;
   num quantity;
+  bool isDisabled;
 
   ItemsCard({
     super.key,
@@ -19,6 +21,7 @@ class ItemsCard extends StatelessWidget {
     this.itemRating,
     required this.itemImage,
     required this.quantity,
+    required this.isDisabled,
   });
 
   @override
@@ -201,68 +204,9 @@ class ItemsCard extends StatelessWidget {
             ),
           ),
         ),
-        // Positioned(
-        //   top: height * 0.21,
-        //   right: width * 0.03,
-        //   child: Container(
-        //     alignment: Alignment.center,
-        //     // width: width * 0.0944,
-        //     // height: height * 0.0425,
-        //     decoration: BoxDecoration(
-        //       borderRadius: BorderRadius.circular(200),
-        //       color: const Color(0xFFFE724C),
-        //     ),
-        //     child: Padding(
-        //       padding: const EdgeInsets.all(8.0),
-        //       child: Text(
-        //         "$quantity",
-        //         style: const TextStyle(
-        //           color: Colors.white,
-        //           fontSize: 20,
-        //           fontFamily: 'Poppins',
-        //           fontWeight: FontWeight.w500,
-        //           height: 0,
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        // Positioned(
-        //   top: height * 0.239,
-        //   left: width * 0.037,
-        //   child: SizedBox(
-        //     width: width * 0.7,
-        //     child: Text(
-        //       itemName, //itemname
-        //       maxLines: 2,
-        //       style: const TextStyle(
-        //         color: Colors.black,
-        //         fontSize: 18.21,
-        //         fontFamily: 'Sofia Pro',
-        //         fontWeight: FontWeight.w400,
-        //         height: 0,
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        // Positioned(
-        //   top: height * 0.294,
-        //   left: width * 0.037,
-        //   child: itemDesc != null
-        //       ? Text(
-        //           itemDesc!, //itemsubname
-        //           style: const TextStyle(
-        //             color: Color(0xFF5B5B5E),
-        //             fontSize: 14.57,
-        //             fontFamily: 'Sofia Pro',
-        //             fontWeight: FontWeight.w400,
-        //             height: 0,
-        //           ),
-        //         )
-        //       : Text(""),
-        // ),
         Visibility(
-          visible: quantity == 0,
+          visible: (quantity == 0 || isDisabled) &&
+              !UserController.currentUser!.isSeller,
           child: Container(
             width: width * 0.897,
             height: height * 0.309,

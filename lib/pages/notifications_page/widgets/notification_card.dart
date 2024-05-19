@@ -59,17 +59,21 @@ class NotificationCard extends StatelessWidget {
                     showLoadingOverlay(
                       context: context,
                       asyncTask: () async {
-                        final admin = await UserController.getAdmin();
-                        await NotificationController.deleteNotification(
-                          NotificationModel(
-                            title: notification.title,
-                            message: notification.message,
-                            sender: admin.email,
-                            receiver: UserController.currentUser!.email,
-                            product: notification.product,
-                            time: DateTime.now(),
-                          ),
-                        );
+                        final admins = await UserController.getAdmins();
+                        for (var i = 0; i < admins.length; i++) {
+                          if (notification.sender == admins[i].email) {
+                            await NotificationController.deleteNotification(
+                              NotificationModel(
+                                title: notification.title,
+                                message: notification.message,
+                                sender: admins[i].email,
+                                receiver: UserController.currentUser!.email,
+                                product: notification.product,
+                                time: DateTime.now(),
+                              ),
+                            );
+                          }
+                        }
                       },
                       onCompleted: () {
                         refresh();

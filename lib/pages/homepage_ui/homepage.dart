@@ -261,6 +261,8 @@ class _HomepageState extends State<Homepage> {
                                           itemRating: products[index].ratings,
                                           itemDesc: products[index].itemDesc,
                                           quantity: products[index].quantity,
+                                          isDisabled:
+                                              products[index].isDisabled,
                                         ),
                                       ),
                                     );

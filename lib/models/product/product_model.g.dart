@@ -21,6 +21,7 @@ _$ProductModelImpl _$$ProductModelImplFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['lastLocalUpdate'] as String),
       isPopular: json['isPopular'] as bool? ?? false,
+      isDisabled: json['isDisabled'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$ProductModelImplToJson(_$ProductModelImpl instance) =>
@@ -36,4 +37,5 @@ Map<String, dynamic> _$$ProductModelImplToJson(_$ProductModelImpl instance) =>
       'discount': instance.discount,
       'lastLocalUpdate': instance.lastLocalUpdate?.toIso8601String(),
       'isPopular': instance.isPopular,
+      'isDisabled': instance.isDisabled,
     };
