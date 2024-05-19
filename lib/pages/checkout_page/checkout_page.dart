@@ -164,21 +164,25 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 quantity: await ProductController.getQuantity(
                                         widget.checkoutItems[i]) -
                                     widget.checkoutItems[i].quantity));
-                        final admin = await UserController.getAdmin();
-                        await NotificationController.pushNotification(
-                          NotificationModel(
-                            title: "New Order!!",
-                            message: "A new order arrived at your desk",
-                            sender: UserController.currentUser!.email,
-                            receiver: admin.email,
-                            product: widget.checkoutItems[i].itemName,
-                            time: DateTime.now(),
-                          ),
-                        );
-                        UserModel? newAdmin =
-                            admin.copyWith(newNotification: true);
-                        await UserController.update(
-                            oldUser: admin, newUser: newAdmin);
+                        final admins = await UserController.getAdmins();
+                        // print(admins.length);
+                        for (int j = 0; j < admins.length; j++) {
+                          // debugPrint(admins[j].email);
+                          await NotificationController.pushNotification(
+                            NotificationModel(
+                              title: "New Order!!",
+                              message: "A new order arrived at your desk",
+                              sender: UserController.currentUser!.email,
+                              receiver: admins[j].email,
+                              product: widget.checkoutItems[i].itemName,
+                              time: DateTime.now(),
+                            ),
+                          );
+                          UserModel? newAdmin =
+                              admins[j].copyWith(newNotification: true);
+                          await UserController.update(
+                              oldUser: admins[j], newUser: newAdmin);
+                        }
                         // ProductController.create(widget.checkoutItems[i].copyWith(
                         //     quantity: await ProductController.get(
                         //                 itemName: widget.checkoutItems[i].itemName)

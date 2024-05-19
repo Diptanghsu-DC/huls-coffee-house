@@ -91,7 +91,7 @@ class UserController {
     );
   }
 
-  static Future<UserModel> getAdmin() {
+  static Future<List<UserModel>> getAdmins() {
     return _getAdminImpl();
   }
 

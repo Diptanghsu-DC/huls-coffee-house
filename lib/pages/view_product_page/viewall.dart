@@ -1,10 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/controllers/services/product/product_controller.dart';
 import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
 import 'package:huls_coffee_house/pages/view_product_page/components/itemscard.dart';
+import 'package:huls_coffee_house/utils/toast_message.dart';
 
 class ViewAll extends StatefulWidget {
   ViewAll({super.key, this.category});
@@ -24,6 +27,9 @@ class _ViewAllState extends State<ViewAll> {
   Color text2 = Colors.black;
   double num1 = 0.444;
   double num2 = 0.375;
+  List<bool> categoryDisable = [false];
+  int listLen = 0;
+  List<ProductModel> allproducts = [];
 
   Future<void> refresh() async {
     setState(() {
@@ -31,6 +37,25 @@ class _ViewAllState extends State<ViewAll> {
           ? ProductController.getAll()
           : ProductController.get(category: widget.category);
     });
+  }
+
+  Future<void> init() async {
+    if (widget.category != null) {
+      allproducts =
+          await ProductController.get(category: widget.category).first;
+      categoryDisable[0] = allproducts[0].isDisabled;
+      listLen = allproducts.length;
+    } else {
+      listLen =
+          await ProductController.getAll().first.then((value) => value.length);
+    }
+    refresh();
+  }
+
+  @override
+  void initState() {
+    init();
+    super.initState();
   }
 
   @override
@@ -53,6 +78,34 @@ class _ViewAllState extends State<ViewAll> {
                 fontFamily: 'SofiaPro'),
           ),
           centerTitle: true,
+          actions: [
+            Visibility(
+              visible: UserController.currentUser!.isSeller,
+              child: ToggleButtons(
+                isSelected: categoryDisable,
+                onPressed: (idx) async {
+                  toastMessage("Deactivating category. Please wait", context);
+                  categoryDisable[idx] = !categoryDisable[idx];
+                  for (var i = 0; i < listLen; i++) {
+                    ProductModel product = allproducts[i]
+                        .copyWith(isDisabled: categoryDisable[idx]);
+                    await ProductController.create(product);
+                  }
+                  toastMessage("Category deactivated successfully", context);
+                  refresh();
+                },
+                selectedColor: Colors.red,
+                selectedBorderColor: Colors.red,
+                fillColor: Color.fromARGB(255, 241, 180, 180),
+                children: const [
+                  Icon(Icons.block),
+                ],
+              ),
+            ),
+            SizedBox(
+              width: 20,
+            )
+          ],
         ),
         body: SafeArea(
           child: Column(
@@ -94,7 +147,10 @@ class _ViewAllState extends State<ViewAll> {
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
-                                        if (products[index].quantity != 0) {
+                                        if ((products[index].quantity != 0 &&
+                                                !products[index].isDisabled) ||
+                                            UserController
+                                                .currentUser!.isSeller) {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -115,6 +171,8 @@ class _ViewAllState extends State<ViewAll> {
                                           itemRating: products[index].ratings,
                                           itemDesc: products[index].itemDesc,
                                           quantity: products[index].quantity,
+                                          isDisabled:
+                                              products[index].isDisabled,
                                         ),
                                       ),
                                     );

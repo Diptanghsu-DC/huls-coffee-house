@@ -6,6 +6,7 @@ import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/utils/item_class.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/widgets/add_item.dart';
 import 'package:huls_coffee_house/pages/admin/inventory/widgets/add_new_item.dart';
+import 'package:huls_coffee_house/pages/homepage_ui/widgets/category/category_view.dart';
 import 'package:huls_coffee_house/pages/sidemenu/sidemenudrawer.dart';
 import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
 
@@ -106,6 +107,7 @@ class _InventoryState extends State<Inventory> {
                     controller: searchController,
                     onSearch: filterProducts,
                   ),
+                  const CategoryViewer(),
                   Flexible(
                     child: StreamBuilder<List<ProductModel>>(
                       stream: ProductController.getAll(),

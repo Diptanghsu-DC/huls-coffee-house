@@ -166,12 +166,12 @@ class _ProfilePage extends State<ProfilePage> {
                       !UserController.currentUser!.isSeller
                           ? TextButton.icon(
                               onPressed: () async {
-                                final admin = await UserController.getAdmin();
+                                final admins = await UserController.getAdmins();
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        CurrentOrders(admin: admin),
+                                        CurrentOrders(admin: admins.first),
                                   ),
                                 );
                               },
