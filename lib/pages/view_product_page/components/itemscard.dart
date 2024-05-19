@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:huls_coffee_house/config/config.dart';
 import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
@@ -37,7 +38,7 @@ class ItemsCard extends StatelessWidget {
       children: [
         Container(
           width: width * 0.897,
-          // height: height * 0.309,
+          //height: height * 0.509,
           decoration: ShapeDecoration(
             color: Colors.white,
             shape: RoundedRectangleBorder(
@@ -111,49 +112,60 @@ class ItemsCard extends StatelessWidget {
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SizedBox(
-                    width: width * 0.7,
-                    child: Text(
+              SizedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
                       itemName, //itemname
-                      maxLines: 2,
-                      style: const TextStyle(
+                      maxLines: 3,
+                      overflow: TextOverflow.clip,
+                      style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18.21,
+                        fontSize: (itemName.length > 15) ? 14 : 18,
                         fontFamily: 'Sofia Pro',
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w500,
                         height: 0,
                       ),
                     ),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    // width: width * 0.0944,
-                    // height: height * 0.0425,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(200),
-                      color: const Color(0xFFFE724C),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "$quantity",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                          height: 0,
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "left in stock: ",
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(fontFamily: 'SofiaPro'),
                         ),
-                      ),
+                        Container(
+                          alignment: Alignment.center,
+                          // width: width * 0.0944,
+                          // height: height * 0.0425,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: const Color(0xFFFE724C),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "$quantity",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w500,
+                                height: 0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 18.0, bottom: 18.0),
+                padding: const EdgeInsets.only(left: 20.0, bottom: 10),
                 child: itemDesc != null
                     ? Text(
                         itemDesc!, //itemsubname
