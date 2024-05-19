@@ -112,7 +112,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               child: ListTile(
                 // onTap: () => Navigator.pushNamed(context, ViewAll.routeName),
                 title: Text(
-                  "${checkoutTotal(widget.checkoutItems)}",
+                  "Rs. ${checkoutTotal(widget.checkoutItems)}",
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
