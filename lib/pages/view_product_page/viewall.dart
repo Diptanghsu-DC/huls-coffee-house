@@ -84,14 +84,21 @@ class _ViewAllState extends State<ViewAll> {
               child: ToggleButtons(
                 isSelected: categoryDisable,
                 onPressed: (idx) async {
-                  toastMessage("Deactivating category. Please wait", context);
+                  categoryDisable[idx]
+                      ? toastMessage("Activating category", context)
+                      : toastMessage(
+                          "Deactivating category. Please wait", context);
                   categoryDisable[idx] = !categoryDisable[idx];
                   for (var i = 0; i < listLen; i++) {
                     ProductModel product = allproducts[i]
                         .copyWith(isDisabled: categoryDisable[idx]);
                     await ProductController.create(product);
                   }
-                  toastMessage("Category deactivated successfully", context);
+                  categoryDisable[idx]
+                      ? toastMessage(
+                          "Category deactivated successfully", context)
+                      : toastMessage(
+                          "Category activated successfully", context);
                   refresh();
                 },
                 selectedColor: Colors.red,
@@ -148,8 +155,8 @@ class _ViewAllState extends State<ViewAll> {
                                     return GestureDetector(
                                       onTap: () {
                                         if ((products[index].quantity != 0 &&
-                                                !products[index].isDisabled) ||
-                                            UserController
+                                                !products[index].isDisabled) &&
+                                            !UserController
                                                 .currentUser!.isSeller) {
                                           Navigator.push(
                                             context,

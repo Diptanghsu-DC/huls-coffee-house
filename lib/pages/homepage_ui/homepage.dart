@@ -232,7 +232,7 @@ class _HomepageState extends State<Homepage> {
                               }
 
                               return SizedBox(
-                                height: height * 0.4,
+                                height: height * 0.45,
                                 child: ListView.builder(
                                   itemCount:
                                       products.length > 4 ? 4 : products.length,
@@ -240,7 +240,10 @@ class _HomepageState extends State<Homepage> {
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
-                                        if (products[index].quantity != 0) {
+                                        if ((products[index].quantity != 0 &&
+                                                !products[index].isDisabled) &&
+                                            !UserController
+                                                .currentUser!.isSeller) {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
