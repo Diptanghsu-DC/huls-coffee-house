@@ -221,7 +221,7 @@ class ItemsCard extends StatelessWidget {
               !UserController.currentUser!.isSeller,
           child: Container(
             width: width * 0.897,
-            height: height * 0.309,
+            height: height * 0.409,
             decoration: ShapeDecoration(
               color: Colors.grey.withOpacity(0.6),
               shape: RoundedRectangleBorder(
