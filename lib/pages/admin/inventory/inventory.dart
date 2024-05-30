@@ -59,11 +59,15 @@ class _InventoryState extends State<Inventory> {
         List<ProductModel> allProductsList =
             await ProductController.getAll().first;
         setState(() {
-          filteredProducts = allProductsList
-              .where((product) => product.itemName
-                  .toLowerCase()
-                  .contains(searchValue.toLowerCase()))
-              .toList();
+          filteredProducts = allProductsList.where((product) {
+            final itemNameMatch = product.itemName
+                .toLowerCase()
+                .contains(searchValue.toLowerCase());
+            final categoryMatch = product.category
+                .toLowerCase()
+                .contains(searchValue.toLowerCase());
+            return itemNameMatch || categoryMatch;
+          }).toList();
 
           if (filteredProducts.isEmpty) {
             filteredProducts = [];

@@ -27,7 +27,10 @@ class _MySearchBarState extends State<MySearchBar> {
           children: [
             const Padding(
               padding: EdgeInsets.all(8.0),
-              child: Icon(Icons.search, color: Colors.grey,),
+              child: Icon(
+                Icons.search,
+                color: Colors.grey,
+              ),
             ),
             Expanded(
               child: TextFormField(
@@ -36,8 +39,9 @@ class _MySearchBarState extends State<MySearchBar> {
                   widget.onSearch(query);
                 },
                 decoration: const InputDecoration(
-                  hintText: "Search",
-                  hintStyle: TextStyle(fontFamily: 'SofiaPro'),
+                  hintText: "Search by product name or category",
+                  hintStyle: TextStyle(
+                      fontFamily: 'SofiaPro', overflow: TextOverflow.clip),
                   border: InputBorder.none,
                 ),
               ),
