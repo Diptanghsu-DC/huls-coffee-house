@@ -66,6 +66,14 @@ class _HomepageState extends State<Homepage> {
       try {
         List<ProductModel> allProductsList =
             await ProductController.getAll().first;
+        allProductsList.sort(
+          (a, b) => a.isAvailable == b.isAvailable
+              ? 0
+              : a.isAvailable
+                  ? -1
+                  : 1,
+        );
+
         setState(() {
           filteredProducts = allProductsList
               .where((product) => product.itemName
@@ -201,11 +209,11 @@ class _HomepageState extends State<Homepage> {
                               if (filteredProducts.isNotEmpty) {
                                 products = filteredProducts;
                               } else {
-                                List<ProductModel> new_products = products
+                                List<ProductModel> newProducts = products
                                     .where((element) => element.isPopular)
                                     .toList();
-                                if (new_products.length >= 4) {
-                                  products = new_products;
+                                if (newProducts.length >= 4) {
+                                  products = newProducts;
                                 }
                               }
                               if (snapshot.hasError) {
