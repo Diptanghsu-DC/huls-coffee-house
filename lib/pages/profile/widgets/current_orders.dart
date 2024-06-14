@@ -7,8 +7,8 @@ import 'package:huls_coffee_house/utils/utils.dart';
 import 'package:huls_coffee_house/widgets/custom_background_image/custom_background_image.dart';
 
 class CurrentOrders extends StatefulWidget {
-  final UserModel admin;
-  const CurrentOrders({super.key, required this.admin});
+  // final UserModel admin;
+  const CurrentOrders({super.key});
 
   static const String routeName = "/currentOrders";
 
@@ -17,10 +17,24 @@ class CurrentOrders extends StatefulWidget {
 }
 
 class _CurrentOrdersState extends State<CurrentOrders> {
+  UserModel? admin = null;
+
   Future<void> refresh() async {
     setState(() {
       // init();
     });
+  }
+
+  void init() async {
+    final admins = await UserController.getAdmins();
+    admin = admins.first;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    init();
+    super.initState();
   }
 
   @override
@@ -105,12 +119,14 @@ class _CurrentOrdersState extends State<CurrentOrders> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        "Seller Contact Info : ${widget.admin.phone}",
-                                        style: const TextStyle(
-                                          fontFamily: "SofiaPro",
-                                        ),
-                                      ),
+                                      admin != null
+                                          ? Text(
+                                              "Seller Contact Info : ${admin!.phone}",
+                                              style: const TextStyle(
+                                                fontFamily: "SofiaPro",
+                                              ),
+                                            )
+                                          : const Text(""),
                                       orders[index].delay != null
                                           ? Text(
                                               "Delay: + ${orders[index].delay!} min",

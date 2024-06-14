@@ -22,8 +22,13 @@ class _CategoryViewerState extends State<CategoryViewer> {
         if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator(color: orange,));
+          return const Center(
+              child: CircularProgressIndicator(
+            color: orange,
+          ));
         } else {
+          snapshot.data!.sort((a, b) =>
+              a.isDisabled.toString().compareTo(b.isDisabled.toString()));
           final categories = snapshot.data!
               .map((product) => product.category)
               .toSet()

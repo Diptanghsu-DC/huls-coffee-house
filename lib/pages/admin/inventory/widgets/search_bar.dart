@@ -36,7 +36,7 @@ class _MySearchBarState extends State<MySearchBar> {
               child: TextFormField(
                 controller: widget.controller,
                 onChanged: (query) {
-                  widget.onSearch(query);
+                  widget.onSearch(query.trim());
                 },
                 decoration: const InputDecoration(
                   hintText: "Search by product name or category",
