@@ -19,6 +19,7 @@ class ProductModel with _$ProductModel {
     int? discount,
     DateTime? lastLocalUpdate,
     @Default(false) bool isPopular,
+    @Default(false) bool isDisabled,
   }) = _ProductModel;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
@@ -44,5 +45,6 @@ enum ProductFields {
   quantity,
   discount,
   isPopular,
+  isDisabled,
   lastLocalUpdate,
 }

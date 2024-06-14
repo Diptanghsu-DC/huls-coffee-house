@@ -25,6 +25,7 @@ class ItemCard extends StatelessWidget {
         ),
         title: Text(
           item.itemName,
+          overflow: TextOverflow.ellipsis,
           style: const TextStyle(
               fontSize: 16,
               fontFamily: 'SofiaPro',

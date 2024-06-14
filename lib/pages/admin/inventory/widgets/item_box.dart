@@ -44,7 +44,7 @@ class _ItemBoxState extends State<ItemBox> {
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(12.0),
+                borderRadius: BorderRadius.circular(18.0),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),

@@ -66,6 +66,14 @@ class _HomepageState extends State<Homepage> {
       try {
         List<ProductModel> allProductsList =
             await ProductController.getAll().first;
+        allProductsList.sort(
+          (a, b) => a.isAvailable == b.isAvailable
+              ? 0
+              : a.isAvailable
+                  ? -1
+                  : 1,
+        );
+
         setState(() {
           filteredProducts = allProductsList
               .where((product) => product.itemName
@@ -160,7 +168,7 @@ class _HomepageState extends State<Homepage> {
                           ),
                         ),
                         onChanged: (value) {
-                          filterProducts(value);
+                          filterProducts(value.trim());
                         },
                       ),
                       //category view
@@ -201,11 +209,11 @@ class _HomepageState extends State<Homepage> {
                               if (filteredProducts.isNotEmpty) {
                                 products = filteredProducts;
                               } else {
-                                List<ProductModel> new_products = products
+                                List<ProductModel> newProducts = products
                                     .where((element) => element.isPopular)
                                     .toList();
-                                if (new_products.length >= 4) {
-                                  products = new_products;
+                                if (newProducts.length >= 4) {
+                                  products = newProducts;
                                 }
                               }
                               if (snapshot.hasError) {
@@ -232,7 +240,7 @@ class _HomepageState extends State<Homepage> {
                               }
 
                               return SizedBox(
-                                height: height * 0.3,
+                                height: height * 0.45,
                                 child: ListView.builder(
                                   itemCount:
                                       products.length > 4 ? 4 : products.length,
@@ -240,7 +248,10 @@ class _HomepageState extends State<Homepage> {
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
-                                        if (products[index].quantity != 0) {
+                                        if ((products[index].quantity != 0 &&
+                                                !products[index].isDisabled) &&
+                                            !UserController
+                                                .currentUser!.isSeller) {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -261,6 +272,8 @@ class _HomepageState extends State<Homepage> {
                                           itemRating: products[index].ratings,
                                           itemDesc: products[index].itemDesc,
                                           quantity: products[index].quantity,
+                                          isDisabled:
+                                              products[index].isDisabled,
                                         ),
                                       ),
                                     );

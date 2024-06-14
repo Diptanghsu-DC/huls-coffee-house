@@ -84,86 +84,81 @@ class _ViewProductState extends State<ViewProduct> {
             width: 319,
             child: Text(
               displayProduct.itemName,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: Color(0xFF323643),
                 fontSize: 28,
                 fontFamily: 'SofiaPro',
                 fontWeight: FontWeight.w400,
-                height: 0.04,
-                letterSpacing: -0.56,
               ),
             ),
           ),
           const SizedBox(
             height: 30,
           ),
-          Container(
-            alignment: Alignment.center,
-            //color: Colors.black,
-            height: height * 0.05,
-            width: width,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  '₹$totalamount',
-                  style: const TextStyle(
-                    color: Color(0xFFFE724C),
-                    fontSize: 17.01,
-                    fontFamily: 'SofiaPro',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
-                  ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '₹$totalamount',
+                style: const TextStyle(
+                  color: Color(0xFFFE724C),
+                  fontSize: 17.01,
+                  fontFamily: 'SofiaPro',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
                 ),
-                SizedBox(
-                  width: width * 0.421,
+              ),
+              SizedBox(
+                width: width * 0.421,
+              ),
+              GestureDetector(
+                  onTap: () {
+                    if (quantity != 1) {
+                      quantity--;
+                      totalamount = totalamount - fixamount;
+                      setState(() {});
+                    }
+                  },
+                  child: const Icon(
+                    Icons.do_not_disturb_on_outlined,
+                    color: orange,
+                    size: 30,
+                  )),
+              SizedBox(
+                width: width * 0.1091388888888889,
+              ),
+              Text(
+                quantity.toString(),
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontFamily: 'SofiaPro',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
                 ),
-                GestureDetector(
-                    onTap: () {
-                      if (quantity != 1) {
-                        quantity--;
-                        totalamount = totalamount - fixamount;
-                        setState(() {});
-                      }
-                    },
-                    child: const Icon(
-                      Icons.do_not_disturb_on_outlined,
-                      color: orange,
-                      size: 30,
-                    )),
-                SizedBox(
-                  width: width * 0.1091388888888889,
-                ),
-                Text(
-                  quantity.toString(),
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontFamily: 'SofiaPro',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
-                  ),
-                ),
-                SizedBox(
-                  width: width * 0.08,
-                ),
-                GestureDetector(
-                    onTap: () {
-                      if (quantity < widget.product.quantity) {
-                        quantity++;
-                        setState(() {
-                          totalamount = totalamount + fixamount;
-                        });
-                      }
-                    },
-                    child: const Icon(
-                      Icons.add_circle,
-                      color: orange,
-                      size: 30,
-                    )),
-              ],
-            ),
+              ),
+              SizedBox(
+                width: width * 0.08,
+              ),
+              GestureDetector(
+                  onTap: () {
+                    if (quantity < widget.product.quantity) {
+                      quantity++;
+                      setState(() {
+                        totalamount = totalamount + fixamount;
+                      });
+                    }
+                  },
+                  child: const Icon(
+                    Icons.add_circle,
+                    color: orange,
+                    size: 30,
+                  )),
+            ],
           ),
+          // ),
           SizedBox(
             height: height * 0.13375,
           ),

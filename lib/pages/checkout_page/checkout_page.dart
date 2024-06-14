@@ -22,6 +22,14 @@ class CheckoutPage extends StatefulWidget {
 }
 
 class _CheckoutPageState extends State<CheckoutPage> {
+  num checkoutTotal(List<ProductModel> products) {
+    num sum = 0;
+    for (var i = 0; i < products.length; i++) {
+      sum += products[i].price * products[i].quantity;
+    }
+    return sum;
+  }
+
   @override
   Widget build(BuildContext context) {
     getSize(context);
@@ -102,17 +110,27 @@ class _CheckoutPageState extends State<CheckoutPage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               child: ListTile(
-                onTap: () => Navigator.pushNamed(context, ViewAll.routeName),
-                title: const Text(
-                  "Add More Items",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      fontFamily: 'SofiaPro'),
+                // onTap: () => Navigator.pushNamed(context, ViewAll.routeName),
+                title: Text(
+                  "Rs. ${checkoutTotal(widget.checkoutItems)}",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    fontFamily: 'SofiaPro',
+                  ),
                 ),
-                leading: const Icon(
-                  Icons.add_circle_outline_outlined,
-                  color: orange,
+                // leading: const Icon(
+                //   Icons.add_circle_outline_outlined,
+                //   color: orange,
+                // ),
+                leading: const Text(
+                  "Total : ",
+                  style: TextStyle(
+                    color: orange,
+                    fontSize: 20,
+                    fontFamily: 'SofiaPro',
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 trailing: const Icon(Icons.chevron_right),
               ),
@@ -146,21 +164,25 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 quantity: await ProductController.getQuantity(
                                         widget.checkoutItems[i]) -
                                     widget.checkoutItems[i].quantity));
-                        final admin = await UserController.getAdmin();
-                        await NotificationController.pushNotification(
-                          NotificationModel(
-                            title: "New Order!!",
-                            message: "A new order arrived at your desk",
-                            sender: UserController.currentUser!.email,
-                            receiver: admin.email,
-                            product: widget.checkoutItems[i].itemName,
-                            time: DateTime.now(),
-                          ),
-                        );
-                        UserModel? newAdmin =
-                            admin.copyWith(newNotification: true);
-                        await UserController.update(
-                            oldUser: admin, newUser: newAdmin);
+                        final admins = await UserController.getAdmins();
+                        // print(admins.length);
+                        for (int j = 0; j < admins.length; j++) {
+                          // debugPrint(admins[j].email);
+                          await NotificationController.pushNotification(
+                            NotificationModel(
+                              title: "New Order!!",
+                              message: "A new order arrived at your desk",
+                              sender: UserController.currentUser!.email,
+                              receiver: admins[j].email,
+                              product: widget.checkoutItems[i].itemName,
+                              time: DateTime.now(),
+                            ),
+                          );
+                          UserModel? newAdmin =
+                              admins[j].copyWith(newNotification: true);
+                          await UserController.update(
+                              oldUser: admins[j], newUser: newAdmin);
+                        }
                         // ProductController.create(widget.checkoutItems[i].copyWith(
                         //     quantity: await ProductController.get(
                         //                 itemName: widget.checkoutItems[i].itemName)

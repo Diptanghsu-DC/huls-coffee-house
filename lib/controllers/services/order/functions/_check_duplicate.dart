@@ -7,7 +7,7 @@ Future<void> _checkDuplicateImpl(OrderModel order) async {
   Query query = collection;
   query = query
       .where(OrderFields.product.name, isEqualTo: order.product)
-      .where(OrderFields.user.name, isEqualTo: order.user);
+      .where(OrderFields.userEmail.name, isEqualTo: order.userEmail);
 
   QuerySnapshot querySnapshot = await query.get();
 

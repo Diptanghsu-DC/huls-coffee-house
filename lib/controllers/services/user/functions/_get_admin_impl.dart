@@ -1,6 +1,6 @@
 part of '../user_controller.dart';
 
-Future<UserModel> _getAdminImpl() async {
+Future<List<UserModel>> _getAdminImpl() async {
   // Backend
   CollectionReference<Map<String, dynamic>> collection =
       FirebaseFirestore.instance.collection(UserController._collectionName);
@@ -12,7 +12,7 @@ Future<UserModel> _getAdminImpl() async {
 
   // print("query set");
 
-  query.limit(1);
+  // query.limit(1);
   query = query.where(UserFields.isSeller.name, isEqualTo: true);
 
   // print("query filtering done");
@@ -25,12 +25,12 @@ Future<UserModel> _getAdminImpl() async {
 
   if (querySnapshot.docs.isEmpty) {
     print("query found empty, returing users...");
-    return users.first;
+    return users;
   }
 
-  List<Map<String, dynamic>> res = [
-    querySnapshot.docs.first.data() as Map<String, dynamic>
-  ];
+  List<Map<String, dynamic>> res = querySnapshot.docs
+      .map((doc) => doc.data() as Map<String, dynamic>)
+      .toList();
 
   // print("List of user created");
   // await db.find(selectorBuilder).toList();
@@ -44,5 +44,5 @@ Future<UserModel> _getAdminImpl() async {
     users.add(user.copyWith(password: password));
   }
   // print("returning the user");
-  return users.first;
+  return users;
 }

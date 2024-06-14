@@ -225,7 +225,7 @@ class PrivacyPolicyPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               const Text(
-                'Thank you for choosing HUL COFFEE HOUSE!',
+                'Thank you for choosing Campus 24 x 7 !',
                 style: TextStyle(
                     fontFamily: 'SofiaPro',
                     fontSize: 16,

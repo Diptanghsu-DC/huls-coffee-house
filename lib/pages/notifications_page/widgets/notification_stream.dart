@@ -60,7 +60,7 @@ class _NotificationStreamState extends State<NotificationStream> {
                 ),
               );
             }
-
+            notifications.sort((a, b) => b.time.compareTo(a.time));
             return ListView.builder(
               itemCount: notifications.length,
               itemBuilder: (context, index) => InkWell(

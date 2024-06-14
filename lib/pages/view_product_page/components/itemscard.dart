@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:huls_coffee_house/config/config.dart';
+import 'package:huls_coffee_house/controllers/controllers.dart';
 import 'package:huls_coffee_house/utils/utils.dart';
 
 class ItemsCard extends StatelessWidget {
@@ -10,6 +12,7 @@ class ItemsCard extends StatelessWidget {
   num? itemRating;
   String itemImage;
   num quantity;
+  bool isDisabled;
 
   ItemsCard({
     super.key,
@@ -19,6 +22,7 @@ class ItemsCard extends StatelessWidget {
     this.itemRating,
     required this.itemImage,
     required this.quantity,
+    required this.isDisabled,
   });
 
   @override
@@ -34,7 +38,7 @@ class ItemsCard extends StatelessWidget {
       children: [
         Container(
           width: width * 0.897,
-          height: height * 0.309,
+          //height: height * 0.509,
           decoration: ShapeDecoration(
             color: Colors.white,
             shape: RoundedRectangleBorder(
@@ -50,62 +54,132 @@ class ItemsCard extends StatelessWidget {
             ],
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(children: [
-                Container(
-                  width: width * 0.897,
-                  height: height * 0.206,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18.21),
-                    color: Colors.amber,
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(18.21),
-                    child: imageUrl == defaultImage
-                        ? Image.asset(
-                            imageUrl,
-                            fit: BoxFit.fill,
-                          )
-                        : CustomNetworkImage(
-                            url: imageUrl,
-                            height: height * 0.4,
-                            errorWidget: (BuildContext context, _, __) {
-                              return Image.asset(
-                                mediaImage,
-                                fit: BoxFit.cover,
-                                height: height * 0.4,
-                              );
-                            },
-                          ),
-                  ),
-                ),
-                Positioned(
-                  top: height * 0.0175,
-                  left: width * 0.037,
-                  child: Container(
-                    width: width * 0.226,
-                    height: height * 0.0425,
+              Stack(
+                children: [
+                  Container(
+                    width: width * 0.897,
+                    height: height * 0.206,
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30)),
-                    child: Row(
+                      borderRadius: BorderRadius.circular(18.21),
+                      color: Colors.amber,
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(18.21),
+                      child: imageUrl == defaultImage
+                          ? Image.asset(
+                              imageUrl,
+                              fit: BoxFit.fill,
+                            )
+                          : CustomNetworkImage(
+                              url: imageUrl,
+                              height: height * 0.4,
+                              errorWidget: (BuildContext context, _, __) {
+                                return Image.asset(
+                                  mediaImage,
+                                  fit: BoxFit.cover,
+                                  height: height * 0.4,
+                                );
+                              },
+                            ),
+                    ),
+                  ),
+                  Positioned(
+                    top: height * 0.0175,
+                    left: width * 0.037,
+                    child: Container(
+                      width: width * 0.226,
+                      height: height * 0.0425,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            '₹',
+                            style: TextStyle(
+                                color: Color(0xFFFE724C), fontSize: 20),
+                          ),
+                          Text(
+                            itemPrice.toString(), //itemprice
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      itemName, //itemname
+                      maxLines: 3,
+                      overflow: TextOverflow.clip,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: (itemName.length > 15) ? 14 : 18,
+                        fontFamily: 'Sofia Pro',
+                        fontWeight: FontWeight.w500,
+                        height: 0,
+                      ),
+                    ),
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Text(
-                          '₹',
-                          style:
-                              TextStyle(color: Color(0xFFFE724C), fontSize: 20),
-                        ),
                         Text(
-                          itemPrice.toString(), //itemprice
-                          style: const TextStyle(fontSize: 20),
+                          "left in stock: ",
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(fontFamily: 'SofiaPro'),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          // width: width * 0.0944,
+                          // height: height * 0.0425,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: const Color(0xFFFE724C),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "$quantity",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w500,
+                                height: 0,
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
-                  ),
+                  ],
                 ),
-              ])
-            ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0, bottom: 10),
+                child: itemDesc != null
+                    ? Text(
+                        itemDesc!, //itemsubname
+                        style: const TextStyle(
+                          color: Color(0xFF5B5B5E),
+                          fontSize: 14.57,
+                          fontFamily: 'Sofia Pro',
+                          fontWeight: FontWeight.w400,
+                          height: 0,
+                        ),
+                      )
+                    : Text(""),
+              ),
+            ].separate(30),
           ),
         ),
         Positioned(
@@ -142,63 +216,12 @@ class ItemsCard extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-            top: height * 0.21,
-            left: width * 0.766,
-            child: Container(
-              alignment: Alignment.center,
-              width: width * 0.0944,
-              height: height * 0.0425,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: const Color(0xFFFE724C),
-              ),
-              child: Text(
-                "$quantity",
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
-                  height: 0,
-                ),
-              ),
-            )),
-        Positioned(
-          top: height * 0.239,
-          left: width * 0.037,
-          child: Text(
-            itemName, //itemname
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 18.21,
-              fontFamily: 'Sofia Pro',
-              fontWeight: FontWeight.w400,
-              height: 0,
-            ),
-          ),
-        ),
-        Positioned(
-          top: height * 0.274,
-          left: width * 0.037,
-          child: itemDesc != null
-              ? Text(
-                  itemDesc!, //itemsubname
-                  style: const TextStyle(
-                    color: Color(0xFF5B5B5E),
-                    fontSize: 14.57,
-                    fontFamily: 'Sofia Pro',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
-                  ),
-                )
-              : Text(""),
-        ),
         Visibility(
-          visible: quantity == 0,
+          visible: (quantity == 0 || isDisabled) &&
+              !UserController.currentUser!.isSeller,
           child: Container(
             width: width * 0.897,
-            height: height * 0.309,
+            height: height * 0.409,
             decoration: ShapeDecoration(
               color: Colors.grey.withOpacity(0.6),
               shape: RoundedRectangleBorder(
