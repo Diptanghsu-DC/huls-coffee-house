@@ -8,6 +8,7 @@ import 'package:huls_coffee_house/pages/cart_ui/cart_main.dart';
 import 'package:huls_coffee_house/pages/homepage_ui/homepage.dart';
 import 'package:huls_coffee_house/pages/notifications_page/notifications_page.dart';
 import 'package:huls_coffee_house/pages/profile/profile_main.dart';
+import 'package:huls_coffee_house/pages/profile/widgets/current_orders.dart';
 
 import '../../config/config.dart';
 import '../../utils/utils.dart';
@@ -23,7 +24,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   List pages = [
-    const ProfilePage(),
+    // const ProfilePage(),
+    const CurrentOrders(),
     const Homepage(),
     const CartPage(),
     const NotificationsPage()
@@ -68,9 +70,9 @@ class _MainPageState extends State<MainPage> {
           items: [
             const BottomNavigationBarItem(
               icon: Icon(
-                CupertinoIcons.profile_circled,
+                Icons.timer,
               ),
-              label: "Account",
+              label: "My Orders",
             ),
             const BottomNavigationBarItem(
               label: "Home",

@@ -201,6 +201,23 @@ class OrderCard extends StatelessWidget {
                               int.parse(timerController.text.toString()));
                           OrderController.initCountDown(order,
                               int.parse(timerController.text.toString()));
+                          NotificationController.pushNotification(
+                              NotificationModel(
+                            title: "Order Delayed !!",
+                            message:
+                                "Sorry. Your order has been delayed by ${timerController.text} mins",
+                            sender: UserController.currentUser!.email,
+                            receiver: order.userEmail,
+                            time: DateTime.now(),
+                          ));
+                          UserModel? oldUser =
+                              await UserController.get(email: order.userEmail)
+                                  .first
+                                  .then((value) => value.first);
+                          UserModel? newUser =
+                              oldUser!.copyWith(newNotification: true);
+                          await UserController.update(
+                              oldUser: oldUser, newUser: newUser);
                           refresh();
                         }
                       }

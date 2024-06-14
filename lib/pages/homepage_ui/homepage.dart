@@ -168,7 +168,7 @@ class _HomepageState extends State<Homepage> {
                           ),
                         ),
                         onChanged: (value) {
-                          filterProducts(value);
+                          filterProducts(value.trim());
                         },
                       ),
                       //category view

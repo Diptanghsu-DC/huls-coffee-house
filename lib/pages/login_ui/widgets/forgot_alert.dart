@@ -45,24 +45,6 @@ class _ForgotAlertState extends State<ForgotAlert> {
           CustomField(
             // obscureText: hidePassword,
             controller: _emailController,
-            // suffixIcon: IconButton(
-            //     onPressed: () {
-            //       if (passVisibility == Icons.visibility) {
-            //         setState(() {
-            //           passVisibility = Icons.visibility_off;
-            //           hidePassword = false;
-            //         });
-            //       } else {
-            //         setState(() {
-            //           passVisibility = Icons.visibility;
-            //           hidePassword = true;
-            //         });
-            //       }
-            //     },
-            //     icon: Icon(
-            //       passVisibility,
-            //       color: const Color.fromARGB(255, 67, 67, 67),
-            //     )),
             validator: (value) {
               return null;
             },
@@ -87,15 +69,6 @@ class _ForgotAlertState extends State<ForgotAlert> {
                   BuildContext dialogContext = context;
 
                   if (isAvailable) {
-                    // showLoadingOverlay(
-                    //   context: context,
-                    //   asyncTask: () async {
-                    //     widget.changePermit();
-                    //   },
-                    //   onCompleted: () {
-                    //     Navigator.pop(dialogContext);
-                    //   },
-                    // );
                     ForgotAlert.forgotOtp += _generateRandomOtp(6);
                     Authenticator().sendEmailOtp(ForgotAlert.forgotOtp,
                         _emailController.text.trim(), user[0].phone.toString());
