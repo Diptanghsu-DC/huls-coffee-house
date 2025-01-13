@@ -75,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
     //TODO: login the user silently
     await UserController.loginSilently().last;
 
-    NotificationManager().init();
+    notificationManager.init();
 
     LogOrder.init();
 

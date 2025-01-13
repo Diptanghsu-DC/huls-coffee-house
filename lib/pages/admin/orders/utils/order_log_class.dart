@@ -7,6 +7,8 @@ class OrderLog {
   final num orderQuantity;
   final num totalPrice;
   final String orderCompletedBy;
+  final String customerName;
+  final String customerPhone;
 
   const OrderLog({
     required this.date,
@@ -15,6 +17,8 @@ class OrderLog {
     required this.orderQuantity,
     required this.totalPrice,
     required this.orderCompletedBy,
+    required this.customerName,
+    required this.customerPhone,
   });
 
   Map<String, dynamic> toJson() => {
@@ -24,5 +28,7 @@ class OrderLog {
         OrderLogFields.orderQuantity: orderQuantity,
         OrderLogFields.totalPrice: totalPrice,
         OrderLogFields.orderCompletedBy: orderCompletedBy,
+        OrderLogFields.customerName: customerName,
+        OrderLogFields.customerPhone: customerPhone,
       };
 }

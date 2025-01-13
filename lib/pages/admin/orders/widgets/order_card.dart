@@ -44,6 +44,7 @@ class OrderCard extends StatelessWidget {
           child: Column(
             children: [
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,7 +152,7 @@ class OrderCard extends StatelessWidget {
                         child: Text(
                           ": $userAddress",
                           maxLines: 2,
-                          // overflow: TextOverflow.ellipsis,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: width * 0.045,
@@ -218,6 +219,16 @@ class OrderCard extends StatelessWidget {
                               oldUser!.copyWith(newNotification: true);
                           await UserController.update(
                               oldUser: oldUser, newUser: newUser);
+                          final receiver =
+                              (await UserController.get(email: order.userEmail)
+                                      .first)
+                                  .first;
+                          notificationManager.sendPushMessage(
+                            recipientToken: receiver.deviceToken!,
+                            title: "Your order has been Delayed!!",
+                            body:
+                                "Sorry. Your order has been delayed by ${timerController.text} mins",
+                          );
                           refresh();
                         }
                       }
@@ -231,6 +242,16 @@ class OrderCard extends StatelessWidget {
                           context: context,
                           asyncTask: () async {
                             await OrderController.delete(order);
+                            final receiver = (await UserController.get(
+                                        email: order.userEmail)
+                                    .first)
+                                .first;
+                            notificationManager.sendPushMessage(
+                              recipientToken: receiver.deviceToken!,
+                              title: "Your order has been Completed!!",
+                              body:
+                                  "Your order for ${order.product} is completed",
+                            );
                             await NotificationController.pushNotification(
                               NotificationModel(
                                 title: "Order Completed !!",
@@ -261,13 +282,16 @@ class OrderCard extends StatelessWidget {
                               ),
                             );
                             final orderLog = OrderLog(
-                                date: Formatter.dateOnly(DateTime.now()),
-                                time: Formatter.timeOnly(DateTime.now()),
-                                orderName: itemName,
-                                orderQuantity: order.quantity,
-                                totalPrice: order.price,
-                                orderCompletedBy:
-                                    UserController.currentUser!.address);
+                              date: Formatter.dateOnly(DateTime.now()),
+                              time: Formatter.timeOnly(DateTime.now()),
+                              orderName: itemName,
+                              orderQuantity: order.quantity,
+                              totalPrice: order.price,
+                              orderCompletedBy:
+                                  UserController.currentUser!.address,
+                              customerName: order.user,
+                              customerPhone: order.userPhone.toString(),
+                            );
                             await LogOrder.log(orderLog.toJson());
                           },
                           onCompleted: () {
@@ -302,12 +326,22 @@ class OrderCard extends StatelessWidget {
                           NotificationModel(
                             title: "Order Rejected !!",
                             message:
-                                "We are very sorry. Your order for ${order.product} could not be completed. Please visit Huls Coffee House for further queries",
+                                "We are very sorry. Your order for ${order.product} could not be completed. Please visit Huls Coffee House for further queries.",
                             sender: UserController.currentUser!.email,
                             receiver: order.userEmail,
                             product: order.product,
                             time: DateTime.now(),
                           ),
+                        );
+                        final receiver =
+                            (await UserController.get(email: order.userEmail)
+                                    .first)
+                                .first;
+                        notificationManager.sendPushMessage(
+                          recipientToken: receiver.deviceToken!,
+                          title: "Your order has been Declined!!",
+                          body:
+                              "We are very sorry. Your order for ${order.product} could not be completed. Please visit Huls Coffee House for further queries.",
                         );
                         UserModel? oldUser =
                             await UserController.get(email: order.userEmail)
