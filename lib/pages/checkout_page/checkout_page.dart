@@ -5,6 +5,7 @@ import 'package:huls_coffee_house/models/models.dart';
 import 'package:huls_coffee_house/pages/checkout_page/widgets/item_card.dart';
 import 'package:huls_coffee_house/pages/login_ui/widgets/buttons.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
+import 'package:huls_coffee_house/utils/notifications.dart';
 import 'package:huls_coffee_house/utils/screen_size.dart';
 
 class CheckoutPage extends StatefulWidget {
@@ -29,10 +30,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
     }
     return sum;
   }
+  //24
 
   @override
   Widget build(BuildContext context) {
     getSize(context);
+    num total = checkoutTotal(widget.checkoutItems);
     return Scaffold(
       appBar: AppBar(
         leading: const GoBackButton(),
@@ -111,14 +114,23 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   borderRadius: BorderRadius.circular(10)),
               child: ListTile(
                 // onTap: () => Navigator.pushNamed(context, ViewAll.routeName),
-                title: Text(
-                  "Rs. ${checkoutTotal(widget.checkoutItems)}",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    fontFamily: 'SofiaPro',
-                  ),
-                ),
+                title: total > 50
+                    ? Text(
+                        "Rs. ${total}",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          fontFamily: 'SofiaPro',
+                        ),
+                      )
+                    : Text(
+                        "Rs. ${total + 10} (Delivery: Rs 10)",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          fontFamily: 'SofiaPro',
+                        ),
+                      ),
                 // leading: const Icon(
                 //   Icons.add_circle_outline_outlined,
                 //   color: orange,
@@ -168,6 +180,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         // print(admins.length);
                         for (int j = 0; j < admins.length; j++) {
                           // debugPrint(admins[j].email);
+                          notificationManager.sendPushMessage(
+                            recipientToken: admins[j].deviceToken!,
+                            title: "A New Order Arrived At Your Desk!!!",
+                            body: "Check out now",
+                          );
                           await NotificationController.pushNotification(
                             NotificationModel(
                               title: "New Order!!",

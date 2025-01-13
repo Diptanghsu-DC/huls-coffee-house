@@ -23,7 +23,8 @@ Future<void> _updateImpl({UserModel? oldUser, UserModel? newUser}) async {
     final updateUser = newUser ?? UserController.currentUser;
 
     Map<String, dynamic> newData = {
-      "name": updateUser!.name,
+      "deviceToken": updateUser!.deviceToken,
+      "name": updateUser.name,
       "email": updateUser.email,
       "phone": updateUser.phone,
       "password": oldUser.password == updateUser.password

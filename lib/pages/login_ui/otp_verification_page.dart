@@ -58,7 +58,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
           print("entering user creation protocol...");
           if (ForgotAlert.forgotOtp == "") {
             user = await UserController.create(UserModel(
-              deviceToken: NotificationManager().token,
+              deviceToken: notificationManager.token,
               name: SignupPage.name,
               email: SignupPage.email.trim(),
               password: SignupPage.password.trim(),
