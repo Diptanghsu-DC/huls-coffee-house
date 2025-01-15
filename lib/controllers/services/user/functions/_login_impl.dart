@@ -15,7 +15,10 @@ Future<UserModel?> _loginImpl({
     if (!Encryptor.isValid(user.first.password, password)) {
       throw Exception("Invalid password");
     }
-    UserController.currentUser = user.first;
+    print("token: ${notificationManager.token}");
+    UserController.currentUser =
+        user.first.copyWith(deviceToken: notificationManager.token);
+    UserController.update(oldUser: UserController.currentUser);
     UserController.currentUser = await UserController._save();
     return UserController.currentUser;
   }

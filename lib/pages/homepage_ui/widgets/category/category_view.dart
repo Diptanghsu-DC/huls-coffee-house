@@ -34,7 +34,7 @@ class _CategoryViewerState extends State<CategoryViewer> {
               .toSet()
               .toList();
           return SizedBox(
-            height: height * 0.2,
+            height: height * 0.08,
             //creating a horizontal scrollable list of only categories
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
@@ -44,24 +44,8 @@ class _CategoryViewerState extends State<CategoryViewer> {
               itemCount: categories.length,
               itemBuilder: (context, index) {
                 final cat = categories[index];
-                return InkWell(
-                  splashColor: orange.withOpacity(0.7),
-                  highlightColor: Colors.transparent,
-                  borderRadius: BorderRadius.circular(50),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ViewAll(
-                          category: cat,
-                        ),
-                      ),
-                    );
-                  }, //navigate to respective page
-                  //each button styling
-                  child: CategoryButton(
-                    category: cat,
-                  ),
+                return CategoryButton(
+                  category: cat,
                 );
               },
             ),
