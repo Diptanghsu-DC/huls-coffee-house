@@ -8,6 +8,7 @@ import 'package:huls_coffee_house/pages/homepage_ui/widgets/category/category_vi
 import 'package:huls_coffee_house/pages/sidemenu/sidemenudrawer.dart';
 import 'package:huls_coffee_house/widgets/widgets.dart';
 import 'package:huls_coffee_house/pages/pages.dart';
+import 'package:huls_coffee_house/pages/homepage_ui/widgets/newarrivals/new_arrivals_carousel.dart'; // Import New Arrivals Carousel
 
 import '../../models/models.dart';
 import '../../utils/utils.dart';
@@ -24,16 +25,12 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   final TextEditingController _searchController = TextEditingController();
-
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
-
   List<ProductModel> filteredProducts = [];
   Stream<List<ProductModel>>? allProductStream;
 
   @override
   void initState() {
-    // TODO: implement initState
-
     super.initState();
     init();
   }
@@ -50,7 +47,6 @@ class _HomepageState extends State<Homepage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _searchController.dispose();
   }
@@ -65,20 +61,20 @@ class _HomepageState extends State<Homepage> {
     _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
       try {
         List<ProductModel> allProductsList =
-            await ProductController.getAll().first;
+        await ProductController.getAll().first;
         allProductsList.sort(
-          (a, b) => a.isAvailable == b.isAvailable
+              (a, b) => a.isAvailable == b.isAvailable
               ? 0
               : a.isAvailable
-                  ? -1
-                  : 1,
+              ? -1
+              : 1,
         );
 
         setState(() {
           filteredProducts = allProductsList
               .where((product) => product.itemName
-                  .toLowerCase()
-                  .contains(searchValue.toLowerCase()))
+              .toLowerCase()
+              .contains(searchValue.toLowerCase()))
               .toList();
 
           if (filteredProducts.isEmpty) {
@@ -121,34 +117,35 @@ class _HomepageState extends State<Homepage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 10),
                       Text(
                         "What would you like to order",
                         style: TextStyle(
-                            fontSize: width * 0.07,
-                            fontWeight: FontWeight.bold,
-                            height: 1,
-                            fontFamily: 'SofiaPro'),
+                          fontSize: width * 0.07,
+                          fontWeight: FontWeight.bold,
+                          height: 1,
+                          fontFamily: 'SofiaPro',
+                        ),
                       ),
-                      //search bar
+
+                      // Search bar
                       TextField(
                         controller: _searchController,
                         decoration: InputDecoration(
                           labelText: 'Search for food',
                           hintText: 'Search Your Food Item Here',
                           prefixIcon: const Icon(Icons.search),
-                          prefixIconColor:
-                              const Color.fromARGB(255, 143, 142, 142),
+                          prefixIconColor: const Color.fromARGB(255, 143, 142, 142),
                           hintStyle: TextStyle(
-                              color: Colors.grey,
-                              fontSize: width * 0.037,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'SofiaPro'),
+                            color: Colors.grey,
+                            fontSize: width * 0.037,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'SofiaPro',
+                          ),
                           labelStyle: const TextStyle(
-                              color: Color.fromARGB(255, 101, 100, 100),
-                              fontFamily: 'SofiaPro'),
+                            color: Color.fromARGB(255, 101, 100, 100),
+                            fontFamily: 'SofiaPro',
+                          ),
                           border: const OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color.fromARGB(255, 192, 191, 191),
@@ -162,17 +159,17 @@ class _HomepageState extends State<Homepage> {
                             borderRadius: BorderRadius.all(
                               Radius.circular(10.0),
                             ),
-                            borderSide: BorderSide(
-                              color: orange,
-                            ),
+                            borderSide: BorderSide(color: orange),
                           ),
                         ),
                         onChanged: (value) {
                           filterProducts(value.trim());
                         },
                       ),
-                      //category view
+                      // Category view
                       const CategoryViewer(),
+                      const NewArrivalsCarousel(),
+                      // Popular products
                       Column(
                         children: [
                           Row(
@@ -183,15 +180,17 @@ class _HomepageState extends State<Homepage> {
                                     ? "Popular products"
                                     : "Search Results",
                                 style: TextStyle(
-                                    fontSize: width * 0.07,
-                                    fontWeight: FontWeight.bold,
-                                    height: 1,
-                                    fontFamily: 'SofiaPro'),
+                                  fontSize: width * 0.07,
+                                  fontWeight: FontWeight.bold,
+                                  height: 1,
+                                  fontFamily: 'SofiaPro',
+                                ),
                               ),
                               TextButton(
                                 onPressed: () => Navigator.pushNamed(
-                                    context, ViewAll.routeName),
-                                //to view all page
+                                  context,
+                                  ViewAll.routeName,
+                                ),
                                 style: TextButton.styleFrom(
                                   foregroundColor: orange,
                                 ),
@@ -199,7 +198,7 @@ class _HomepageState extends State<Homepage> {
                                   "View All >",
                                   style: TextStyle(fontFamily: 'SofiaPro'),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                           StreamBuilder<List<ProductModel>>(
@@ -226,9 +225,7 @@ class _HomepageState extends State<Homepage> {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
                                 return const Center(
-                                  child: CircularProgressIndicator(
-                                    color: orange,
-                                  ),
+                                  child: CircularProgressIndicator(color: orange),
                                 );
                               } else if (products.isEmpty) {
                                 return const Center(
@@ -243,13 +240,13 @@ class _HomepageState extends State<Homepage> {
                                 height: height * 0.45,
                                 child: ListView.builder(
                                   itemCount:
-                                      products.length > 4 ? 4 : products.length,
+                                  products.length > 4 ? 4 : products.length,
                                   scrollDirection: Axis.horizontal,
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
                                         if ((products[index].quantity != 0 &&
-                                                !products[index].isDisabled) &&
+                                            !products[index].isDisabled) &&
                                             !UserController
                                                 .currentUser!.isSeller) {
                                           Navigator.push(
@@ -272,8 +269,7 @@ class _HomepageState extends State<Homepage> {
                                           itemRating: products[index].ratings,
                                           itemDesc: products[index].itemDesc,
                                           quantity: products[index].quantity,
-                                          isDisabled:
-                                              products[index].isDisabled,
+                                          isDisabled: products[index].isDisabled,
                                         ),
                                       ),
                                     );
@@ -284,21 +280,17 @@ class _HomepageState extends State<Homepage> {
                           )
                         ],
                       ),
-                      const SizedBox(
-                        height: 25,
-                      ),
+                      const SizedBox(height: 25),
                       const Center(
                         child: Text(
-                          "Swipe Right >>",
+                          "<< Swipe Left",
                           style: TextStyle(
                             fontSize: 20,
                             color: orange,
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 75,
-                      ),
+                      const SizedBox(height: 75),
                       SizedBox(
                         width: width,
                         child: Column(

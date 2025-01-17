@@ -113,8 +113,8 @@ class _ProfilePage extends State<ProfilePage> {
                         "Account details:", // Placeholder text
                         style: AppStyles.userDetailText,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             UserController.currentUser!.phone.toString(),
