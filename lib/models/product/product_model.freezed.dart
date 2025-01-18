@@ -30,6 +30,7 @@ mixin _$ProductModel {
   num? get ratings => throw _privateConstructorUsedError;
   int? get discount => throw _privateConstructorUsedError;
   DateTime? get lastLocalUpdate => throw _privateConstructorUsedError;
+  DateTime? get createTime => throw _privateConstructorUsedError;
   bool get isPopular => throw _privateConstructorUsedError;
   bool get isDisabled => throw _privateConstructorUsedError;
 
@@ -56,6 +57,7 @@ abstract class $ProductModelCopyWith<$Res> {
       num? ratings,
       int? discount,
       DateTime? lastLocalUpdate,
+      DateTime? createTime,
       bool isPopular,
       bool isDisabled});
 }
@@ -83,6 +85,7 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? ratings = freezed,
     Object? discount = freezed,
     Object? lastLocalUpdate = freezed,
+    Object? createTime = freezed,
     Object? isPopular = null,
     Object? isDisabled = null,
   }) {
@@ -127,6 +130,10 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.lastLocalUpdate
           : lastLocalUpdate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      createTime: freezed == createTime
+          ? _value.createTime
+          : createTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       isPopular: null == isPopular
           ? _value.isPopular
           : isPopular // ignore: cast_nullable_to_non_nullable
@@ -158,6 +165,7 @@ abstract class _$$ProductModelImplCopyWith<$Res>
       num? ratings,
       int? discount,
       DateTime? lastLocalUpdate,
+      DateTime? createTime,
       bool isPopular,
       bool isDisabled});
 }
@@ -183,6 +191,7 @@ class __$$ProductModelImplCopyWithImpl<$Res>
     Object? ratings = freezed,
     Object? discount = freezed,
     Object? lastLocalUpdate = freezed,
+    Object? createTime = freezed,
     Object? isPopular = null,
     Object? isDisabled = null,
   }) {
@@ -227,6 +236,10 @@ class __$$ProductModelImplCopyWithImpl<$Res>
           ? _value.lastLocalUpdate
           : lastLocalUpdate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      createTime: freezed == createTime
+          ? _value.createTime
+          : createTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       isPopular: null == isPopular
           ? _value.isPopular
           : isPopular // ignore: cast_nullable_to_non_nullable
@@ -253,6 +266,7 @@ class _$ProductModelImpl extends _ProductModel {
       this.ratings,
       this.discount,
       this.lastLocalUpdate,
+      this.createTime,
       this.isPopular = false,
       this.isDisabled = false})
       : super._();
@@ -281,6 +295,8 @@ class _$ProductModelImpl extends _ProductModel {
   @override
   final DateTime? lastLocalUpdate;
   @override
+  final DateTime? createTime;
+  @override
   @JsonKey()
   final bool isPopular;
   @override
@@ -289,7 +305,7 @@ class _$ProductModelImpl extends _ProductModel {
 
   @override
   String toString() {
-    return 'ProductModel(imageURL: $imageURL, imagePublicID: $imagePublicID, itemName: $itemName, itemDesc: $itemDesc, category: $category, price: $price, quantity: $quantity, ratings: $ratings, discount: $discount, lastLocalUpdate: $lastLocalUpdate, isPopular: $isPopular, isDisabled: $isDisabled)';
+    return 'ProductModel(imageURL: $imageURL, imagePublicID: $imagePublicID, itemName: $itemName, itemDesc: $itemDesc, category: $category, price: $price, quantity: $quantity, ratings: $ratings, discount: $discount, lastLocalUpdate: $lastLocalUpdate, createTime: $createTime, isPopular: $isPopular, isDisabled: $isDisabled)';
   }
 
   @override
@@ -315,6 +331,8 @@ class _$ProductModelImpl extends _ProductModel {
                 other.discount == discount) &&
             (identical(other.lastLocalUpdate, lastLocalUpdate) ||
                 other.lastLocalUpdate == lastLocalUpdate) &&
+            (identical(other.createTime, createTime) ||
+                other.createTime == createTime) &&
             (identical(other.isPopular, isPopular) ||
                 other.isPopular == isPopular) &&
             (identical(other.isDisabled, isDisabled) ||
@@ -335,6 +353,7 @@ class _$ProductModelImpl extends _ProductModel {
       ratings,
       discount,
       lastLocalUpdate,
+      createTime,
       isPopular,
       isDisabled);
 
@@ -364,6 +383,7 @@ abstract class _ProductModel extends ProductModel {
       final num? ratings,
       final int? discount,
       final DateTime? lastLocalUpdate,
+      final DateTime? createTime,
       final bool isPopular,
       final bool isDisabled}) = _$ProductModelImpl;
   const _ProductModel._() : super._();
@@ -391,6 +411,8 @@ abstract class _ProductModel extends ProductModel {
   int? get discount;
   @override
   DateTime? get lastLocalUpdate;
+  @override
+  DateTime? get createTime;
   @override
   bool get isPopular;
   @override

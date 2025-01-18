@@ -18,6 +18,7 @@ class ProductModel with _$ProductModel {
     num? ratings,
     int? discount,
     DateTime? lastLocalUpdate,
+    DateTime? createTime,
     @Default(false) bool isPopular,
     @Default(false) bool isDisabled,
   }) = _ProductModel;
@@ -31,6 +32,9 @@ class ProductModel with _$ProductModel {
     } else {
       return true;
     }
+  }
+  bool get isNew {
+    return createTime!=null && DateTime.now().difference(createTime!).inDays<=30 ;
   }
 }
 
@@ -47,4 +51,5 @@ enum ProductFields {
   isPopular,
   isDisabled,
   lastLocalUpdate,
+  createTime,
 }

@@ -36,7 +36,7 @@ class _HomepageState extends State<Homepage> {
   }
 
   void init() {
-    allProductStream = ProductController.getAll();
+    allProductStream = ProductController.getAll().asBroadcastStream();
   }
 
   Future<void> refresh() async {
@@ -90,6 +90,13 @@ class _HomepageState extends State<Homepage> {
         });
       }
     });
+  }
+  List<ProductModel> getNew(List<ProductModel> products){
+    List<ProductModel> newProducts = [];
+    for (var element in products) {
+      if(element.isNew && element.isAvailable) newProducts.add(element);
+    }
+    return newProducts;
   }
 
   @override
@@ -168,7 +175,28 @@ class _HomepageState extends State<Homepage> {
                       ),
                       // Category view
                       const CategoryViewer(),
-                      const NewArrivalsCarousel(),
+                      StreamBuilder<List<ProductModel>>(
+                        stream: allProductStream,
+                        builder: (context, snapshot) {
+                          List<ProductModel> newProducts = getNew(snapshot.data??[]);
+                          if (snapshot.hasError) {
+                            return Text(
+                              'Error: ${snapshot.error}',
+                              style: const TextStyle(color: Colors.red),
+                            );
+                          }
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(color: orange),
+                            );
+                          }
+                          else if(newProducts.isEmpty){
+                            return const SizedBox( height: 0,);
+                          }
+                          return NewArrivalsCarousel(products: newProducts);
+                        }
+                      ),
                       // Popular products
                       Column(
                         children: [
