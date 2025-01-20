@@ -16,6 +16,7 @@ Future<ProductModel?> _createImpl(ProductModel product) async {
   print("is duplicate : $isDuplicate");
 
   if (!isDuplicate) {
+    product=product.copyWith(createTime: DateTime.now());
     DocumentReference<Map<String, dynamic>> documentReference =
         await collection.add(product.toJson());
 
